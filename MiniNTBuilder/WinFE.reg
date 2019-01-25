@@ -1,0 +1,7 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\0000\ControlSet001\Services\MountMgr]
+"NoAutoMount"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\0000\ControlSet001\Services\partmgr\Parameters]
+"SanPolicy"=dword:00000001
