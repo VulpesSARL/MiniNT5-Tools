@@ -265,3 +265,6 @@ __pycache__/
 
 !MiniNTBuilder/Registry/x64
 !MiniNTBuilder/Registry/x86
+
+!MiniNTBuilder/Files/x86
+!MiniNTBuilder/Files/x64
