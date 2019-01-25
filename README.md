@@ -1,6 +1,6 @@
 # MiniNT5 Tools
 
-Scripts & Tools to customized Windows PE to my like. Also adds 32 Bit application support to the 64 Bit Windows PE Image.
+Scripts & Tools to customize Windows PE to my like. Also adds 32 Bit application support to the 64 Bit Windows PE Image.
 Really small, ca. 525MiB for the 64 Bit image, ca. 340MiB for the 32 Bit Image.
 Can be booted from every media like CD-ROM, USB Sticks and even from Network (PXE).
 
@@ -28,6 +28,13 @@ Preparing the files:
 * Delete all "BlankDir.txt" from all folders
 * Extract the contents of both Sources\Install.wim from the DVDs to 2 separate folders (security persmissions does not matter)
 * Install ADK, make sure that Windows PE Images & Tools are installed, all other tools (like WinDBG) are not required
+```
+
+### Compiling
+
+Compiling MiniNT:
+
+```
 * Open the project "MiniNT5 Tools.sln" in Visual Studio, and compile the project as Release/Win32 and Release/x64
 * Go to the folder "MiniNTBuilder" and adapt "paths.cmd" to your like
 * Feel free to modify "MiniNT ID.reg" to your like, not needed
@@ -47,7 +54,7 @@ soon
 
 ### Note
 
-All these tools are provided as is from [Vulpes](https://vulpes.lu)
-If you've some questions, contact me [here](https://go.vulpes.lu/contact)
+All these tools are provided as-is from [Vulpes](https://vulpes.lu).
+If you've some questions, contact me [here](https://go.vulpes.lu/contact).
 
 
