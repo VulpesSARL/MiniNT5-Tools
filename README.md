@@ -1,87 +1,53 @@
-# Project Title
+# MiniNT5 Tools
 
-One Paragraph of project description goes here
+Scripts & Tools to customized Windows PE to my like. Also adds 32 Bit application support to the 64 Bit Windows PE Image.
+Really small, ca. 525MiB for the 64 Bit image, ca. 340MiB for the 32 Bit Image.
+Can be booted from every media like CD-ROM, USB Sticks and even from Network (PXE).
 
-## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+MiniNT5 is intended for diagnostics, repair & (re-)installation of Windows. (Workstation & Server editions, from Windows 2000 to Windows 10)
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+What things you need to build MiniNT
 
 ```
-Give examples
+* [ADK for Windows 10 Version 1709](https://go.microsoft.com/fwlink/p/?linkid=859206)
+* Both x86 and x64 DVDs (or ISO) of Windows 10 Version 1709
+* Visual Studio 2017 (I use the Enterprise Edition, other editions may work)
+	* Visual Studio 2013 (v120) Platform Toolset
+	* .NET 4
+* A running Windows 10 1709 or later with Administrator rights to build MiniNT
 ```
 
-### Installing
+### Preparation
 
-A step by step series of examples that tell you how to get a development env running
+Preparing the files:
 
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
 
 ```
-until finished
+* Delete all "BlankDir.txt" from all folders
+* Extract the contents of both Sources\Install.wim from the DVDs to 2 separate folders (security persmissions does not matter)
+* Install ADK, make sure that Windows PE Images & Tools are installed, all other tools (like WinDBG) are not required
+* Open the project "MiniNT5 Tools.sln" in Visual Studio, and compile the project as Release/Win32 and Release/x64
+* Go to the folder "MiniNTBuilder" and adapt "paths.cmd" to your like
+* Feel free to modify "MiniNT ID.reg" to your like, not needed
+* Copy, if needed, some drivers into the Drivers\x86 and Drivers\x64 folder (in a separate folder for each driver) - these will be picked up automatically
+* Open a command prompt with administrative permissions, and run the CMD files from 01 to 99
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
 ```
-Give an example
+* when all is success, you see 2 files "MiniNT5 32.iso" and "MiniNT5 64.iso" in the root folder of the project
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
+### Preparing for PXE boot
 
 ```
-Give an example
+soon
 ```
 
-## Deployment
+### Note
 
-Add additional notes about how to deploy this on a live system
+All these tools are provided as is from [Vulpes](https://vulpes.lu)
+If you've some questions, contact me [here](https://go.vulpes.lu/contact)
 
-## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
