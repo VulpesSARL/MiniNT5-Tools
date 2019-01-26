@@ -6,6 +6,8 @@ Can be booted from every media like CD-ROM, USB Sticks and even from Network (PX
 
 MiniNT5 is intended for diagnostics, repair & (re-)installation of Windows. (Workstation & Server editions, from Windows 2000 to Windows 10)
 
+Hint: There is no need to disable Secure-Boot in order to boot MiniNT5. Even from PXE.
+
 ### Prerequisites
 
 What things you need to build MiniNT
