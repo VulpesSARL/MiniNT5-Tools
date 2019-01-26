@@ -159,14 +159,6 @@ Windows Registry Editor Version 5.00
 "Order"=dword:00000001
 "UseShellEx"=dword:00000000
 
-[HKEY_LOCAL_MACHINE\0000\Fox\Shell\Items\aaaFoxOnline]
-"Execute"="FoxOnline.exe"
-"Group"="Main"
-"IcoFile"="FoxOnline.exe"
-"Name"="Fox Online"
-"Order"=dword:00000005
-"UseShellEx"=dword:00000000
-
 [HKEY_LOCAL_MACHINE\0000\Fox\Shell\Items\calc]
 "Name"="Calculator"
 "IcoFile"="calc.exe"
