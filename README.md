@@ -10,41 +10,33 @@ MiniNT5 is intended for diagnostics, repair & (re-)installation of Windows. (Wor
 
 What things you need to build MiniNT
 
-```
 * [ADK for Windows 10 Version 1709](https://go.microsoft.com/fwlink/p/?linkid=859206)
 * Both x86 and x64 DVDs (or ISO) of Windows 10 Version 1709
+	* Note that the ADK and Windows 10 ISO must be in EN-US language
 * Visual Studio 2017 (I use the Enterprise Edition, other editions may work)
 	* Visual Studio 2013 (v120) Platform Toolset
 	* .NET 4
 * A running Windows 10 1709 or later with Administrator rights to build MiniNT
-```
 
 ### Preparation
 
 Preparing the files:
 
-
-```
 * Delete all "BlankDir.txt" from all folders
 * Extract the contents of both Sources\Install.wim from the DVDs to 2 separate folders (security persmissions does not matter)
 * Install ADK, make sure that Windows PE Images & Tools are installed, all other tools (like WinDBG) are not required
-```
 
 ### Compiling
 
 Compiling MiniNT:
 
-```
 * Open the project "MiniNT5 Tools.sln" in Visual Studio, and compile the project as Release/Win32 and Release/x64
 * Go to the folder "MiniNTBuilder" and adapt "paths.cmd" to your like
 * Feel free to modify "MiniNT ID.reg" to your like, not needed
 * Copy, if needed, some drivers into the Drivers\x86 and Drivers\x64 folder (in a separate folder for each driver) - these will be picked up automatically
 * Open a command prompt with administrative permissions, and run the CMD files from 01 to 99
-```
 
-```
 * when all is success, you see 2 files "MiniNT5 32.iso" and "MiniNT5 64.iso" in the root folder of the project
-```
 
 ### Preparing for PXE boot
 
