@@ -38,13 +38,11 @@ Compiling MiniNT:
 * Copy, if needed, some drivers into the Drivers\x86 and Drivers\x64 folder (in a separate folder for each driver) - these will be picked up automatically
 * Open a command prompt with administrative permissions, and run the CMD files from 01 to 99
 
-* when all is success, you see 2 files "MiniNT5 32.iso" and "MiniNT5 64.iso" in the root folder of the project
+* when all is success, you see 2 files "MiniNT5 32.iso" and "MiniNT5 64.iso" in the root folder of the project (and a "PXEBoot" folder containig all the files required to boot MiniNT from PXE)
 
 ### Preparing for PXE boot
 
-```
-soon
-```
+After running the scripts from 01 to 98 successfully, execute "99 Make PXE Boot.cmd"
 
 ### Note
 
