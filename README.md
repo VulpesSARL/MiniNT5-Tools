@@ -15,6 +15,7 @@ What things you need to build MiniNT
 * [ADK for Windows 10 Version 1709](https://go.microsoft.com/fwlink/p/?linkid=859206) (Assessment and Deployment Kit, nedded for the base Windows PE & additional packages)
 * Both x86 and x64 DVDs (or ISO) of Windows 10 Version 1709 (needed for some file, missing from the ADK)
 	* Note that the ADK and Windows 10 ISO must be in EN-US language
+	* [Windows ISOs here](https://tb.rg-adguard.net/public.php)
 * Visual Studio 2017 (I use the Enterprise Edition, other editions may work)
 	* Visual Studio 2013 (v120) Platform Toolset
 	* .NET 4
