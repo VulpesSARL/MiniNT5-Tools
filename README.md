@@ -12,14 +12,19 @@ Hint: There is no need to disable Secure-Boot in order to boot MiniNT5. Even fro
 
 What things you need to build MiniNT
 
-* [ADK for Windows 10 Version 1709](https://go.microsoft.com/fwlink/p/?linkid=859206) (Assessment and Deployment Kit, nedded for the base Windows PE & additional packages)
-* Both x86 and x64 DVDs (or ISO) of Windows 10 Version 1709 (needed for some file, missing from the ADK)
+* Windows 10 1709 (x64) or newer
+	* with full administrator rights
+		* Administrator rights are required because of the DISM commands (Mount WIM, Unmount WIM) and Registry manipulations
+* [ADK for Windows 10 Version 1709](https://go.microsoft.com/fwlink/p/?linkid=859206)
+	* Assessment and Deployment Kit, nedded for the base Windows PE & additional packages
+		* It must be the exact version of the ADK!
+* Both x86 and x64 DVDs (or ISO) of Windows 10 Version 1709 (needed for some files, missing from the ADK)
 	* Note that the ADK and Windows 10 ISO must be in EN-US language
 	* [Windows ISOs here](https://tb.rg-adguard.net/public.php)
-* Visual Studio 2017 (I use the Enterprise Edition, other editions may work)
+* Visual Studio 2017 (I use the Enterprise Edition, [Visual Studio Community Edition](https://visualstudio.microsoft.com/downloads/) confirmed to work)
 	* Visual Studio 2013 (v120) Platform Toolset
-	* .NET 4
-* A running Windows 10 1709 or later with Administrator rights to build MiniNT
+		* (will work with newer Platform Toolsets, but you need to supply the additional DLLs from Visual C++ Runtime into MiniNT)
+	* .NET 4 (the original Windows PE only comes with a small set of .NET 4 Runtime)
 
 ### Preparation
 
@@ -49,5 +54,52 @@ After running the scripts from 01 to 98 successfully, execute "99 Make PXE Boot.
 
 All these tools are provided as-is from [Vulpes](https://vulpes.lu).
 If you've some questions, contact me [here](https://go.vulpes.lu/contact).
+
+# Tools
+
+### CollectWOW64
+
+Collects all the 32 Bit files needed for MiniNT64, to be able to run 32 bit binaries (only needed for building MiniNT)
+
+### FoxCWrapper
+
+Some common Windows PE commands nicely wrapped for easy usage within .NET (C#)
+
+### FoxCWrapperWIM
+
+Some common WIM functions from Windows (DISM and WIMG-API) nicely wrapped for easy usage within .NET (C#)
+
+### FoxCommon
+
+Some common C# functions to use acros multiple projects
+
+### FoxInstallWIM (aka FoxMultiWIM)
+
+Nice GUI to create & install WIM files
+(safe to use within a normal Windows 8 / 10 in production)
+
+### FoxMapNet
+
+simply displays the "Map Network Drive" Window, nothing else
+(safe to use within a normal Windows 8 / 10 in production)
+
+### FoxSetKeyboard
+
+Changes the keyboard layout on the fly (does not save the settings)
+(safe to use within a normal Windows 8 / 10 in production - restart needed to properly revert to previous settings)
+
+### FoxShell
+
+Small shell, kinda like the Windows NT 3.51 Program Manager
+(also does some additional initalizations on MiniNT)
+
+### FoxShellIcon
+
+Small programm to communicate with FoxShell from Batch files to add / remove icons
+
+### FoxUnmapNet
+
+Displays "Disconnect Network Drive" Window, nothing else
+(safe to use within a normal Windows 8 / 10 in production)
 
 
