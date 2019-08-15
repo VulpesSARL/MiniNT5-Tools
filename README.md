@@ -22,8 +22,7 @@ What things you need to build MiniNT
 	* Note that the ADK and Windows 10 ISO must be in EN-US language
 	* [Windows ISOs here](https://tb.rg-adguard.net/public.php)
 * Visual Studio 2017 (I use the Enterprise Edition, [Visual Studio Community Edition](https://visualstudio.microsoft.com/downloads/) confirmed to work)
-	* Visual Studio 2013 (v120) Platform Toolset
-		* (will work with newer Platform Toolsets, but you need to supply the additional DLLs from Visual C++ Runtime into MiniNT)
+	* Visual Studio 2017 (v141) Platform Toolset
 	* .NET 4 (the original Windows PE only comes with a small set of .NET 4 Runtime)
 
 ### Preparation
