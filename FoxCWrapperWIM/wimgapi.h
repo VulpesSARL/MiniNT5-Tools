@@ -29,15 +29,15 @@ extern "C" {
 #define WIM_OPEN_EXISTING           OPEN_EXISTING
 #define WIM_OPEN_ALWAYS             OPEN_ALWAYS
 
-typedef enum
+enum
 {
     WIM_COMPRESS_NONE = 0,
-    WIM_COMPRESS_XPRESS,
-    WIM_COMPRESS_LZX,
-    WIM_COMPRESS_LZMS
+    WIM_COMPRESS_XPRESS = 1,
+    WIM_COMPRESS_LZX = 2,
+    WIM_COMPRESS_LZMS = 3
 };
 
-typedef enum
+enum
 {
     WIM_CREATED_NEW = 0,
     WIM_OPENED_EXISTING
@@ -45,18 +45,22 @@ typedef enum
 
 // WIMCreateFile, WIMCaptureImage, WIMApplyImage, WIMMountImageHandle flags:
 //
-#define WIM_FLAG_RESERVED           0x00000001
-#define WIM_FLAG_VERIFY             0x00000002
-#define WIM_FLAG_INDEX              0x00000004
-#define WIM_FLAG_NO_APPLY           0x00000008
-#define WIM_FLAG_NO_DIRACL          0x00000010
-#define WIM_FLAG_NO_FILEACL         0x00000020
-#define WIM_FLAG_SHARE_WRITE        0x00000040
-#define WIM_FLAG_FILEINFO           0x00000080
-#define WIM_FLAG_NO_RP_FIX          0x00000100
-#define WIM_FLAG_MOUNT_READONLY     0x00000200
-#define WIM_FLAG_MOUNT_FAST         0x00000400
-#define WIM_FLAG_MOUNT_LEGACY       0x00000800
+#define WIM_FLAG_RESERVED                  0x00000001
+#define WIM_FLAG_VERIFY                    0x00000002
+#define WIM_FLAG_INDEX                     0x00000004
+#define WIM_FLAG_NO_APPLY                  0x00000008
+#define WIM_FLAG_NO_DIRACL                 0x00000010
+#define WIM_FLAG_NO_FILEACL                0x00000020
+#define WIM_FLAG_SHARE_WRITE               0x00000040
+#define WIM_FLAG_FILEINFO                  0x00000080
+#define WIM_FLAG_NO_RP_FIX                 0x00000100
+#define WIM_FLAG_MOUNT_READONLY            0x00000200
+#define WIM_FLAG_MOUNT_FAST                0x00000400
+#define WIM_FLAG_MOUNT_LEGACY              0x00000800
+#define WIM_FLAG_APPLY_CI_EA               0x00001000
+#define WIM_FLAG_WIM_BOOT                  0x00002000
+#define WIM_FLAG_APPLY_COMPACT             0x00004000
+#define WIM_FLAG_SUPPORT_EA                0x00008000 // It can be used in mount also.
 
 // WIMGetMountedImageList flags
 //
@@ -104,7 +108,7 @@ typedef enum
 
 // WIMMessageCallback Notifications:
 //
-typedef enum
+enum
 {
     WIM_MSG = WM_APP + 0x1476,
     WIM_MSG_TEXT,
@@ -140,7 +144,10 @@ typedef enum
     WIM_MSG_METADATA_EXCLUDE,
     WIM_MSG_GET_APPLY_ROOT,
     WIM_MSG_MDPAD,
-    WIM_MSG_STEPNAME
+    WIM_MSG_STEPNAME,
+    WIM_MSG_PERFILE_COMPRESS,
+    WIM_MSG_CHECK_CI_EA_PREREQUISITE_NOT_MET,
+    WIM_MSG_JOURNALING_ENABLED
 };
 
 //
@@ -201,6 +208,8 @@ typedef struct _WIM_MOUNT_INFO_LEVEL1
     DWORD  MountFlags;
 } WIM_MOUNT_INFO_LEVEL1, *PWIM_MOUNT_INFO_LEVEL1, *LPWIM_MOUNT_INFO_LEVEL1;
 
+typedef WIM_MOUNT_INFO_LEVEL1 WIM_MOUNT_INFO_LATEST, *PWIM_MOUNT_INFO_LATEST;
+
 //
 // Define enumeration for WIMGetMountedImageInfo to determine structure to use...
 //
@@ -257,9 +266,10 @@ typedef struct _WIM_FILE_FIND_DATA
 
     BYTE bHash[20];
     PSECURITY_DESCRIPTOR pSecurityDescriptor;
-    PWSTR *ppszAlternateStreamNames;
+    PWSTR *ppszAlternateStreamNames; // Double-null-terminated; cast to PZZWSTR
     PBYTE pbReparseData;
     DWORD cbReparseData;
+    ULARGE_INTEGER uliResourceSize;
 } WIM_FIND_DATA, *PWIM_FIND_DATA;
 
 //
@@ -368,17 +378,17 @@ WIMApplyImage(
 BOOL
 WINAPI
 WIMGetImageInformation(
-    _In_  HANDLE hImage,
-    __typefix(PWSTR*) __deref_out_ecount_z(*pcbImageInfo/2) PVOID *ppvImageInfo,
-    _Out_ PDWORD pcbImageInfo
+    _In_                                                        HANDLE hImage,
+    _Outptr_result_bytebuffer_(*pcbImageInfo) _Outptr_result_z_ PVOID *ppvImageInfo,
+    _Out_                                                       PDWORD pcbImageInfo
     );
 
 BOOL
 WINAPI
 WIMSetImageInformation(
-    _In_                     HANDLE hImage,
-    _In_reads_bytes_(cbImageInfo) PVOID  pvImageInfo,
-    _In_                     DWORD  cbImageInfo
+    _In_                            HANDLE hImage,
+    _In_reads_bytes_(cbImageInfo)   PVOID  pvImageInfo,
+    _In_                            DWORD  cbImageInfo
     );
 
 DWORD
@@ -473,7 +483,7 @@ WIMUnmountImageHandle(
 BOOL
 WINAPI
 WIMGetMountedImages(
-    _Out_writes_bytes_opt_(*pcbMountList) PWIM_MOUNT_LIST pMountList,
+    _Out_writes_bytes_opt_(*pcbMountListLength) PWIM_MOUNT_LIST pMountList,
     _Inout_                         PDWORD          pcbMountListLength
     );
 
@@ -569,7 +579,6 @@ WIMEnumImageFiles(
     _In_ WIMEnumImageFilesCallback  fpEnumImageCallback, 
     _In_opt_ PVOID                  pEnumContext
     );
-
 
 HANDLE
 WINAPI

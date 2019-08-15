@@ -10,8 +10,13 @@
 #ifndef _DISMAPI_H_
 #define _DISMAPI_H_
 
+#include <winapifamily.h>
+
+#pragma region Desktop Family or DISM Package
+#if WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP | WINAPI_PARTITION_PKG_DISM)
+
 #ifdef __cplusplus
-extern "C" 
+extern "C"
 {
 #endif
 
@@ -29,7 +34,7 @@ typedef UINT DismSession;
 //
 //////////////////////////////////////////////////////////////////////////////
 
-typedef void (*DISM_PROGRESS_CALLBACK)(UINT Current, UINT Total, PVOID UserData);
+typedef void (CALLBACK *DISM_PROGRESS_CALLBACK)(_In_ UINT Current, _In_ UINT Total, _In_opt_ PVOID UserData);
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -37,26 +42,26 @@ typedef void (*DISM_PROGRESS_CALLBACK)(UINT Current, UINT Total, PVOID UserData)
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#define DISM_ONLINE_IMAGE L"DISM_{53BFAE52-B167-4E2F-A258-0A37B57FF845}"
-#define DISM_SESSION_DEFAULT 0
+#define DISM_ONLINE_IMAGE               L"DISM_{53BFAE52-B167-4E2F-A258-0A37B57FF845}"
+#define DISM_SESSION_DEFAULT            0
 
-//Mount flags
-#define DISM_MOUNT_READWRITE        0x00000000
-#define DISM_MOUNT_READONLY         0x00000001
-#define DISM_MOUNT_OPTIMIZE         0x00000002
-#define DISM_MOUNT_CHECK_INTEGRITY  0x00000004
+// Mount flags
+#define DISM_MOUNT_READWRITE            0x00000000
+#define DISM_MOUNT_READONLY             0x00000001
+#define DISM_MOUNT_OPTIMIZE             0x00000002
+#define DISM_MOUNT_CHECK_INTEGRITY      0x00000004
 
-//Unmount flags
-#define DISM_COMMIT_IMAGE  0x00000000
-#define DISM_DISCARD_IMAGE 0x00000001
+// Unmount flags
+#define DISM_COMMIT_IMAGE               0x00000000
+#define DISM_DISCARD_IMAGE              0x00000001
 
-//Commit flags
-#define DISM_COMMIT_GENERATE_INTEGRITY 0x00010000
-#define DISM_COMMIT_APPEND             0x00020000
+// Commit flags
+#define DISM_COMMIT_GENERATE_INTEGRITY  0x00010000
+#define DISM_COMMIT_APPEND              0x00020000
 
 // Commit flags may also be used with unmount.  AND this with unmount flags and you will
 // get the commit-specific flags.
-#define DISM_COMMIT_MASK               0xffff0000
+#define DISM_COMMIT_MASK                0xffff0000
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -64,74 +69,74 @@ typedef void (*DISM_PROGRESS_CALLBACK)(UINT Current, UINT Total, PVOID UserData)
 //
 //////////////////////////////////////////////////////////////////////////////
 
-enum DismLogLevel
+typedef enum _DismLogLevel
 {
     DismLogErrors = 0,
     DismLogErrorsWarnings,
     DismLogErrorsWarningsInfo
-};
+} DismLogLevel;
 
-enum DismImageIdentifier
+typedef enum _DismImageIdentifier
 {
     DismImageIndex = 0,
     DismImageName
-};
+} DismImageIdentifier;
 
-enum DismMountMode
+typedef enum _DismMountMode
 {
     DismReadWrite = 0,
-    DismReadOnly 
-};
+    DismReadOnly
+} DismMountMode;
 
-enum DismImageType
+typedef enum _DismImageType
 {
     DismImageTypeUnsupported = -1,
     DismImageTypeWim = 0,
     DismImageTypeVhd = 1
-};
+} DismImageType;
 
-enum DismImageBootable
+typedef enum _DismImageBootable
 {
     DismImageBootableYes = 0,
     DismImageBootableNo,
     DismImageBootableUnknown
-};
+} DismImageBootable;
 
-enum DismMountStatus
+typedef enum _DismMountStatus
 {
     DismMountStatusOk = 0,
     DismMountStatusNeedsRemount,
     DismMountStatusInvalid
-};
+} DismMountStatus;
 
-enum DismImageHealthState
+typedef enum _DismImageHealthState
 {
     DismImageHealthy = 0,
     DismImageRepairable,
     DismImageNonRepairable
-};
+} DismImageHealthState;
 
-enum DismPackageIdentifier
+typedef enum _DismPackageIdentifier
 {
     DismPackageNone = 0,
     DismPackageName,
     DismPackagePath
-};
+} DismPackageIdentifier;
 
-enum DismPackageFeatureState 
+typedef enum _DismPackageFeatureState
 {
     DismStateNotPresent = 0,
     DismStateUninstallPending,
     DismStateStaged,
-    DismStateResolved,
+    DismStateResolved, // For internal use only
     DismStateRemoved = DismStateResolved,
     DismStateInstalled,
     DismStateInstallPending,
     DismStateSuperseded,
     DismStatePartiallyInstalled
-};
+} DismPackageFeatureState;
 
-enum DismReleaseType 
+typedef enum _DismReleaseType
 {
     DismReleaseTypeCriticalUpdate = 0,
     DismReleaseTypeDriver,
@@ -146,29 +151,30 @@ enum DismReleaseType
     DismReleaseTypeServicePack,
     DismReleaseTypeProduct,
     DismReleaseTypeLocalPack,
-    DismReleaseTypeOther
-};
+    DismReleaseTypeOther,
+    DismReleaseTypeOnDemandPack
+} DismReleaseType;
 
-enum DismRestartType 
+typedef enum _DismRestartType
 {
     DismRestartNo = 0,
     DismRestartPossible,
     DismRestartRequired
-};
+} DismRestartType;
 
-enum DismDriverSignature
+typedef enum _DismDriverSignature
 {
     DismDriverSignatureUnknown = 0,
     DismDriverSignatureUnsigned = 1,
     DismDriverSignatureSigned = 2
-};
+} DismDriverSignature;
 
-enum DismFullyOfflineInstallableType
+typedef enum _DismFullyOfflineInstallableType
 {
     DismFullyOfflineInstallable = 0,
     DismFullyOfflineNotInstallable,
     DismFullyOfflineInstallableUndetermined
-};
+} DismFullyOfflineInstallableType;
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -198,6 +204,12 @@ typedef struct _DismFeature
     DismPackageFeatureState State;
 } DismFeature;
 
+typedef struct _DismCapability
+{
+    PCWSTR Name;
+    DismPackageFeatureState State;
+} DismCapability;
+
 typedef struct _DismPackageInfo
 {
     PCWSTR PackageName;
@@ -222,7 +234,18 @@ typedef struct _DismPackageInfo
     UINT CustomPropertyCount;
     DismFeature* Feature;
     UINT FeatureCount;
-} DismPackageInfo; 
+} DismPackageInfo;
+
+#ifdef __cplusplus
+typedef struct _DismPackageInfoEx : public _DismPackageInfo
+{
+#else
+typedef struct _DismPackageInfoEx
+{
+    DismPackageInfo;
+#endif
+    PCWSTR CapabilityId;
+} DismPackageInfoEx;
 
 typedef struct _DismFeatureInfo
 {
@@ -234,6 +257,16 @@ typedef struct _DismFeatureInfo
     DismCustomProperty* CustomProperty;
     UINT CustomPropertyCount;
 } DismFeatureInfo;
+
+typedef struct _DismCapabilityInfo
+{
+    PCWSTR Name;
+    DismPackageFeatureState State;
+    PCWSTR DisplayName;
+    PCWSTR Description;
+    DWORD DownloadSize;
+    DWORD InstallSize;
+} DismCapabilityInfo;
 
 typedef struct _DismString
 {
@@ -327,9 +360,9 @@ typedef struct _DismDriver
 
 HRESULT WINAPI
 DismInitialize(
-    _In_ DismLogLevel LogLevel, 
+    _In_ DismLogLevel LogLevel,
     _In_opt_ PCWSTR LogFilePath,
-    _In_opt_ PCWSTR ScratchDirectory 
+    _In_opt_ PCWSTR ScratchDirectory
     );
 
 HRESULT WINAPI
@@ -421,7 +454,7 @@ HRESULT WINAPI
 DismRestoreImageHealth(
     _In_ DismSession Session,
     _In_reads_opt_(SourcePathCount) PCWSTR* SourcePaths,
-    _In_opt_ UINT SourcePathCount, 
+    _In_opt_ UINT SourcePathCount,
     _In_ BOOL LimitAccess,
     _In_opt_ HANDLE CancelEvent,
     _In_opt_ DISM_PROGRESS_CALLBACK Progress,
@@ -496,6 +529,14 @@ DismGetPackageInfo(
     );
 
 HRESULT WINAPI
+DismGetPackageInfoEx(
+    _In_ DismSession Session,
+    _In_ PCWSTR Identifier,
+    _In_ DismPackageIdentifier PackageIdentifier,
+    _Out_ DismPackageInfoEx** PackageInfoEx
+    );
+
+HRESULT WINAPI
 DismGetFeatures(
     _In_ DismSession Session,
     _In_opt_ PCWSTR Identifier,
@@ -559,7 +600,42 @@ DismGetDriverInfo(
     _Out_ UINT* Count,
     _Out_opt_ DismDriverPackage** DriverPackage
     );
-    
+
+
+HRESULT WINAPI
+DismGetCapabilities(
+    _In_ DismSession Session,
+    _Outptr_result_buffer_(*Count) DismCapability** Capability,
+    _Out_ UINT* Count
+    );
+
+HRESULT WINAPI
+DismGetCapabilityInfo(
+    _In_ DismSession Session,
+    _In_ PCWSTR Name,
+    _Out_ DismCapabilityInfo** Info
+    );
+
+HRESULT WINAPI
+DismAddCapability(
+    _In_ DismSession Session,
+    _In_ PCWSTR Name,
+    _In_ BOOL LimitAccess,
+    _In_reads_opt_(SourcePathCount) PCWSTR* SourcePaths,
+    _In_opt_ UINT SourcePathCount,
+    _In_opt_ HANDLE CancelEvent,
+    _In_opt_ DISM_PROGRESS_CALLBACK Progress,
+    _In_opt_ PVOID UserData
+    );
+
+HRESULT WINAPI
+DismRemoveCapability(
+    _In_ DismSession Session,
+    _In_ PCWSTR Name,
+    _In_opt_ HANDLE CancelEvent,
+    _In_opt_ DISM_PROGRESS_CALLBACK Progress,
+    _In_opt_ PVOID UserData
+    );
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -701,10 +777,20 @@ DismGetDriverInfo(
 //
 // MessageText:
 //
-// The offline image specified is the running system. The macro DISM_ONLINE_IMAGE must be 
+// The offline image specified is the running system. The macro DISM_ONLINE_IMAGE must be
 // used instead.
 //
 #define DISMAPI_E_MUST_SPECIFY_ONLINE_IMAGE                      0xC004000E
+
+//
+// MessageId: DISMAPI_E_INVALID_PRODUCT_KEY
+//
+// MessageText:
+//
+// The specified product key could not be validated. Check that the specified
+// product key is valid and that it matches the target edition.
+//
+#define DISMAPI_E_INVALID_PRODUCT_KEY                            0xC004000F
 
 //
 // MessageId: DISMAPI_E_NEEDS_TO_REMOUNT_THE_IMAGE
@@ -737,5 +823,8 @@ DismGetDriverInfo(
 #ifdef __cplusplus
 }
 #endif
+
+#endif /* WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP | WINAPI_PARTITION_PKG_DISM) */
+#pragma endregion
 
 #endif // _DISMAPI_H_
