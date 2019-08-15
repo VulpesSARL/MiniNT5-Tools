@@ -110,6 +110,7 @@ namespace FoxMultiWIM
             Program.ExcludeFiles.Add("\\$Recycle.Bin\\*");
             Program.ExcludeFiles.Add("\\Windows\\CSC\\*");
             Program.ExcludeFiles.Add("\\Windows\\Temp\\*");
+            Program.ExcludeFiles.Add("\\Windows\\SoftwareDistribution\\Download\\*");
 
             lstCompression.Items.Add("none");
             lstCompression.Items.Add("XPRESS");

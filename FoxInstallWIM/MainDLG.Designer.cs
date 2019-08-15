@@ -394,7 +394,7 @@
             // 
             // txtSource
             // 
-            this.txtSource.Location = new System.Drawing.Point(81, 12);
+            this.txtSource.Location = new System.Drawing.Point(83, 13);
             this.txtSource.Name = "txtSource";
             this.txtSource.Size = new System.Drawing.Size(441, 20);
             this.txtSource.TabIndex = 0;

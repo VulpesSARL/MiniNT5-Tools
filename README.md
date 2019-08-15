@@ -12,13 +12,13 @@ Hint: There is no need to disable Secure-Boot in order to boot MiniNT5. Even fro
 
 What things you need to build MiniNT
 
-* Windows 10 1709 (x64) or newer
+* Windows 10 1809 (x64) or newer
 	* with full administrator rights
 		* Administrator rights are required because of the DISM commands (Mount WIM, Unmount WIM) and Registry manipulations
-* [ADK for Windows 10 Version 1709](https://go.microsoft.com/fwlink/p/?linkid=859206)
+* [ADK for Windows 10 Version 1809](https://go.microsoft.com/fwlink/?linkid=2026036) and the [Windows PE Addon](https://go.microsoft.com/fwlink/?linkid=2022233)
 	* Assessment and Deployment Kit, nedded for the base Windows PE & additional packages
 		* It must be the exact version of the ADK!
-* Both x86 and x64 DVDs (or ISO) of Windows 10 Version 1709 (needed for some files, missing from the ADK)
+* Both x86 and x64 DVDs (or ISO) of Windows 10 Version 1809 (needed for some files, missing from the ADK)
 	* Note that the ADK and Windows 10 ISO must be in EN-US language
 	* [Windows ISOs here](https://tb.rg-adguard.net/public.php)
 * Visual Studio 2017 (I use the Enterprise Edition, [Visual Studio Community Edition](https://visualstudio.microsoft.com/downloads/) confirmed to work)

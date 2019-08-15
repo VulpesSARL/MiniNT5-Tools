@@ -145,6 +145,8 @@ namespace FoxShell
                     break;
             }
 
+            this.Text += " " + FoxStamp.FoxVersion.DTS;
+
             if (Fox.FoxCWrapper.WPEUtilInit() == false)
             {
                 Program.IsInWindowsPE = false;

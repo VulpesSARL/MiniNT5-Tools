@@ -8,6 +8,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoxMultiWIM", "FoxInstallWIM\FoxMultiWIM.csproj", "{634260B2-BA08-46A7-9EBC-323CFECE7AD0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoxShell", "FoxShell\FoxShell.csproj", "{15E3363C-06AF-4525-A90F-8542126D18CC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{21C644B2-8DF7-4B7D-BAF4-CD98CD586736} = {21C644B2-8DF7-4B7D-BAF4-CD98CD586736}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoxSetKeyboard", "FoxSetKeyboard\FoxSetKeyboard.csproj", "{6926FD01-6CE3-4CEE-9FEC-AB7FA8329028}"
 EndProject
@@ -25,7 +28,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectWOW64", "CollectWOW64\CollectWOW64.csproj", "{FD9F2C2E-C875-40B6-A001-549852337CCB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1D641C11-0919-48F6-B166-C7321F6C9205}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StampVersion", "StampVersion\StampVersion.csproj", "{21C644B2-8DF7-4B7D-BAF4-CD98CD586736}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
@@ -126,6 +129,14 @@ Global
 		{FD9F2C2E-C875-40B6-A001-549852337CCB}.Release|Win32.Build.0 = Release|Any CPU
 		{FD9F2C2E-C875-40B6-A001-549852337CCB}.Release|x64.ActiveCfg = Release|Any CPU
 		{FD9F2C2E-C875-40B6-A001-549852337CCB}.Release|x64.Build.0 = Release|Any CPU
+		{21C644B2-8DF7-4B7D-BAF4-CD98CD586736}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{21C644B2-8DF7-4B7D-BAF4-CD98CD586736}.Debug|Win32.Build.0 = Debug|Any CPU
+		{21C644B2-8DF7-4B7D-BAF4-CD98CD586736}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{21C644B2-8DF7-4B7D-BAF4-CD98CD586736}.Debug|x64.Build.0 = Debug|Any CPU
+		{21C644B2-8DF7-4B7D-BAF4-CD98CD586736}.Release|Win32.ActiveCfg = Release|Any CPU
+		{21C644B2-8DF7-4B7D-BAF4-CD98CD586736}.Release|Win32.Build.0 = Release|Any CPU
+		{21C644B2-8DF7-4B7D-BAF4-CD98CD586736}.Release|x64.ActiveCfg = Release|Any CPU
+		{21C644B2-8DF7-4B7D-BAF4-CD98CD586736}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

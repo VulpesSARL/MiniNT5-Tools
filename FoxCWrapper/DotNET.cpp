@@ -8,7 +8,7 @@ using namespace msclr::interop;
 
 #pragma unmanaged
 
-HMODULE WPEUtilDLL=NULL;
+HMODULE WPEUtilDLL = NULL;
 extern HINSTANCE GlobalhInstDLL;
 
 DWORD WINAPI SampleApplyCallback(DWORD dwMsgId, WPARAM wParam, LPARAM lParam, PVOID pvIgnored);
@@ -42,8 +42,8 @@ namespace Fox
 
 			if (errorText != NULL)
 			{
-				String ^ s = gcnew String (errorText);
-				LocalFree (errorText);
+				String ^ s = gcnew String(errorText);
+				LocalFree(errorText);
 				return (s);
 			}
 
@@ -52,7 +52,7 @@ namespace Fox
 
 		static Boolean WPEUtilInit()
 		{
-			WPEUtilDLL = LoadLibrary (L"wpeutil.dll");
+			WPEUtilDLL = LoadLibrary(L"wpeutil.dll");
 			if (WPEUtilDLL == NULL)
 				return(false);
 			return(true);
@@ -60,16 +60,16 @@ namespace Fox
 
 		static void WPEUtilUninit()
 		{
-			if (WPEUtilDLL!=NULL)
+			if (WPEUtilDLL != NULL)
 			{
-				FreeLibrary (WPEUtilDLL);
-				WPEUtilDLL=NULL;
+				FreeLibrary(WPEUtilDLL);
+				WPEUtilDLL = NULL;
 			}
 		}
 
 		static int WPEUtilCall(String^ Function, String^ Args)
 		{
-			if (WPEUtilDLL==NULL)
+			if (WPEUtilDLL == NULL)
 				return(-1);
 
 			marshal_context^ contextfunction = gcnew marshal_context();
@@ -77,20 +77,20 @@ namespace Fox
 
 			marshal_context^ contextargs = gcnew marshal_context();
 			const WCHAR* args = contextargs->marshal_as<const WCHAR*>(Args);
-			int res=-1;
-			if (wcslen(args)>0)
+			int res = -1;
+			if (wcslen(args) > 0)
 			{
-				WCHAR* args2 = (WCHAR*)malloc((wcslen(args)*2)+2);
-				memcpy (args2,args,(wcslen(args)*2)+2);
-				res = CustomWinPEUtilFunction(function,args2);
-				free (args2);
+				WCHAR* args2 = (WCHAR*)malloc((wcslen(args) * 2) + 2);
+				memcpy(args2, args, (wcslen(args) * 2) + 2);
+				res = CustomWinPEUtilFunction(function, args2);
+				free(args2);
 			}
 			else
 			{
 				WCHAR* args2 = (WCHAR*)malloc(2);
-				args2[0]=0;
-				res = CustomWinPEUtilFunction(function,args2);
-				free (args2);
+				args2[0] = 0;
+				res = CustomWinPEUtilFunction(function, args2);
+				free(args2);
 			}
 			delete contextargs;
 			delete contextfunction;
@@ -102,28 +102,28 @@ namespace Fox
 			List<FoxKeyboardLayout^>^% list = gcnew List<FoxKeyboardLayout^>();
 			HKEY reg;
 			WCHAR LayoutID[512];
-			if (RegOpenKeyEx (HKEY_LOCAL_MACHINE, L"SYSTEM\\CurrentControlSet\\Control\\Keyboard Layouts",
-				0, KEY_READ, &reg)!=ERROR_SUCCESS)
+			if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"SYSTEM\\CurrentControlSet\\Control\\Keyboard Layouts",
+				0, KEY_READ, &reg) != ERROR_SUCCESS)
 				return (list);
 
 			int count = 0;
 			do
 			{
-				if (RegEnumKey (reg, count, LayoutID, sizeof(LayoutID)/2)==ERROR_SUCCESS)
+				if (RegEnumKey(reg, count, LayoutID, sizeof(LayoutID) / 2) == ERROR_SUCCESS)
 				{
 					HKEY sreg;
-					if (RegOpenKeyEx (reg, LayoutID, 0, KEY_READ, &sreg)==ERROR_SUCCESS)
+					if (RegOpenKeyEx(reg, LayoutID, 0, KEY_READ, &sreg) == ERROR_SUCCESS)
 					{
 						WCHAR LayoutName[512];
-						DWORD sz = sizeof(LayoutName)/2;
-						if (RegQueryValueEx (sreg, L"Layout Text", NULL, NULL, (LPBYTE)LayoutName, &sz)==ERROR_SUCCESS)
+						DWORD sz = sizeof(LayoutName) / 2;
+						if (RegQueryValueEx(sreg, L"Layout Text", NULL, NULL, (LPBYTE)LayoutName, &sz) == ERROR_SUCCESS)
 						{
 							FoxKeyboardLayout^ keyb = gcnew FoxKeyboardLayout();
-							keyb->ID = Convert::ToUInt32(gcnew String (LayoutID),16);
+							keyb->ID = Convert::ToUInt32(gcnew String(LayoutID), 16);
 							keyb->Name = gcnew String(LayoutName);
 							list->Add(keyb);
 						}
-						RegCloseKey (sreg);
+						RegCloseKey(sreg);
 					}
 				}
 				else
@@ -131,9 +131,9 @@ namespace Fox
 					break;
 				}
 				count++;
-			}while(1);
+			} while (1);
 
-			RegCloseKey (reg);
+			RegCloseKey(reg);
 
 			return(list);
 		}
@@ -143,9 +143,9 @@ namespace Fox
 			FoxKeyboardLayout^ keyb = gcnew FoxKeyboardLayout();
 			LONG current = (LONG)GetKeyboardLayout(NULL);
 			current &= 0xFFFF0000;
-			current = current>>16;
+			current = current >> 16;
 			WCHAR Name[1024];
-			GetLocaleInfo(MAKELCID(((UINT)current & 0xffffffff), SORT_DEFAULT), LOCALE_SLANGUAGE, Name, sizeof(Name)/2);
+			GetLocaleInfo(MAKELCID(((UINT)current & 0xffffffff), SORT_DEFAULT), LOCALE_SLANGUAGE, Name, sizeof(Name) / 2);
 			keyb->ID = (UINT)current;
 			keyb->Name = gcnew String(Name);
 			return (keyb);
@@ -154,17 +154,17 @@ namespace Fox
 		static int KeyboardLayoutSet(UINT ID)
 		{
 			WCHAR Layout[50];
-			swprintf_s (Layout, sizeof(Layout)/2, L"%08X", ID);
+			swprintf_s(Layout, sizeof(Layout) / 2, L"%08X", ID);
 			HKL layout = LoadKeyboardLayout(Layout, KLF_ACTIVATE | KLF_SUBSTITUTE_OK);
-			if (layout==NULL)
+			if (layout == NULL)
 				return(1);
-			if (ActivateKeyboardLayout (layout, 0)==0)
+			if (ActivateKeyboardLayout(layout, 0) == 0)
 				return(2);
-			if (SystemParametersInfo (SPI_SETDEFAULTINPUTLANG, 0, &layout, SPIF_SENDCHANGE)==0)
+			if (SystemParametersInfo(SPI_SETDEFAULTINPUTLANG, 0, &layout, SPIF_SENDCHANGE) == 0)
 				return(3);
 			HWND hwnd;
 			hwnd = GetTopWindow(NULL);
-			while (hwnd!=NULL)
+			while (hwnd != NULL)
 			{
 				PostMessage(hwnd, WM_INPUTLANGCHANGEREQUEST, INPUTLANGCHANGE_SYSCHARSET, (LPARAM)layout);
 				hwnd = GetNextWindow(hwnd, GW_HWNDNEXT);
@@ -203,20 +203,20 @@ namespace Fox
 
 		static int DriveGetType(String ^driveletter)
 		{
-			if (driveletter->Length!=1)
+			if (driveletter->Length != 1)
 				return(-1);
 			marshal_context^ contextdriveletter = gcnew marshal_context();
 			const WCHAR* driveletterC = contextdriveletter->marshal_as<const WCHAR*>(driveletter);
 			WCHAR FullNTDrive[20];
-			swprintf_s (FullNTDrive,sizeof(FullNTDrive)/2, L"\\\\.\\%s:", driveletterC);
+			swprintf_s(FullNTDrive, sizeof(FullNTDrive) / 2, L"\\\\.\\%s:", driveletterC);
 			HANDLE h = CreateFile(FullNTDrive, 0, FILE_SHARE_WRITE, 0, OPEN_EXISTING, 0, 0);
-			int res=-1;
+			int res = -1;
 			if (h != INVALID_HANDLE_VALUE)
 			{
 				DISK_GEOMETRY Geom[20];
 				DWORD cb;
 
-				if (DeviceIoControl (h, IOCTL_DISK_GET_MEDIA_TYPES, 0, 0,
+				if (DeviceIoControl(h, IOCTL_DISK_GET_MEDIA_TYPES, 0, 0,
 					Geom, sizeof(Geom), &cb, 0)
 					&& cb > 0)
 				{
@@ -270,11 +270,11 @@ namespace Fox
 #pragma unmanaged
 
 int CustomWinPEUtilFunction(const char *Function, WCHAR* Args)
-{	
+{
 	WpeutilFunction CallFunction = (WpeutilFunction)GetProcAddress(WPEUtilDLL, Function);
-	if (CallFunction==NULL)
+	if (CallFunction == NULL)
 		return(-1);
-	return(CallFunction(GlobalhInstDLL,NULL,Args,SW_SHOW));
+	return(CallFunction(GlobalhInstDLL, NULL, Args, SW_SHOW));
 }
 
 #pragma managed

@@ -32,6 +32,9 @@ copy "%winx86%\windows\system32\en-us\shfolder.dll.mui" "%minintx86%\windows\sys
 
 copy "%winx86%\windows\system32\rmclient.dll" "%minintx86%\windows\system32"
 copy "%winx86%\windows\system32\Windows.UI.Cred.dll" "%minintx86%\windows\system32"
+copy "%winx86%\windows\system32\cscapi.dll" "%minintx86%\windows\system32"
+copy "%winx86%\windows\system32\policymanager.dll" "%minintx86%\windows\system32"
+copy "%winx86%\windows\system32\credprovdatamodel.dll" "%minintx86%\windows\system32"
 
 
 mkdir "%minintx64%\Windows\Resources\Themes\aero\Shell\NormalColor"
@@ -63,6 +66,9 @@ copy "%winx64%\windows\system32\en-us\shfolder.dll.mui" "%minintx64%\windows\sys
 
 copy "%winx64%\windows\system32\rmclient.dll" "%minintx64%\windows\system32"
 copy "%winx64%\windows\system32\Windows.UI.Cred.dll" "%minintx64%\windows\system32"
+copy "%winx64%\windows\system32\cscapi.dll" "%minintx64%\windows\system32"
+copy "%winx64%\windows\system32\policymanager.dll" "%minintx64%\windows\system32"
+copy "%winx64%\windows\system32\credprovdatamodel.dll" "%minintx64%\windows\system32"
 
 
 

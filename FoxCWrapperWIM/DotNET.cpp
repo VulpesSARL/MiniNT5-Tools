@@ -76,7 +76,7 @@ namespace Fox
 				OnPercentStatus(param);
 				break;
 			case WIM_MSG_PROCESS:
-				OnFileStatus (Filename);
+				OnFileStatus(Filename);
 				break;
 			case WIM_MSG_ERROR:
 				OnError((DWORD)param);
@@ -95,7 +95,7 @@ namespace Fox
 
 		static bool CallEventAllowFileProcess(String^Filename)
 		{
-			if (UseAllowFileProcessEvent==true)
+			if (UseAllowFileProcessEvent == true)
 				return (OnFileProcess(Filename));
 			return(true);
 		}
@@ -113,7 +113,7 @@ namespace Fox
 
 		static List<FoxDismImageInfo^>^ DISMGetInfo(String ^ Filename)
 		{
-			List<FoxDismImageInfo^>^% list = gcnew List<FoxDismImageInfo^>(); 
+			List<FoxDismImageInfo^>^% list = gcnew List<FoxDismImageInfo^>();
 
 			marshal_context^ context = gcnew marshal_context();
 			const WCHAR* cfilename = context->marshal_as<const WCHAR*>(Filename);
@@ -121,13 +121,13 @@ namespace Fox
 			UINT ImageInfoCount;
 			DismImageInfo *ImageInfo;
 			HRESULT hr = DismGetImageInfo(cfilename, &ImageInfo, &ImageInfoCount);
-			if (hr!=0)
+			if (hr != 0)
 			{
 				delete context;
 				return(list);
 			}
 
-			for (unsigned int i=0;i<ImageInfoCount;i++)
+			for (unsigned int i = 0; i < ImageInfoCount; i++)
 			{
 				FoxDismImageInfo^ img = gcnew FoxDismImageInfo;
 				img->Architecture = ImageInfo[i].Architecture;
@@ -139,7 +139,7 @@ namespace Fox
 				img->ImageSize = ImageInfo[i].ImageSize;
 				img->InstallationType = gcnew String(ImageInfo[i].InstallationType);
 				img->Language = gcnew List<String^>();
-				for (unsigned int j=0;j<ImageInfo[i].LanguageCount;j++)
+				for (unsigned int j = 0; j < ImageInfo[i].LanguageCount; j++)
 				{
 					img->Language->Add(gcnew String(ImageInfo[i].Language[j].Value));
 				}
@@ -151,7 +151,7 @@ namespace Fox
 				img->SpBuild = ImageInfo[i].SpBuild;
 				img->SpLevel = ImageInfo[i].SpLevel;
 				img->SystemRoot = gcnew String(ImageInfo[i].SystemRoot);
-				img->Bootable = ImageInfo[i].Bootable==0?true:false;
+				img->Bootable = ImageInfo[i].Bootable == 0 ? true : false;
 				img->Build = ImageInfo[i].Build;
 				list->Add(img);
 			}
@@ -200,21 +200,21 @@ namespace Fox
 				return (INVALID_CALLBACK_VALUE);
 
 			hWIM = WIMCreateFile(filename, WIM_GENERIC_READ, WIM_OPEN_EXISTING, 0, 0, &CreateResult);
-			if (hWIM==NULL)
+			if (hWIM == NULL)
 			{
 				delete classDestination;
 				delete classFilename;
-				WIMUnregisterMessageCallback (NULL, (FARPROC)SampleApplyCallback);
+				WIMUnregisterMessageCallback(NULL, (FARPROC)SampleApplyCallback);
 				return(GetLastError());
 			}
 
-			res = WIMGetAttributes (hWIM, &WimInfo, sizeof(WimInfo));
+			res = WIMGetAttributes(hWIM, &WimInfo, sizeof(WimInfo));
 			if (!res)
 			{
 				delete classDestination;
 				delete classFilename;
 				WIMCloseHandle(hWIM);
-				WIMUnregisterMessageCallback (NULL, (FARPROC)SampleApplyCallback);
+				WIMUnregisterMessageCallback(NULL, (FARPROC)SampleApplyCallback);
 				return(GetLastError());
 			}
 
@@ -223,7 +223,7 @@ namespace Fox
 				delete classDestination;
 				delete classFilename;
 				WIMCloseHandle(hWIM);
-				WIMUnregisterMessageCallback (NULL, (FARPROC)SampleApplyCallback);
+				WIMUnregisterMessageCallback(NULL, (FARPROC)SampleApplyCallback);
 				return(INVALID_CALLBACK_VALUE);
 			}
 
@@ -233,25 +233,25 @@ namespace Fox
 				delete classDestination;
 				delete classFilename;
 				WIMCloseHandle(hWIM);
-				WIMUnregisterMessageCallback (NULL, (FARPROC)SampleApplyCallback);
+				WIMUnregisterMessageCallback(NULL, (FARPROC)SampleApplyCallback);
 				return(GetLastError());
 			}
 
 			hImage = WIMLoadImage(hWIM, Index);
-			if (hImage==NULL)
+			if (hImage == NULL)
 			{
 				delete classDestination;
 				delete classFilename;
 				WIMCloseHandle(hWIM);
-				WIMUnregisterMessageCallback (NULL, (FARPROC)SampleApplyCallback);
+				WIMUnregisterMessageCallback(NULL, (FARPROC)SampleApplyCallback);
 				return(GetLastError());
 			}
 
 			CancelWIM = false;
 
-			DWORD Flags = WIM_FLAG_FILEINFO;
-			if (DontApplySecurity==true)
-				Flags|=(WIM_FLAG_NO_DIRACL|WIM_FLAG_NO_FILEACL);
+			DWORD Flags = WIM_FLAG_FILEINFO | WIM_FLAG_INDEX;
+			if (DontApplySecurity == true)
+				Flags |= (WIM_FLAG_NO_DIRACL | WIM_FLAG_NO_FILEACL);
 			res = ::WIMApplyImage(hImage, destination, Flags);
 			if (!res)
 			{
@@ -259,7 +259,7 @@ namespace Fox
 				delete classFilename;
 				WIMCloseHandle(hImage);
 				WIMCloseHandle(hWIM);
-				WIMUnregisterMessageCallback (NULL, (FARPROC)SampleApplyCallback);
+				WIMUnregisterMessageCallback(NULL, (FARPROC)SampleApplyCallback);
 				return(GetLastError());
 			}
 
@@ -267,7 +267,7 @@ namespace Fox
 			delete classFilename;
 			WIMCloseHandle(hImage);
 			WIMCloseHandle(hWIM);
-			WIMUnregisterMessageCallback (NULL, (FARPROC)SampleApplyCallback);
+			WIMUnregisterMessageCallback(NULL, (FARPROC)SampleApplyCallback);
 
 			return(0);
 		}
@@ -287,7 +287,7 @@ namespace Fox
 			if (WIMRegisterMessageCallback(NULL, (FARPROC)SampleApplyCallback, NULL) == INVALID_CALLBACK_VALUE)
 				return (INVALID_CALLBACK_VALUE);
 
-			int Compress=0;
+			int Compress = 0;
 			switch (Compression)
 			{
 			case DISMCompressionMethod::none:
@@ -298,7 +298,7 @@ namespace Fox
 				Compress = WIM_COMPRESS_LZX; break;
 			}
 
-			hWIM = WIMCreateFile(filename, WIM_GENERIC_WRITE, WIM_CREATE_ALWAYS, WIM_FLAG_SHARE_WRITE, Compress, &CreateResult);
+			hWIM = WIMCreateFile(filename, WIM_GENERIC_WRITE, WIM_CREATE_ALWAYS, 0, Compress, &CreateResult);
 			if (hWIM == NULL)
 			{
 				delete classDestination;
@@ -320,7 +320,7 @@ namespace Fox
 			CancelWIM = false;
 			UseAllowFileProcessEvent = true;
 
-			DWORD Flags = 0;
+			DWORD Flags = WIM_FLAG_VERIFY;
 			HANDLE hh = ::WIMCaptureImage(hWIM, source, Flags);
 			if (!hh)
 			{

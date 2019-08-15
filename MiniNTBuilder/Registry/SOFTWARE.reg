@@ -119,15 +119,6 @@ Windows Registry Editor Version 5.00
 @="X:\\WINDOWS\\System32\\thumbcache.dll"
 "ThreadingModel"="Apartment"
 
-[HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{DC1C5A9C-E88A-4dde-A5A1-60F82A20AEF7}]
-@="File Open Dialog"
-
-[HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{DC1C5A9C-E88A-4dde-A5A1-60F82A20AEF7}\InProcServer32]
-@=hex(2):25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,00,6f,00,6f,00,74,00,25,\
-  00,5c,00,53,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,00,5c,00,63,00,6f,00,\
-  6d,00,64,00,6c,00,67,00,33,00,32,00,2e,00,64,00,6c,00,6c,00,00,00
-"ThreadingModel"="Apartment"
-
 [HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{AE054212-3535-4430-83ED-D501AA6680E6}]
 @="Shell Name Space ListView"
 
@@ -276,8 +267,8 @@ Windows Registry Editor Version 5.00
 "ActivationType"=dword:00000000
 "CLSID"="{1b36ef73-6527-4679-b630-3e4dcb6404a2}"
 "DllPath"=hex(2):25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,00,6f,00,6f,00,\
-  74,00,25,00,5c,00,73,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,00,5c,00,57,\
-  00,69,00,6e,00,64,00,6f,00,77,00,73,00,2e,00,55,00,49,00,2e,00,43,00,72,00,\
-  65,00,64,00,2e,00,64,00,6c,00,6c,00,00,00
+  74,00,25,00,5c,00,73,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,00,5c,00,63,\
+  00,72,00,65,00,64,00,70,00,72,00,6f,00,76,00,64,00,61,00,74,00,61,00,6d,00,\
+  6f,00,64,00,65,00,6c,00,2e,00,64,00,6c,00,6c,00,00,00
 "Threading"=dword:00000000
 "TrustLevel"=dword:00000000
