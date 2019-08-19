@@ -249,7 +249,7 @@ namespace Fox
 
 			CancelWIM = false;
 
-			DWORD Flags = WIM_FLAG_FILEINFO | WIM_FLAG_INDEX;
+			DWORD Flags = WIM_FLAG_FILEINFO;
 			if (DontApplySecurity == true)
 				Flags |= (WIM_FLAG_NO_DIRACL | WIM_FLAG_NO_FILEACL);
 			res = ::WIMApplyImage(hImage, destination, Flags);
