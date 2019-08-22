@@ -25,6 +25,7 @@ mkdir "..\PXEBoot\EFI BC"
 xcopy /e /d "..\Build32\Media\Boot" "..\PXEBoot\BIOS\Boot"
 xcopy /e /d "..\Build32\Media\Sources" "..\PXEBoot\BIOS\Sources"
 bcdedit /store "..\PXEBoot\BIOS\Boot\BCD" /set {default} bootmenupolicy Legacy
+bcdedit /store "..\PXEBoot\BIOS\Boot\BCD" /set {7619dcc8-fafe-11d9-b411-000476eba25f} ramdisktftpwindowsize 10
 
 
 
@@ -35,6 +36,7 @@ bcdedit /store "..\PXEBoot\EFI X86\Boot\BCD" /set {default} bootmenupolicy Legac
 bcdedit /store "..\PXEBoot\EFI X86\Boot\BCD" /set {bootmgr} Path \bootmgfw.efi
 bcdedit /store "..\PXEBoot\EFI X86\Boot\BCD" /set {bootmgr} fontpath \boot\fonts
 bcdedit /store "..\PXEBoot\EFI X86\Boot\BCD" /set {bootmgr} nointegritychecks yes
+bcdedit /store "..\PXEBoot\EFI X86\Boot\BCD" /set {7619dcc8-fafe-11d9-b411-000476eba25f} ramdisktftpwindowsize 10
 
 
 
@@ -46,7 +48,7 @@ bcdedit /store "..\PXEBoot\EFI X64\Boot\BCD" /set {default} bootmenupolicy Legac
 bcdedit /store "..\PXEBoot\EFI X64\Boot\BCD" /set {bootmgr} Path \bootmgfw.efi
 bcdedit /store "..\PXEBoot\EFI X64\Boot\BCD" /set {bootmgr} fontpath \boot\fonts
 bcdedit /store "..\PXEBoot\EFI X64\Boot\BCD" /set {bootmgr} nointegritychecks yes
-
+bcdedit /store "..\PXEBoot\EFI X64\Boot\BCD" /set {7619dcc8-fafe-11d9-b411-000476eba25f} ramdisktftpwindowsize 10
 
 
 
@@ -69,6 +71,7 @@ Dism /Unmount-Image /MountDir:"%minintx64%" /discard
 
 xcopy /e /d "..\PXEBoot\EFI X64\*.*" "..\PXEBoot\EFI BC"
 
+copy "tune TFTP Window Size.cmd" "..\PXEBoot"
 
 @echo off
 echo.
