@@ -101,4 +101,13 @@ Small programm to communicate with FoxShell from Batch files to add / remove ico
 Displays "Disconnect Network Drive" Window, nothing else
 (safe to use within a normal Windows 8 / 10 in production)
 
+# Screenshots
+
+![First screen when starting MiniNT](/Screenshots/MiniNT01.png?raw=true)
+![Fox MultiWIM Tool](/Screenshots/MiniNT02.png?raw=true)
+![Fox MultiWIM Tool - Patch Options 1](/Screenshots/MiniNT03.png?raw=true)
+![Fox MultiWIM Tool - Patch Options 2](/Screenshots/MiniNT04.png?raw=true)
+![Functional Explorer Interface](/Screenshots/MiniNT05.png?raw=true)
+![Some tools](/Screenshots/MiniNT06.png?raw=true)
+![Command Prompt](/Screenshots/MiniNT07.png?raw=true)
 
