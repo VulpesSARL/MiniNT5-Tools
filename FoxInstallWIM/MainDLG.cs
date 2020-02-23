@@ -4,9 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Management;
 using System.Text;
 using System.Windows.Forms;
 
@@ -14,12 +16,23 @@ namespace FoxMultiWIM
 {
     public partial class MainDLG : Form
     {
+        public class DiskInfo
+        {
+            public string UID;
+            public string Name;
+            public override string ToString()
+            {
+                return (Name);
+            }
+        }
+
         uint SelectedEditionIndex = 0;
         bool Running = false;
         BackgroundWorker bg;
 
         delegate void MyUpdateStatus(bool EnableGrp1, bool EnableGrp2, int ProgressValue, string ProgressText);
         delegate void MyUpdateStatusBarOnly(int ProgressValue);
+        delegate void MyUpdateText(string Text);
 
         public void UpdateStatus(int ProgressValue)
         {
@@ -30,6 +43,16 @@ namespace FoxMultiWIM
         {
             if (ProgressValue != -1)
                 progressBar.Value = ProgressValue;
+        }
+
+        public void UpdateText(string Text)
+        {
+            if (this.InvokeRequired == true)
+            {
+                this.BeginInvoke(new MyUpdateText(UpdateText), Text);
+                return;
+            }
+            lblFileStatus.Text = Text;
         }
 
         public void UpdateMethod(bool EnableGrp1, bool EnableGrp2, int ProgressValue, string ProgressText)
@@ -86,6 +109,34 @@ namespace FoxMultiWIM
             lblEdition.Text = "<Select Edition>";
         }
 
+        private string GetComputerModelName()
+        {
+            ManagementClass mc = new ManagementClass("Win32_ComputerSystem");
+            ManagementObjectCollection moc = mc.GetInstances();
+            if (moc.Count > 0)
+            {
+                foreach (ManagementObject mo in mc.GetInstances())
+                {
+                    return ((mo["Manufacturer"].ToString().Trim() + " " + mo["Model"].ToString().Trim()).Trim());
+                }
+            }
+            return ("");
+        }
+
+        private string GetComputerSerialNumber()
+        {
+            ManagementClass mc = new ManagementClass("Win32_BIOS");
+            ManagementObjectCollection moc = mc.GetInstances();
+            if (moc.Count > 0)
+            {
+                foreach (ManagementObject mo in mc.GetInstances())
+                {
+                    return (mo["SerialNumber"].ToString().Trim());
+                }
+            }
+            return ("");
+        }
+
         private void MainDLG_Load(object sender, EventArgs e)
         {
             this.Font = SystemFonts.CaptionFont;
@@ -96,7 +147,7 @@ namespace FoxMultiWIM
                 this.Close();
                 return;
             }
-            
+
             Program.ExcludeFiles = new List<string>();
             Program.ExcludeFiles.Add("\\$ntfs.log");
             Program.ExcludeFiles.Add("\\hiberfil.sys");
@@ -110,6 +161,7 @@ namespace FoxMultiWIM
             Program.ExcludeFiles.Add("\\$Recycle.Bin\\*");
             Program.ExcludeFiles.Add("\\Windows\\CSC\\*");
             Program.ExcludeFiles.Add("\\Windows\\Temp\\*");
+            Program.ExcludeFiles.Add("\\Windows\\Logs\\*");
             Program.ExcludeFiles.Add("\\Windows\\SoftwareDistribution\\Download\\*");
 
             lstCompression.Items.Add("none");
@@ -131,9 +183,86 @@ namespace FoxMultiWIM
             Fox.FoxCWrapperDISM.OnRetry += FoxCWrapper_OnRetry;
             Fox.FoxCWrapperDISM.OnWarning += FoxCWrapper_OnWarning;
             Fox.FoxCWrapperDISM.OnFileProcess += FoxCWrapperDISM_OnFileProcess;
+            Fox.Common.Disk.OnUpdateStatus += Disk_OnUpdateStatus;
 #if !DEBUG
             chkNoApplySec.Visible = false;
 #endif
+            lstDiskSchema.Items.Add("Legacy MBR partition style");
+            lstDiskSchema.Items.Add("EFI GPT partition style");
+            if (Fox.FoxCWrapper.IsFirmwareLEGACY() == true)
+            {
+                lstDiskSchema.SelectedIndex = 0;
+                lstDiskSchema.Items[0] += " (this machine)";
+            }
+            if (Fox.FoxCWrapper.IsFirmwareEFI() == true)
+            {
+                lstDiskSchema.SelectedIndex = 1;
+                lstDiskSchema.Items[1] += " (this machine)";
+            }
+
+            foreach (KeyValuePair<string, string> kvp in Disk.GetDisks())
+            {
+                lstDisks.Items.Add(new DiskInfo() { Name = kvp.Value, UID = kvp.Key });
+            }
+
+            string EmptyDisk = Disk.GetEmptyDiskUID();
+            if (string.IsNullOrWhiteSpace(EmptyDisk) == false)
+            {
+                for (int i = 0; i < lstDisks.Items.Count; i++)
+                {
+                    DiskInfo di = lstDisks.Items[i] as DiskInfo;
+                    if (di.UID == EmptyDisk)
+                    {
+                        lstDisks.SelectedIndex = i;
+                        break;
+                    }
+                }
+            }
+
+            lstDestination.Items.Add("To disk");
+            lstDestination.Items.Add("To folder");
+            lstDestination.SelectedIndex = 0;
+
+            chkInstallBootLoader.Checked = true;
+            cmdPatchOptions.Enabled = chkPrePatch.Checked;
+
+            if (Fox.FoxCWrapper.SetToken() == false)
+            {
+                MessageBox.Show(this, "Setting tokens failed.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+
+            /*
+            List<List<string>> TXTRecs = Fox.FoxCWrapper.DNSQueryTXT("vulpes.lu");
+            if (TXTRecs == null)
+            {
+                MessageBox.Show(this, "DNS TXT == null.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                string txts = "";
+                foreach (List<string> txt in TXTRecs)
+                {
+                    txts += "=======\n";
+                    foreach (string stxt in txt)
+                    {
+                        txts += "* " + stxt + "\n";
+                    }
+                }
+                MessageBox.Show(this, "DNS Result:\n" + txts, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }*/
+
+            BrandingDNSDecoder.DecodeBranding(Fox.FoxCWrapper.DNSQueryTXT("minint-branding.my-vulpes-config.lu"));
+
+            if (BrandingDNSDecoder.ValidData == false)
+                frmPatchOptions.ApplyBranding = false;
+
+            frmPatchOptions.ModelName = GetComputerModelName();
+            frmPatchOptions.SerialNumber = GetComputerSerialNumber();
+        }
+
+        private void Disk_OnUpdateStatus(string Text)
+        {
+            UpdateText(Text);
         }
 
         bool FoxCWrapperDISM_OnFileProcess(string A_0)
@@ -197,22 +326,139 @@ namespace FoxMultiWIM
                 MessageBox.Show(this, "Select an edition", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            if (Directory.Exists(txtInstallTempDir.Text) == false)
+
+            switch (lstDestination.SelectedIndex)
             {
-                MessageBox.Show(this, "The Temp directory must exist", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
+                case 0:
+                    if (lstDisks.SelectedIndex < 0)
+                    {
+                        MessageBox.Show(this, "Select a disk where to store the installation", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
+                    if (lstDiskSchema.SelectedIndex < 0)
+                    {
+                        MessageBox.Show(this, "Select a partition schema that matches the destination installation", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
+
+                    DiskInfo disk = lstDisks.SelectedItem as DiskInfo;
+                    Int64? Allocated = Disk.GetAllocSize(disk.UID);
+                    if (Allocated == null)
+                    {
+                        MessageBox.Show(this, "Cannot query disk status", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
+                    if (Allocated.Value > 0)
+                    {
+                        if (MessageBox.Show(this, "WARNING: the selected disk seems to have data on it. Do you want to continue?\n\nALL DATA ON THIS DISK WILL BE ERASED!", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
+                            return;
+                    }
+                    bg = new BackgroundWorker();
+                    bg.WorkerSupportsCancellation = false;
+                    bg.DoWork += bg_DoWork_AutoPartitionInstall;
+                    bg.RunWorkerCompleted += bg_RunWorkerCompleted;
+                    grpStatus.Enabled = true;
+                    tabControl1.Enabled = false;
+                    bg.RunWorkerAsync();
+                    break;
+                case 1:
+                    if (Directory.Exists(txtInstallTempDir.Text) == false)
+                    {
+                        MessageBox.Show(this, "The Temp directory must exist", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
 #if DEBUG
-            Fox.FoxCWrapperDISM.DontApplySecurity = chkNoApplySec.Checked;
+                    Fox.FoxCWrapperDISM.DontApplySecurity = chkNoApplySec.Checked;
 #endif
-            Fox.FoxCWrapperDISM.SetTempDir(txtInstallTempDir.Text);
-            bg = new BackgroundWorker();
-            bg.WorkerSupportsCancellation = false;
-            bg.DoWork += bg_DoWork_Install;
-            bg.RunWorkerCompleted += bg_RunWorkerCompleted;
-            grpStatus.Enabled = true;
-            tabControl1.Enabled = false;
-            bg.RunWorkerAsync();
+                    Fox.FoxCWrapperDISM.SetTempDir(txtInstallTempDir.Text);
+                    bg = new BackgroundWorker();
+                    bg.WorkerSupportsCancellation = false;
+                    bg.DoWork += bg_DoWork_Install;
+                    bg.RunWorkerCompleted += bg_RunWorkerCompleted;
+                    grpStatus.Enabled = true;
+                    tabControl1.Enabled = false;
+                    bg.RunWorkerAsync();
+                    break;
+            }
+        }
+
+        private void bg_DoWork_AutoPartitionInstall(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                Running = true;
+                UpdateText("Enabling Automounter");
+                FoxCWrapper.EnableAutoMount(true);
+                UpdateText("Creating partitions and filesystems");
+                DiskInfo disk = lstDisks.SelectedItem as DiskInfo;
+                string BootDrive;
+                string SystemDrive;
+
+                Int64 res = Disk.CreatePartitions(disk.UID, lstDiskSchema.SelectedIndex, out BootDrive, out SystemDrive);
+                if (res != 0)
+                {
+                    Utilities.MessageBoxInvoke(this, "Failed create partitions / filesystems: 0x" + res.ToString("X"), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return;
+                }
+
+                txtTarget.Text = SystemDrive + ":\\";
+                txtInstallTempDir.Text = SystemDrive + ":\\";
+
+                Fox.FoxCWrapperDISM.SetTempDir(txtInstallTempDir.Text);
+
+                if (Fox.FoxCWrapperDISM.WIMApplyImage(txtSourceWIMFile.Text, SelectedEditionIndex, txtTarget.Text) != 0)
+                {
+                    Utilities.MessageBoxInvoke(this, "Failed to Apply WIM File", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return;
+                }
+
+                if (chkInstallBootLoader.Checked == true)
+                {
+                    UpdateText("Installing Bootloader");
+                    Process proc = new Process();
+                    proc.StartInfo.FileName = Environment.ExpandEnvironmentVariables("%systemroot%\\system32\\bcdboot.exe");
+                    switch (lstDiskSchema.SelectedIndex)
+                    {
+                        case 0:
+                            proc.StartInfo.Arguments = SystemDrive + ":\\Windows /s " + BootDrive + ": /f BIOS";
+                            break;
+                        case 1:
+                            proc.StartInfo.Arguments = SystemDrive + ":\\Windows /s " + BootDrive + ": /f UEFI";
+                            break;
+                    }
+                    proc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    try
+                    {
+                        proc.Start();
+                        proc.WaitForExit();
+                        if (proc.ExitCode != 0)
+                        {
+                            Utilities.MessageBoxInvoke(this, "Installing bootloader may not succeed", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
+                    }
+                    catch
+                    {
+                        Utilities.MessageBoxInvoke(this, "Cannot install bootloader", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        return;
+                    }
+                }
+
+                if (chkPrePatch.Checked == true)
+                {
+                    UpdateText("Patching Windows installation");
+                    res = frmPatchOptions.PatchWindows(txtTarget.Text);
+                    if (res != 0)
+                    {
+                        Utilities.MessageBoxInvoke(this, "Failed patch Windows 0x" + res.ToString("X"), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        return;
+                    }
+                }
+            }
+            catch (Exception ee)
+            {
+                Utilities.MessageBoxInvoke(this, "SEH: " + ee.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
         }
 
         void bg_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -230,6 +476,16 @@ namespace FoxMultiWIM
             if (Fox.FoxCWrapperDISM.WIMApplyImage(txtSourceWIMFile.Text, SelectedEditionIndex, txtTarget.Text) != 0)
             {
                 Utilities.MessageBoxInvoke(this, "Failed to Apply WIM File", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            if (chkPrePatch.Checked == true)
+            {
+                UpdateText("Patching Windows installation");
+                Int64 res = frmPatchOptions.PatchWindows(txtTarget.Text);
+                if (res != 0)
+                {
+                    Utilities.MessageBoxInvoke(this, "Failed patch Windows 0x" + res.ToString("X"), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return;
+                }
             }
         }
 
@@ -325,6 +581,32 @@ namespace FoxMultiWIM
             grpStatus.Enabled = true;
             tabControl1.Enabled = false;
             bg.RunWorkerAsync();
+        }
+
+        private void lstDestination_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (lstDestination.SelectedIndex)
+            {
+                case 0:
+                    grpDestDisk.Enabled = true;
+                    grpDestFolder.Enabled = false;
+                    break;
+                case 1:
+                    grpDestDisk.Enabled = false;
+                    grpDestFolder.Enabled = true;
+                    break;
+            }
+        }
+
+        private void cmdPatchOptions_Click(object sender, EventArgs e)
+        {
+            frmPatchOptions frm = new frmPatchOptions();
+            frm.ShowDialog(this);
+        }
+
+        private void chkPrePatch_CheckedChanged(object sender, EventArgs e)
+        {
+            cmdPatchOptions.Enabled = chkPrePatch.Checked;
         }
     }
 }

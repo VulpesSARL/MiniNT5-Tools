@@ -1,4 +1,5 @@
 #include <windows.h>
+#include <WinDNS.h>
 #include <msclr\marshal_cppstd.h>
 #using <System.dll>
 using namespace System;
@@ -14,6 +15,62 @@ extern HINSTANCE GlobalhInstDLL;
 DWORD WINAPI SampleApplyCallback(DWORD dwMsgId, WPARAM wParam, LPARAM lParam, PVOID pvIgnored);
 int CustomWinPEUtilFunction(const char *Function, WCHAR* Args);
 typedef int (CALLBACK *WpeutilFunction)(HINSTANCE hInst, HINSTANCE hPrev, LPTSTR lpszCmdLine, int nCmdShow);
+bool CSetToken(LPWSTR NAME);
+
+
+//some pieces for Mountmanager
+
+#define MOUNTMGRCONTROLTYPE                         0x0000006D // 'm'
+#define IOCTL_MOUNTMGR_SET_AUTO_MOUNT               CTL_CODE(MOUNTMGRCONTROLTYPE, 16, METHOD_BUFFERED, FILE_READ_ACCESS | FILE_WRITE_ACCESS)
+
+typedef enum _MOUNTMGR_AUTO_MOUNT_STATE
+{
+	Disabled = 0,
+	Enabled
+} MOUNTMGR_AUTO_MOUNT_STATE;
+
+typedef struct _MOUNTMGR_QUERY_AUTO_MOUNT
+{
+	MOUNTMGR_AUTO_MOUNT_STATE   CurrentState;
+} MOUNTMGR_QUERY_AUTO_MOUNT, *PMOUNTMGR_QUERY_AUTO_MOUNT;
+
+typedef struct _MOUNTMGR_SET_AUTO_MOUNT
+{
+	MOUNTMGR_AUTO_MOUNT_STATE   NewState;
+} MOUNTMGR_SET_AUTO_MOUNT, *PMOUNTMGR_SET_AUTO_MOUNT;
+
+
+bool CSetToken(LPWSTR NAME)
+{
+	HANDLE hToken;
+	TOKEN_PRIVILEGES tkp;
+	LUID luid;
+	HANDLE pid = GetCurrentProcess();
+
+	memset(&tkp, 0, sizeof(tkp));
+
+	if (OpenProcessToken(pid, TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, &hToken) == 0)
+		return(false);
+
+	if (LookupPrivilegeValue(NULL, NAME, &luid) == 0)
+	{
+		CloseHandle(hToken);
+		return(false);
+	}
+
+	tkp.PrivilegeCount = 1;  // one privilege to set    
+	tkp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
+	tkp.Privileges[0].Luid = luid;
+
+	if (AdjustTokenPrivileges(hToken, FALSE, &tkp, NULL, NULL, NULL) == 0)
+	{
+		CloseHandle(hToken);
+		return(false);
+	}
+
+	CloseHandle(hToken);
+	return(true);
+}
 
 #pragma managed
 
@@ -141,7 +198,11 @@ namespace Fox
 		static FoxKeyboardLayout^ KeyboardLayoutGetCurrent()
 		{
 			FoxKeyboardLayout^ keyb = gcnew FoxKeyboardLayout();
+#ifdef _AMD64_
+			LONGLONG current = (LONGLONG)GetKeyboardLayout(NULL);
+#else
 			LONG current = (LONG)GetKeyboardLayout(NULL);
+#endif
 			current &= 0xFFFF0000;
 			current = current >> 16;
 			WCHAR Name[1024];
@@ -178,9 +239,9 @@ namespace Fox
 			WNetConnectionDialog(NULL, RESOURCETYPE_DISK);
 		}
 
-		static void FoxNetworkUnmap(UINT hwnd)
+		static void FoxNetworkUnmap(IntPtr^ hwnd)
 		{
-			int res = WNetDisconnectDialog((HWND)hwnd, RESOURCETYPE_DISK);
+			int res = WNetDisconnectDialog((HWND)hwnd->ToPointer(), RESOURCETYPE_DISK);
 		}
 
 		static Boolean IsFirmwareEFI()
@@ -263,6 +324,92 @@ namespace Fox
 				res = -1;
 			}
 			return(res);
+		}
+
+		static DWORD EnableAutoMount(Boolean enable)
+		{
+			HANDLE hDevice = CreateFile(L"\\\\.\\MountPointManager", GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
+			if (hDevice == INVALID_HANDLE_VALUE)
+				return(GetLastError());
+
+			DWORD res = 0;
+
+			MOUNTMGR_SET_AUTO_MOUNT mm;
+			mm.NewState = enable == true ? Enabled : Disabled;
+
+			if (!DeviceIoControl(hDevice, IOCTL_MOUNTMGR_SET_AUTO_MOUNT, &mm, sizeof(MOUNTMGR_SET_AUTO_MOUNT), NULL, 0, NULL, NULL))
+			{
+				res = GetLastError();
+				CloseHandle(hDevice);
+				return(res);
+			}
+
+			CloseHandle(hDevice);
+
+			return(0);
+		}
+
+		static DWORD LoadRegistryFile(String^ Filename, String^ HiveName)
+		{
+			marshal_context^ contextfilename = gcnew marshal_context();
+			const WCHAR* FilenameC = contextfilename->marshal_as<const WCHAR*>(Filename);
+			marshal_context^ hivecontext = gcnew marshal_context();
+			const WCHAR* HiveNameC = hivecontext->marshal_as<const WCHAR*>(HiveName);
+
+			DWORD res = RegLoadKey(HKEY_LOCAL_MACHINE, HiveNameC, FilenameC);
+			return(res);
+		}
+
+		static DWORD UnloadRegistryFile(String^ HiveName)
+		{
+			marshal_context^ hivecontext = gcnew marshal_context();
+			const WCHAR* HiveNameC = hivecontext->marshal_as<const WCHAR*>(HiveName);
+
+			DWORD res = RegUnLoadKey(HKEY_LOCAL_MACHINE, HiveNameC);
+			return(res);
+		}
+
+		static Boolean SetToken()
+		{
+			if (CSetToken(SE_RESTORE_NAME) == false)
+				return(false);
+			if (CSetToken(SE_BACKUP_NAME) == false)
+				return(false);
+			return(true);
+		}
+
+		static List<List<String^>^>^ DNSQueryTXT(String ^Name)
+		{
+			marshal_context^ contextdnsname = gcnew marshal_context();
+			const WCHAR* NameC = contextdnsname->marshal_as<const WCHAR*>(Name);
+
+			PDNS_RECORD records;
+			List<List<String^>^>^% list = gcnew List<List<String^>^>();
+
+			if (DnsQuery(NameC, DNS_TYPE_TEXT, DNS_QUERY_STANDARD, NULL, &records, NULL) != 0)
+				return(nullptr);
+
+			PDNS_RECORD currentrec = records;
+			do
+			{
+				List<String^>^% sublist = gcnew List<String^>();
+
+				for (unsigned int i = 0; i < currentrec->Data.TXT.dwStringCount; i++)
+				{
+					sublist->Add(gcnew String(currentrec->Data.TXT.pStringArray[i]));
+				}
+
+				list->Add(sublist);
+
+				if (currentrec->pNext == NULL)
+					break;
+				else
+					currentrec = currentrec->pNext;
+			} while (true);
+
+			DnsRecordListFree(records, DnsFreeRecordList);
+
+			return (list);
 		}
 	};
 }

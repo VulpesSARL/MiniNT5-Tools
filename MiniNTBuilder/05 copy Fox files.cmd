@@ -1,5 +1,11 @@
 call paths.cmd
 
+call msbuild "..\MiniNT5 Tools.sln" /property:Configuration=Release /property:Platform=Win32
+timeout 30
+
+call msbuild "..\MiniNT5 Tools.sln" /property:Configuration=Release /property:Platform=x64
+timeout 30
+
 Dism /Mount-Image /ImageFile:"%minintpath%\Build32\media\sources\boot.wim" /index:1 /MountDir:"%minintx86%"
 Dism /Mount-Image /ImageFile:"%minintpath%\Build64\media\sources\boot.wim" /index:1 /MountDir:"%minintx64%"
 

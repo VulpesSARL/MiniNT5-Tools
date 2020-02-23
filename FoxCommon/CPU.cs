@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -60,5 +61,28 @@ namespace Fox.Common
                 return (CPUType.IA64);
             return (CPUType.Unknown);
         }
+
+        public static string GetSecureBootState()
+        {
+            RegistryKey reg = Registry.LocalMachine.OpenSubKey("SYSTEM\\CurrentControlSet\\Control\\SecureBoot\\State");
+            if (reg == null)
+                return ("Unknown");
+            object o = reg.GetValue("UEFISecureBootEnabled");
+            if (o == null)
+            {
+                reg.Close();
+                return ("Unknown");
+            }
+            reg.Close();
+            int state = 0;
+            if (int.TryParse(o.ToString(), out state) == false)
+                return ("Unknown");
+            if (state == 0)
+                return ("Disabled");
+            if (state == 1)
+                return ("Enabled");
+            return ("Unknown");
+        }
+
     }
 }

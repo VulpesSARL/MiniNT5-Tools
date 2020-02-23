@@ -29,6 +29,8 @@ Dism /Add-Package /Image:"%minintx64%" /PackagePath:"%ADK%\amd64\WinPE_OCs\en-us
 Dism /Add-Package /Image:"%minintx64%" /PackagePath:"%ADK%\amd64\WinPE_OCs\WinPE-EnhancedStorage.cab"
 Dism /Add-Package /Image:"%minintx64%" /PackagePath:"%ADK%\amd64\WinPE_OCs\en-us\WinPE-EnhancedStorage_en-us.cab"
 
+Dism /Add-Package /Image:"%minintx64%" /PackagePath:"%ADK%\amd64\WinPE_OCs\WinPE-StorageWMI.cab"
+Dism /Add-Package /Image:"%minintx64%" /PackagePath:"%ADK%\amd64\WinPE_OCs\en-us\WinPE-StorageWMI_en-us.cab"
 
 
 
@@ -54,6 +56,9 @@ Dism /Add-Package /Image:"%minintx86%" /PackagePath:"%ADK%\x86\WinPE_OCs\en-us\W
 
 Dism /Add-Package /Image:"%minintx86%" /PackagePath:"%ADK%\x86\WinPE_OCs\WinPE-EnhancedStorage.cab"
 Dism /Add-Package /Image:"%minintx86%" /PackagePath:"%ADK%\x86\WinPE_OCs\en-us\WinPE-EnhancedStorage_en-us.cab"
+
+Dism /Add-Package /Image:"%minintx86%" /PackagePath:"%ADK%\x86\WinPE_OCs\WinPE-StorageWMI.cab"
+Dism /Add-Package /Image:"%minintx86%" /PackagePath:"%ADK%\x86\WinPE_OCs\en-us\WinPE-StorageWMI_en-us.cab"
 
 
 Dism /Unmount-Image /MountDir:"%minintx86%" /commit

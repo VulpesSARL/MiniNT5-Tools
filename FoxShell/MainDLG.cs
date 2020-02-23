@@ -92,29 +92,6 @@ namespace FoxShell
             }
         }
 
-        string GetSecureBootState()
-        {
-            RegistryKey reg = Registry.LocalMachine.OpenSubKey("SYSTEM\\CurrentControlSet\\Control\\SecureBoot\\State");
-            if (reg == null)
-                return ("Unknown");
-            object o = reg.GetValue("UEFISecureBootEnabled");
-            if (o == null)
-            {
-                reg.Close();
-                return ("Unknown");
-            }
-            reg.Close();
-            int state = 0;
-            if (int.TryParse(o.ToString(), out state) == false)
-                return ("Unknown");
-            if (state == 0)
-                return ("Disabled");
-            if (state == 1)
-                return ("Enabled");
-            return ("Unknown");
-        }
-
-
         private void MainDLG_Load(object sender, EventArgs e)
         {
             this.Font = SystemFonts.CaptionFont;
@@ -127,7 +104,7 @@ namespace FoxShell
                 BIOSType = "EFI";
 
             if (BIOSType == "EFI")
-                BIOSType += ",SB=" + GetSecureBootState();
+                BIOSType += ",SB=" + CPU.GetSecureBootState();
 
             switch (cpu)
             {

@@ -47,6 +47,14 @@
             this.label4 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label10 = new System.Windows.Forms.Label();
+            this.lstDestination = new System.Windows.Forms.ComboBox();
+            this.grpDestDisk = new System.Windows.Forms.GroupBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.lstDiskSchema = new System.Windows.Forms.ComboBox();
+            this.lstDisks = new System.Windows.Forms.ComboBox();
+            this.grpDestFolder = new System.Windows.Forms.GroupBox();
             this.cmdBrowseInstallTempDir = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.txtInstallTempDir = new System.Windows.Forms.TextBox();
@@ -65,28 +73,33 @@
             this.cmdBrowseDestWIM = new System.Windows.Forms.Button();
             this.txtDestWIM = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.chkInstallBootLoader = new System.Windows.Forms.CheckBox();
+            this.chkPrePatch = new System.Windows.Forms.CheckBox();
+            this.cmdPatchOptions = new System.Windows.Forms.Button();
             this.grpStatus.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.grpDestDisk.SuspendLayout();
+            this.grpDestFolder.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // chkNoApplySec
             // 
             this.chkNoApplySec.AutoSize = true;
-            this.chkNoApplySec.Location = new System.Drawing.Point(81, 145);
+            this.chkNoApplySec.Location = new System.Drawing.Point(81, 329);
             this.chkNoApplySec.Name = "chkNoApplySec";
             this.chkNoApplySec.Size = new System.Drawing.Size(177, 17);
-            this.chkNoApplySec.TabIndex = 8;
+            this.chkNoApplySec.TabIndex = 9;
             this.chkNoApplySec.Text = "Don\'t apply security informations";
             this.chkNoApplySec.UseVisualStyleBackColor = true;
             // 
             // cmdStart
             // 
-            this.cmdStart.Location = new System.Drawing.Point(528, 139);
+            this.cmdStart.Location = new System.Drawing.Point(528, 323);
             this.cmdStart.Name = "cmdStart";
             this.cmdStart.Size = new System.Drawing.Size(75, 23);
-            this.cmdStart.TabIndex = 9;
+            this.cmdStart.TabIndex = 10;
             this.cmdStart.Text = "Start";
             this.cmdStart.UseVisualStyleBackColor = true;
             this.cmdStart.Click += new System.EventHandler(this.cmdStart_Click);
@@ -121,25 +134,25 @@
             // 
             // cmdBrowseTarget
             // 
-            this.cmdBrowseTarget.Location = new System.Drawing.Point(528, 68);
+            this.cmdBrowseTarget.Location = new System.Drawing.Point(525, 17);
             this.cmdBrowseTarget.Name = "cmdBrowseTarget";
             this.cmdBrowseTarget.Size = new System.Drawing.Size(75, 23);
-            this.cmdBrowseTarget.TabIndex = 5;
+            this.cmdBrowseTarget.TabIndex = 1;
             this.cmdBrowseTarget.Text = "Browse";
             this.cmdBrowseTarget.UseVisualStyleBackColor = true;
             this.cmdBrowseTarget.Click += new System.EventHandler(this.cmdBrowseTarget_Click);
             // 
             // txtTarget
             // 
-            this.txtTarget.Location = new System.Drawing.Point(81, 70);
+            this.txtTarget.Location = new System.Drawing.Point(78, 19);
             this.txtTarget.Name = "txtTarget";
             this.txtTarget.Size = new System.Drawing.Size(441, 20);
-            this.txtTarget.TabIndex = 4;
+            this.txtTarget.TabIndex = 0;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 73);
+            this.label2.Location = new System.Drawing.Point(3, 22);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 13);
             this.label2.TabIndex = 2;
@@ -179,7 +192,7 @@
             this.grpStatus.Controls.Add(this.lblFileStatus);
             this.grpStatus.Controls.Add(this.label4);
             this.grpStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.grpStatus.Location = new System.Drawing.Point(0, 293);
+            this.grpStatus.Location = new System.Drawing.Point(0, 390);
             this.grpStatus.Name = "grpStatus";
             this.grpStatus.Size = new System.Drawing.Size(623, 83);
             this.grpStatus.TabIndex = 1;
@@ -230,14 +243,17 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(623, 293);
+            this.tabControl1.Size = new System.Drawing.Size(623, 390);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.cmdBrowseInstallTempDir);
-            this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Controls.Add(this.txtInstallTempDir);
+            this.tabPage1.Controls.Add(this.cmdPatchOptions);
+            this.tabPage1.Controls.Add(this.chkPrePatch);
+            this.tabPage1.Controls.Add(this.label10);
+            this.tabPage1.Controls.Add(this.lstDestination);
+            this.tabPage1.Controls.Add(this.grpDestDisk);
+            this.tabPage1.Controls.Add(this.grpDestFolder);
             this.tabPage1.Controls.Add(this.chkNoApplySec);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.cmdStart);
@@ -245,24 +261,105 @@
             this.tabPage1.Controls.Add(this.cmdSelectEdition);
             this.tabPage1.Controls.Add(this.cmdBrowseSourceWIM);
             this.tabPage1.Controls.Add(this.lblEdition);
-            this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.txtTarget);
-            this.tabPage1.Controls.Add(this.cmdBrowseTarget);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(615, 267);
+            this.tabPage1.Size = new System.Drawing.Size(615, 364);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Install from local source";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(6, 71);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(63, 13);
+            this.label10.TabIndex = 13;
+            this.label10.Text = "Destination:";
+            // 
+            // lstDestination
+            // 
+            this.lstDestination.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.lstDestination.FormattingEnabled = true;
+            this.lstDestination.Location = new System.Drawing.Point(81, 68);
+            this.lstDestination.Name = "lstDestination";
+            this.lstDestination.Size = new System.Drawing.Size(216, 21);
+            this.lstDestination.TabIndex = 4;
+            this.lstDestination.SelectedIndexChanged += new System.EventHandler(this.lstDestination_SelectedIndexChanged);
+            // 
+            // grpDestDisk
+            // 
+            this.grpDestDisk.Controls.Add(this.chkInstallBootLoader);
+            this.grpDestDisk.Controls.Add(this.label12);
+            this.grpDestDisk.Controls.Add(this.label11);
+            this.grpDestDisk.Controls.Add(this.lstDiskSchema);
+            this.grpDestDisk.Controls.Add(this.lstDisks);
+            this.grpDestDisk.Location = new System.Drawing.Point(3, 95);
+            this.grpDestDisk.Name = "grpDestDisk";
+            this.grpDestDisk.Size = new System.Drawing.Size(609, 98);
+            this.grpDestDisk.TabIndex = 5;
+            this.grpDestDisk.TabStop = false;
+            this.grpDestDisk.Text = "To disk";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(6, 49);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(49, 13);
+            this.label12.TabIndex = 15;
+            this.label12.Text = "Schema:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 22);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(31, 13);
+            this.label11.TabIndex = 14;
+            this.label11.Text = "Disk:";
+            // 
+            // lstDiskSchema
+            // 
+            this.lstDiskSchema.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.lstDiskSchema.FormattingEnabled = true;
+            this.lstDiskSchema.Location = new System.Drawing.Point(78, 46);
+            this.lstDiskSchema.Name = "lstDiskSchema";
+            this.lstDiskSchema.Size = new System.Drawing.Size(216, 21);
+            this.lstDiskSchema.TabIndex = 1;
+            // 
+            // lstDisks
+            // 
+            this.lstDisks.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.lstDisks.FormattingEnabled = true;
+            this.lstDisks.Location = new System.Drawing.Point(78, 19);
+            this.lstDisks.Name = "lstDisks";
+            this.lstDisks.Size = new System.Drawing.Size(441, 21);
+            this.lstDisks.TabIndex = 0;
+            // 
+            // grpDestFolder
+            // 
+            this.grpDestFolder.Controls.Add(this.txtTarget);
+            this.grpDestFolder.Controls.Add(this.cmdBrowseInstallTempDir);
+            this.grpDestFolder.Controls.Add(this.cmdBrowseTarget);
+            this.grpDestFolder.Controls.Add(this.label5);
+            this.grpDestFolder.Controls.Add(this.label2);
+            this.grpDestFolder.Controls.Add(this.txtInstallTempDir);
+            this.grpDestFolder.Location = new System.Drawing.Point(3, 199);
+            this.grpDestFolder.Name = "grpDestFolder";
+            this.grpDestFolder.Size = new System.Drawing.Size(609, 76);
+            this.grpDestFolder.TabIndex = 6;
+            this.grpDestFolder.TabStop = false;
+            this.grpDestFolder.Text = "To folder";
+            // 
             // cmdBrowseInstallTempDir
             // 
-            this.cmdBrowseInstallTempDir.Location = new System.Drawing.Point(528, 97);
+            this.cmdBrowseInstallTempDir.Location = new System.Drawing.Point(525, 46);
             this.cmdBrowseInstallTempDir.Name = "cmdBrowseInstallTempDir";
             this.cmdBrowseInstallTempDir.Size = new System.Drawing.Size(75, 23);
-            this.cmdBrowseInstallTempDir.TabIndex = 7;
+            this.cmdBrowseInstallTempDir.TabIndex = 3;
             this.cmdBrowseInstallTempDir.Text = "Browse";
             this.cmdBrowseInstallTempDir.UseVisualStyleBackColor = true;
             this.cmdBrowseInstallTempDir.Click += new System.EventHandler(this.cmdBrowseTempDir_Click);
@@ -270,7 +367,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 102);
+            this.label5.Location = new System.Drawing.Point(3, 51);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(37, 13);
             this.label5.TabIndex = 7;
@@ -278,10 +375,10 @@
             // 
             // txtInstallTempDir
             // 
-            this.txtInstallTempDir.Location = new System.Drawing.Point(81, 99);
+            this.txtInstallTempDir.Location = new System.Drawing.Point(78, 48);
             this.txtInstallTempDir.Name = "txtInstallTempDir";
             this.txtInstallTempDir.Size = new System.Drawing.Size(441, 20);
-            this.txtInstallTempDir.TabIndex = 6;
+            this.txtInstallTempDir.TabIndex = 2;
             // 
             // tabPage2
             // 
@@ -302,7 +399,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(615, 267);
+            this.tabPage2.Size = new System.Drawing.Size(615, 346);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Capture to local destination";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -434,11 +531,42 @@
             this.label8.TabIndex = 10;
             this.label8.Text = "WIM File:";
             // 
+            // chkInstallBootLoader
+            // 
+            this.chkInstallBootLoader.AutoSize = true;
+            this.chkInstallBootLoader.Location = new System.Drawing.Point(78, 73);
+            this.chkInstallBootLoader.Name = "chkInstallBootLoader";
+            this.chkInstallBootLoader.Size = new System.Drawing.Size(107, 17);
+            this.chkInstallBootLoader.TabIndex = 2;
+            this.chkInstallBootLoader.Text = "Install Bootloader";
+            this.chkInstallBootLoader.UseVisualStyleBackColor = true;
+            // 
+            // chkPrePatch
+            // 
+            this.chkPrePatch.AutoSize = true;
+            this.chkPrePatch.Location = new System.Drawing.Point(81, 292);
+            this.chkPrePatch.Name = "chkPrePatch";
+            this.chkPrePatch.Size = new System.Drawing.Size(173, 17);
+            this.chkPrePatch.TabIndex = 7;
+            this.chkPrePatch.Text = "Pre-Patch Windows Installation";
+            this.chkPrePatch.UseVisualStyleBackColor = true;
+            this.chkPrePatch.CheckedChanged += new System.EventHandler(this.chkPrePatch_CheckedChanged);
+            // 
+            // cmdPatchOptions
+            // 
+            this.cmdPatchOptions.Location = new System.Drawing.Point(528, 288);
+            this.cmdPatchOptions.Name = "cmdPatchOptions";
+            this.cmdPatchOptions.Size = new System.Drawing.Size(75, 23);
+            this.cmdPatchOptions.TabIndex = 8;
+            this.cmdPatchOptions.Text = "Options";
+            this.cmdPatchOptions.UseVisualStyleBackColor = true;
+            this.cmdPatchOptions.Click += new System.EventHandler(this.cmdPatchOptions_Click);
+            // 
             // MainDLG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(623, 376);
+            this.ClientSize = new System.Drawing.Size(623, 473);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.grpStatus);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -454,6 +582,10 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.grpDestDisk.ResumeLayout(false);
+            this.grpDestDisk.PerformLayout();
+            this.grpDestFolder.ResumeLayout(false);
+            this.grpDestFolder.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
@@ -498,6 +630,17 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button cmdBrowseCaptureTempDir;
         private System.Windows.Forms.TextBox txtCaptureTempDir;
+        private System.Windows.Forms.GroupBox grpDestFolder;
+        private System.Windows.Forms.GroupBox grpDestDisk;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox lstDestination;
+        private System.Windows.Forms.ComboBox lstDisks;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ComboBox lstDiskSchema;
+        private System.Windows.Forms.CheckBox chkInstallBootLoader;
+        private System.Windows.Forms.Button cmdPatchOptions;
+        private System.Windows.Forms.CheckBox chkPrePatch;
     }
 }
 
