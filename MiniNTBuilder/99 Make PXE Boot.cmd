@@ -73,12 +73,14 @@ xcopy /e /d "..\PXEBoot\EFI X64\*.*" "..\PXEBoot\EFI BC"
 
 copy "tune TFTP Window Size.cmd" "..\PXEBoot"
 
+7z a "..\PXE Boot Data.7z" "..\PXEBoot"
+
 @echo off
 echo.
 echo.
 echo.Done!
 echo.
-echo.4 folders are created (BIOS, EFI X64, EFI X86 and EFI BC)
+echo.4 folders are created (BIOS, EFI X64, EFI X86 and EFI BC) and a 7z Archive
 echo.
 echo.Note that the start file on all flavours is "bootmgfw.efi"
 @echo on
