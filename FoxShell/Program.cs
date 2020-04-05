@@ -12,6 +12,9 @@ namespace FoxShell
         [STAThread]
         static void Main()
         {
+            frmSplash.ShowSplash();
+            frmSplash.UpdateText("Initialising ...");
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             maindlg = new MainDLG();

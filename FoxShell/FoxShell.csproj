@@ -92,6 +92,12 @@
     <Compile Include="ShutDown.Designer.cs">
       <DependentUpon>ShutDown.cs</DependentUpon>
     </Compile>
+    <Compile Include="Splash.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Splash.Designer.cs">
+      <DependentUpon>Splash.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserSettings.cs" />
     <EmbeddedResource Include="ItemProperty.resx">
       <DependentUpon>ItemProperty.cs</DependentUpon>
@@ -111,6 +117,9 @@
     </Compile>
     <EmbeddedResource Include="ShutDown.resx">
       <DependentUpon>ShutDown.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Splash.resx">
+      <DependentUpon>Splash.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

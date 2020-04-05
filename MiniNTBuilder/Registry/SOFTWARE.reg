@@ -231,11 +231,11 @@ Windows Registry Editor Version 5.00
 "Order"=dword:00000003
 "UseShellEx"=dword:00000000
 
-[HKEY_LOCAL_MACHINE\0000\Fox\Shell\Items\teamviewer]
-"Name"="Team Viewer"
-"IcoFile"="%systemroot%\\FoxSuppl\\TeamViewer.exe"
+[HKEY_LOCAL_MACHINE\0000\Fox\Shell\Items\SDC]
+"Name"="Configure SDC"
+"IcoFile"="%systemroot%\\SDC\\FoxSDC_Configure.exe"
 "Group"="Network"
-"Execute"="%systemroot%\\FoxSuppl\\TeamViewer.exe"
+"Execute"="%systemroot%\\SDC\\FoxSDC_Configure.exe"
 "Order"=dword:00000003
 "UseShellEx"=dword:00000000
 

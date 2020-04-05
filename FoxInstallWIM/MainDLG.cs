@@ -109,34 +109,6 @@ namespace FoxMultiWIM
             lblEdition.Text = "<Select Edition>";
         }
 
-        private string GetComputerModelName()
-        {
-            ManagementClass mc = new ManagementClass("Win32_ComputerSystem");
-            ManagementObjectCollection moc = mc.GetInstances();
-            if (moc.Count > 0)
-            {
-                foreach (ManagementObject mo in mc.GetInstances())
-                {
-                    return ((mo["Manufacturer"].ToString().Trim() + " " + mo["Model"].ToString().Trim()).Trim());
-                }
-            }
-            return ("");
-        }
-
-        private string GetComputerSerialNumber()
-        {
-            ManagementClass mc = new ManagementClass("Win32_BIOS");
-            ManagementObjectCollection moc = mc.GetInstances();
-            if (moc.Count > 0)
-            {
-                foreach (ManagementObject mo in mc.GetInstances())
-                {
-                    return (mo["SerialNumber"].ToString().Trim());
-                }
-            }
-            return ("");
-        }
-
         private void MainDLG_Load(object sender, EventArgs e)
         {
             this.Font = SystemFonts.CaptionFont;
@@ -252,12 +224,9 @@ namespace FoxMultiWIM
             }*/
 
             BrandingDNSDecoder.DecodeBranding(Fox.FoxCWrapper.DNSQueryTXT("minint-branding.my-vulpes-config.lu"));
+            SDCData.ReadContractData();
 
-            if (BrandingDNSDecoder.ValidData == false)
-                frmPatchOptions.ApplyBranding = false;
-
-            frmPatchOptions.ModelName = GetComputerModelName();
-            frmPatchOptions.SerialNumber = GetComputerSerialNumber();
+            frmPatchOptions.InitPatch();
         }
 
         private void Disk_OnUpdateStatus(string Text)
@@ -373,7 +342,7 @@ namespace FoxMultiWIM
                     Fox.FoxCWrapperDISM.SetTempDir(txtInstallTempDir.Text);
                     bg = new BackgroundWorker();
                     bg.WorkerSupportsCancellation = false;
-                    bg.DoWork += bg_DoWork_Install;
+                    bg.DoWork += bg_DoWork_FilesInstall;
                     bg.RunWorkerCompleted += bg_RunWorkerCompleted;
                     grpStatus.Enabled = true;
                     tabControl1.Enabled = false;
@@ -470,7 +439,7 @@ namespace FoxMultiWIM
             Running = false;
         }
 
-        void bg_DoWork_Install(object sender, DoWorkEventArgs e)
+        void bg_DoWork_FilesInstall(object sender, DoWorkEventArgs e)
         {
             Running = true;
             if (Fox.FoxCWrapperDISM.WIMApplyImage(txtSourceWIMFile.Text, SelectedEditionIndex, txtTarget.Text) != 0)

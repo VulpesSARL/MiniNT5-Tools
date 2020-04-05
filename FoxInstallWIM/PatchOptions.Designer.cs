@@ -32,6 +32,14 @@
             this.cmdOK = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.chkDisableOneDrive = new System.Windows.Forms.CheckBox();
+            this.chkDisableCloudContent = new System.Windows.Forms.CheckBox();
+            this.grpBranding = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtSerialNumber = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtModel = new System.Windows.Forms.TextBox();
+            this.chkApplyBranding = new System.Windows.Forms.CheckBox();
             this.chkDisablePrivacy = new System.Windows.Forms.CheckBox();
             this.chkDisableFileRegVirtualization = new System.Windows.Forms.CheckBox();
             this.chkDisableTelemetry = new System.Windows.Forms.CheckBox();
@@ -55,19 +63,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lstRegionFormat = new System.Windows.Forms.ComboBox();
             this.chkConfigOOBE = new System.Windows.Forms.CheckBox();
-            this.chkApplyBranding = new System.Windows.Forms.CheckBox();
-            this.grpBranding = new System.Windows.Forms.GroupBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.txtModel = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txtSerialNumber = new System.Windows.Forms.TextBox();
-            this.chkDisableCloudContent = new System.Windows.Forms.CheckBox();
-            this.chkDisableOneDrive = new System.Windows.Forms.CheckBox();
+            this.chkInstallSDC = new System.Windows.Forms.CheckBox();
+            this.chkPatchMachineID = new System.Windows.Forms.CheckBox();
+            this.chkApplyContract = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.grpBranding.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.grpBranding.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -103,6 +106,9 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.chkApplyContract);
+            this.tabPage1.Controls.Add(this.chkPatchMachineID);
+            this.tabPage1.Controls.Add(this.chkInstallSDC);
             this.tabPage1.Controls.Add(this.chkDisableOneDrive);
             this.tabPage1.Controls.Add(this.chkDisableCloudContent);
             this.tabPage1.Controls.Add(this.grpBranding);
@@ -120,6 +126,82 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Page 1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // chkDisableOneDrive
+            // 
+            this.chkDisableOneDrive.AutoSize = true;
+            this.chkDisableOneDrive.Location = new System.Drawing.Point(6, 167);
+            this.chkDisableOneDrive.Name = "chkDisableOneDrive";
+            this.chkDisableOneDrive.Size = new System.Drawing.Size(112, 17);
+            this.chkDisableOneDrive.TabIndex = 7;
+            this.chkDisableOneDrive.Text = "Disable One-Drive";
+            this.chkDisableOneDrive.UseVisualStyleBackColor = true;
+            // 
+            // chkDisableCloudContent
+            // 
+            this.chkDisableCloudContent.AutoSize = true;
+            this.chkDisableCloudContent.Location = new System.Drawing.Point(6, 144);
+            this.chkDisableCloudContent.Name = "chkDisableCloudContent";
+            this.chkDisableCloudContent.Size = new System.Drawing.Size(196, 17);
+            this.chkDisableCloudContent.TabIndex = 6;
+            this.chkDisableCloudContent.Text = "Disable Cloud Content (if applicable)";
+            this.chkDisableCloudContent.UseVisualStyleBackColor = true;
+            // 
+            // grpBranding
+            // 
+            this.grpBranding.Controls.Add(this.label9);
+            this.grpBranding.Controls.Add(this.txtSerialNumber);
+            this.grpBranding.Controls.Add(this.label8);
+            this.grpBranding.Controls.Add(this.txtModel);
+            this.grpBranding.Location = new System.Drawing.Point(34, 223);
+            this.grpBranding.Name = "grpBranding";
+            this.grpBranding.Size = new System.Drawing.Size(498, 79);
+            this.grpBranding.TabIndex = 9;
+            this.grpBranding.TabStop = false;
+            this.grpBranding.Text = "Computer Details";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 48);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(71, 13);
+            this.label9.TabIndex = 9;
+            this.label9.Text = "Serialnumber:";
+            // 
+            // txtSerialNumber
+            // 
+            this.txtSerialNumber.Location = new System.Drawing.Point(91, 45);
+            this.txtSerialNumber.Name = "txtSerialNumber";
+            this.txtSerialNumber.Size = new System.Drawing.Size(401, 20);
+            this.txtSerialNumber.TabIndex = 1;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 22);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(39, 13);
+            this.label8.TabIndex = 7;
+            this.label8.Text = "Model:";
+            // 
+            // txtModel
+            // 
+            this.txtModel.Location = new System.Drawing.Point(91, 19);
+            this.txtModel.Name = "txtModel";
+            this.txtModel.Size = new System.Drawing.Size(401, 20);
+            this.txtModel.TabIndex = 0;
+            // 
+            // chkApplyBranding
+            // 
+            this.chkApplyBranding.AutoSize = true;
+            this.chkApplyBranding.Location = new System.Drawing.Point(34, 200);
+            this.chkApplyBranding.Name = "chkApplyBranding";
+            this.chkApplyBranding.Size = new System.Drawing.Size(97, 17);
+            this.chkApplyBranding.TabIndex = 8;
+            this.chkApplyBranding.Text = "Apply Branding";
+            this.chkApplyBranding.UseVisualStyleBackColor = true;
+            this.chkApplyBranding.CheckedChanged += new System.EventHandler(this.chkApplyBranding_CheckedChanged);
             // 
             // chkDisablePrivacy
             // 
@@ -343,81 +425,35 @@
             this.chkConfigOOBE.UseVisualStyleBackColor = true;
             this.chkConfigOOBE.CheckedChanged += new System.EventHandler(this.chkConfigOOBE_CheckedChanged);
             // 
-            // chkApplyBranding
+            // chkInstallSDC
             // 
-            this.chkApplyBranding.AutoSize = true;
-            this.chkApplyBranding.Location = new System.Drawing.Point(34, 214);
-            this.chkApplyBranding.Name = "chkApplyBranding";
-            this.chkApplyBranding.Size = new System.Drawing.Size(97, 17);
-            this.chkApplyBranding.TabIndex = 8;
-            this.chkApplyBranding.Text = "Apply Branding";
-            this.chkApplyBranding.UseVisualStyleBackColor = true;
-            this.chkApplyBranding.CheckedChanged += new System.EventHandler(this.chkApplyBranding_CheckedChanged);
+            this.chkInstallSDC.AutoSize = true;
+            this.chkInstallSDC.Location = new System.Drawing.Point(34, 308);
+            this.chkInstallSDC.Name = "chkInstallSDC";
+            this.chkInstallSDC.Size = new System.Drawing.Size(78, 17);
+            this.chkInstallSDC.TabIndex = 10;
+            this.chkInstallSDC.Text = "Install SDC";
+            this.chkInstallSDC.UseVisualStyleBackColor = true;
             // 
-            // grpBranding
+            // chkPatchMachineID
             // 
-            this.grpBranding.Controls.Add(this.label9);
-            this.grpBranding.Controls.Add(this.txtSerialNumber);
-            this.grpBranding.Controls.Add(this.label8);
-            this.grpBranding.Controls.Add(this.txtModel);
-            this.grpBranding.Location = new System.Drawing.Point(34, 237);
-            this.grpBranding.Name = "grpBranding";
-            this.grpBranding.Size = new System.Drawing.Size(498, 79);
-            this.grpBranding.TabIndex = 9;
-            this.grpBranding.TabStop = false;
-            this.grpBranding.Text = "Computer Details";
+            this.chkPatchMachineID.AutoSize = true;
+            this.chkPatchMachineID.Location = new System.Drawing.Point(63, 331);
+            this.chkPatchMachineID.Name = "chkPatchMachineID";
+            this.chkPatchMachineID.Size = new System.Drawing.Size(186, 17);
+            this.chkPatchMachineID.TabIndex = 11;
+            this.chkPatchMachineID.Text = "Apply MachineID from this MiniNT";
+            this.chkPatchMachineID.UseVisualStyleBackColor = true;
             // 
-            // label8
+            // chkApplyContract
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 22);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(39, 13);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "Model:";
-            // 
-            // txtModel
-            // 
-            this.txtModel.Location = new System.Drawing.Point(91, 19);
-            this.txtModel.Name = "txtModel";
-            this.txtModel.Size = new System.Drawing.Size(401, 20);
-            this.txtModel.TabIndex = 0;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 48);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(71, 13);
-            this.label9.TabIndex = 9;
-            this.label9.Text = "Serialnumber:";
-            // 
-            // txtSerialNumber
-            // 
-            this.txtSerialNumber.Location = new System.Drawing.Point(91, 45);
-            this.txtSerialNumber.Name = "txtSerialNumber";
-            this.txtSerialNumber.Size = new System.Drawing.Size(401, 20);
-            this.txtSerialNumber.TabIndex = 1;
-            // 
-            // chkDisableCloudContent
-            // 
-            this.chkDisableCloudContent.AutoSize = true;
-            this.chkDisableCloudContent.Location = new System.Drawing.Point(6, 144);
-            this.chkDisableCloudContent.Name = "chkDisableCloudContent";
-            this.chkDisableCloudContent.Size = new System.Drawing.Size(196, 17);
-            this.chkDisableCloudContent.TabIndex = 6;
-            this.chkDisableCloudContent.Text = "Disable Cloud Content (if applicable)";
-            this.chkDisableCloudContent.UseVisualStyleBackColor = true;
-            // 
-            // chkDisableOneDrive
-            // 
-            this.chkDisableOneDrive.AutoSize = true;
-            this.chkDisableOneDrive.Location = new System.Drawing.Point(6, 167);
-            this.chkDisableOneDrive.Name = "chkDisableOneDrive";
-            this.chkDisableOneDrive.Size = new System.Drawing.Size(112, 17);
-            this.chkDisableOneDrive.TabIndex = 7;
-            this.chkDisableOneDrive.Text = "Disable One-Drive";
-            this.chkDisableOneDrive.UseVisualStyleBackColor = true;
+            this.chkApplyContract.AutoSize = true;
+            this.chkApplyContract.Location = new System.Drawing.Point(63, 354);
+            this.chkApplyContract.Name = "chkApplyContract";
+            this.chkApplyContract.Size = new System.Drawing.Size(405, 17);
+            this.chkApplyContract.TabIndex = 12;
+            this.chkApplyContract.Text = "Apply ContractID && URL from this MiniNT (may get overwritten from DNS Config!)";
+            this.chkApplyContract.UseVisualStyleBackColor = true;
             // 
             // frmPatchOptions
             // 
@@ -442,12 +478,12 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.grpBranding.ResumeLayout(false);
+            this.grpBranding.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.grpBranding.ResumeLayout(false);
-            this.grpBranding.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -489,5 +525,8 @@
         private System.Windows.Forms.CheckBox chkApplyBranding;
         private System.Windows.Forms.CheckBox chkDisableCloudContent;
         private System.Windows.Forms.CheckBox chkDisableOneDrive;
+        private System.Windows.Forms.CheckBox chkInstallSDC;
+        private System.Windows.Forms.CheckBox chkApplyContract;
+        private System.Windows.Forms.CheckBox chkPatchMachineID;
     }
 }

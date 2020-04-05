@@ -98,6 +98,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SDCData.cs" />
     <Compile Include="SelectEdition.cs">
       <SubType>Form</SubType>
     </Compile>

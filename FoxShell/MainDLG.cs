@@ -4,8 +4,11 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using Fox.Common;
 using Microsoft.Win32;
@@ -92,6 +95,39 @@ namespace FoxShell
             }
         }
 
+        void ExecNoCrash(string Filename, string args)
+        {
+            try
+            {
+                Process p = new Process();
+                p.StartInfo.FileName = Environment.ExpandEnvironmentVariables(Filename);
+                p.StartInfo.Arguments = args;
+                p.Start();
+            }
+            catch
+            {
+
+            }
+        }
+
+        bool CheckForInternetConnection()
+        {
+            try
+            {
+                using (WebClient client = new WebClient())
+                {
+                    using (client.OpenRead("http://google.com/generate_204"))
+                    {
+                        return (true);
+                    }
+                }
+            }
+            catch
+            {
+                return (false);
+            }
+        }
+
         private void MainDLG_Load(object sender, EventArgs e)
         {
             this.Font = SystemFonts.CaptionFont;
@@ -124,6 +160,8 @@ namespace FoxShell
 
             this.Text += " " + FoxStamp.FoxVersion.DTS;
 
+            frmSplash.UpdateText("Starting network ...");
+
             if (Fox.FoxCWrapper.WPEUtilInit() == false)
             {
                 Program.IsInWindowsPE = false;
@@ -139,6 +177,52 @@ namespace FoxShell
                 }
             }
 
+            frmSplash.UpdateText("Waiting for network && internet connectivity ...");
+
+            int Count = 0;
+            do
+            {
+                if (CheckForInternetConnection() == true)
+                    break;
+                Thread.Sleep(1000);
+                Count++;
+            } while (Count < 30);
+
+            frmSplash.UpdateText("Initialising SDC ...");
+
+            if (File.Exists(Environment.ExpandEnvironmentVariables("%SYSTEMROOT%\\SDC\\FoxSDC_Agent.exe")) == true)
+            {
+                ExecNoCrashSync("%SYSTEMROOT%\\SDC\\FoxSDC_Agent.exe", "-autodnsconfig");
+                ExecNoCrashSync("%SYSTEMROOT%\\SDC\\FoxSDC_Agent.exe", "-install");
+                bool SDCInitOK = false;
+                using (RegistryKey k = Registry.LocalMachine.OpenSubKey("Software\\Fox\\SDC"))
+                {
+                    if (k != null)
+                    {
+                        if (k.GetValue("UseOnPremServer", "0").ToString() == "1" || k.GetValue("ContractID", "").ToString() != "")
+                            SDCInitOK = true;
+                    }
+                }
+                if (SDCInitOK == true)
+                {
+                    frmSplash.UpdateText("Starting SDC ...");
+                    ExecNoCrashSync("%SYSTEMROOT%\\SDC\\FoxSDC_Agent.exe", "-recovercreds");
+                    if (File.Exists(Environment.ExpandEnvironmentVariables("%SYSTEMROOT%\\Fox SDC MachinePW.reg")) == true)
+                    {
+                        ExecNoCrashSync("%SYSTEMROOT%\\System32\\Reg.exe", "IMPORT \"" + Environment.ExpandEnvironmentVariables("%SYSTEMROOT%\\Fox SDC MachinePW.reg") + "\"");
+                    }
+                    ExecNoCrashSync("%SYSTEMROOT%\\System32\\net.exe", "start FoxSDCA");
+                }
+                else
+                {
+                    frmSplash.UpdateText("NOT Starting SDC ...");
+                    Thread.Sleep(5000);
+                }
+                ExecNoCrash("%SYSTEMROOT%\\SDC\\FoxSDC_Agent_UI.exe", "");
+            }
+
+            frmSplash.UpdateText("Finalising ...");
+
             Rectangle? rect = UserSettings.GetRECT();
             if (rect != null)
             {
@@ -150,6 +234,7 @@ namespace FoxShell
             this.WindowState = UserSettings.GetState();
             icolist = new IcoList(lstPrograms);
             PipeServer.StartPipeServer();
+            frmSplash.CloseSplash();
         }
 
         private void lstPrograms_DoubleClick(object sender, EventArgs e)
