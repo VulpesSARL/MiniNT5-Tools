@@ -1,0 +1,1308 @@
+;*******************************************************************************
+;** Copyright (C) 2025 Intel Corporation                                      **
+;**                                                                           **
+;** This software and the related documents are Intel copyrighted materials,  **
+;** and your use of them is governed by the express license under which they  **
+;** were provided to you ("License"). Unless the License provides otherwise,  **
+;** you may not use, modify, copy, publish, distribute, disclose or transmit  **
+;** this software or the related documents without Intel's prior written      **
+;** permission.                                                               **
+;**                                                                           **
+;** This software and the related documents are provided as is, with no       **
+;** express or implied warranties, other than those that are expressly stated **
+;** in the License.                                                           **
+;*******************************************************************************
+;
+;*******************************************************************************
+; INF for Intel(R) 10 Gigabit PCIe Network Adapters
+;*******************************************************************************
+;
+[Version]
+Signature   = "$Windows NT$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %Intel%
+CatalogFile = ixw.cat
+DriverVer   = 07/15/2025,1.4.73.0
+PnPLockdown = 1
+
+[Manufacturer]
+%Intel% = Intel, NTamd64.10.0.1..22000
+
+[Intel]
+
+[Intel.NTamd64.10.0.1..22000]
+; DisplayName                   Section         DeviceID
+; -----------                   -------         --------
+%W57B1.Dual.Description%      = W57B1PM_Client, PCI\VEN_8086&DEV_57B1
+%W57B1.Quad.OCP.Description%  = W57B1PM_Client, PCI\VEN_8086&DEV_57B1&SUBSYS_00038086
+%W57B1.Quad.Pond.Description% = W57B1PM_Client, PCI\VEN_8086&DEV_57B1&SUBSYS_00028086
+%W57B0.Dual.Description%      = W57B0PM_Client, PCI\VEN_8086&DEV_57B0
+%W57B0.Dual.OCP.Description%  = W57B0PM_Client, PCI\VEN_8086&DEV_57B0&SUBSYS_00048086
+%W57B0.Quad.OCP.Description%  = W57B0PM_Client, PCI\VEN_8086&DEV_57B0&SUBSYS_00038086
+%W57B0.Dual.Pond.Description% = W57B0PM_Client, PCI\VEN_8086&DEV_57B0&SUBSYS_00028086
+%W57B0.Quad.Pond.Description% = W57B0PM_Client, PCI\VEN_8086&DEV_57B0&SUBSYS_00018086
+%W57AF.Dual.Description%      = W57AF_Client,   PCI\VEN_8086&DEV_57AF
+
+[NO_DRV]
+Characteristics = 0x01
+Include         = machine.inf
+Needs           = NO_DRV
+
+[NO_DRV.Services]
+Include = machine.inf
+Needs   = NO_DRV.Services
+
+; ---------------------------------------------------
+; Intel(R) Ethernet Controller E610 for 1000BASE-T
+; ---------------------------------------------------
+[W57B1_Client]
+Characteristics     = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType             = 5 ; PCI
+Port1FunctionNumber = 0 
+AddReg              = Default.reg, FlowControl.reg, Uninstall.reg
+Addreg              = 2500Mb_Speed.reg
+AddReg              = CoInKPM.reg
+CopyFiles           = CopyFiles, MessageDll.CopyFiles
+*IfType             = 6     ; IF_TYPE_ETHERNET_CSMACD
+*MediaType          = 0     ; NdisMedium802_3
+*PhysicalMediaType  = 14    ; NdisPhysicalMedium802_3
+
+[W57B1_Client.Services]
+AddService = %ServiceName%, 2, Service, EventLog
+
+[W57B1_Client.HW]
+Include = pci.inf
+Needs   = PciIoSpaceNotRequired.HW
+AddReg  = MSI.reg
+
+; ---------------------------------------------------
+; Intel(R) Ethernet Network Adapter E610-IT4 for OCP 3.0
+; Intel(R) Ethernet Network Adapter E610-IT4
+; ---------------------------------------------------
+[W57B1PM_Client]
+Characteristics     = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType             = 5 ; PCI
+Port1FunctionNumber = 0 
+AddReg              = Default.reg, FlowControl.reg, Uninstall.reg
+Addreg              = 2500Mb_Speed.reg
+AddReg              = PmeEnabled.reg
+AddReg              = CoInKPM.reg
+CopyFiles           = CopyFiles, MessageDll.CopyFiles
+*IfType             = 6     ; IF_TYPE_ETHERNET_CSMACD
+*MediaType          = 0     ; NdisMedium802_3
+*PhysicalMediaType  = 14    ; NdisPhysicalMedium802_3
+
+[W57B1PM_Client.Services]
+AddService = %ServiceName%, 2, Service, EventLog
+
+[W57B1PM_Client.HW]
+Include = pci.inf
+Needs   = PciIoSpaceNotRequired.HW
+AddReg  = MSI.reg
+
+; ---------------------------------------------------
+; Intel(R) Ethernet Controller E610 for 10GBASE-T
+; ---------------------------------------------------
+[W57B0_Client]
+Characteristics     = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType             = 5 ; PCI
+Port1FunctionNumber = 0 
+AddReg              = Default.reg, FlowControl.reg, Uninstall.reg
+Addreg              = 10Gb_Speed.reg
+AddReg              = CoInKPM.reg
+CopyFiles           = CopyFiles, MessageDll.CopyFiles
+*IfType             = 6     ; IF_TYPE_ETHERNET_CSMACD
+*MediaType          = 0     ; NdisMedium802_3
+*PhysicalMediaType  = 14    ; NdisPhysicalMedium802_3
+
+[W57B0_Client.Services]
+AddService = %ServiceName%, 2, Service, EventLog
+
+[W57B0_Client.HW]
+Include = pci.inf
+Needs   = PciIoSpaceNotRequired.HW
+AddReg  = MSI.reg
+
+; ---------------------------------------------------
+; Intel(R) Ethernet Network Adapter E610-XT2 for OCP 3.0
+; Intel(R) Ethernet Network Adapter E610-XT4 for OCP 3.0
+; Intel(R) Ethernet Network Adapter E610-XT2
+; Intel(R) Ethernet Network Adapter E610-XT4
+; ---------------------------------------------------
+[W57B0PM_Client]
+Characteristics     = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType             = 5 ; PCI
+Port1FunctionNumber = 0 
+AddReg              = Default.reg, FlowControl.reg, Uninstall.reg
+Addreg              = 10Gb_Speed.reg
+AddReg              = PmeEnabled.reg
+AddReg              = CoInKPM.reg
+CopyFiles           = CopyFiles, MessageDll.CopyFiles
+*IfType             = 6     ; IF_TYPE_ETHERNET_CSMACD
+*MediaType          = 0     ; NdisMedium802_3
+*PhysicalMediaType  = 14    ; NdisPhysicalMedium802_3
+
+[W57B0PM_Client.Services]
+AddService = %ServiceName%, 2, ServiceDMAr, EventLog
+
+[W57B0PM_Client.HW]
+Include = pci.inf
+Needs   = PciIoSpaceNotRequired.HW
+AddReg  = MSI.reg
+
+; ---------------------------------------------------
+; Intel(R) Ethernet Controller E610 for 10GbE SFP+
+; ---------------------------------------------------
+[W57AF_Client]
+Characteristics     = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType             = 5 ; PCI
+Port1FunctionNumber = 0 
+AddReg              = Default.reg, FlowControl.reg, Uninstall.reg
+Addreg              = 10Gb_Speed.reg
+AddReg              = CoInKPM.reg
+CopyFiles           = CopyFiles, MessageDll.CopyFiles
+*IfType             = 6     ; IF_TYPE_ETHERNET_CSMACD
+*MediaType          = 0     ; NdisMedium802_3
+*PhysicalMediaType  = 14    ; NdisPhysicalMedium802_3
+
+[W57AF_Client.Services]
+AddService = %ServiceName%, 2, Service, EventLog
+
+[W57AF_Client.HW]
+Include = pci.inf
+Needs   = PciIoSpaceNotRequired.HW
+AddReg  = MSI.reg
+
+;-------------------------------------------------------------------------------
+; Registry Settings
+;-------------------------------------------------------------------------------
+[Default.reg]
+HKR, Ndi\Interfaces,                            UpperRange,             0, "ndis5"
+HKR, Ndi\Interfaces,                            LowerRange,             0, "ethernet"
+HKR, Ndi,                                       Service,                0, %ServiceName%
+
+; *TransmitBuffers
+HKR, Ndi\params\*TransmitBuffers,               ParamDesc,              0, %TransmitBuffers%
+HKR, Ndi\params\*TransmitBuffers,               default,                0, "512"
+HKR, Ndi\params\*TransmitBuffers,               min,                    0, "128"
+HKR, Ndi\params\*TransmitBuffers,               max,                    0, "16384"
+HKR, Ndi\params\*TransmitBuffers,               step,                   0, "64"
+HKR, Ndi\params\*TransmitBuffers,               Base,                   0, "10"
+HKR, Ndi\params\*TransmitBuffers,               type,                   0, "int"
+
+; *ReceiveBuffers
+HKR, Ndi\params\*ReceiveBuffers,                ParamDesc,              0, %ReceiveBuffers%
+HKR, Ndi\params\*ReceiveBuffers,                default,                0, "512"
+HKR, Ndi\params\*ReceiveBuffers,                min,                    0, "128"
+HKR, Ndi\params\*ReceiveBuffers,                max,                    0, "4096"
+HKR, Ndi\params\*ReceiveBuffers,                step,                   0, "64"
+HKR, Ndi\params\*ReceiveBuffers,                Base,                   0, "10"
+HKR, Ndi\params\*ReceiveBuffers,                type,                   0, "int"
+
+; Set MinHardwareOwnedPacketCount to 32
+HKR,,                                           MinHardwareOwnedPacketCount,   0, "32"
+
+; *TCPChecksumOffloadIPv4
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4,        ParamDesc,              0, %TCPChksumOffv4%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4,        default,                0, "3"
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4\Enum,   "0",                    0, %Disabled%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4\Enum,   "1",                    0, %ChksumOffTx%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4\Enum,   "2",                    0, %ChksumOffRx%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4\Enum,   "3",                    0, %ChksumOffTxRx%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4,        type,                   0, "enum"
+
+; *TCPChecksumOffloadIPv6
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6,        ParamDesc,              0, %TCPChksumOffv6%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6,        default,                0, "3"
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6\Enum,   "0",                    0, %Disabled%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6\Enum,   "1",                    0, %ChksumOffTx%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6\Enum,   "2",                    0, %ChksumOffRx%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6\Enum,   "3",                    0, %ChksumOffTxRx%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6,        type,                   0, "enum"
+
+; *UDPChecksumOffloadIPv4
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4,        ParamDesc,              0, %UDPChksumOffv4%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4,        default,                0, "3"
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4\Enum,   "0",                    0, %Disabled%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4\Enum,   "1",                    0, %ChksumOffTx%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4\Enum,   "2",                    0, %ChksumOffRx%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4\Enum,   "3",                    0, %ChksumOffTxRx%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4,        type,                   0, "enum"
+
+; *UDPChecksumOffloadIPv6
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6,        ParamDesc,              0, %UDPChksumOffv6%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6,        default,                0, "3"
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6\Enum,   "0",                    0, %Disabled%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6\Enum,   "1",                    0, %ChksumOffTx%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6\Enum,   "2",                    0, %ChksumOffRx%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6\Enum,   "3",                    0, %ChksumOffTxRx%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6,        type,                   0, "enum"
+
+; *IPChecksumOffloadIPv4
+HKR, Ndi\Params\*IPChecksumOffloadIPv4,         ParamDesc,              0, %IPChksumOffv4%
+HKR, Ndi\Params\*IPChecksumOffloadIPv4,         default,                0, "3"
+HKR, Ndi\Params\*IPChecksumOffloadIPv4\Enum,    "0",                    0, %Disabled%
+HKR, Ndi\Params\*IPChecksumOffloadIPv4\Enum,    "1",                    0, %ChksumOffTx%
+HKR, Ndi\Params\*IPChecksumOffloadIPv4\Enum,    "2",                    0, %ChksumOffRx%
+HKR, Ndi\Params\*IPChecksumOffloadIPv4\Enum,    "3",                    0, %ChksumOffTxRx%
+HKR, Ndi\Params\*IPChecksumOffloadIPv4,         type,                   0, "enum"
+
+; Network Address
+HKR, Ndi\params\NetworkAddress,                 ParamDesc,              0, %LAA%
+HKR, Ndi\params\NetworkAddress,                 Default,                0, ""
+HKR, Ndi\params\NetworkAddress,                 type,                   0, "edit"
+HKR, NDI\params\NetworkAddress,                 LimitText,              0, "12"
+HKR, NDI\params\NetworkAddress,                 UpperCase,              0, "1"
+HKR, NDI\params\NetworkAddress,                 optional,               0, "1"
+
+;Log Link State Event
+HKR,Ndi\Params\LogLinkStateEvent,               ParamDesc,              0, %LogLinkState%
+HKR,Ndi\Params\LogLinkStateEvent,               Type,                   0, "enum"
+HKR,Ndi\Params\LogLinkStateEvent,               Default,                0, "51"
+HKR,Ndi\Params\LogLinkStateEvent\Enum,          "51",                   0, %Enabled%
+HKR,Ndi\Params\LogLinkStateEvent\Enum,          "16",                   0, %Disabled%
+HKR,,                                           LogLinkStateEvent,      0, "51"
+
+; Interrupt Throttle Rate
+HKR, Ndi\Params\ITR,                            ParamDesc,              0, %InterruptThrottleRate%
+HKR, Ndi\Params\ITR,                            default,                0, "65535"
+HKR, Ndi\Params\ITR\Enum,                       "65535",                0, %Adaptive%
+HKR, Ndi\Params\ITR\Enum,                       "2000",                 0, %Extreme%
+HKR, Ndi\Params\ITR\Enum,                       "950",                  0, %High%
+HKR, Ndi\Params\ITR\Enum,                       "488",                  0, %Medium%
+HKR, Ndi\Params\ITR\Enum,                       "200",                  0, %Low%
+HKR, Ndi\Params\ITR\Enum,                       "0",                    0, %Off%
+HKR, Ndi\Params\ITR,                            type,                   0, "enum"
+
+; *PriorityVLANTag
+HKR, Ndi\Params\*PriorityVLANTag,               ParamDesc,              0, %PriorityVLANTag2%
+HKR, Ndi\Params\*PriorityVLANTag,               default,                0, "3"
+HKR, Ndi\Params\*PriorityVLANTag\Enum,          "0",                    0, %PriorityVlanDisabled2%
+HKR, Ndi\Params\*PriorityVLANTag\Enum,          "1",                    0, %PriorityEnabled2%
+HKR, Ndi\Params\*PriorityVLANTag\Enum,          "2",                    0, %VlanEnabled%
+HKR, Ndi\Params\*PriorityVLANTag\Enum,          "3",                    0, %PriorityVlanEnabled2%
+HKR, Ndi\Params\*PriorityVLANTag,               type,                   0, "enum"
+
+; *InterruptModeration
+HKR, Ndi\Params\*InterruptModeration,           ParamDesc,              0, %InterruptModeration%
+HKR, Ndi\Params\*InterruptModeration,           default,                0, "1"
+HKR, Ndi\Params\*InterruptModeration\Enum,      "0",                    0, %Disabled%
+HKR, Ndi\Params\*InterruptModeration\Enum,      "1",                    0, %Enabled%
+HKR, Ndi\Params\*InterruptModeration,           type,                   0, "enum"
+
+; *LsoV2IPv4
+HKR, Ndi\Params\*LsoV2IPv4,                     ParamDesc,              0, %LsoV2IPv4%
+HKR, Ndi\Params\*LsoV2IPv4,                     default,                0, "1"
+HKR, Ndi\Params\*LsoV2IPv4\Enum,                "0",                    0, %Disabled%
+HKR, Ndi\Params\*LsoV2IPv4\Enum,                "1",                    0, %Enabled%
+HKR, Ndi\Params\*LsoV2IPv4,                     type,                   0, "enum"
+
+; *LsoV2IPv6
+HKR, Ndi\Params\*LsoV2IPv6,                     ParamDesc,              0, %LsoV2IPv6%
+HKR, Ndi\Params\*LsoV2IPv6,                     default,                0, "1"
+HKR, Ndi\Params\*LsoV2IPv6\Enum,                "0",                    0, %Disabled%
+HKR, Ndi\Params\*LsoV2IPv6\Enum,                "1",                    0, %Enabled%
+HKR, Ndi\Params\*LsoV2IPv6,                     type,                   0, "enum"
+
+; *JumboPacket
+HKR, Ndi\Params\*JumboPacket,                   ParamDesc,              0, %JumboPacket%
+HKR, Ndi\Params\*JumboPacket,                   default,                0, "1514"
+HKR, Ndi\Params\*JumboPacket\Enum,              "1514",                 0, %Disabled%
+HKR, Ndi\Params\*JumboPacket\Enum,              "4088",                 0, %Bytes4088%
+HKR, Ndi\Params\*JumboPacket\Enum,              "9014",                 0, %Bytes9014%
+HKR, Ndi\Params\*JumboPacket,                   type,                   0, "enum"
+
+; Miscellanous defaults
+HKR,,                                           MulticastFilterType,    0, "0"
+HKR,,                                           UniversalInstall,       0x00010001, 1
+
+; NumRssQueues
+HKR, Ndi\Params\*NumRssQueues,                   ParamDesc,              0, %NumRssQueues2%
+HKR, Ndi\Params\*NumRssQueues,                   default,                0, "8"
+HKR, Ndi\Params\*NumRssQueues,                   type,                   0, "enum"
+HKR, Ndi\Params\*NumRssQueues\Enum,              "1",                    0, %1queue%
+HKR, Ndi\Params\*NumRssQueues\Enum,              "2",                    0, %2queues%
+HKR, Ndi\Params\*NumRssQueues\Enum,              "4",                    0, %4queues%
+HKR, Ndi\Params\*NumRssQueues\Enum,              "8",                    0, %8queues%
+HKR, Ndi\Params\*NumRssQueues\Enum,              "16",                   0, %16queues%
+
+; *RSS
+HKR, Ndi\Params\*RSS,                           ParamDesc,              0, %RSS%
+HKR, Ndi\Params\*RSS,                           default,                0, "1"
+HKR, Ndi\Params\*RSS,                           type,                   0, "enum"
+HKR, Ndi\Params\*RSS\Enum,                      "0",                    0, %Disabled%
+HKR, Ndi\Params\*RSS\Enum,                      "1",                    0, %Enabled%
+
+[FlowControl.reg]
+; *FlowControl
+HKR, Ndi\Params\*FlowControl,                   ParamDesc,              0, %FlowControl%
+HKR, Ndi\Params\*FlowControl,                   default,                0, "3"
+HKR, Ndi\Params\*FlowControl\Enum,              "0",                    0, %Disabled%
+HKR, Ndi\Params\*FlowControl\Enum,              "1",                    0, %FlowControl_TxOnly%
+HKR, Ndi\Params\*FlowControl\Enum,              "2",                    0, %FlowControl_RxOnly%
+HKR, Ndi\Params\*FlowControl\Enum,              "3",                    0, %FlowControl_Full%
+HKR, Ndi\Params\*FlowControl\Enum,              "4",                    0, %AutoNegotiation%
+HKR, Ndi\Params\*FlowControl,                   type,                   0, "enum"
+
+[2500Mb_Speed.reg]
+HKR, Ndi\params\*SpeedDuplex,                   ParamDesc,              0, %SpeedDuplex%
+HKR, Ndi\params\*SpeedDuplex,                   default,                0, "0"
+HKR, Ndi\params\*SpeedDuplex,                   type,                   0, "enum"
+HKR, Ndi\params\*SpeedDuplex\enum,              "0",                    0, %AutoNegotiation%
+HKR, Ndi\params\*SpeedDuplex\enum,              "4",                    0, %100Mb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex\enum,              "6",                    0, %1000Mb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex\enum,              "2500",                 0, %2.5Gb_Full_Duplex%
+
+[10Gb_Speed.reg]
+HKR, Ndi\params\*SpeedDuplex,                   ParamDesc,              0, %SpeedDuplex%
+HKR, Ndi\params\*SpeedDuplex,                   default,                0, "0"
+HKR, Ndi\params\*SpeedDuplex,                   type,                   0, "enum"
+HKR, Ndi\params\*SpeedDuplex\enum,              "0",                    0, %AutoNegotiation%
+HKR, Ndi\params\*SpeedDuplex\enum,              "4",                    0, %100Mb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex\enum,              "6",                    0, %1000Mb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex\enum,              "2500",                 0, %2.5Gb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex\enum,              "5000",                 0, %5Gb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex\enum,              "7",                    0, %10Gb_Full_Duplex%
+
+[MSI.reg]
+HKR, "Interrupt Management", 0x00000010
+HKR, "Interrupt Management\MessageSignaledInterruptProperties", 0x00000010
+HKR, "Interrupt Management\MessageSignaledInterruptProperties", MSISupported, 0x00010001, 1
+
+[PmeEnabled.reg]
+; EnablePME
+HKR,Ndi\Params\EnablePME,                 ParamDesc,                    0, %Enable_PME%
+HKR,Ndi\Params\EnablePME,                 Type,                         0, "enum"
+HKR,Ndi\Params\EnablePME,                 Default,                      0, "0"
+HKR,Ndi\Params\EnablePME\Enum,            "1",                          0, %Enabled%
+HKR,Ndi\Params\EnablePME\Enum,            "0",                          0, %Disabled%
+
+[AddEventLog]
+HKR,, EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll;%13%\ixwmsg.dll"
+HKR,, TypesSupported,   0x00010001, 7
+
+;-----------------------------------------------------------------------------
+; Uninstall parameters
+;-----------------------------------------------------------------------------
+[Uninstall.reg]
+HKR,Prounstl\SupportedDevices\8086, 57B1, 0, "57B1"
+HKR,Prounstl\SupportedDevices\8086, 57B0, 0, "57B0"
+HKR,Prounstl\SupportedDevices\8086, 57AF, 0, "57AF"
+HKR,Prounstl\SupportedDevices\8086, 10A6, 0, "10A6"
+HKR,Prounstl\Services, %ServiceName%, 0, ixw.sys
+
+;-----------------------------------------------------------------------------
+; Driver "service" installation settings
+;-----------------------------------------------------------------------------
+[Service]
+DisplayName    = %Service.Displayname%
+ServiceType    = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType      = 3 ;%SERVICE_DEMAND_START%
+ErrorControl   = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary  = %13%\ixw.sys
+LoadOrderGroup = NDIS
+AddReg         = Service_AddReg
+
+[Service_AddReg]
+HKR,, BootFlags, 0x00010001, 0x1
+
+;-----------------------------------------------------------------------------
+; Driver "service" installation settings for Intel(R) Ethernet Network Adapter E610-XT2/4
+; and Intel(R) Ethernet Network Adapter E610-XT2/4 for OCP 3.0
+;-----------------------------------------------------------------------------
+[ServiceDMAr]
+DisplayName    = %Service.Displayname%
+ServiceType    = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType      = 3 ;%SERVICE_DEMAND_START%
+ErrorControl   = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary  = %13%\ixw.sys
+LoadOrderGroup = NDIS
+AddReg         = ServiceDMAr_AddReg
+
+[ServiceDMAr_AddReg]
+HKR,, BootFlags, 0x00010001, 0x1
+HKR, Parameters, DmaRemappingCompatible, 0x00010001, 2
+
+;-----------------------------------------------------------------------------
+; Event Log settings
+;-----------------------------------------------------------------------------
+[EventLog]
+AddReg = AddEventLog
+
+[CoInKPM.reg]
+HKR,, CoInstallFlag, 0x00010001, 0x00280008
+
+[MessageDll.CopyFiles]
+ixwmsg.dll,,,2
+
+[CopyFiles]
+ixw.sys,,,2
+
+;-----------------------------------------------------------------------------
+; DestinationDirs
+;-----------------------------------------------------------------------------
+[DestinationDirs]
+CopyFiles            = 13
+DefaultDestDir       = 13
+MessageDll.CopyFiles = 13
+
+[SourceDisksNames]
+1 = %DiskName%,,,
+
+;-----------------------------------------------------------------------------
+; SourceDisksFiles
+;-----------------------------------------------------------------------------
+[SourceDisksFiles]
+ixw.sys    = 1
+ixwmsg.dll = 1
+
+[Strings]
+InterruptModeration         = "Interrupt Moderation"
+InterruptThrottleRate       = "Interrupt Moderation Rate"
+Adaptive                    = "Adaptive"
+Extreme                     = "Extreme"
+High                        = "High"
+Medium                      = "Medium"
+Low                         = "Low"
+IPChksumOffv4               = "IPv4 Checksum Offload"
+TCPChksumOffv4              = "TCP Checksum Offload (IPv4)"
+UDPChksumOffv4              = "UDP Checksum Offload (IPv4)"
+LsoV2IPv4                   = "Large Send Offload V2 (IPv4)"
+TCPChksumOffv6              = "TCP Checksum Offload (IPv6)"
+UDPChksumOffv6              = "UDP Checksum Offload (IPv6)"
+LsoV2IPv6                   = "Large Send Offload V2 (IPv6)"
+ChksumOffTxRx               = "Rx & Tx Enabled"
+ChksumOffTx                 = "Tx Enabled"
+ChksumOffRx                 = "Rx Enabled"
+TransmitBuffers             = "Transmit Buffers"
+ReceiveBuffers              = "Receive Buffers"
+RSS                         = "Receive Side Scaling"
+NumRssQueues2               = "Maximum Number of RSS Queues"
+1queue                      = "1 Queue"
+2queues                     = "2 Queues"
+4queues                     = "4 Queues"
+8queues                     = "8 Queues"
+16queues                    = "16 Queues"
+FlowControl                 = "Flow Control"
+FlowControl_RxOnly          = "Rx Enabled"
+FlowControl_TxOnly          = "Tx Enabled"
+FlowControl_Full            = "Rx & Tx Enabled"
+PriorityVLANTag2            = "Packet Priority & VLAN"
+PriorityVlanDisabled2       = "Packet Priority & VLAN Disabled"
+PriorityEnabled2            = "Packet Priority Enabled"
+PriorityVlanEnabled2        = "Packet Priority & VLAN Enabled"
+VlanEnabled                 = "VLAN Enabled"
+SpeedDuplex                 = "Speed & Duplex"
+AutoNegotiation             = "Auto Negotiation"
+100Mb_Full_Duplex           = "100 Mbps Full Duplex"
+1000Mb_Full_Duplex          = "1.0 Gbps Full Duplex"
+2.5Gb_Full_Duplex           = "2.5 Gbps Full Duplex"
+5Gb_Full_Duplex             = "5 Gbps Full Duplex"
+10Gb_Full_Duplex            = "10 Gbps Full Duplex"
+Off                         = "Off"
+Enabled                     = "Enabled"
+Disabled                    = "Disabled"
+Bytes4088                   = "4088 Bytes"
+Bytes9014                   = "9014 Bytes"
+LAA                         = "Locally Administered Address"
+JumboPacket                 = "Jumbo Packet"
+LogLinkState                = "Log Link State Event"
+Enable_PME                  = "Enable PME"
+ServiceName                 = "ixw"
+Intel                       = "Intel"
+DiskName                    = "Intel(R) PRO/10GbE Driver Disk"
+Service.Displayname         = "Intel(R) PRO/10GbE PCIe-S Network Connection Driver"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+W57B1.Dual.Description      = "Intel(R) Ethernet Controller E610 for 2.5GBASE-T"
+W57B1.Quad.OCP.Description  = "Intel(R) Ethernet Network Adapter E610-IT4 for OCP 3.0"
+W57B1.Quad.Pond.Description = "Intel(R) Ethernet Network Adapter E610-IT4"
+W57B0.Dual.Description      = "Intel(R) Ethernet Controller E610 for 10GBASE-T"
+W57B0.Dual.OCP.Description  = "Intel(R) Ethernet Network Adapter E610-XT2 for OCP 3.0"
+W57B0.Quad.OCP.Description  = "Intel(R) Ethernet Network Adapter E610-XT4 for OCP 3.0"
+W57B0.Dual.Pond.Description = "Intel(R) Ethernet Network Adapter E610-XT2"
+W57B0.Quad.Pond.Description = "Intel(R) Ethernet Network Adapter E610-XT4"
+W57AF.Dual.Description      = "Intel(R) Ethernet Controller E610 for 10GbE SFP+"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.0804] ; Chinese (Simplified)
+InterruptModeration                = "÷–∂œ≤√æˆ"
+InterruptThrottleRate              = "÷–∂œ≤√æˆ¬ "
+Adaptive                           = "  ”¶–‘"
+Extreme                            = "º´÷µ"
+High                               = "∏ﬂ"
+Medium                             = "÷–"
+Low                                = "µÕ"
+IPChksumOffv4                      = "IPv4 –£—È∫Õ∑÷‘ÿ¥´ ‰"
+TCPChksumOffv4                     = "TCP –£—È∫Õ∑÷‘ÿ¥´ ‰ (IPv4)"
+UDPChksumOffv4                     = "UDP –£—È∫Õ∑÷‘ÿ¥´ ‰ (IPv4)"
+LsoV2IPv4                          = "¥Û–Õ∑¢ÀÕ∑÷‘ÿ V2 (IPv4)"
+TCPChksumOffv6                     = "TCP –£—È∫Õ∑÷‘ÿ¥´ ‰ (IPv6)"
+UDPChksumOffv6                     = "UDP –£—È∫Õ∑÷‘ÿ¥´ ‰ (IPv6)"
+LsoV2IPv6                          = "¥Û–Õ∑¢ÀÕ∑÷‘ÿ V2 (IPv6)"
+ChksumOffTxRx                      = "“—∆Ù”√ Rx ∫Õ Tx"
+ChksumOffTx                        = "“—∆Ù”√ Tx"
+ChksumOffRx                        = "“—∆Ù”√ Rx"
+TransmitBuffers                    = "¥´ ‰ª∫≥Â«¯"
+ReceiveBuffers                     = "Ω” ’ª∫≥Â«¯"
+RSS                                = "Ω” ’∑Ωµ˜’˚"
+NumRssQueues2                      = "RSS ∂”¡–µƒ◊Ó¥Û ˝ƒø"
+1queue                             = "1 ∏ˆ∂”¡–"
+2queues                            = "2 ∏ˆ∂”¡–"
+4queues                            = "4 ∏ˆ∂”¡–"
+8queues                            = "8 ∏ˆ∂”¡–"
+16queues                           = "16 ∏ˆ∂”¡–"
+FlowControl                        = "¡˜¡øøÿ÷∆"
+FlowControl_RxOnly                 = "“—∆Ù”√ Rx"
+FlowControl_TxOnly                 = "“—∆Ù”√ Tx"
+FlowControl_Full                   = "“—∆Ù”√ Rx ∫Õ Tx"
+PriorityVLANTag2                   = " ˝æ›∞¸”≈œ»º∂∫Õ VLAN"
+PriorityVlanDisabled2              = "“—Ω˚”√ ˝æ›∞¸”≈œ»º∂∫Õ VLAN"
+PriorityEnabled2                   = "“—∆Ù”√ ˝æ›∞¸”≈œ»º∂"
+PriorityVlanEnabled2               = "“—∆Ù”√ ˝æ›∞¸”≈œ»º∂∫Õ VLAN"
+VlanEnabled                        = "“—∆Ù”√ VLAN"
+SpeedDuplex                        = "ÀŸ∂»∫ÕÀ´π§"
+AutoNegotiation                    = "◊‘∂Ø–≠…Ã"
+100Mb_Full_Duplex                  = "100 Mbps »´À´π§"
+1000Mb_Full_Duplex                 = "1.0 Gbps »´À´π§"
+2.5Gb_Full_Duplex                  = "2.5 Gbps »´À´π§"
+5Gb_Full_Duplex                    = "5 Gbps »´À´π§"
+10Gb_Full_Duplex                   = "10 Gbps »´À´π§"
+Off                                = "πÿ±’"
+Enabled                            = "∆Ù”√"
+Disabled                           = "Ω˚”√"
+Bytes4088                          = "4088 ◊÷Ω⁄"
+Bytes9014                          = "9014 ◊÷Ω⁄"
+LAA                                = "±æµÿπ‹¿Ìµÿ÷∑"
+JumboPacket                        = "æﬁ÷° ˝æ›∞¸"
+LogLinkState                       = "º«¬º¡¥Ω”◊¥Ã¨ ¬º˛"
+Enable_PME                         = "∆Ù”√ PME"
+ServiceName                        = "ixw"
+Intel                              = "Intel"
+DiskName                           = "Intel(R) PRO/10GbE Driver Disk"
+Service.Displayname                = "Intel(R) PRO/10GbE PCIe-S Network Connection Driver"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+W57B1.Dual.Description             = "Intel(R) Ethernet Controller E610 for 2.5GBASE-T"
+W57B1.Quad.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-IT4 for OCP 3.0"
+W57B1.Quad.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-IT4"
+W57B0.Dual.Description             = "Intel(R) Ethernet Controller E610 for 10GBASE-T"
+W57B0.Dual.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-XT2 for OCP 3.0"
+W57B0.Quad.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-XT4 for OCP 3.0"
+W57B0.Dual.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-XT2"
+W57B0.Quad.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-XT4"
+W57AF.Dual.Description             = "Intel(R) Ethernet Controller E610 for 10GbE SFP+"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.0404] ; Chinese (Traditional)
+InterruptModeration                = "ß√¬_Ω’∏`"
+InterruptThrottleRate              = "ß√¬_∏`¨yª÷≥t≤v"
+Adaptive                           = "Ω’æ„© "
+Extreme                            = "∑•∞™"
+High                               = "∞™"
+Medium                             = "§§"
+Low                                = "ßC"
+IPChksumOffv4                      = "IPv4 ¿À¨d≠»®¯∏¸"
+TCPChksumOffv4                     = "TCP ¿À¨d≠»®¯∏¸ (IPv4)"
+UDPChksumOffv4                     = "UDP ¿À¨d≠»®¯∏¸ (IPv4)"
+LsoV2IPv4                          = "§j∂q∂«∞e®¯∏¸ V2 (IPv4)"
+TCPChksumOffv6                     = "TCP ¿À¨d≠»®¯∏¸ (IPv6)"
+UDPChksumOffv6                     = "UDP ¿À¨d≠»®¯∏¸ (IPv6)"
+LsoV2IPv6                          = "§j∂q∂«∞e®¯∏¸ V2 (IPv6)"
+ChksumOffTxRx                      = "Rx ªP Tx §w±“•Œ"
+ChksumOffTx                        = "Tx §w±“•Œ"
+ChksumOffRx                        = "Rx §w±“•Œ"
+TransmitBuffers                    = "∂«øÈΩwΩƒ∞œ"
+ReceiveBuffers                     = "±µ¶¨ΩwΩƒ∞œ"
+RSS                                = "±µ¶¨∫›Ω’æ„"
+NumRssQueues2                      = "±µ¶¨∫›Ω’æ„¶Ó¶C™∫≥Ã§jº∆•ÿ"
+1queue                             = "1 ≠”¶Ó¶C"
+2queues                            = "2 ≠”¶Ó¶C"
+4queues                            = "4 ≠”¶Ó¶C"
+8queues                            = "8 ≠”¶Ó¶C"
+16queues                           = "16 ≠”¶Ó¶C"
+FlowControl                        = "¨y∂q±±®Ó"
+FlowControl_RxOnly                 = "Rx §w±“•Œ"
+FlowControl_TxOnly                 = "Tx §w±“•Œ"
+FlowControl_Full                   = "Rx ªP Tx §w±“•Œ"
+PriorityVLANTag2                   = "´ •]¿u•˝∂∂ß«ªP VLAN"
+PriorityVlanDisabled2              = "´ •]¿u•˝∂∂ß«ªP VLAN §w∞±•Œ"
+PriorityEnabled2                   = "´ •]¿u•˝∂∂ß«§w±“•Œ"
+PriorityVlanEnabled2               = "´ •]¿u•˝∂∂ß«ªP VLAN §w±“•Œ"
+VlanEnabled                        = "VLAN §w±“•Œ"
+SpeedDuplex                        = "≥t´◊ªP¬˘§u"
+AutoNegotiation                    = "¶€∞ •ÊØA"
+100Mb_Full_Duplex                  = "100 Mbps •˛¬˘§u"
+1000Mb_Full_Duplex                 = "1.0 Gbps •˛¬˘§u"
+2.5Gb_Full_Duplex                  = "2.5 Gbps •˛¬˘§u"
+5Gb_Full_Duplex                    = "5 Gbps •˛¬˘§u"
+10Gb_Full_Duplex                   = "10 Gbps •˛¬˘§u"
+Off                                = "√ˆ≥¨"
+Enabled                            = "±“•Œ"
+Disabled                           = "∞±•Œ"
+Bytes4088                          = "4088 ¶Ï§∏≤’"
+Bytes9014                          = "9014 ¶Ï§∏≤’"
+LAA                                = "•ª¶a∫ﬁ≤z¶Ïß}"
+JumboPacket                        = "∂W§j´¨´ •]"
+LogLinkState                       = "µnø˝≥sµ≤™¨∫A®∆•Û"
+Enable_PME                         = "±“•Œ PME"
+ServiceName                        = "ixw"
+Intel                              = "Intel"
+DiskName                           = "Intel(R) PRO/10GbE Driver Disk"
+Service.Displayname                = "Intel(R) PRO/10GbE PCIe-S Network Connection Driver"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+W57B1.Dual.Description             = "Intel(R) Ethernet Controller E610 for 2.5GBASE-T"
+W57B1.Quad.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-IT4 for OCP 3.0"
+W57B1.Quad.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-IT4"
+W57B0.Dual.Description             = "Intel(R) Ethernet Controller E610 for 10GBASE-T"
+W57B0.Dual.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-XT2 for OCP 3.0"
+W57B0.Quad.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-XT4 for OCP 3.0"
+W57B0.Dual.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-XT2"
+W57B0.Quad.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-XT4"
+W57AF.Dual.Description             = "Intel(R) Ethernet Controller E610 for 10GbE SFP+"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.0C04] ; Chinese (Traditional)
+InterruptModeration                = "ß√¬_Ω’∏`"
+InterruptThrottleRate              = "ß√¬_∏`¨yª÷≥t≤v"
+Adaptive                           = "Ω’æ„© "
+Extreme                            = "∑•∞™"
+High                               = "∞™"
+Medium                             = "§§"
+Low                                = "ßC"
+IPChksumOffv4                      = "IPv4 ¿À¨d≠»®¯∏¸"
+TCPChksumOffv4                     = "TCP ¿À¨d≠»®¯∏¸ (IPv4)"
+UDPChksumOffv4                     = "UDP ¿À¨d≠»®¯∏¸ (IPv4)"
+LsoV2IPv4                          = "§j∂q∂«∞e®¯∏¸ V2 (IPv4)"
+TCPChksumOffv6                     = "TCP ¿À¨d≠»®¯∏¸ (IPv6)"
+UDPChksumOffv6                     = "UDP ¿À¨d≠»®¯∏¸ (IPv6)"
+LsoV2IPv6                          = "§j∂q∂«∞e®¯∏¸ V2 (IPv6)"
+ChksumOffTxRx                      = "Rx ªP Tx §w±“•Œ"
+ChksumOffTx                        = "Tx §w±“•Œ"
+ChksumOffRx                        = "Rx §w±“•Œ"
+TransmitBuffers                    = "∂«øÈΩwΩƒ∞œ"
+ReceiveBuffers                     = "±µ¶¨ΩwΩƒ∞œ"
+RSS                                = "±µ¶¨∫›Ω’æ„"
+NumRssQueues2                      = "±µ¶¨∫›Ω’æ„¶Ó¶C™∫≥Ã§jº∆•ÿ"
+1queue                             = "1 ≠”¶Ó¶C"
+2queues                            = "2 ≠”¶Ó¶C"
+4queues                            = "4 ≠”¶Ó¶C"
+8queues                            = "8 ≠”¶Ó¶C"
+16queues                           = "16 ≠”¶Ó¶C"
+FlowControl                        = "¨y∂q±±®Ó"
+FlowControl_RxOnly                 = "Rx §w±“•Œ"
+FlowControl_TxOnly                 = "Tx §w±“•Œ"
+FlowControl_Full                   = "Rx ªP Tx §w±“•Œ"
+PriorityVLANTag2                   = "´ •]¿u•˝∂∂ß«ªP VLAN"
+PriorityVlanDisabled2              = "´ •]¿u•˝∂∂ß«ªP VLAN §w∞±•Œ"
+PriorityEnabled2                   = "´ •]¿u•˝∂∂ß«§w±“•Œ"
+PriorityVlanEnabled2               = "´ •]¿u•˝∂∂ß«ªP VLAN §w±“•Œ"
+VlanEnabled                        = "VLAN §w±“•Œ"
+SpeedDuplex                        = "≥t´◊ªP¬˘§u"
+AutoNegotiation                    = "¶€∞ •ÊØA"
+100Mb_Full_Duplex                  = "100 Mbps •˛¬˘§u"
+1000Mb_Full_Duplex                 = "1.0 Gbps •˛¬˘§u"
+2.5Gb_Full_Duplex                  = "2.5 Gbps •˛¬˘§u"
+5Gb_Full_Duplex                    = "5 Gbps •˛¬˘§u"
+10Gb_Full_Duplex                   = "10 Gbps •˛¬˘§u"
+Off                                = "√ˆ≥¨"
+Enabled                            = "±“•Œ"
+Disabled                           = "∞±•Œ"
+Bytes4088                          = "4088 ¶Ï§∏≤’"
+Bytes9014                          = "9014 ¶Ï§∏≤’"
+LAA                                = "•ª¶a∫ﬁ≤z¶Ïß}"
+JumboPacket                        = "∂W§j´¨´ •]"
+LogLinkState                       = "µnø˝≥sµ≤™¨∫A®∆•Û"
+Enable_PME                         = "±“•Œ PME"
+ServiceName                        = "ixw"
+Intel                              = "Intel"
+DiskName                           = "Intel(R) PRO/10GbE Driver Disk"
+Service.Displayname                = "Intel(R) PRO/10GbE PCIe-S Network Connection Driver"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+W57B1.Dual.Description             = "Intel(R) Ethernet Controller E610 for 2.5GBASE-T"
+W57B1.Quad.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-IT4 for OCP 3.0"
+W57B1.Quad.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-IT4"
+W57B0.Dual.Description             = "Intel(R) Ethernet Controller E610 for 10GBASE-T"
+W57B0.Dual.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-XT2 for OCP 3.0"
+W57B0.Quad.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-XT4 for OCP 3.0"
+W57B0.Dual.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-XT2"
+W57B0.Quad.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-XT4"
+W57AF.Dual.Description             = "Intel(R) Ethernet Controller E610 for 10GbE SFP+"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.0407] ; German (Germany)
+InterruptModeration                = "Interrupt-Drosselung"
+InterruptThrottleRate              = "Interrupt-Drosselungsrate"
+Adaptive                           = "Adaptiv"
+Extreme                            = "Extrem"
+High                               = "Hoch"
+Medium                             = "Mittel"
+Low                                = "Niedrig"
+IPChksumOffv4                      = "IPv4-Pr¸fsummen abladen"
+TCPChksumOffv4                     = "TCP-Pr¸fsummen abladen (IPv4)"
+UDPChksumOffv4                     = "UDP-Pr¸fsummen abladen (IPv4)"
+LsoV2IPv4                          = "Large-Send-Offload V2 (IPv4)"
+TCPChksumOffv6                     = "TCP-Pr¸fsummen abladen (IPv6)"
+UDPChksumOffv6                     = "UDP-Pr¸fsummen abladen (IPv6)"
+LsoV2IPv6                          = "Large-Send-Offload V2 (IPv6)"
+ChksumOffTxRx                      = "Rx und Tx aktiviert"
+ChksumOffTx                        = "Tx aktiviert"
+ChksumOffRx                        = "Rx aktiviert"
+TransmitBuffers                    = "‹bertragungspuffer"
+ReceiveBuffers                     = "Empfangspuffer"
+RSS                                = "RSS (Empfangsseitige Skalierung)"
+NumRssQueues2                      = "Max. Anzahl RSS-Warteschlangen"
+1queue                             = "1 Warteschlange"
+2queues                            = "2 Warteschlangen"
+4queues                            = "4 Warteschlangen"
+8queues                            = "8 Warteschlangen"
+16queues                           = "16 Warteschlangen"
+FlowControl                        = "Flusssteuerung"
+FlowControl_RxOnly                 = "Rx aktiviert"
+FlowControl_TxOnly                 = "Tx aktiviert"
+FlowControl_Full                   = "Rx und Tx aktiviert"
+PriorityVLANTag2                   = "Paketpriorit‰t und VLAN"
+PriorityVlanDisabled2              = "Paketpriorit‰t und VLAN deaktiviert"
+PriorityEnabled2                   = "Paketpriorit‰t aktiviert"
+PriorityVlanEnabled2               = "Paketpriorit‰t und VLAN aktiviert"
+VlanEnabled                        = "VLAN aktiviert"
+SpeedDuplex                        = "Geschwindigkeit und Duplex"
+AutoNegotiation                    = "Automatische Aushandlung"
+100Mb_Full_Duplex                  = "100 Mbit/s Vollduplex"
+1000Mb_Full_Duplex                 = "1,0 Gbit/s Vollduplex"
+2.5Gb_Full_Duplex                  = "2,5 Gbit/s Vollduplex"
+5Gb_Full_Duplex                    = "5 Gbit/s Vollduplex"
+10Gb_Full_Duplex                   = "10 Gbit/s Vollduplex"
+Off                                = "Aus"
+Enabled                            = "Aktiviert"
+Disabled                           = "Deaktiviert"
+Bytes4088                          = "4088 Byte"
+Bytes9014                          = "9014 Byte"
+LAA                                = "Lokal verwaltete Adresse"
+JumboPacket                        = "Jumbo Packet"
+LogLinkState                       = "Verbindungsereignis protokollieren"
+Enable_PME                         = "PME (Power Management Event) aktivieren"
+ServiceName                        = "ixw"
+Intel                              = "Intel"
+DiskName                           = "Intel(R) PRO/10GbE Driver Disk"
+Service.Displayname                = "Intel(R) PRO/10GbE PCIe-S Network Connection Driver"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+W57B1.Dual.Description             = "Intel(R) Ethernet Controller E610 for 2.5GBASE-T"
+W57B1.Quad.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-IT4 for OCP 3.0"
+W57B1.Quad.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-IT4"
+W57B0.Dual.Description             = "Intel(R) Ethernet Controller E610 for 10GBASE-T"
+W57B0.Dual.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-XT2 for OCP 3.0"
+W57B0.Quad.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-XT4 for OCP 3.0"
+W57B0.Dual.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-XT2"
+W57B0.Quad.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-XT4"
+W57AF.Dual.Description             = "Intel(R) Ethernet Controller E610 for 10GbE SFP+"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.0C0A] ; Spanish (Spain)
+InterruptModeration                = "ModeraciÛn de interrupciones"
+InterruptThrottleRate              = "Velocidad de obstrucciÛn de la interrupciÛn"
+Adaptive                           = "AdaptaciÛn"
+Extreme                            = "Extremo"
+High                               = "Alto"
+Medium                             = "Medio"
+Low                                = "Bajo"
+IPChksumOffv4                      = "Descarga de suma de comprobaciÛn de IPv4"
+TCPChksumOffv4                     = "Descarga de suma de comprobaciÛn TCP (IPv4)"
+UDPChksumOffv4                     = "Descarga de suma de comprobaciÛn UDP (IPv4)"
+LsoV2IPv4                          = "Descarga grande de envÌo V2 (IPv4)"
+TCPChksumOffv6                     = "Descarga de suma de comprobaciÛn TCP (IPv6)"
+UDPChksumOffv6                     = "Descarga de suma de comprobaciÛn UDP (IPv6)"
+LsoV2IPv6                          = "Descarga grande de envÌo V2 (IPv6)"
+ChksumOffTxRx                      = "RecepciÛn y transmisiÛn habilitadas"
+ChksumOffTx                        = "TransmisiÛn habilitada"
+ChksumOffRx                        = "RecepciÛn habilitada"
+TransmitBuffers                    = "B˙feres de transmisiÛn"
+ReceiveBuffers                     = "B˙feres de recepciÛn"
+RSS                                = "Receive Side Scaling"
+NumRssQueues2                      = "N˙mero m·ximo de colas de RSS"
+1queue                             = "1 cola"
+2queues                            = "2 colas"
+4queues                            = "4 colas"
+8queues                            = "8 colas"
+16queues                           = "16 colas"
+FlowControl                        = "Control de flujo"
+FlowControl_RxOnly                 = "RecepciÛn habilitada"
+FlowControl_TxOnly                 = "TransmisiÛn habilitada"
+FlowControl_Full                   = "RecepciÛn y transmisiÛn habilitadas"
+PriorityVLANTag2                   = "Prioridad de paquetes y VLAN"
+PriorityVlanDisabled2              = "Prioridad de paquetes y VLAN deshabilitadas"
+PriorityEnabled2                   = "Prioridad de paquetes habilitada"
+PriorityVlanEnabled2               = "Prioridad de paquetes y VLAN habilitadas"
+VlanEnabled                        = "VLAN habilitada"
+SpeedDuplex                        = "Velocidad y d˙plex"
+AutoNegotiation                    = "NegociaciÛn autom·tica"
+100Mb_Full_Duplex                  = "100 Mbps D˙plex completo"
+1000Mb_Full_Duplex                 = "D˙plex completo a 1,0 Gbps"
+2.5Gb_Full_Duplex                  = "D˙plex completo a 2,5 Gbps"
+5Gb_Full_Duplex                    = "D˙plex completo a 5 Gbps"
+10Gb_Full_Duplex                   = "D˙plex completo a 10 Gbps"
+Off                                = "Desactivado"
+Enabled                            = "Habilitado"
+Disabled                           = "Deshabilitado"
+Bytes4088                          = "4088 bytes"
+Bytes9014                          = "9014 bytes"
+LAA                                = "DirecciÛn administrada localmente"
+JumboPacket                        = "Paquete jumbo"
+LogLinkState                       = "Registrar sucesos del estado del enlace"
+Enable_PME                         = "Activar PME"
+ServiceName                        = "ixw"
+Intel                              = "Intel"
+DiskName                           = "Intel(R) PRO/10GbE Driver Disk"
+Service.Displayname                = "Intel(R) PRO/10GbE PCIe-S Network Connection Driver"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+W57B1.Dual.Description             = "Intel(R) Ethernet Controller E610 for 2.5GBASE-T"
+W57B1.Quad.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-IT4 for OCP 3.0"
+W57B1.Quad.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-IT4"
+W57B0.Dual.Description             = "Intel(R) Ethernet Controller E610 for 10GBASE-T"
+W57B0.Dual.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-XT2 for OCP 3.0"
+W57B0.Quad.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-XT4 for OCP 3.0"
+W57B0.Dual.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-XT2"
+W57B0.Quad.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-XT4"
+W57AF.Dual.Description             = "Intel(R) Ethernet Controller E610 for 10GbE SFP+"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.040C] ; French (France)
+InterruptModeration                = "Gestion des interruptions"
+InterruptThrottleRate              = "Taux de gestion des interruptions"
+Adaptive                           = "Variable"
+Extreme                            = "ExtrÍme"
+High                               = "Haut"
+Medium                             = "Moyen"
+Low                                = "Faible"
+IPChksumOffv4                      = "DÈlester somme de contrÙle IPv4"
+TCPChksumOffv4                     = "DÈlester somme de contrÙle TCP (IPv4)"
+UDPChksumOffv4                     = "DÈlester somme de contrÙle UDP (IPv4)"
+LsoV2IPv4                          = "DÈcharge díenvoi important v2 (IPv4)"
+TCPChksumOffv6                     = "DÈlester somme de contrÙle TCP (IPv6)"
+UDPChksumOffv6                     = "DÈlester somme de contrÙle UDP (IPv6)"
+LsoV2IPv6                          = "DÈcharge díenvoi important v2 (IPv6)"
+ChksumOffTxRx                      = "Rx et Tx activÈes"
+ChksumOffTx                        = "Tx activÈe"
+ChksumOffRx                        = "Rx activÈe"
+TransmitBuffers                    = "Tampons d'Èmission"
+ReceiveBuffers                     = "Tampons de rÈception"
+RSS                                = "Partage du trafic entrant (RSS)"
+NumRssQueues2                      = "Nombre maximum de files d'attente RSS"
+1queue                             = "1 file d'attente"
+2queues                            = "2 files d'attente"
+4queues                            = "4 files d'attente"
+8queues                            = "8 files d'attente"
+16queues                           = "16 files d'attente"
+FlowControl                        = "ContrÙle de flux"
+FlowControl_RxOnly                 = "Rx activÈe"
+FlowControl_TxOnly                 = "Tx activÈe"
+FlowControl_Full                   = "Rx et Tx activÈes"
+PriorityVLANTag2                   = "PrioritÈ des paquets et VLAN"
+PriorityVlanDisabled2              = "PrioritÈ des paquets et VLAN dÈsactivÈs"
+PriorityEnabled2                   = "PrioritÈ des paquets activÈe"
+PriorityVlanEnabled2               = "PrioritÈ des paquets et VLAN activÈs"
+VlanEnabled                        = "VLAN activÈ"
+SpeedDuplex                        = "Vitesse et duplex"
+AutoNegotiation                    = "NÈgociation automatique"
+100Mb_Full_Duplex                  = "100 Mbit/s Duplex intÈgral"
+1000Mb_Full_Duplex                 = "1,0 Gbit/s Duplex intÈgral"
+2.5Gb_Full_Duplex                  = "2,5†Gbit/s Duplex intÈgral"
+5Gb_Full_Duplex                    = "5†Gbit/s Duplex intÈgral"
+10Gb_Full_Duplex                   = "10 Gbit/s Duplex intÈgral"
+Off                                = "DÈsactivÈ(e)"
+Enabled                            = "ActivÈ(e)"
+Disabled                           = "DÈsactivÈ(e)"
+Bytes4088                          = "4088 octets"
+Bytes9014                          = "9014 octets"
+LAA                                = "Adresse administrÈe localement"
+JumboPacket                        = "Paquets Ètendus"
+LogLinkState                       = "Consigner l'ÈvÈnement de la liaison"
+Enable_PME                         = "Activer la fonction …vÈnement de gestion de la consommation (PME)"
+ServiceName                        = "ixw"
+Intel                              = "Intel"
+DiskName                           = "Intel(R) PRO/10GbE Driver Disk"
+Service.Displayname                = "Intel(R) PRO/10GbE PCIe-S Network Connection Driver"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+W57B1.Dual.Description             = "Intel(R) Ethernet Controller E610 for 2.5GBASE-T"
+W57B1.Quad.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-IT4 for OCP 3.0"
+W57B1.Quad.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-IT4"
+W57B0.Dual.Description             = "Intel(R) Ethernet Controller E610 for 10GBASE-T"
+W57B0.Dual.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-XT2 for OCP 3.0"
+W57B0.Quad.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-XT4 for OCP 3.0"
+W57B0.Dual.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-XT2"
+W57B0.Quad.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-XT4"
+W57AF.Dual.Description             = "Intel(R) Ethernet Controller E610 for 10GbE SFP+"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.0410] ; Italian (Italy)
+InterruptModeration                = "Regolazione di interrupt"
+InterruptThrottleRate              = "Velocit‡ di rallentamento dell'interrupt"
+Adaptive                           = "Adattivo"
+Extreme                            = "Estremo"
+High                               = "Alto"
+Medium                             = "Medio"
+Low                                = "Basso"
+IPChksumOffv4                      = "Offload di checksum IPv4"
+TCPChksumOffv4                     = "Offload di checksum TCP (IPv4)"
+UDPChksumOffv4                     = "Offload di checksum UDP (IPv4)"
+LsoV2IPv4                          = "Large Send Offload V2 (IPv4)"
+TCPChksumOffv6                     = "Offload di checksum TCP (IPv6)"
+UDPChksumOffv6                     = "Offload di checksum UDP (IPv6)"
+LsoV2IPv6                          = "Large Send Offload V2 (IPv6)"
+ChksumOffTxRx                      = "Rx e Tx abilitate"
+ChksumOffTx                        = "Tx abilitata"
+ChksumOffRx                        = "Rx abilitata"
+TransmitBuffers                    = "Trasmetti buffer"
+ReceiveBuffers                     = "Ricevi buffer"
+RSS                                = "Receive Side Scaling"
+NumRssQueues2                      = "Numero massimo di code RSS"
+1queue                             = "1 coda"
+2queues                            = "2 code"
+4queues                            = "4 code"
+8queues                            = "8 code"
+16queues                           = "16 code"
+FlowControl                        = "Controllo del flusso"
+FlowControl_RxOnly                 = "Rx abilitata"
+FlowControl_TxOnly                 = "Tx abilitata"
+FlowControl_Full                   = "Rx e Tx abilitate"
+PriorityVLANTag2                   = "Priorit‡ pacchetti e VLAN"
+PriorityVlanDisabled2              = "Priorit‡ pacchetti e VLAN disattivate"
+PriorityEnabled2                   = "Priorit‡ pacchetti attivata"
+PriorityVlanEnabled2               = "Priorit‡ pacchetti e VLAN attivate"
+VlanEnabled                        = "VLAN abilitata"
+SpeedDuplex                        = "Velocit‡ e duplex"
+AutoNegotiation                    = "Negoziazione automatica"
+100Mb_Full_Duplex                  = "100 Mbps Full Duplex"
+1000Mb_Full_Duplex                 = "1 Gbps Full Duplex"
+2.5Gb_Full_Duplex                  = "2,5 Gbps Full Duplex"
+5Gb_Full_Duplex                    = "5 Gbps Full Duplex"
+10Gb_Full_Duplex                   = "10 Gbps Full Duplex"
+Off                                = "Disattivato"
+Enabled                            = "Attivato"
+Disabled                           = "Disattivato"
+Bytes4088                          = "4088 byte"
+Bytes9014                          = "9014 byte"
+LAA                                = "Indirizzo amministrato localmente"
+JumboPacket                        = "Pacchetto Jumbo"
+LogLinkState                       = "Registra evento stato del collegamento"
+Enable_PME                         = "Abilita PME"
+ServiceName                        = "ixw"
+Intel                              = "Intel"
+DiskName                           = "Intel(R) PRO/10GbE Driver Disk"
+Service.Displayname                = "Intel(R) PRO/10GbE PCIe-S Network Connection Driver"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+W57B1.Dual.Description             = "Intel(R) Ethernet Controller E610 for 2.5GBASE-T"
+W57B1.Quad.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-IT4 for OCP 3.0"
+W57B1.Quad.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-IT4"
+W57B0.Dual.Description             = "Intel(R) Ethernet Controller E610 for 10GBASE-T"
+W57B0.Dual.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-XT2 for OCP 3.0"
+W57B0.Quad.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-XT4 for OCP 3.0"
+W57B0.Dual.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-XT2"
+W57B0.Quad.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-XT4"
+W57AF.Dual.Description             = "Intel(R) Ethernet Controller E610 for 10GbE SFP+"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.0411] ; Japanese (Japan)
+InterruptModeration                = "äÑÇËçûÇ›â¡å∏"
+InterruptThrottleRate              = "äÑÇËçûÇ›â¡å∏ó¶"
+Adaptive                           = "ÉAÉ_ÉvÉeÉBÉu"
+Extreme                            = "ç≈ëÂ"
+High                               = "çÇ"
+Medium                             = "íÜ"
+Low                                = "í·"
+IPChksumOffv4                      = "IPv4 É`ÉFÉbÉNÉTÉÄÇÃÉIÉtÉçÅ[Éh"
+TCPChksumOffv4                     = "TCP É`ÉFÉbÉNÉTÉÄÇÃÉIÉtÉçÅ[Éh (IPv4)"
+UDPChksumOffv4                     = "UDP É`ÉFÉbÉNÉTÉÄÇÃÉIÉtÉçÅ[Éh (IPv4)"
+LsoV2IPv4                          = "ëÂó ëóêMÉIÉtÉçÅ[Éh V2 (IPv4)"
+TCPChksumOffv6                     = "TCP É`ÉFÉbÉNÉTÉÄÇÃÉIÉtÉçÅ[Éh (IPv6)"
+UDPChksumOffv6                     = "UDP É`ÉFÉbÉNÉTÉÄÇÃÉIÉtÉçÅ[Éh (IPv6)"
+LsoV2IPv6                          = "ëÂó ëóêMÉIÉtÉçÅ[Éh V2 (IPv6)"
+ChksumOffTxRx                      = "éÛêM/ëóêM óLå¯"
+ChksumOffTx                        = "ëóêM óLå¯"
+ChksumOffRx                        = "éÛêM óLå¯"
+TransmitBuffers                    = "ëóêMÉoÉbÉtÉ@Å["
+ReceiveBuffers                     = "éÛêMÉoÉbÉtÉ@Å["
+RSS                                = "éÛêMë§ÉXÉPÅ[ÉäÉìÉO"
+NumRssQueues2                      = "RSS ÉLÉÖÅ[ÇÃç≈ëÂêî"
+1queue                             = "1 ÉLÉÖÅ["
+2queues                            = "2 ÉLÉÖÅ["
+4queues                            = "4 ÉLÉÖÅ["
+8queues                            = "8 ÉLÉÖÅ["
+16queues                           = "16 ÉLÉÖÅ["
+FlowControl                        = "ÉtÉçÅ[êßå‰"
+FlowControl_RxOnly                 = "éÛêM óLå¯"
+FlowControl_TxOnly                 = "ëóêM óLå¯"
+FlowControl_Full                   = "éÛêM/ëóêM óLå¯"
+PriorityVLANTag2                   = "ÉpÉPÉbÉgóDêÊìxÇ∆ VLAN"
+PriorityVlanDisabled2              = "ÉpÉPÉbÉgóDêÊìxÇ∆ VLAN ñ≥å¯"
+PriorityEnabled2                   = "ÉpÉPÉbÉgóDêÊìxóLå¯"
+PriorityVlanEnabled2               = "ÉpÉPÉbÉgóDêÊìxÇ∆ VLAN óLå¯"
+VlanEnabled                        = "VLAN óLå¯"
+SpeedDuplex                        = "ë¨ìxÇ∆ÉfÉÖÉvÉåÉbÉNÉX"
+AutoNegotiation                    = "ÉIÅ[ÉgÉlÉSÉVÉGÅ[ÉVÉáÉì"
+100Mb_Full_Duplex                  = "100 Mbps ëSìÒèdí êM"
+1000Mb_Full_Duplex                 = "1.0 Gbps ëSìÒèdí êM"
+2.5Gb_Full_Duplex                  = "2.5 Gbps ëSìÒèdí êM"
+5Gb_Full_Duplex                    = "5 Gbps ëSìÒèdí êM"
+10Gb_Full_Duplex                   = "10 Gbps ëSìÒèdí êM"
+Off                                = "ÉIÉt"
+Enabled                            = "óLå¯"
+Disabled                           = "ñ≥å¯"
+Bytes4088                          = "4088 ÉoÉCÉg"
+Bytes9014                          = "9014 ÉoÉCÉg"
+LAA                                = "ÉçÅ[ÉJÉãä«óùÇ≥ÇÍÇÈÉAÉhÉåÉX"
+JumboPacket                        = "ÉWÉÉÉìÉ{ÉpÉPÉbÉg"
+LogLinkState                       = "ÉäÉìÉNÅEÉXÉeÅ[ÉgÅEÉCÉxÉìÉgÇÃÉçÉO"
+Enable_PME                         = "PME ÇÉIÉìÇ…Ç∑ÇÈ"
+ServiceName                        = "ixw"
+Intel                              = "Intel"
+DiskName                           = "Intel(R) PRO/10GbE Driver Disk"
+Service.Displayname                = "Intel(R) PRO/10GbE PCIe-S Network Connection Driver"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+W57B1.Dual.Description             = "Intel(R) Ethernet Controller E610 for 2.5GBASE-T"
+W57B1.Quad.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-IT4 for OCP 3.0"
+W57B1.Quad.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-IT4"
+W57B0.Dual.Description             = "Intel(R) Ethernet Controller E610 for 10GBASE-T"
+W57B0.Dual.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-XT2 for OCP 3.0"
+W57B0.Quad.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-XT4 for OCP 3.0"
+W57B0.Dual.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-XT2"
+W57B0.Quad.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-XT4"
+W57AF.Dual.Description             = "Intel(R) Ethernet Controller E610 for 10GbE SFP+"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.0412] ; Korean (Korea)
+InterruptModeration                = "¿Œ≈Õ∑¥∆Æ ¡∂¿˝"
+InterruptThrottleRate              = "¿Œ≈Õ∑¥∆Æ ¡∂¿˝ ∫Ûµµ"
+Adaptive                           = "¿˚¿¿"
+Extreme                            = "√÷¥Î"
+High                               = "≥Ù¿Ω"
+Medium                             = "¡ﬂ∞£"
+Low                                = "≥∑¿Ω"
+IPChksumOffv4                      = "IPv4 √º≈©º∂ ø¿«¡∑ŒµÂ"
+TCPChksumOffv4                     = "TCP √º≈©º∂ ø¿«¡∑ŒµÂ(IPv4)"
+UDPChksumOffv4                     = "UDP √º≈©º∂ ø¿«¡∑ŒµÂ(IPv4)"
+LsoV2IPv4                          = "¥Î«¸ ¿¸º€ ø¿«¡∑ŒµÂ V2(IPv4)"
+TCPChksumOffv6                     = "TCP √º≈©º∂ ø¿«¡∑ŒµÂ(IPv6)"
+UDPChksumOffv6                     = "UDP √º≈©º∂ ø¿«¡∑ŒµÂ(IPv6)"
+LsoV2IPv6                          = "¥Î«¸ ¿¸º€ ø¿«¡∑ŒµÂ V2(IPv6)"
+ChksumOffTxRx                      = "Rx & Tx »∞º∫»≠µ "
+ChksumOffTx                        = "Tx »∞º∫»≠µ "
+ChksumOffRx                        = "Rx »∞º∫»≠µ "
+TransmitBuffers                    = "¿¸º€ πˆ∆€"
+ReceiveBuffers                     = "ºˆΩ≈ πˆ∆€"
+RSS                                = "ºˆΩ≈√¯ ≈©±‚ ¡∂¡§"
+NumRssQueues2                      = "√÷¥Î RSS ¥Î±‚ø≠ ºˆ"
+1queue                             = "1∞≥¿« ¥Î±‚ø≠"
+2queues                            = "2∞≥¿« ¥Î±‚ø≠"
+4queues                            = "4∞≥¿« ¥Î±‚ø≠"
+8queues                            = "8∞≥¿« ¥Î±‚ø≠"
+16queues                           = "16∞≥¿« ¥Î±‚ø≠"
+FlowControl                        = "»Â∏ß ¡¶æÓ"
+FlowControl_RxOnly                 = "Rx »∞º∫»≠µ "
+FlowControl_TxOnly                 = "Tx »∞º∫»≠µ "
+FlowControl_Full                   = "Rx & Tx »∞º∫»≠µ "
+PriorityVLANTag2                   = "∆–≈∂ øÏº±º¯¿ß π◊ VLAN"
+PriorityVlanDisabled2              = "∆–≈∂ øÏº±º¯¿ß π◊ VLAN ∫Ò»∞º∫»≠µ "
+PriorityEnabled2                   = "∆–≈∂ øÏº±º¯¿ß »∞º∫»≠µ "
+PriorityVlanEnabled2               = "∆–≈∂ øÏº±º¯¿ß π◊ VLAN »∞º∫»≠µ "
+VlanEnabled                        = "VLAN »∞º∫»≠µ "
+SpeedDuplex                        = "º”µµ π◊ ¿Ã¡ﬂ"
+AutoNegotiation                    = "¿⁄µø «˘ªÛ"
+100Mb_Full_Duplex                  = "100 Mbps ¿¸¿Ã¡ﬂ"
+1000Mb_Full_Duplex                 = "1.0 Gbps ¿¸¿Ã¡ﬂ"
+2.5Gb_Full_Duplex                  = "2.5 Gbps ¿¸¿Ã¡ﬂ"
+5Gb_Full_Duplex                    = "5 Gbps ¿¸¿Ã¡ﬂ"
+10Gb_Full_Duplex                   = "10 Gbps ¿¸¿Ã¡ﬂ"
+Off                                = "ø¿«¡"
+Enabled                            = "»∞º∫»≠µ "
+Disabled                           = "∫Ò»∞º∫»≠µ "
+Bytes4088                          = "4088πŸ¿Ã∆Æ"
+Bytes9014                          = "9014πŸ¿Ã∆Æ"
+LAA                                = "∑Œƒ√ ∞¸∏Æ ¡÷º“"
+JumboPacket                        = "¡°∫∏ ∆–≈∂"
+LogLinkState                       = "∏µ≈© ªÛ≈¬ ¿Ã∫•∆Æ ±‚∑œ"
+Enable_PME                         = "PME »∞º∫»≠"
+ServiceName                        = "ixw"
+Intel                              = "Intel"
+DiskName                           = "Intel(R) PRO/10GbE Driver Disk"
+Service.Displayname                = "Intel(R) PRO/10GbE PCIe-S Network Connection Driver"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+W57B1.Dual.Description             = "Intel(R) Ethernet Controller E610 for 2.5GBASE-T"
+W57B1.Quad.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-IT4 for OCP 3.0"
+W57B1.Quad.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-IT4"
+W57B0.Dual.Description             = "Intel(R) Ethernet Controller E610 for 10GBASE-T"
+W57B0.Dual.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-XT2 for OCP 3.0"
+W57B0.Quad.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-XT4 for OCP 3.0"
+W57B0.Dual.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-XT2"
+W57B0.Quad.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-XT4"
+W57AF.Dual.Description             = "Intel(R) Ethernet Controller E610 for 10GbE SFP+"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.0416] ; Portuguese (Brazil)
+InterruptModeration                = "ModeraÁ„o de interrupÁıes"
+InterruptThrottleRate              = "Taxa de moderaÁ„o de interrupÁıes"
+Adaptive                           = "Adaptativa"
+Extreme                            = "Extremo"
+High                               = "Alto"
+Medium                             = "MÈdio"
+Low                                = "Baixo"
+IPChksumOffv4                      = "Descarga de soma de verificaÁ„o IPv4"
+TCPChksumOffv4                     = "Descarga de soma de verificaÁ„o de TCP (IPv4)"
+UDPChksumOffv4                     = "Descarga de soma de verificaÁ„o UDP (IPv4)"
+LsoV2IPv4                          = "Descarga de envio grande V2 (IPv4)"
+TCPChksumOffv6                     = "Descarga de soma de verificaÁ„o de TCP (IPv6)"
+UDPChksumOffv6                     = "Descarga de soma de verificaÁ„o UDP (IPv6)"
+LsoV2IPv6                          = "Descarga de envio grande V2 (IPv6)"
+ChksumOffTxRx                      = "Rx e Tx habilitadas"
+ChksumOffTx                        = "Tx habilitada"
+ChksumOffRx                        = "Rx habilitada"
+TransmitBuffers                    = "Buffers de transmiss„o"
+ReceiveBuffers                     = "Buffers de recepÁ„o"
+RSS                                = "Escala de recepÁ„o"
+NumRssQueues2                      = "N∫ m·x. de filas de RSS"
+1queue                             = "1 fila"
+2queues                            = "2 filas"
+4queues                            = "4 filas"
+8queues                            = "8 filas"
+16queues                           = "16 filas"
+FlowControl                        = "Controle de fluxo"
+FlowControl_RxOnly                 = "Rx habilitada"
+FlowControl_TxOnly                 = "Tx habilitada"
+FlowControl_Full                   = "Rx e Tx habilitadas"
+PriorityVLANTag2                   = "Prioridade de pacotes e VLAN"
+PriorityVlanDisabled2              = "Prioridade de pacotes e VLAN desabilitadas"
+PriorityEnabled2                   = "Prioridade de pacotes habilitada"
+PriorityVlanEnabled2               = "Prioridade de pacotes e VLAN habilitadas"
+VlanEnabled                        = "VLAN habilitada"
+SpeedDuplex                        = "Velocidade e duplex"
+AutoNegotiation                    = "NegociaÁ„o autom·tica"
+100Mb_Full_Duplex                  = "100 Mbps Full duplex"
+1000Mb_Full_Duplex                 = "1,0 Gbps/Full duplex"
+2.5Gb_Full_Duplex                  = "2,5 Gbps - Full Duplex"
+5Gb_Full_Duplex                    = "5 Gbps - Full Duplex"
+10Gb_Full_Duplex                   = "Full-duplex de 10 Gbps"
+Off                                = "Desligado"
+Enabled                            = "Habilitado"
+Disabled                           = "Desabilitado"
+Bytes4088                          = "4088 Bytes"
+Bytes9014                          = "9014 Bytes"
+LAA                                = "EndereÁo administrado localmente (LAA)"
+JumboPacket                        = "Pacote grande"
+LogLinkState                       = "Evento de estado de link de registro"
+Enable_PME                         = "Habilitar PME"
+ServiceName                        = "ixw"
+Intel                              = "Intel"
+DiskName                           = "Intel(R) PRO/10GbE Driver Disk"
+Service.Displayname                = "Intel(R) PRO/10GbE PCIe-S Network Connection Driver"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+W57B1.Dual.Description             = "Intel(R) Ethernet Controller E610 for 2.5GBASE-T"
+W57B1.Quad.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-IT4 for OCP 3.0"
+W57B1.Quad.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-IT4"
+W57B0.Dual.Description             = "Intel(R) Ethernet Controller E610 for 10GBASE-T"
+W57B0.Dual.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-XT2 for OCP 3.0"
+W57B0.Quad.OCP.Description         = "Intel(R) Ethernet Network Adapter E610-XT4 for OCP 3.0"
+W57B0.Dual.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-XT2"
+W57B0.Quad.Pond.Description        = "Intel(R) Ethernet Network Adapter E610-XT4"
+W57AF.Dual.Description             = "Intel(R) Ethernet Controller E610 for 10GbE SFP+"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+
+

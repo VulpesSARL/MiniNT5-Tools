@@ -1,0 +1,1 @@
+start "" "%systemroot%\VulpesWindowsActivator.exe" /register

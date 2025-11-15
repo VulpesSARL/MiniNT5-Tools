@@ -46,7 +46,7 @@ namespace FoxMultiWIM
             {
                 ListViewItem li = new ListViewItem(l.ImageIndex.ToString ());
                 li.Tag = l.ImageIndex;
-                li.SubItems.Add(l.ImageDescription);
+                li.SubItems.Add(l.ImageName);
                 li.SubItems.Add(Fox.FoxCWrapperDISM.DISMDecodeArchitecture(l.Architecture));
                 li.SubItems.Add(l.Language.Count > 0 ? l.Language[0] : "");
                 lstEditions.Items.Add(li);

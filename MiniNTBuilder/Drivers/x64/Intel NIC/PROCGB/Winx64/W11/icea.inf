@@ -1,0 +1,2132 @@
+;*******************************************************************************
+;**                                                                           **
+;**                   Copyright (C) 2019 Intel Corporation                    **
+;**                                                                           **
+;**  The material contained or described herein and all documents related     **
+;**  to such material ("Material") are owned by Intel Corporation or its      **
+;**  suppliers or licensors. Title to the Material remains with Intel         **
+;**  Corporation or its suppliers and licensors. The Material contains trade  **
+;**  secrets and proprietary and confidential information of Intel or its     **
+;**  suppliers and licensors. The Material is protected by worldwide          **
+;**  copyright and trade secret laws and treaty provisions. No part of the    **
+;**  Material may be used, copied, reproduced, modified, published,           **
+;**  uploaded, posted, transmitted, distributed, or disclosed in any way      **
+;**  without Intel's prior express written permission.                        **
+;**                                                                           **
+;**  No license under any patent, copyright, trade secret or other            **
+;**  intellectual property right is granted to or conferred upon you by       **
+;**  disclosure or delivery of the Materials, either expressly, by            **
+;**  implication, inducement, estoppel or otherwise. Any license under such   **
+;**  intellectual property rights must be express and approved by Intel in    **
+;**  writing.                                                                 **
+;**                                                                           **
+;*******************************************************************************
+;
+;*******************************************************************************
+; INF for Intel(R) 100 Gigabit PCIe Network Adapters
+;*******************************************************************************
+;
+[Version]
+Signature   = "$Windows NT$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %Intel%
+CatalogFile = icea.cat
+DriverVer   = 07/20/2025,1.18.71.0
+PnpLockdown = 1
+
+[Manufacturer]
+%Intel% = Intel, NTamd64.10.0...22000
+
+[Intel]
+
+[Intel.NTamd64.10.0...22000]
+; DisplayName                         Section       DeviceID
+; -----------                         -------       --------
+%F1593.Generic.Description%         = F1593PM,      PCI\VEN_8086&DEV_1593
+%F1593.25G.Quad.Description%        = F1593SFP25,   PCI\VEN_8086&DEV_1593&SUBSYS_00058086
+%F1593.25G.Quad.Description%        = F1593SFP25,   PCI\VEN_8086&DEV_1593&SUBSYS_00078086
+%F1593.25G.Quad.Description%        = F1593SFP25,   PCI\VEN_8086&DEV_1593&SUBSYS_40108086
+%F1593.25G.Quad.Dell.Description%   = F1593SFP28,   PCI\VEN_8086&DEV_1593&SUBSYS_000A8086
+%F1593.25G.Quad.Dell.Description%   = F1593SFP28,   PCI\VEN_8086&DEV_1593&SUBSYS_00128086
+%F1593.QSFP.OCP.Description%        = F1593PM,      PCI\VEN_8086&DEV_1593&SUBSYS_40138086
+%F1593.QSFP.OCP.Description%        = F1593PM,      PCI\VEN_8086&DEV_1593&SUBSYS_000C8086
+%F1593.QSFP.OCP.Description%        = F1593PM,      PCI\VEN_8086&DEV_1593&SUBSYS_401C8086
+%F1593.25G.QSFP.OCP.Description%    = F1593PM,      PCI\VEN_8086&DEV_1593&SUBSYS_000D8086
+%F159B.25G.Dual.Description%        = F159BSFP28PM, PCI\VEN_8086&DEV_159B&SUBSYS_00058086
+%F159B.25G.Dual.Description%        = F159BSFP28PM, PCI\VEN_8086&DEV_159B&SUBSYS_40028086
+%F159B.25G.Dual.Description%        = F159BSFP28PM, PCI\VEN_8086&DEV_159B&SUBSYS_40158086
+%F159B.25G.OCP.Dual.SD.Description% = F159BSFP28,   PCI\VEN_8086&DEV_159B&SUBSYS_00028086
+%F159B.25G.OCP.Dual.Description%    = F159BSFP28PM, PCI\VEN_8086&DEV_159B&SUBSYS_00018086
+%F159B.25G.Dual.CC.Description%     = F159BSFP28,   PCI\VEN_8086&DEV_159B&SUBSYS_00038086
+%F1599.Generic.Description%         = F1599PM,      PCI\VEN_8086&DEV_1599
+%F1599.Dual.Description%            = F1599PM,      PCI\VEN_8086&DEV_1599&SUBSYS_00018086
+%F159B.Generic.Description%         = F159BPM,      PCI\VEN_8086&DEV_159B
+
+[NO_DRV]
+Characteristics = 0x01
+Include         = machine.inf
+Needs           = NO_DRV
+
+[NO_DRV.Services]
+Include = machine.inf
+Needs   = NO_DRV.Services
+
+; ------------------------------------------------------
+; Intel(R) 100 Gigabit Controller
+; ------------------------------------------------------
+[F1591PM]
+Characteristics     = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType             = 5 ; PCI
+Port1FunctionNumber = 0
+DelReg              = Advanced.DelReg
+Delreg              = Timestamp.Delreg
+DelReg              = SpdDuplex.DelRegBP
+AddReg              = Default.reg, RSS.reg, VLANID.reg, Uninstall.reg
+AddReg              = RDMA.reg, ENCAP.reg, Uso.reg, Timestamp.reg
+AddReg              = QOS.reg
+Addreg              = Powermgmt.reg
+AddReg              = CoInKPM.reg
+CopyFiles           = CopyFiles, MessageDll.CopyFiles
+*IfType             = 6     ; IF_TYPE_ETHERNET_CSMACD
+*MediaType          = 0     ; NdisMedium802_3
+*PhysicalMediaType  = 14    ; NdisPhysicalMedium802_3
+
+[F1591PM.Services]
+AddService = %ServiceName%, 2, Service, EventLog
+
+[F1591PM.HW]
+Include = pci.inf
+Needs   = PciIoSpaceNotRequired.HW
+AddReg  = MSI.reg
+
+[F1592]
+Characteristics     = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType             = 5 ; PCI
+Port1FunctionNumber = 0
+DelReg              = Advanced.DelReg
+Delreg              = Timestamp.Delreg
+AddReg              = Default.reg, RSS.reg, VLANID.reg, Uninstall.reg
+AddReg              = RDMA.reg, ENCAP.reg, Uso.reg, Timestamp.reg
+AddReg              = QOS.reg
+Addreg              = 25Gb_50Gb_100Gb_Speed.reg
+AddReg              = CoInK.reg
+CopyFiles           = CopyFiles, MessageDll.CopyFiles
+*IfType             = 6     ; IF_TYPE_ETHERNET_CSMACD
+*MediaType          = 0     ; NdisMedium802_3
+*PhysicalMediaType  = 14    ; NdisPhysicalMedium802_3
+
+[F1592.Services]
+AddService = %ServiceName%, 2, Service, EventLog
+
+[F1592.HW]
+Include = pci.inf
+Needs   = PciIoSpaceNotRequired.HW
+AddReg  = MSI.reg
+
+[F1592PM]
+Characteristics     = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType             = 5 ; PCI
+Port1FunctionNumber = 0
+DelReg              = Advanced.DelReg
+Delreg              = Timestamp.Delreg
+AddReg              = Default.reg, RSS.reg, VLANID.reg, Uninstall.reg
+AddReg              = RDMA.reg, ENCAP.reg, Uso.reg, Timestamp.reg
+AddReg              = QOS.reg
+Addreg              = Powermgmt.reg
+Addreg              = 10GB_25Gb_50Gb_100Gb_Speed.reg
+AddReg              = CoInKPM.reg
+CopyFiles           = CopyFiles, MessageDll.CopyFiles
+*IfType             = 6     ; IF_TYPE_ETHERNET_CSMACD
+*MediaType          = 0     ; NdisMedium802_3
+*PhysicalMediaType  = 14    ; NdisPhysicalMedium802_3
+
+[F1592PM.Services]
+AddService = %ServiceName%, 2, Service, EventLog
+
+[F1592PM.HW]
+Include = pci.inf
+Needs   = PciIoSpaceNotRequired.HW
+AddReg  = MSI.reg
+
+[F1592PM50G]
+Characteristics     = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType             = 5 ; PCI
+Port1FunctionNumber = 0
+DelReg              = Advanced.DelReg
+Delreg              = Timestamp.Delreg
+AddReg              = Default.reg, RSS.reg, VLANID.reg, Uninstall.reg
+AddReg              = RDMA.reg, ENCAP.reg, Uso.reg, Timestamp.reg
+AddReg              = QOS.reg
+Addreg              = Powermgmt.reg
+Addreg              = 10GB_25Gb_50Gb_Speed.reg
+AddReg              = CoInKPM.reg
+CopyFiles           = CopyFiles, MessageDll.CopyFiles
+*IfType             = 6     ; IF_TYPE_ETHERNET_CSMACD
+*MediaType          = 0     ; NdisMedium802_3
+*PhysicalMediaType  = 14    ; NdisPhysicalMedium802_3
+
+[F1592PM50G.Services]
+AddService = %ServiceName%, 2, Service, EventLog
+
+[F1592PM50G.HW]
+Include = pci.inf
+Needs   = PciIoSpaceNotRequired.HW
+AddReg  = MSI.reg
+
+[F1593PM]
+Characteristics     = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType             = 5 ; PCI
+Port1FunctionNumber = 0
+DelReg              = Advanced.DelReg
+Delreg              = Timestamp.Delreg
+AddReg              = Default.reg, RSS.reg, VLANID.reg, Uninstall.reg
+AddReg              = RDMA.reg, ENCAP.reg, Uso.reg, Timestamp.reg
+AddReg              = QOS.reg
+Addreg              = Powermgmt.reg
+Addreg              = 1Gb_10Gb_25Gb_Speed.reg
+AddReg              = CoInKPM.reg
+CopyFiles           = CopyFiles, MessageDll.CopyFiles
+*IfType             = 6     ; IF_TYPE_ETHERNET_CSMACD
+*MediaType          = 0     ; NdisMedium802_3
+*PhysicalMediaType  = 14    ; NdisPhysicalMedium802_3
+
+[F1593PM.Services]
+AddService = %ServiceName%, 2, Service, EventLog
+
+[F1593PM.HW]
+Include = pci.inf
+Needs   = PciIoSpaceNotRequired.HW
+AddReg  = MSI.reg
+
+[F1593SFP25]
+Characteristics     = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType             = 5 ; PCI
+Port1FunctionNumber = 0
+DelReg              = Advanced.DelReg
+Delreg              = Timestamp.Delreg
+AddReg              = Default.reg, RSS.reg, VLANID.reg, Uninstall.reg
+AddReg              = RDMA.reg, ENCAP.reg, Uso.reg, Timestamp.reg
+AddReg              = QOS.reg
+Addreg              = 1Gb_10Gb_25Gb_Speed.reg
+AddReg              = CoInK.reg
+CopyFiles           = CopyFiles, MessageDll.CopyFiles
+*IfType             = 6     ; IF_TYPE_ETHERNET_CSMACD
+*MediaType          = 0     ; NdisMedium802_3
+*PhysicalMediaType  = 14    ; NdisPhysicalMedium802_3
+
+[F1593SFP25.Services]
+AddService = %ServiceName%, 2, Service, EventLog
+
+[F1593SFP25.HW]
+Include = pci.inf
+Needs   = PciIoSpaceNotRequired.HW
+AddReg  = MSI.reg
+
+[F1593SFP28]
+Characteristics     = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType             = 5 ; PCI
+Port1FunctionNumber = 0
+DelReg              = Advanced.DelReg
+Delreg              = Timestamp.Delreg
+AddReg              = Default.reg, RSS.reg, VLANID.reg, Uninstall.reg
+AddReg              = RDMA.reg, ENCAP.reg, Uso.reg, Timestamp.reg
+AddReg              = QOS.reg
+Addreg              = 1Gb_10Gb_25Gb_Speed.reg
+AddReg              = CoInK.reg
+CopyFiles           = CopyFiles, MessageDll.CopyFiles
+*IfType             = 6     ; IF_TYPE_ETHERNET_CSMACD
+*MediaType          = 0     ; NdisMedium802_3
+*PhysicalMediaType  = 14    ; NdisPhysicalMedium802_3
+
+[F1593SFP28.Services]
+AddService = %ServiceName%, 2, Service, EventLog
+
+[F1593SFP28.HW]
+Include = pci.inf
+Needs   = PciIoSpaceNotRequired.HW
+AddReg  = MSI.reg
+
+[F159BSFP28PM]
+Characteristics     = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType             = 5 ; PCI
+Port1FunctionNumber = 0
+DelReg              = Advanced.DelReg
+Delreg              = Timestamp.Delreg
+AddReg              = Default.reg, RSS.reg, VLANID.reg, Uninstall.reg
+AddReg              = RDMA.reg, ENCAP.reg, Uso.reg, Timestamp.reg
+AddReg              = QOS.reg
+Addreg              = Powermgmt.reg
+Addreg              = 1Gb_10Gb_25Gb_Speed.reg
+AddReg              = CoInKPM.reg
+CopyFiles           = CopyFiles, MessageDll.CopyFiles
+*IfType             = 6     ; IF_TYPE_ETHERNET_CSMACD
+*MediaType          = 0     ; NdisMedium802_3
+*PhysicalMediaType  = 14    ; NdisPhysicalMedium802_3
+
+[F159BSFP28PM.Services]
+AddService = %ServiceName%, 2, Service, EventLog
+
+[F159BSFP28PM.HW]
+Include = pci.inf
+Needs   = PciIoSpaceNotRequired.HW
+AddReg  = MSI.reg
+
+[F159BSFP28]
+Characteristics     = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType             = 5 ; PCI
+Port1FunctionNumber = 0
+DelReg              = Advanced.DelReg
+Delreg              = Timestamp.Delreg
+AddReg              = Default.reg, RSS.reg, VLANID.reg, Uninstall.reg
+AddReg              = RDMA.reg, ENCAP.reg, Uso.reg, Timestamp.reg
+AddReg              = QOS.reg
+Addreg              = 1Gb_10Gb_25Gb_Speed.reg
+AddReg              = CoInK.reg
+CopyFiles           = CopyFiles, MessageDll.CopyFiles
+*IfType             = 6     ; IF_TYPE_ETHERNET_CSMACD
+*MediaType          = 0     ; NdisMedium802_3
+*PhysicalMediaType  = 14    ; NdisPhysicalMedium802_3
+
+[F159BSFP28.Services]
+AddService = %ServiceName%, 2, Service, EventLog
+
+[F159BSFP28.HW]
+Include = pci.inf
+Needs   = PciIoSpaceNotRequired.HW
+AddReg  = MSI.reg
+
+[F1598PM]
+Characteristics     = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType             = 5 ; PCI
+Port1FunctionNumber = 0
+DelReg              = Advanced.DelReg
+Delreg              = Timestamp.Delreg
+AddReg              = Default.reg, RSS.reg, VLANID.reg, Uninstall.reg
+AddReg              = RDMA.reg, ENCAP.reg, Uso.reg, Timestamp.reg
+AddReg              = QOS.reg
+Addreg              = Powermgmt.reg
+Addreg              = 1Gb_10Gb_25Gb_50Gb_100Gb_Speed.reg
+AddReg              = CoInKPM.reg
+CopyFiles           = CopyFiles, MessageDll.CopyFiles
+*IfType             = 6     ; IF_TYPE_ETHERNET_CSMACD
+*MediaType          = 0     ; NdisMedium802_3
+*PhysicalMediaType  = 14    ; NdisPhysicalMedium802_3
+
+[F1598PM.Services]
+AddService = %ServiceName%, 2, Service, EventLog
+
+[F1598PM.HW]
+Include = pci.inf
+Needs   = PciIoSpaceNotRequired.HW
+AddReg  = MSI.reg
+
+[F1599PM]
+Characteristics     = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType             = 5 ; PCI
+Port1FunctionNumber = 0
+DelReg              = Advanced.DelReg
+Delreg              = Timestamp.Delreg
+AddReg              = Default.reg, RSS.reg, VLANID.reg, Uninstall.reg
+AddReg              = RDMA.reg, ENCAP.reg, Uso.reg, Timestamp.reg
+AddReg              = QOS.reg
+Addreg              = Powermgmt.reg
+AddReg              = CoInKPM.reg
+CopyFiles           = CopyFiles, MessageDll.CopyFiles
+*IfType             = 6     ; IF_TYPE_ETHERNET_CSMACD
+*MediaType          = 0     ; NdisMedium802_3
+*PhysicalMediaType  = 14    ; NdisPhysicalMedium802_3
+
+[F1599PM.Services]
+AddService = %ServiceName%, 2, Service, EventLog
+
+[F1599PM.HW]
+Include = pci.inf
+Needs   = PciIoSpaceNotRequired.HW
+AddReg  = MSI.reg
+
+[F159APM]
+Characteristics     = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType             = 5 ; PCI
+Port1FunctionNumber = 0
+DelReg              = Advanced.DelReg
+Delreg              = Timestamp.Delreg
+AddReg              = Default.reg, RSS.reg, VLANID.reg, Uninstall.reg
+AddReg              = RDMA.reg, ENCAP.reg, Uso.reg, Timestamp.reg
+AddReg              = QOS.reg
+Addreg              = Powermgmt.reg
+Addreg              = 10GB_25Gb_50Gb_Speed.reg
+AddReg              = CoInKPM.reg
+CopyFiles           = CopyFiles, MessageDll.CopyFiles
+*IfType             = 6     ; IF_TYPE_ETHERNET_CSMACD
+*MediaType          = 0     ; NdisMedium802_3
+*PhysicalMediaType  = 14    ; NdisPhysicalMedium802_3
+
+[F159APM.Services]
+AddService = %ServiceName%, 2, Service, EventLog
+
+[F159APM.HW]
+Include = pci.inf
+Needs   = PciIoSpaceNotRequired.HW
+AddReg  = MSI.reg
+
+[F159BPM]
+Characteristics     = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType             = 5 ; PCI
+Port1FunctionNumber = 0
+DelReg              = Advanced.DelReg
+Delreg              = Timestamp.Delreg
+AddReg              = Default.reg, RSS.reg, VLANID.reg, Uninstall.reg
+AddReg              = RDMA.reg, ENCAP.reg, Uso.reg, Timestamp.reg
+AddReg              = QOS.reg
+Addreg              = Powermgmt.reg
+Addreg              = 1Gb_10Gb_25Gb_Speed.reg
+AddReg              = CoInKPM.reg
+CopyFiles           = CopyFiles, MessageDll.CopyFiles
+*IfType             = 6     ; IF_TYPE_ETHERNET_CSMACD
+*MediaType          = 0     ; NdisMedium802_3
+*PhysicalMediaType  = 14    ; NdisPhysicalMedium802_3
+
+[F159BPM.Services]
+AddService = %ServiceName%, 2, Service, EventLog
+
+[F159BPM.HW]
+Include = pci.inf
+Needs   = PciIoSpaceNotRequired.HW
+AddReg  = MSI.reg
+
+[F1593SFP56]
+Characteristics     = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType             = 5 ; PCI
+Port1FunctionNumber = 0
+DelReg              = Advanced.DelReg
+Delreg              = Timestamp.Delreg
+AddReg              = Default.reg, RSS.reg, VLANID.reg, Uninstall.reg
+AddReg              = RDMA.reg, ENCAP.reg, Uso.reg, Timestamp.reg
+AddReg              = QOS.reg
+Addreg              = Powermgmt.reg
+Addreg              = 1Gb_10Gb_25Gb_50Gb_Speed.reg
+AddReg              = CoInKPM.reg
+CopyFiles           = CopyFiles, MessageDll.CopyFiles
+*IfType             = 6     ; IF_TYPE_ETHERNET_CSMACD
+*MediaType          = 0     ; NdisMedium802_3
+*PhysicalMediaType  = 14    ; NdisPhysicalMedium802_3
+
+[F1593SFP56.Services]
+AddService = %ServiceName%, 2, Service, EventLog
+
+[F1593SFP56.HW]
+Include = pci.inf
+Needs   = PciIoSpaceNotRequired.HW
+AddReg  = MSI.reg
+
+;-------------------------------------------------------------------------------
+; Registry Settings
+;-------------------------------------------------------------------------------
+[Default.reg]
+HKR, Ndi\Interfaces,                            UpperRange,             0, "ndis5"
+HKR, Ndi\Interfaces,                            LowerRange,             0, "ethernet"
+HKR, Ndi,                                       Service,                0, %ServiceName%
+HKR, Ndi\Params\*FlowControl,                   ParamDesc,              0, %FlowControl%
+HKR, Ndi\Params\*FlowControl,                   default,                0, "0"
+HKR, Ndi\Params\*FlowControl\Enum,              "0",                    0, %Disabled%
+HKR, Ndi\Params\*FlowControl\Enum,              "1",                    0, %FlowControl_TxOnly%
+HKR, Ndi\Params\*FlowControl\Enum,              "2",                    0, %FlowControl_RxOnly%
+HKR, Ndi\Params\*FlowControl\Enum,              "3",                    0, %FlowControl_Full%
+HKR, Ndi\Params\*FlowControl\Enum,              "4",                    0, %AutoNegotiation%
+HKR, Ndi\Params\*FlowControl,                   type,                   0, "enum"
+
+; *TransmitBuffers
+HKR, Ndi\params\*TransmitBuffers,               ParamDesc,              0, %TransmitBuffers%
+HKR, Ndi\params\*TransmitBuffers,               default,                0, "512"
+HKR, Ndi\params\*TransmitBuffers,               min,                    0, "128"
+HKR, Ndi\params\*TransmitBuffers,               max,                    0, "4096"
+HKR, Ndi\params\*TransmitBuffers,               step,                   0, "64"
+HKR, Ndi\params\*TransmitBuffers,               Base,                   0, "10"
+HKR, Ndi\params\*TransmitBuffers,               type,                   0, "int"
+
+; *ReceiveBuffers
+HKR, Ndi\params\*ReceiveBuffers,                ParamDesc,              0, %ReceiveBuffers%
+HKR, Ndi\params\*ReceiveBuffers,                default,                0, "512"
+HKR, Ndi\params\*ReceiveBuffers,                min,                    0, "128"
+HKR, Ndi\params\*ReceiveBuffers,                max,                    0, "4096"
+HKR, Ndi\params\*ReceiveBuffers,                step,                   0, "64"
+HKR, Ndi\params\*ReceiveBuffers,                Base,                   0, "10"
+HKR, Ndi\params\*ReceiveBuffers,                type,                   0, "int"
+
+; *TCPChecksumOffloadIPv4
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4,        ParamDesc,              0, %TCPChksumOffv4%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4,        default,                0, "3"
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4\Enum,   "0",                    0, %Disabled%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4\Enum,   "1",                    0, %ChksumOffTx%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4\Enum,   "2",                    0, %ChksumOffRx%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4\Enum,   "3",                    0, %ChksumOffTxRx%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4,        type,                   0, "enum"
+
+; Loopback
+HKR, Ndi\Params\Loopback,                       ParamDesc,              0, %Loopback%
+HKR, Ndi\Params\Loopback,                       default,                0, "1"
+HKR, Ndi\Params\Loopback\Enum,                  "0",                    0, %Disabled%
+HKR, Ndi\Params\Loopback\Enum,                  "1",                    0, %Enabled%
+HKR, Ndi\Params\Loopback\Enum,                  "2",                    0, %Prioritized%
+HKR, Ndi\Params\Loopback,                       type,                   0, "enum"
+
+; *TCPChecksumOffloadIPv6
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6,        ParamDesc,              0, %TCPChksumOffv6%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6,        default,                0, "3"
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6\Enum,   "0",                    0, %Disabled%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6\Enum,   "1",                    0, %ChksumOffTx%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6\Enum,   "2",                    0, %ChksumOffRx%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6\Enum,   "3",                    0, %ChksumOffTxRx%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6,        type,                   0, "enum"
+
+; *UDPChecksumOffloadIPv4
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4,        ParamDesc,              0, %UDPChksumOffv4%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4,        default,                0, "3"
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4\Enum,   "0",                    0, %Disabled%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4\Enum,   "1",                    0, %ChksumOffTx%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4\Enum,   "2",                    0, %ChksumOffRx%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4\Enum,   "3",                    0, %ChksumOffTxRx%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4,        type,                   0, "enum"
+
+; *UDPChecksumOffloadIPv6
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6,        ParamDesc,              0, %UDPChksumOffv6%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6,        default,                0, "3"
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6\Enum,   "0",                    0, %Disabled%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6\Enum,   "1",                    0, %ChksumOffTx%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6\Enum,   "2",                    0, %ChksumOffRx%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6\Enum,   "3",                    0, %ChksumOffTxRx%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6,        type,                   0, "enum"
+
+; *IPChecksumOffloadIPv4
+HKR, Ndi\Params\*IPChecksumOffloadIPv4,         ParamDesc,              0, %IPChksumOffv4%
+HKR, Ndi\Params\*IPChecksumOffloadIPv4,         default,                0, "3"
+HKR, Ndi\Params\*IPChecksumOffloadIPv4\Enum,    "0",                    0, %Disabled%
+HKR, Ndi\Params\*IPChecksumOffloadIPv4\Enum,    "1",                    0, %ChksumOffTx%
+HKR, Ndi\Params\*IPChecksumOffloadIPv4\Enum,    "2",                    0, %ChksumOffRx%
+HKR, Ndi\Params\*IPChecksumOffloadIPv4\Enum,    "3",                    0, %ChksumOffTxRx%
+HKR, Ndi\Params\*IPChecksumOffloadIPv4,         type,                   0, "enum"
+
+; Network Address
+HKR, Ndi\params\NetworkAddress,                 ParamDesc,              0, %LAA%
+HKR, Ndi\params\NetworkAddress,                 Default,                0, ""
+HKR, NDI\params\NetworkAddress,                 LimitText,              0, "12"
+HKR, NDI\params\NetworkAddress,                 UpperCase,              0, "1"
+HKR, NDI\params\NetworkAddress,                 optional,               0, "1"
+HKR, Ndi\params\NetworkAddress,                 type,                   0, "edit"
+
+;Log Link State Event
+HKR,Ndi\Params\LogLinkStateEvent,               ParamDesc,              0, %LogLinkState%
+HKR,Ndi\Params\LogLinkStateEvent,               Default,                0, "51"
+HKR,Ndi\Params\LogLinkStateEvent\Enum,          "51",                   0, %Enabled%
+HKR,Ndi\Params\LogLinkStateEvent\Enum,          "16",                   0, %Disabled%
+HKR,Ndi\Params\LogLinkStateEvent,               Type,                   0, "enum"
+HKR,,                                           LogLinkStateEvent,      0, "51"
+HKR,,                                           UniversalInstall,       0x00010001, 1
+HKR,,                                           IceaInstallDir,         0, %13%
+
+; Interrupt Throttle Rate
+HKR, Ndi\Params\ITR,                            ParamDesc,              0, %InterruptThrottleRate%
+HKR, Ndi\Params\ITR,                            default,                0, "65535"
+HKR, Ndi\Params\ITR\Enum,                       "65535",                0, %Adaptive%
+HKR, Ndi\Params\ITR\Enum,                       "2000",                 0, %Extreme%
+HKR, Ndi\Params\ITR\Enum,                       "950",                  0, %High%
+HKR, Ndi\Params\ITR\Enum,                       "488",                  0, %Medium%
+HKR, Ndi\Params\ITR\Enum,                       "200",                  0, %Low%
+HKR, Ndi\Params\ITR\Enum,                       "0",                    0, %Off%
+HKR, Ndi\Params\ITR,                            type,                   0, "enum"
+
+; *PriorityVLANTag
+HKR, Ndi\Params\*PriorityVLANTag,               ParamDesc,              0, %PriorityVLANTag2%
+HKR, Ndi\Params\*PriorityVLANTag,               default,                0, "3"
+HKR, Ndi\Params\*PriorityVLANTag\Enum,          "0",                    0, %PriorityVlanDisabled2%
+HKR, Ndi\Params\*PriorityVLANTag\Enum,          "1",                    0, %PriorityEnabled2%
+HKR, Ndi\Params\*PriorityVLANTag\Enum,          "2",                    0, %VlanEnabled%
+HKR, Ndi\Params\*PriorityVLANTag\Enum,          "3",                    0, %PriorityVlanEnabled2%
+HKR, Ndi\Params\*PriorityVLANTag,               type,                   0, "enum"
+
+; *InterruptModeration
+HKR, Ndi\Params\*InterruptModeration,           ParamDesc,              0, %InterruptModeration%
+HKR, Ndi\Params\*InterruptModeration,           default,                0, "1"
+HKR, Ndi\Params\*InterruptModeration\Enum,      "0",                    0, %Disabled%
+HKR, Ndi\Params\*InterruptModeration\Enum,      "1",                    0, %Enabled%
+HKR, Ndi\Params\*InterruptModeration,           type,                   0, "enum"
+
+; *LsoV2IPv4
+HKR, Ndi\Params\*LsoV2IPv4,                     ParamDesc,              0, %LsoV2IPv4%
+HKR, Ndi\Params\*LsoV2IPv4,                     default,                0, "1"
+HKR, Ndi\Params\*LsoV2IPv4\Enum,                "0",                    0, %Disabled%
+HKR, Ndi\Params\*LsoV2IPv4\Enum,                "1",                    0, %Enabled%
+HKR, Ndi\Params\*LsoV2IPv4,                     type,                   0, "enum"
+
+; *LsoV2IPv6
+HKR, Ndi\Params\*LsoV2IPv6,                     ParamDesc,              0, %LsoV2IPv6%
+HKR, Ndi\Params\*LsoV2IPv6,                     default,                0, "1"
+HKR, Ndi\Params\*LsoV2IPv6\Enum,                "0",                    0, %Disabled%
+HKR, Ndi\Params\*LsoV2IPv6\Enum,                "1",                    0, %Enabled%
+HKR, Ndi\Params\*LsoV2IPv6,                     type,                   0, "enum"
+
+; *JumboPacket
+HKR, Ndi\Params\*JumboPacket,                   ParamDesc,              0, %JumboPacket%
+HKR, Ndi\Params\*JumboPacket,                   default,                0, "1514"
+HKR, Ndi\Params\*JumboPacket\Enum,              "1514",                 0, %Disabled%
+HKR, Ndi\Params\*JumboPacket\Enum,              "4088",                 0, %Bytes4088%
+HKR, Ndi\Params\*JumboPacket\Enum,              "9014",                 0, %Bytes9014%
+HKR, Ndi\Params\*JumboPacket,                   type,                   0, "enum"
+
+; LinkOnIntDown
+HKR, Ndi\Params\LinkOnIntDown,                  ParamDesc,              0, %LinkOnIntDown%
+HKR, Ndi\Params\LinkOnIntDown,                  default,                0, "1"
+HKR, Ndi\Params\LinkOnIntDown\Enum,             "0",                    0, %Disabled%
+HKR, Ndi\Params\LinkOnIntDown\Enum,             "1",                    0, %Enabled%
+HKR, Ndi\Params\LinkOnIntDown,                  type,                   0, "enum"
+
+; AllowNoFECModulesInAuto
+HKR,Ndi\Params\AllowNoFECModulesInAuto,         ParamDesc,              0, %AllowNoFECModulesInAuto%
+HKR,Ndi\Params\AllowNoFECModulesInAuto,         Default,                0, "0"
+HKR,Ndi\Params\AllowNoFECModulesInAuto\Enum,    "1",                    0, %Enabled%
+HKR,Ndi\Params\AllowNoFECModulesInAuto\Enum,    "0",                    0, %Disabled%
+HKR,Ndi\Params\AllowNoFECModulesInAuto,         Type,                   0, "enum"
+
+; QSFP Link Speeds
+[25Gb_50Gb_100Gb_Speed.reg]
+HKR, Ndi\params\*SpeedDuplex,                   ParamDesc,              0, %SpeedDuplex%
+HKR, Ndi\params\*SpeedDuplex,                   default,                0, "0"
+HKR, Ndi\params\*SpeedDuplex\enum,              "0",                    0, %AutoNegotiation%
+HKR, Ndi\params\*SpeedDuplex\enum,              "25000",                0, %25Gb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex\enum,              "50000",                0, %50Gb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex\enum,              "10",                   0, %100Gb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex,                   type,                   0, "enum"
+
+; QSFP Link Speeds
+[10GB_25Gb_50Gb_100Gb_Speed.reg]
+HKR, Ndi\params\*SpeedDuplex,                   ParamDesc,              0, %SpeedDuplex%
+HKR, Ndi\params\*SpeedDuplex,                   default,                0, "0"
+HKR, Ndi\params\*SpeedDuplex\enum,              "0",                    0, %AutoNegotiation%
+HKR, Ndi\params\*SpeedDuplex\enum,              "7",                    0, %10Gb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex\enum,              "25000",                0, %25Gb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex\enum,              "50000",                0, %50Gb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex\enum,              "10",                   0, %100Gb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex,                   type,                   0, "enum"
+
+; QSFP Link Speeds
+[10GB_25Gb_50Gb_Speed.reg]
+HKR, Ndi\params\*SpeedDuplex,                   ParamDesc,              0, %SpeedDuplex%
+HKR, Ndi\params\*SpeedDuplex,                   default,                0, "0"
+HKR, Ndi\params\*SpeedDuplex\enum,              "0",                    0, %AutoNegotiation%
+HKR, Ndi\params\*SpeedDuplex\enum,              "7",                    0, %10Gb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex\enum,              "25000",                0, %25Gb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex\enum,              "50000",                0, %50Gb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex,                   type,                   0, "enum"
+
+; 100GB SFP Link Speeds
+[1Gb_10Gb_25Gb_50Gb_100Gb_Speed.reg]
+HKR, Ndi\params\*SpeedDuplex,                   ParamDesc,              0, %SpeedDuplex%
+HKR, Ndi\params\*SpeedDuplex,                   default,                0, "0"
+HKR, Ndi\params\*SpeedDuplex\enum,              "0",                    0, %AutoNegotiation%
+HKR, Ndi\params\*SpeedDuplex\enum,              "6",                    0, %1000Mb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex\enum,              "7",                    0, %10Gb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex\enum,              "25000",                0, %25Gb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex\enum,              "50000",                0, %50Gb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex\enum,              "10",                   0, %100Gb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex,                   type,                   0, "enum"
+
+; SFP Link Speeds
+[1Gb_10Gb_25Gb_50Gb_Speed.reg]
+HKR, Ndi\params\*SpeedDuplex,                   ParamDesc,              0, %SpeedDuplex%
+HKR, Ndi\params\*SpeedDuplex,                   default,                0, "0"
+HKR, Ndi\params\*SpeedDuplex\enum,              "0",                    0, %AutoNegotiation%
+HKR, Ndi\params\*SpeedDuplex\enum,              "6",                    0, %1000Mb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex\enum,              "7",                    0, %10Gb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex\enum,              "25000",                0, %25Gb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex\enum,              "50000",                0, %50Gb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex,                   type,                   0, "enum"
+
+; 25G SFP Link Speeds
+[1Gb_10Gb_25Gb_Speed.reg]
+HKR, Ndi\params\*SpeedDuplex,                   ParamDesc,              0, %SpeedDuplex%
+HKR, Ndi\params\*SpeedDuplex,                   default,                0, "0"
+HKR, Ndi\params\*SpeedDuplex\enum,              "0",                    0, %AutoNegotiation%
+HKR, Ndi\params\*SpeedDuplex\enum,              "6",                    0, %1000Mb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex\enum,              "7",                    0, %10Gb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex\enum,              "25000",                0, %25Gb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex,                   type,                   0, "enum"
+
+[RSS.reg]
+; NumRssQueues
+HKR, Ndi\Params\*NumRssQueues,                   ParamDesc,              0, %NumRssQueues2%
+HKR, Ndi\Params\*NumRssQueues,                   default,                0, "16"
+HKR, Ndi\Params\*NumRssQueues\Enum,              "1",                    0, %1queue%
+HKR, Ndi\Params\*NumRssQueues\Enum,              "2",                    0, %2queues%
+HKR, Ndi\Params\*NumRssQueues\Enum,              "4",                    0, %4queues%
+HKR, Ndi\Params\*NumRssQueues\Enum,              "8",                    0, %8queues%
+HKR, Ndi\Params\*NumRssQueues\Enum,              "16",                   0, %16queues%
+HKR, Ndi\Params\*NumRssQueues\Enum,              "32",                   0, %32queues%
+HKR, Ndi\Params\*NumRssQueues\Enum,              "64",                   0, %64queues%
+HKR, Ndi\Params\*NumRssQueues,                   type,                   0, "enum"
+
+; MaxNumRssQueuesPerVPort
+HKR, Ndi\params\MaxNumRssQueuesPerVPort,           ParamDesc,              0, %MaxNumRssQueuesPerVPort%
+HKR, Ndi\params\MaxNumRssQueuesPerVPort,           default,                0, "4"
+HKR, Ndi\params\MaxNumRssQueuesPerVPort\Enum,      "1",                    0, "1"
+HKR, Ndi\params\MaxNumRssQueuesPerVPort\Enum,      "2",                    0, "2"
+HKR, Ndi\params\MaxNumRssQueuesPerVPort\Enum,      "4",                    0, "4"
+HKR, Ndi\params\MaxNumRssQueuesPerVPort\Enum,      "8",                    0, "8"
+HKR, Ndi\params\MaxNumRssQueuesPerVPort\Enum,      "16",                   0, "16"
+HKR, Ndi\params\MaxNumRssQueuesPerVPort,           type,                   0, "enum"
+
+; *RSS
+HKR, Ndi\Params\*RSS,                           ParamDesc,              0, %RSS%
+HKR, Ndi\Params\*RSS,                           default,                0, "1"
+HKR, Ndi\Params\*RSS\Enum,                      "0",                    0, %Disabled%
+HKR, Ndi\Params\*RSS\Enum,                      "1",                    0, %Enabled%
+HKR, Ndi\Params\*RSS,                           type,                   0, "enum"
+
+; *RssBaseProcNumber
+HKR, Ndi\params\*RssBaseProcNumber,             ParamDesc,              0, %RssBaseProcNumber%
+HKR, Ndi\params\*RssBaseProcNumber,             default,                0, "0"
+HKR, Ndi\params\*RssBaseProcNumber,             min,                    0, "0"
+HKR, Ndi\params\*RssBaseProcNumber,             max,                    0, "63"
+HKR, Ndi\params\*RssBaseProcNumber,             step,                   0, "1"
+HKR, Ndi\params\*RssBaseProcNumber,             Optional,               0, "0"
+HKR, Ndi\params\*RssBaseProcNumber,             type,                   0, "int"
+
+; *NumaNodeId
+HKR, Ndi\params\*NumaNodeId,                    ParamDesc,              0, %NumaNodeId%
+HKR, Ndi\params\*NumaNodeId,                    default,                0, "65535"
+HKR, Ndi\params\*NumaNodeId,                    min,                    0, "0"
+HKR, Ndi\params\*NumaNodeId,                    max,                    0, "65535"
+HKR, Ndi\params\*NumaNodeId,                    step,                   0, "1"
+HKR, Ndi\params\*NumaNodeId,                    type,                   0, "dword"
+
+; *MaxRssProcessors
+HKR, Ndi\params\*MaxRssProcessors,              ParamDesc,              0, %MaxRssProcessors%
+HKR, Ndi\params\*MaxRssProcessors,              default,                0, "32"
+HKR, Ndi\params\*MaxRssProcessors\Enum,         "1",                    0, "1"
+HKR, Ndi\params\*MaxRssProcessors\Enum,         "2",                    0, "2"
+HKR, Ndi\params\*MaxRssProcessors\Enum,         "4",                    0, "4"
+HKR, Ndi\params\*MaxRssProcessors\Enum,         "8",                    0, "8"
+HKR, Ndi\params\*MaxRssProcessors\Enum,         "16",                   0, "16"
+HKR, Ndi\params\*MaxRssProcessors\Enum,         "32",                   0, "32"
+HKR, Ndi\params\*MaxRssProcessors\Enum,         "64",                   0, "64"
+HKR, Ndi\params\*MaxRssProcessors,              type,                   0, "enum"
+
+[QOS.reg]
+; *QOS
+HKR, Ndi\Params\*QOS,                           ParamDesc,              0, %QOS_WS2019_22%
+HKR, Ndi\Params\*QOS,                           default,                0, "1"
+HKR, Ndi\Params\*QOS\Enum,                      "0",                    0, %Disabled%
+HKR, Ndi\Params\*QOS\Enum,                      "1",                    0, %Enabled%
+HKR, Ndi\Params\*QOS,                           type,                   0, "enum"
+
+[ENCAP.reg]
+; *EncapsulatedTaskOffload
+HKR, Ndi\Params\*EncapsulatedPacketTaskOffload, ParamDesc,              0, %Encap%
+HKR, Ndi\Params\*EncapsulatedPacketTaskOffload, default,                0, "1"
+HKR, Ndi\Params\*EncapsulatedPacketTaskOffload\Enum, "0",               0, %Disabled%
+HKR, Ndi\Params\*EncapsulatedPacketTaskOffload\Enum, "1",               0, %Enabled%
+HKR, Ndi\Params\*EncapsulatedPacketTaskOffload, type,                   0, "enum"
+
+; *EncapsulatedTaskOffloadNvgre
+HKR, Ndi\Params\*EncapsulatedPacketTaskOffloadNvgre, ParamDesc,         0, %EncapNvgre%
+HKR, Ndi\Params\*EncapsulatedPacketTaskOffloadNvgre, default,           0, "1"
+HKR, Ndi\Params\*EncapsulatedPacketTaskOffloadNvgre\Enum, "0",          0, %Disabled%
+HKR, Ndi\Params\*EncapsulatedPacketTaskOffloadNvgre\Enum, "1",          0, %Enabled%
+HKR, Ndi\Params\*EncapsulatedPacketTaskOffloadNvgre, type,              0, "enum"
+
+; *EncapsulatedTaskOffloadVxlan
+HKR, Ndi\Params\*EncapsulatedPacketTaskOffloadVxlan, ParamDesc,         0, %EncapVxlan%
+HKR, Ndi\Params\*EncapsulatedPacketTaskOffloadVxlan, default,           0, "1"
+HKR, Ndi\Params\*EncapsulatedPacketTaskOffloadVxlan\Enum, "0",          0, %Disabled%
+HKR, Ndi\Params\*EncapsulatedPacketTaskOffloadVxlan\Enum, "1",          0, %Enabled%
+HKR, Ndi\Params\*EncapsulatedPacketTaskOffloadVxlan, type,              0, "enum"
+
+; *VxlanUDPPortNumber
+HKR, Ndi\Params\*VxlanUDPPortNumber, ParamDesc,                         0, %VxlanUdpPort%
+HKR, Ndi\Params\*VxlanUDPPortNumber, default,                           0, "4789"
+HKR, Ndi\Params\*VxlanUDPPortNumber, min,                               0, "1"
+HKR, Ndi\Params\*VxlanUDPPortNumber, max,                               0, "65535"
+HKR, Ndi\Params\*VxlanUDPPortNumber, step,                              0, "1"
+HKR, Ndi\Params\*VxlanUDPPortNumber, Optional,                          0, "0"
+HKR, Ndi\Params\*VxlanUDPPortNumber, type,                              0, "dword"
+
+; *EncapOverhead
+HKR, Ndi\Params\*EncapOverhead, ParamDesc,                              0, %EncapOverhead%
+HKR, Ndi\Params\*EncapOverhead, default,                                0, "0"
+HKR, Ndi\Params\*EncapOverhead, min,                                    0, "0"
+HKR, Ndi\Params\*EncapOverhead, max,                                    0, "256"
+HKR, Ndi\Params\*EncapOverhead, base,                                   0, "10"
+HKR, Ndi\Params\*EncapOverhead, step,                                   0, "32"
+HKR, Ndi\Params\*EncapOverhead, type,                                   0, "int"
+
+; VlanId
+[VLANID.reg]
+HKR, Ndi\params\VlanId,                         ParamDesc,              0, %VlanID%
+HKR, Ndi\params\VlanId,                         default,                0, "0"
+HKR, Ndi\params\VlanId,                         min,                    0, "0"
+HKR, Ndi\params\VlanId,                         max,                    0, "4094"
+HKR, Ndi\params\VlanId,                         step,                   0, "1"
+HKR, Ndi\params\VlanId,                         base,                   0, "10"
+HKR, Ndi\params\VlanId,                         type,                   0, "DWORD"
+
+[Uso.reg]
+; *UsoIPv4
+HKR, Ndi\Params\*UsoIPv4,                       ParamDesc,              0, %UsoIPv4%
+HKR, Ndi\Params\*UsoIPv4,                       default,                0, "1"
+HKR, Ndi\Params\*UsoIPv4\Enum,                  "0",                    0, %Disabled%
+HKR, Ndi\Params\*UsoIPv4\Enum,                  "1",                    0, %Enabled%
+HKR, Ndi\Params\*UsoIPv4,                       type,                   0, "enum"
+
+; *UsoIPv6
+HKR, Ndi\Params\*UsoIPv6,                       ParamDesc,              0, %UsoIPv6%
+HKR, Ndi\Params\*UsoIPv6,                       default,                0, "1"
+HKR, Ndi\Params\*UsoIPv6\Enum,                  "0",                    0, %Disabled%
+HKR, Ndi\Params\*UsoIPv6\Enum,                  "1",                    0, %Enabled%
+HKR, Ndi\Params\*UsoIPv6,                       type,                   0, "enum"
+
+[Timestamp.reg]
+; *PtpHardwareTimestamp
+HKR, Ndi\Params\*PtpHardwareTimestamp,          ParamDesc,              0, %PtpHardwareTimestamp%
+HKR, Ndi\Params\*PtpHardwareTimestamp,          default,                0, "0"
+HKR, Ndi\Params\*PtpHardwareTimestamp\Enum,     "0",                    0, %Disabled%
+HKR, Ndi\Params\*PtpHardwareTimestamp\Enum,     "1",                    0, %Enabled%
+HKR, Ndi\Params\*PtpHardwareTimestamp,          type,                   0, "enum"
+
+; *SoftwareTimestamp
+HKR, Ndi\Params\*SoftwareTimestamp,             ParamDesc,              0, %SoftwareTimestamp%
+HKR, Ndi\Params\*SoftwareTimestamp,             default,                0, "0"
+HKR, Ndi\params\*SoftwareTimestamp\enum,        "0",                    0, %Disabled%
+HKR, Ndi\params\*SoftwareTimestamp\enum,        "1",                    0, %SoftwareTimestampRxAll%
+HKR, Ndi\params\*SoftwareTimestamp\enum,        "2",                    0, %SoftwareTimestampTxAll%
+HKR, Ndi\params\*SoftwareTimestamp\enum,        "3",                    0, %SoftwareTimestampRxAllTxAll%
+HKR, Ndi\params\*SoftwareTimestamp\enum,        "4",                    0, %SoftwareTimestampTaggedTx%
+HKR, Ndi\params\*SoftwareTimestamp\enum,        "5",                    0, %SoftwareTimestampRxAllTaggedTx%
+HKR, Ndi\Params\*SoftwareTimestamp,             type,                   0, "enum"
+
+[RDMA.reg]
+; *NetworkDirect
+HKR, Ndi\Params\*NetworkDirect,                         ParamDesc,              0, %NetworkDirect%
+HKR, Ndi\Params\*NetworkDirect,                         default,                0, "1"
+HKR, Ndi\Params\*NetworkDirect,                         type,                   0, "enum"
+HKR, Ndi\Params\*NetworkDirect\Enum,                    "0",                    0, %Disabled%
+HKR, Ndi\Params\*NetworkDirect\Enum,                    "1",                    0, %Enabled%
+HKR, Ndi\Params\*NetworkDirectTechnology,               ParamDesc,              0, %NetworkDirectTechnology%
+HKR, Ndi\Params\*NetworkDirectTechnology,               default,                0, "1"
+HKR, Ndi\Params\*NetworkDirectTechnology\Enum,          "1",                    0, "iWARP"
+HKR, Ndi\Params\*NetworkDirectTechnology\Enum,          "4",                    0, "RoCEv2"
+HKR, Ndi\Params\*NetworkDirectTechnology,               Optional,               0, "0"
+HKR, Ndi\Params\*NetworkDirectTechnology,               type,                   0, "enum"
+HKR, Ndi\Params\RdmaRoceFrameSize,                      ParamDesc,              0, %RoceFrameSize%
+HKR, Ndi\Params\RdmaRoceFrameSize,                      default,                0, "1024"
+HKR, Ndi\Params\RdmaRoceFrameSize\Enum,                 "1024",                 0, "1024"
+HKR, Ndi\Params\RdmaRoceFrameSize\Enum,                 "2048",                 0, "2048"
+HKR, Ndi\Params\RdmaRoceFrameSize\Enum,                 "4096",                 0, "4096"
+HKR, Ndi\Params\RdmaRoceFrameSize,                      Optional,               0, "0"
+HKR, Ndi\Params\RdmaRoceFrameSize,                      type,                   0, "enum"
+
+[MSI.reg]
+HKR, "Interrupt Management", 0x00000010
+HKR, "Interrupt Management\MessageSignaledInterruptProperties", 0x00000010
+HKR, "Interrupt Management\MessageSignaledInterruptProperties", MSISupported, 0x00010001, 1
+
+[Powermgmt.reg]
+; EnablePME
+HKR,Ndi\Params\EnablePME,                 ParamDesc,                    0, %Enable_PME%
+HKR,Ndi\Params\EnablePME,                 Default,                      0, "0"
+HKR,Ndi\Params\EnablePME\Enum,            "1",                          0, %Enabled%
+HKR,Ndi\Params\EnablePME\Enum,            "0",                          0, %Disabled%
+HKR,Ndi\Params\EnablePME,                 Type,                         0, "enum"
+
+[Advanced.DelReg]
+HKR, Ndi\Params
+HKR, PROSetNdi\Params
+HKR, PROSetNdi\NdiExt
+
+[SpdDuplex.DelRegBP]
+HKR, Ndi\Params\*SpeedDuplex
+HKR,, *SpeedDuplex
+
+[Timestamp.Delreg]
+HKR,, *PtpHardwareTimestamp
+HKR,, *SoftwareTimestamp
+
+[AddEventLog]
+HKR,, EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll;%13%\iceamsg.dll"
+HKR,, TypesSupported,   0x00010001, 7
+
+;-----------------------------------------------------------------------------
+; Uninstall parameters
+;-----------------------------------------------------------------------------
+[Uninstall.reg]
+HKR,Prounstl\SupportedDevices\8086, 10A6, 0, "10A6"
+HKR,Prounstl\SupportedDevices\8086, 1591, 0, "1591"
+HKR,Prounstl\SupportedDevices\8086, 1592, 0, "1592"
+HKR,Prounstl\SupportedDevices\8086, 1593, 0, "1593"
+HKR,Prounstl\SupportedDevices\8086, 1598, 0, "1598"
+HKR,Prounstl\SupportedDevices\8086, 1599, 0, "1599"
+HKR,Prounstl\SupportedDevices\8086, 159A, 0, "159A"
+HKR,Prounstl\SupportedDevices\8086, 159B, 0, "159B"
+HKR,Prounstl\Services, %ServiceName%, 0, icea.sys
+
+;-----------------------------------------------------------------------------
+; Driver "service" installation settings
+;-----------------------------------------------------------------------------
+[Service]
+DisplayName    = %Service.Displayname%
+ServiceType    = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType      = 3 ;%SERVICE_DEMAND_START%
+ErrorControl   = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary  = %13%\icea.sys
+LoadOrderGroup = NDIS
+AddReg         = Service_AddReg
+DelReg         = DmaRemappingCompatible.DelReg
+Addreg         = DmaRemappingCompatible.AddReg
+
+[Service_AddReg]
+HKR,, BootFlags, 0x00010001, 0x1
+
+[DmaRemappingCompatible.DelReg]
+HKR, Parameters, DmaRemappingCompatible
+
+[DmaRemappingCompatible.AddReg]
+HKR, Parameters, DmaRemappingCompatible, 0x00010001, 0
+
+;-----------------------------------------------------------------------------
+; Event Log settings
+;-----------------------------------------------------------------------------
+[EventLog]
+AddReg = AddEventLog
+
+[CopyFiles]
+icea.sys,,,2
+manifest_icea.man,,,2
+
+[CoInK.reg]
+HKR,, CoInstallFlag, 0x00010001, 0x20280040
+
+[CoInKPM.reg]
+HKR,, CoInstallFlag, 0x00010001, 0x20280048
+
+[MessageDll.CopyFiles]
+iceamsg.dll,,,2
+
+;-----------------------------------------------------------------------------
+; DestinationDirs
+;-----------------------------------------------------------------------------
+[DestinationDirs]
+CopyFiles            = 13
+DefaultDestDir       = 13
+MessageDll.CopyFiles = 13
+
+[SourceDisksNames]
+1 = %DiskName%,,,
+
+;-----------------------------------------------------------------------------
+; SourceDisksFiles
+;-----------------------------------------------------------------------------
+[SourceDisksFiles]
+icea.sys          = 1
+iceamsg.dll       = 1
+manifest_icea.man = 1
+
+[Strings]
+InterruptModeration               = "Interrupt Moderation"
+InterruptThrottleRate             = "Interrupt Moderation Rate"
+Adaptive                          = "Adaptive"
+Extreme                           = "Extreme"
+High                              = "High"
+Medium                            = "Medium"
+Low                               = "Low"
+IPChksumOffv4                     = "IPv4 Checksum Offload"
+TCPChksumOffv4                    = "TCP Checksum Offload (IPv4)"
+Loopback                          = "Loopback"
+UDPChksumOffv4                    = "UDP Checksum Offload (IPv4)"
+LsoV2IPv4                         = "Large Send Offload V2 (IPv4)"
+TCPChksumOffv6                    = "TCP Checksum Offload (IPv6)"
+UDPChksumOffv6                    = "UDP Checksum Offload (IPv6)"
+LsoV2IPv6                         = "Large Send Offload V2 (IPv6)"
+UsoIPv4                           = "UDP Segmentation Offload (IPv4)"
+UsoIPv6                           = "UDP Segmentation Offload (IPv6)"
+PtpHardwareTimestamp              = "PTP Hardware Timestamp"
+SoftwareTimestamp                 = "Software Timestamp"
+ChksumOffTxRx                     = "Rx & Tx Enabled"
+ChksumOffTx                       = "Tx Enabled"
+ChksumOffRx                       = "Rx Enabled"
+TransmitBuffers                   = "Transmit Buffers"
+ReceiveBuffers                    = "Receive Buffers"
+RSS                               = "Receive Side Scaling"
+NumRssQueues2                     = "Maximum Number of RSS Queues"
+MaxNumRssQueuesPerVport           = "Maximum Number of RSS Queues Per VPort"
+RssBaseProcNumber                 = "RSS Base Processor Number"
+MaxRssProcessors                  = "Maximum Number of RSS Processors"
+NumaNodeId                        = "Preferred NUMA node"
+1queue                            = "1 Queue"
+2queues                           = "2 Queues"
+4queues                           = "4 Queues"
+8queues                           = "8 Queues"
+16queues                          = "16 Queues"
+32queues                          = "32 Queues"
+64queues                          = "64 Queues"
+FlowControl                       = "Flow Control"
+FlowControl_RxOnly                = "Rx Enabled"
+FlowControl_TxOnly                = "Tx Enabled"
+FlowControl_Full                  = "Rx & Tx Enabled"
+PriorityVLANTag2                  = "Packet Priority & VLAN"
+PriorityVlanDisabled2             = "Packet Priority & VLAN Disabled"
+PriorityEnabled2                  = "Packet Priority Enabled"
+PriorityVlanEnabled2              = "Packet Priority & VLAN Enabled"
+VlanEnabled                       = "VLAN Enabled"
+SpeedDuplex                       = "Speed & Duplex"
+AutoNegotiation                   = "Auto Negotiation"
+1000Mb_Full_Duplex                = "1.0 Gbps Full Duplex"
+10Gb_Full_Duplex                  = "10 Gbps Full Duplex"
+25Gb_Full_Duplex                  = "25 Gbps Full Duplex"
+50Gb_Full_Duplex                  = "50 Gbps Full Duplex"
+100Gb_Full_Duplex                 = "100 Gbps Full Duplex"
+Off                               = "Off"
+Enabled                           = "Enabled"
+Disabled                          = "Disabled"
+Prioritized                       = "Prioritized"
+Bytes4088                         = "4088 Bytes"
+Bytes9014                         = "9014 Bytes"
+LAA                               = "Locally Administered Address"
+JumboPacket                       = "Jumbo Packet"
+LogLinkState                      = "Log Link State Event"
+Enable_PME                        = "Enable PME"
+QOS_WS2019_22                     = "NDIS QoS/FW LLDP Agent"
+VlanId                            = "VLAN ID"
+Encap                             = "Encapsulated Task Offload"
+EncapNvgre                        = "NVGRE Encapsulated Task Offload"
+EncapVxlan                        = "VXLAN Encapsulated Task Offload"
+VxlanUdpPort                      = "VXLAN UDP destination port number"
+EncapOverhead                     = "Encapsulation Overhead"
+NetworkDirect                     = "NetworkDirect Functionality"
+NetworkDirectTechnology           = "NetworkDirect Technology"
+RoceFrameSize                     = "ROCEv2 Frame Size"
+LinkOnIntDown                     = "Link State on Interface Down"
+SoftwareTimestampRxAll            = "RxAll"
+SoftwareTimestampTxAll            = "TxAll"
+SoftwareTimestampRxAllTxAll       = "RxAll & TxAll"
+SoftwareTimestampTaggedTx         = "TaggedTx"
+SoftwareTimestampRxAllTaggedTx    = "RxAll & TaggedTx"
+AllowNoFECModulesInAuto           = "Auto configuration of No FEC modules"
+ServiceName                       = "icea"
+Intel                             = "Intel"
+DiskName                          = "Intel(R) PRO/100GbE Driver Disk"
+Service.Displayname               = "Intel(R) PRO/100GbE PCIe-A Network Connection Driver"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+F1593.Generic.Description         = "Intel(R) Ethernet Controller E810-C for SFP"
+F1593.25G.Quad.Description        = "Intel(R) Ethernet Network Adapter E810-XXV-4"
+F1593.25G.Quad.Dell.Description   = "Intel(R) Ethernet 25G 4P E810-XXV Adapter"
+F1593.QSFP.OCP.Description        = "Intel(R) Ethernet Network Adapter E810-XXV-4 for OCP 3.0"
+F1593.25G.QSFP.OCP.Description    = "Intel(R) Ethernet 25G 4P E810-XXV OCP"
+F1599.Generic.Description         = "Intel(R) Ethernet Controller E810-XXV for backplane"
+F1599.Dual.Description            = "Intel(R) Ethernet 25G 2P E810-XXV-k Mezz"
+F159B.Generic.Description         = "Intel(R) Ethernet Controller E810-XXV for SFP"
+F159B.25G.Dual.Description        = "Intel(R) Ethernet Network Adapter E810-XXV-2 for OCP 3.0"
+F159B.25G.OCP.Dual.SD.Description = "Intel(R) Ethernet 25G 2P E810-XXV Adapter"
+F159B.25G.OCP.Dual.Description    = "Intel(R) Ethernet 25G 2P E810-XXV OCP"
+F159B.25G.Dual.CC.Description     = "Intel(R) Ethernet Network Adapter E810-XXV-2"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.0804] ; Chinese (Simplified)
+InterruptModeration                 = "÷–∂œ≤√æˆ"
+InterruptThrottleRate               = "÷–∂œ≤√æˆ¬ "
+Adaptive                            = "  ”¶–‘"
+Extreme                             = "º´÷µ"
+High                                = "∏ﬂ"
+Medium                              = "÷–"
+Low                                 = "µÕ"
+IPChksumOffv4                       = "IPv4 –£—È∫Õ∑÷‘ÿ¥´ ‰"
+TCPChksumOffv4                      = "TCP –£—È∫Õ∑÷‘ÿ¥´ ‰ (IPv4)"
+Loopback                            = "ªÿÀÕ"
+UDPChksumOffv4                      = "UDP –£—È∫Õ∑÷‘ÿ¥´ ‰ (IPv4)"
+LsoV2IPv4                           = "¥Û–Õ∑¢ÀÕ∑÷‘ÿ V2 (IPv4)"
+TCPChksumOffv6                      = "TCP –£—È∫Õ∑÷‘ÿ¥´ ‰ (IPv6)"
+UDPChksumOffv6                      = "UDP –£—È∫Õ∑÷‘ÿ¥´ ‰ (IPv6)"
+LsoV2IPv6                           = "¥Û–Õ∑¢ÀÕ∑÷‘ÿ V2 (IPv6)"
+UsoIPv4                             = "UDP ∑÷∏Ó∑÷‘ÿ (IPv4)"
+UsoIPv6                             = "UDP ∑÷∏Ó∑÷‘ÿ (IPv6)"
+PtpHardwareTimestamp                = "PTP ”≤º˛ ±º‰¥¡"
+SoftwareTimestamp                   = "»Ìº˛ ±º‰¥¡"
+ChksumOffTxRx                       = "“—∆Ù”√ Rx ∫Õ Tx"
+ChksumOffTx                         = "“—∆Ù”√ Tx"
+ChksumOffRx                         = "“—∆Ù”√ Rx"
+TransmitBuffers                     = "¥´ ‰ª∫≥Â«¯"
+ReceiveBuffers                      = "Ω” ’ª∫≥Â«¯"
+RSS                                 = "Ω” ’∑Ωµ˜’˚"
+NumRssQueues2                       = "RSS ∂”¡–µƒ◊Ó¥Û ˝ƒø"
+MaxNumRssQueuesPerVport             = "√ø–Èƒ‚∂Àø⁄◊Ó¥Û RSS ∂”¡– ˝"
+RssBaseProcNumber                   = "RSS ª˘¥°¥¶¿Ì∆˜∫≈"
+MaxRssProcessors                    = "RSS ¥¶¿Ì∆˜µƒ◊Ó¥Û ˝ƒø"
+NumaNodeId                          = " ◊—°µƒ NUMA Ω⁄µ„"
+1queue                              = "1 ∏ˆ∂”¡–"
+2queues                             = "2 ∏ˆ∂”¡–"
+4queues                             = "4 ∏ˆ∂”¡–"
+8queues                             = "8 ∏ˆ∂”¡–"
+16queues                            = "16 ∏ˆ∂”¡–"
+32queues                            = "32 ∏ˆ∂”¡–"
+64queues                            = "64 ∏ˆ∂”¡–"
+FlowControl                         = "¡˜¡øøÿ÷∆"
+FlowControl_RxOnly                  = "“—∆Ù”√ Rx"
+FlowControl_TxOnly                  = "“—∆Ù”√ Tx"
+FlowControl_Full                    = "“—∆Ù”√ Rx ∫Õ Tx"
+PriorityVLANTag2                    = " ˝æ›∞¸”≈œ»º∂∫Õ VLAN"
+PriorityVlanDisabled2               = "“—Ω˚”√ ˝æ›∞¸”≈œ»º∂∫Õ VLAN"
+PriorityEnabled2                    = "“—∆Ù”√ ˝æ›∞¸”≈œ»º∂"
+PriorityVlanEnabled2                = "“—∆Ù”√ ˝æ›∞¸”≈œ»º∂∫Õ VLAN"
+VlanEnabled                         = "“—∆Ù”√ VLAN"
+SpeedDuplex                         = "ÀŸ∂»∫ÕÀ´π§"
+AutoNegotiation                     = "◊‘∂Ø–≠…Ã"
+1000Mb_Full_Duplex                  = "1.0 Gbps »´À´π§"
+10Gb_Full_Duplex                    = "10 Gbps »´À´π§"
+25Gb_Full_Duplex                    = "25 Gbps »´À´π§"
+50Gb_Full_Duplex                    = "50 Gbps »´À´π§"
+100Gb_Full_Duplex                   = "100 Gbps »´À´π§"
+Off                                 = "πÿ±’"
+Enabled                             = "∆Ù”√"
+Disabled                            = "Ω˚”√"
+Prioritized                         = "”≈œ»"
+Bytes4088                           = "4088 ◊÷Ω⁄"
+Bytes9014                           = "9014 ◊÷Ω⁄"
+LAA                                 = "±æµÿπ‹¿Ìµÿ÷∑"
+JumboPacket                         = "æﬁ÷° ˝æ›∞¸"
+LogLinkState                        = "º«¬º¡¥Ω”◊¥Ã¨ ¬º˛"
+Enable_PME                          = "∆Ù”√ PME"
+QOS_WS2019_22                       = "NDIS QoS/FW LLDP ¥˙¿Ì"
+VlanId                              = "VLAN ID"
+Encap                               = "∑‚◊∞»ŒŒÒ–∂‘ÿ"
+EncapNvgre                          = "NVGRE ∑‚◊∞»ŒŒÒ–∂‘ÿ"
+EncapVxlan                          = "VXLAN ∑‚◊∞»ŒŒÒ–∂‘ÿ"
+VxlanUdpPort                        = "VXLAN UDP ƒøµƒµÿ∂Àø⁄∫≈"
+EncapOverhead                       = "∑‚◊∞ø™œ˙"
+NetworkDirect                       = "NetworkDirect π¶ƒ‹"
+NetworkDirectTechnology             = "NetworkDirect ºº ı"
+RoceFrameSize                       = "ROCEv2 ÷°¥Û–°"
+LinkOnIntDown                       = "Ω”ø⁄πÿ±’ ±µƒ¡¥¬∑◊¥Ã¨"
+SoftwareTimestampRxAll              = "RxAll"
+SoftwareTimestampTxAll              = "TxAll"
+SoftwareTimestampRxAllTxAll         = "RxAll ∫Õ TxAll"
+SoftwareTimestampTaggedTx           = "TaggedTx"
+SoftwareTimestampRxAllTaggedTx      = "RxAll ∫Õ TaggedTx"
+AllowNoFECModulesInAuto             = "Œﬁ FEC ƒ£øÈµƒ◊‘∂Ø≈‰÷√"
+ServiceName                         = "icea"
+Intel                               = "Intel"
+DiskName                            = "Intel(R) PRO/100GbE Driver Disk"
+Service.Displayname                 = "Intel(R) PRO/100GbE PCIe-A Network Connection Driver"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+F1593.Generic.Description           = "Intel(R) Ethernet Controller E810-C for SFP"
+F1593.25G.Quad.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-4"
+F1593.25G.Quad.Dell.Description     = "Intel(R) Ethernet 25G 4P E810-XXV Adapter"
+F1593.QSFP.OCP.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-4 for OCP 3.0"
+F1593.25G.QSFP.OCP.Description      = "Intel(R) Ethernet 25G 4P E810-XXV OCP"
+F1599.Generic.Description           = "Intel(R) Ethernet Controller E810-XXV for backplane"
+F1599.Dual.Description              = "Intel(R) Ethernet 25G 2P E810-XXV-k Mezz"
+F159B.Generic.Description           = "Intel(R) Ethernet Controller E810-XXV for SFP"
+F159B.25G.Dual.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-2 for OCP 3.0"
+F159B.25G.OCP.Dual.SD.Description   = "Intel(R) Ethernet 25G 2P E810-XXV Adapter"
+F159B.25G.OCP.Dual.Description      = "Intel(R) Ethernet 25G 2P E810-XXV OCP"
+F159B.25G.Dual.CC.Description       = "Intel(R) Ethernet Network Adapter E810-XXV-2"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.0404] ; Chinese (Traditional)
+InterruptModeration                 = "ß√¬_Ω’∏`"
+InterruptThrottleRate               = "ß√¬_∏`¨yª÷≥t≤v"
+Adaptive                            = "Ω’æ„© "
+Extreme                             = "∑•∞™"
+High                                = "∞™"
+Medium                              = "§§"
+Low                                 = "ßC"
+IPChksumOffv4                       = "IPv4 ¿À¨d≠»®¯∏¸"
+TCPChksumOffv4                      = "TCP ¿À¨d≠»®¯∏¸ (IPv4)"
+Loopback                            = "¶^∞e"
+UDPChksumOffv4                      = "UDP ¿À¨d≠»®¯∏¸ (IPv4)"
+LsoV2IPv4                           = "§j∂q∂«∞e®¯∏¸ V2 (IPv4)"
+TCPChksumOffv6                      = "TCP ¿À¨d≠»®¯∏¸ (IPv6)"
+UDPChksumOffv6                      = "UDP ¿À¨d≠»®¯∏¸ (IPv6)"
+LsoV2IPv6                           = "§j∂q∂«∞e®¯∏¸ V2 (IPv6)"
+UsoIPv4                             = "UDP ∞œ¨q§∆®¯∏¸ (IPv4)"
+UsoIPv6                             = "UDP ∞œ¨q§∆®¯∏¸ (IPv6)"
+PtpHardwareTimestamp                = "PTP µw≈ÈÆ…¬W"
+SoftwareTimestamp                   = "≥n≈ÈÆ…¬W"
+ChksumOffTxRx                       = "Rx ªP Tx §w±“•Œ"
+ChksumOffTx                         = "Tx §w±“•Œ"
+ChksumOffRx                         = "Rx §w±“•Œ"
+TransmitBuffers                     = "∂«øÈΩwΩƒ∞œ"
+ReceiveBuffers                      = "±µ¶¨ΩwΩƒ∞œ"
+RSS                                 = "±µ¶¨∫›Ω’æ„"
+NumRssQueues2                       = "±µ¶¨∫›Ω’æ„¶Ó¶C™∫≥Ã§jº∆•ÿ"
+MaxNumRssQueuesPerVport             = "®C≠”µÍ¿¿≥s±µ∞™∫ RSS ¶Ó¶Cº∆∂q§W≠≠"
+RssBaseProcNumber                   = "±µ¶¨∫›Ω’æ„∞Ú•ª≥B≤zæπº∆•ÿ"
+MaxRssProcessors                    = "±µ¶¨∫›Ω’æ„≥B≤zæπ™∫≥Ã§jº∆•ÿ"
+NumaNodeId                          = "∞æ¶n™∫ NUMA ∏`¬I"
+1queue                              = "1 ≠”¶Ó¶C"
+2queues                             = "2 ≠”¶Ó¶C"
+4queues                             = "4 ≠”¶Ó¶C"
+8queues                             = "8 ≠”¶Ó¶C"
+16queues                            = "16 ≠”¶Ó¶C"
+32queues                            = "32 ≠”¶Ó¶C"
+64queues                            = "64 ≠”¶Ó¶C"
+FlowControl                         = "¨y∂q±±®Ó"
+FlowControl_RxOnly                  = "Rx §w±“•Œ"
+FlowControl_TxOnly                  = "Tx §w±“•Œ"
+FlowControl_Full                    = "Rx ªP Tx §w±“•Œ"
+PriorityVLANTag2                    = "´ •]¿u•˝∂∂ß«ªP VLAN"
+PriorityVlanDisabled2               = "´ •]¿u•˝∂∂ß«ªP VLAN §w∞±•Œ"
+PriorityEnabled2                    = "´ •]¿u•˝∂∂ß«§w±“•Œ"
+PriorityVlanEnabled2                = "´ •]¿u•˝∂∂ß«ªP VLAN §w±“•Œ"
+VlanEnabled                         = "VLAN §w±“•Œ"
+SpeedDuplex                         = "≥t´◊ªP¬˘§u"
+AutoNegotiation                     = "¶€∞ •ÊØA"
+1000Mb_Full_Duplex                  = "1.0 Gbps •˛¬˘§u"
+10Gb_Full_Duplex                    = "10 Gbps •˛¬˘§u"
+25Gb_Full_Duplex                    = "25 Gbps •˛¬˘§u"
+50Gb_Full_Duplex                    = "50 Gbps •˛¬˘§u"
+100Gb_Full_Duplex                   = "100 Gbps •˛¬˘§u"
+Off                                 = "√ˆ≥¨"
+Enabled                             = "±“•Œ"
+Disabled                            = "∞±•Œ"
+Prioritized                         = "¿u•˝≥B≤z"
+Bytes4088                           = "4088 ¶Ï§∏≤’"
+Bytes9014                           = "9014 ¶Ï§∏≤’"
+LAA                                 = "•ª¶a∫ﬁ≤z¶Ïß}"
+JumboPacket                         = "∂W§j´¨´ •]"
+LogLinkState                        = "µnø˝≥sµ≤™¨∫A®∆•Û"
+Enable_PME                          = "±“•Œ PME"
+QOS_WS2019_22                       = "NDIS QoS/FW LLDP •N≤zµ{¶°"
+VlanId                              = "VLAN ID"
+Encap                               = "´ ∏À™∫ß@∑~®¯∏¸"
+EncapNvgre                          = "NVGRE ´ ∏À™∫ß@∑~®¯∏¸"
+EncapVxlan                          = "VXLAN ´ ∏À™∫ß@∑~®¯∏¸"
+VxlanUdpPort                        = "VXLAN UDP •ÿ™∫¶a≥s±µ∞∏πΩX"
+EncapOverhead                       = "´ ∏À≠t≤¸"
+NetworkDirect                       = "∫Ù∏Ù™Ω±µ∂«øÈ•\Ø‡"
+NetworkDirectTechnology             = "∫Ù∏Ù™Ω±µ∂«øÈßﬁ≥N"
+RoceFrameSize                       = "ROCEv2 Æÿ¨[§j§p"
+LinkOnIntDown                       = "§∂≠±√ˆ≥¨Æ…™∫≥sµ≤™¨∫A"
+SoftwareTimestampRxAll              = "RxAll"
+SoftwareTimestampTxAll              = "TxAll"
+SoftwareTimestampRxAllTxAll         = "RxAll ©M TxAll"
+SoftwareTimestampTaggedTx           = "TaggedTx"
+SoftwareTimestampRxAllTaggedTx      = "RxAll ©M TaggedTx"
+AllowNoFECModulesInAuto             = "µL FEC º“≤’™∫¶€∞ ∞t∏m"
+ServiceName                         = "icea"
+Intel                               = "Intel"
+DiskName                            = "Intel(R) PRO/100GbE Driver Disk"
+Service.Displayname                 = "Intel(R) PRO/100GbE PCIe-A Network Connection Driver"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+F1593.Generic.Description           = "Intel(R) Ethernet Controller E810-C for SFP"
+F1593.25G.Quad.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-4"
+F1593.25G.Quad.Dell.Description     = "Intel(R) Ethernet 25G 4P E810-XXV Adapter"
+F1593.QSFP.OCP.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-4 for OCP 3.0"
+F1593.25G.QSFP.OCP.Description      = "Intel(R) Ethernet 25G 4P E810-XXV OCP"
+F1599.Generic.Description           = "Intel(R) Ethernet Controller E810-XXV for backplane"
+F1599.Dual.Description              = "Intel(R) Ethernet 25G 2P E810-XXV-k Mezz"
+F159B.Generic.Description           = "Intel(R) Ethernet Controller E810-XXV for SFP"
+F159B.25G.Dual.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-2 for OCP 3.0"
+F159B.25G.OCP.Dual.SD.Description   = "Intel(R) Ethernet 25G 2P E810-XXV Adapter"
+F159B.25G.OCP.Dual.Description      = "Intel(R) Ethernet 25G 2P E810-XXV OCP"
+F159B.25G.Dual.CC.Description       = "Intel(R) Ethernet Network Adapter E810-XXV-2"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.0C04] ; Chinese (Traditional)
+InterruptModeration                 = "ß√¬_Ω’∏`"
+InterruptThrottleRate               = "ß√¬_∏`¨yª÷≥t≤v"
+Adaptive                            = "Ω’æ„© "
+Extreme                             = "∑•∞™"
+High                                = "∞™"
+Medium                              = "§§"
+Low                                 = "ßC"
+IPChksumOffv4                       = "IPv4 ¿À¨d≠»®¯∏¸"
+TCPChksumOffv4                      = "TCP ¿À¨d≠»®¯∏¸ (IPv4)"
+Loopback                            = "¶^∞e"
+UDPChksumOffv4                      = "UDP ¿À¨d≠»®¯∏¸ (IPv4)"
+LsoV2IPv4                           = "§j∂q∂«∞e®¯∏¸ V2 (IPv4)"
+TCPChksumOffv6                      = "TCP ¿À¨d≠»®¯∏¸ (IPv6)"
+UDPChksumOffv6                      = "UDP ¿À¨d≠»®¯∏¸ (IPv6)"
+LsoV2IPv6                           = "§j∂q∂«∞e®¯∏¸ V2 (IPv6)"
+UsoIPv4                             = "UDP ∞œ¨q§∆®¯∏¸ (IPv4)"
+UsoIPv6                             = "UDP ∞œ¨q§∆®¯∏¸ (IPv6)"
+PtpHardwareTimestamp                = "PTP µw≈ÈÆ…¬W"
+SoftwareTimestamp                   = "≥n≈ÈÆ…¬W"
+ChksumOffTxRx                       = "Rx ªP Tx §w±“•Œ"
+ChksumOffTx                         = "Tx §w±“•Œ"
+ChksumOffRx                         = "Rx §w±“•Œ"
+TransmitBuffers                     = "∂«øÈΩwΩƒ∞œ"
+ReceiveBuffers                      = "±µ¶¨ΩwΩƒ∞œ"
+RSS                                 = "±µ¶¨∫›Ω’æ„"
+NumRssQueues2                       = "±µ¶¨∫›Ω’æ„¶Ó¶C™∫≥Ã§jº∆•ÿ"
+MaxNumRssQueuesPerVport             = "®C≠”µÍ¿¿≥s±µ∞™∫ RSS ¶Ó¶Cº∆∂q§W≠≠"
+RssBaseProcNumber                   = "±µ¶¨∫›Ω’æ„∞Ú•ª≥B≤zæπº∆•ÿ"
+MaxRssProcessors                    = "±µ¶¨∫›Ω’æ„≥B≤zæπ™∫≥Ã§jº∆•ÿ"
+NumaNodeId                          = "∞æ¶n™∫ NUMA ∏`¬I"
+1queue                              = "1 ≠”¶Ó¶C"
+2queues                             = "2 ≠”¶Ó¶C"
+4queues                             = "4 ≠”¶Ó¶C"
+8queues                             = "8 ≠”¶Ó¶C"
+16queues                            = "16 ≠”¶Ó¶C"
+32queues                            = "32 ≠”¶Ó¶C"
+64queues                            = "64 ≠”¶Ó¶C"
+FlowControl                         = "¨y∂q±±®Ó"
+FlowControl_RxOnly                  = "Rx §w±“•Œ"
+FlowControl_TxOnly                  = "Tx §w±“•Œ"
+FlowControl_Full                    = "Rx ªP Tx §w±“•Œ"
+PriorityVLANTag2                    = "´ •]¿u•˝∂∂ß«ªP VLAN"
+PriorityVlanDisabled2               = "´ •]¿u•˝∂∂ß«ªP VLAN §w∞±•Œ"
+PriorityEnabled2                    = "´ •]¿u•˝∂∂ß«§w±“•Œ"
+PriorityVlanEnabled2                = "´ •]¿u•˝∂∂ß«ªP VLAN §w±“•Œ"
+VlanEnabled                         = "VLAN §w±“•Œ"
+SpeedDuplex                         = "≥t´◊ªP¬˘§u"
+AutoNegotiation                     = "¶€∞ •ÊØA"
+1000Mb_Full_Duplex                  = "1.0 Gbps •˛¬˘§u"
+10Gb_Full_Duplex                    = "10 Gbps •˛¬˘§u"
+25Gb_Full_Duplex                    = "25 Gbps •˛¬˘§u"
+50Gb_Full_Duplex                    = "50 Gbps •˛¬˘§u"
+100Gb_Full_Duplex                   = "100 Gbps •˛¬˘§u"
+Off                                 = "√ˆ≥¨"
+Enabled                             = "±“•Œ"
+Disabled                            = "∞±•Œ"
+Prioritized                         = "¿u•˝≥B≤z"
+Bytes4088                           = "4088 ¶Ï§∏≤’"
+Bytes9014                           = "9014 ¶Ï§∏≤’"
+LAA                                 = "•ª¶a∫ﬁ≤z¶Ïß}"
+JumboPacket                         = "∂W§j´¨´ •]"
+LogLinkState                        = "µnø˝≥sµ≤™¨∫A®∆•Û"
+Enable_PME                          = "±“•Œ PME"
+QOS_WS2019_22                       = "NDIS QoS/FW LLDP •N≤zµ{¶°"
+VlanId                              = "VLAN ID"
+Encap                               = "´ ∏À™∫ß@∑~®¯∏¸"
+EncapNvgre                          = "NVGRE ´ ∏À™∫ß@∑~®¯∏¸"
+EncapVxlan                          = "VXLAN ´ ∏À™∫ß@∑~®¯∏¸"
+VxlanUdpPort                        = "VXLAN UDP •ÿ™∫¶a≥s±µ∞∏πΩX"
+EncapOverhead                       = "´ ∏À≠t≤¸"
+NetworkDirect                       = "∫Ù∏Ù™Ω±µ∂«øÈ•\Ø‡"
+NetworkDirectTechnology             = "∫Ù∏Ù™Ω±µ∂«øÈßﬁ≥N"
+RoceFrameSize                       = "ROCEv2 Æÿ¨[§j§p"
+LinkOnIntDown                       = "§∂≠±√ˆ≥¨Æ…™∫≥sµ≤™¨∫A"
+SoftwareTimestampRxAll              = "RxAll"
+SoftwareTimestampTxAll              = "TxAll"
+SoftwareTimestampRxAllTxAll         = "RxAll ©M TxAll"
+SoftwareTimestampTaggedTx           = "TaggedTx"
+SoftwareTimestampRxAllTaggedTx      = "RxAll ©M TaggedTx"
+AllowNoFECModulesInAuto             = "µL FEC º“≤’™∫¶€∞ ∞t∏m"
+ServiceName                         = "icea"
+Intel                               = "Intel"
+DiskName                            = "Intel(R) PRO/100GbE Driver Disk"
+Service.Displayname                 = "Intel(R) PRO/100GbE PCIe-A Network Connection Driver"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+F1593.Generic.Description           = "Intel(R) Ethernet Controller E810-C for SFP"
+F1593.25G.Quad.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-4"
+F1593.25G.Quad.Dell.Description     = "Intel(R) Ethernet 25G 4P E810-XXV Adapter"
+F1593.QSFP.OCP.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-4 for OCP 3.0"
+F1593.25G.QSFP.OCP.Description      = "Intel(R) Ethernet 25G 4P E810-XXV OCP"
+F1599.Generic.Description           = "Intel(R) Ethernet Controller E810-XXV for backplane"
+F1599.Dual.Description              = "Intel(R) Ethernet 25G 2P E810-XXV-k Mezz"
+F159B.Generic.Description           = "Intel(R) Ethernet Controller E810-XXV for SFP"
+F159B.25G.Dual.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-2 for OCP 3.0"
+F159B.25G.OCP.Dual.SD.Description   = "Intel(R) Ethernet 25G 2P E810-XXV Adapter"
+F159B.25G.OCP.Dual.Description      = "Intel(R) Ethernet 25G 2P E810-XXV OCP"
+F159B.25G.Dual.CC.Description       = "Intel(R) Ethernet Network Adapter E810-XXV-2"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.0407] ; German (Germany)
+InterruptModeration                 = "Interrupt-Drosselung"
+InterruptThrottleRate               = "Interrupt-Drosselungsrate"
+Adaptive                            = "Adaptiv"
+Extreme                             = "Extrem"
+High                                = "Hoch"
+Medium                              = "Mittel"
+Low                                 = "Niedrig"
+IPChksumOffv4                       = "IPv4-Pr¸fsummen abladen"
+TCPChksumOffv4                      = "TCP-Pr¸fsummen abladen (IPv4)"
+Loopback                            = "Loopback"
+UDPChksumOffv4                      = "UDP-Pr¸fsummen abladen (IPv4)"
+LsoV2IPv4                           = "Large-Send-Offload V2 (IPv4)"
+TCPChksumOffv6                      = "TCP-Pr¸fsummen abladen (IPv6)"
+UDPChksumOffv6                      = "UDP-Pr¸fsummen abladen (IPv6)"
+LsoV2IPv6                           = "Large-Send-Offload V2 (IPv6)"
+UsoIPv4                             = "UDP-Segmentierung abladen (IPv4)"
+UsoIPv6                             = "UDP-Segmentierung abladen (IPv6)"
+PtpHardwareTimestamp                = "PTP Hardware-Zeitstempel"
+SoftwareTimestamp                   = "Software-Zeitstempel"
+ChksumOffTxRx                       = "Rx und Tx aktiviert"
+ChksumOffTx                         = "Tx aktiviert"
+ChksumOffRx                         = "Rx aktiviert"
+TransmitBuffers                     = "‹bertragungspuffer"
+ReceiveBuffers                      = "Empfangspuffer"
+RSS                                 = "RSS (Empfangsseitige Skalierung)"
+NumRssQueues2                       = "Max. Anzahl RSS-Warteschlangen"
+MaxNumRssQueuesPerVport             = "Maximale Anzahl der RSS-Warteschlangen pro VPort"
+RssBaseProcNumber                   = "RSS-Basisprozessornummer"
+MaxRssProcessors                    = "Max. Anzahl RSS-CPUs"
+NumaNodeId                          = "Bevorzugter NUMA-Knoten"
+1queue                              = "1 Warteschlange"
+2queues                             = "2 Warteschlangen"
+4queues                             = "4 Warteschlangen"
+8queues                             = "8 Warteschlangen"
+16queues                            = "16 Warteschlangen"
+32queues                            = "32 Warteschlangen"
+64queues                            = "64 Warteschlangen"
+FlowControl                         = "Flusssteuerung"
+FlowControl_RxOnly                  = "Rx aktiviert"
+FlowControl_TxOnly                  = "Tx aktiviert"
+FlowControl_Full                    = "Rx und Tx aktiviert"
+PriorityVLANTag2                    = "Paketpriorit‰t und VLAN"
+PriorityVlanDisabled2               = "Paketpriorit‰t und VLAN deaktiviert"
+PriorityEnabled2                    = "Paketpriorit‰t aktiviert"
+PriorityVlanEnabled2                = "Paketpriorit‰t und VLAN aktiviert"
+VlanEnabled                         = "VLAN aktiviert"
+SpeedDuplex                         = "Geschwindigkeit und Duplex"
+AutoNegotiation                     = "Automatische Aushandlung"
+1000Mb_Full_Duplex                  = "1,0 Gbit/s Vollduplex"
+10Gb_Full_Duplex                    = "10 Gbit/s Vollduplex"
+25Gb_Full_Duplex                    = "25 Gbit/s Vollduplex"
+50Gb_Full_Duplex                    = "50 Gbit/s Vollduplex"
+100Gb_Full_Duplex                   = "100 Gbit/s Vollduplex"
+Off                                 = "Aus"
+Enabled                             = "Aktiviert"
+Disabled                            = "Deaktiviert"
+Prioritized                         = "Priorisiert"
+Bytes4088                           = "4088 Byte"
+Bytes9014                           = "9014 Byte"
+LAA                                 = "Lokal verwaltete Adresse"
+JumboPacket                         = "Jumbo Packet"
+LogLinkState                        = "Verbindungsereignis protokollieren"
+Enable_PME                          = "PME (Power Management Event) aktivieren"
+QOS_WS2019_22                       = "NDIS QoS/FW LLDP Agent"
+VlanId                              = "VLAN-ID"
+Encap                               = "Offload der eingekapselten Aufgabe"
+EncapNvgre                          = "Offload der eingekapselten Aufgabe mittels NVGRE"
+EncapVxlan                          = "Offload der eingekapselten Aufgabe mittels VXLAN"
+VxlanUdpPort                        = "VXLAN-UDP-Zielportnummer"
+EncapOverhead                       = "Mehraufwand Kapselung"
+NetworkDirect                       = "NetworkDirect-Funktionalit‰t"
+NetworkDirectTechnology             = "NetworkDirect-Technologie"
+RoceFrameSize                       = "ROCEv2-Rahmengrˆﬂe"
+LinkOnIntDown                       = "Verbindungsstatus bei heruntergefahrener Schnittstelle"
+SoftwareTimestampRxAll              = "RxAll"
+SoftwareTimestampTxAll              = "TxAll"
+SoftwareTimestampRxAllTxAll         = "RxAll & TxAll"
+SoftwareTimestampTaggedTx           = "TaggedTx"
+SoftwareTimestampRxAllTaggedTx      = "RxAll & TaggedTx"
+AllowNoFECModulesInAuto             = "Automatische Konfiguration von Kein-FEC-Modulen"
+ServiceName                         = "icea"
+Intel                               = "Intel"
+DiskName                            = "Intel(R) PRO/100GbE Driver Disk"
+Service.Displayname                 = "Intel(R) PRO/100GbE PCIe-A Network Connection Driver"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+F1593.Generic.Description           = "Intel(R) Ethernet Controller E810-C for SFP"
+F1593.25G.Quad.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-4"
+F1593.25G.Quad.Dell.Description     = "Intel(R) Ethernet 25G 4P E810-XXV Adapter"
+F1593.QSFP.OCP.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-4 for OCP 3.0"
+F1593.25G.QSFP.OCP.Description      = "Intel(R) Ethernet 25G 4P E810-XXV OCP"
+F1599.Generic.Description           = "Intel(R) Ethernet Controller E810-XXV for backplane"
+F1599.Dual.Description              = "Intel(R) Ethernet 25G 2P E810-XXV-k Mezz"
+F159B.Generic.Description           = "Intel(R) Ethernet Controller E810-XXV for SFP"
+F159B.25G.Dual.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-2 for OCP 3.0"
+F159B.25G.OCP.Dual.SD.Description   = "Intel(R) Ethernet 25G 2P E810-XXV Adapter"
+F159B.25G.OCP.Dual.Description      = "Intel(R) Ethernet 25G 2P E810-XXV OCP"
+F159B.25G.Dual.CC.Description       = "Intel(R) Ethernet Network Adapter E810-XXV-2"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.0C0A] ; Spanish (Spain)
+InterruptModeration                 = "ModeraciÛn de interrupciones"
+InterruptThrottleRate               = "Velocidad de obstrucciÛn de la interrupciÛn"
+Adaptive                            = "AdaptaciÛn"
+Extreme                             = "Extremo"
+High                                = "Alto"
+Medium                              = "Medio"
+Low                                 = "Bajo"
+IPChksumOffv4                       = "Descarga de suma de comprobaciÛn de IPv4"
+TCPChksumOffv4                      = "Descarga de suma de comprobaciÛn TCP (IPv4)"
+Loopback                            = "Bucle de retorno"
+UDPChksumOffv4                      = "Descarga de suma de comprobaciÛn UDP (IPv4)"
+LsoV2IPv4                           = "Descarga grande de envÌo V2 (IPv4)"
+TCPChksumOffv6                      = "Descarga de suma de comprobaciÛn TCP (IPv6)"
+UDPChksumOffv6                      = "Descarga de suma de comprobaciÛn UDP (IPv6)"
+LsoV2IPv6                           = "Descarga grande de envÌo V2 (IPv6)"
+UsoIPv4                             = "Descarga de segmentaciÛn UDP (IPv4)"
+UsoIPv6                             = "Descarga de segmentaciÛn UDP (IPv6)"
+PtpHardwareTimestamp                = "Marca de tiempo de hardware PTP"
+SoftwareTimestamp                   = "Marca de tiempo de software"
+ChksumOffTxRx                       = "RecepciÛn y transmisiÛn habilitadas"
+ChksumOffTx                         = "TransmisiÛn habilitada"
+ChksumOffRx                         = "RecepciÛn habilitada"
+TransmitBuffers                     = "B˙feres de transmisiÛn"
+ReceiveBuffers                      = "B˙feres de recepciÛn"
+RSS                                 = "Receive Side Scaling"
+NumRssQueues2                       = "N˙mero m·ximo de colas de RSS"
+MaxNumRssQueuesPerVport             = "N˙mero m·ximo de colas de RSS por VPort"
+RssBaseProcNumber                   = "N˙mero de procesadores base de RSS"
+MaxRssProcessors                    = "N˙mero m·ximo de procesadores de RSS"
+NumaNodeId                          = "Nodo NUMA preferido"
+1queue                              = "1 cola"
+2queues                             = "2 colas"
+4queues                             = "4 colas"
+8queues                             = "8 colas"
+16queues                            = "16 colas"
+32queues                            = "32 colas"
+64queues                            = "64 colas"
+FlowControl                         = "Control de flujo"
+FlowControl_RxOnly                  = "RecepciÛn habilitada"
+FlowControl_TxOnly                  = "TransmisiÛn habilitada"
+FlowControl_Full                    = "RecepciÛn y transmisiÛn habilitadas"
+PriorityVLANTag2                    = "Prioridad de paquetes y VLAN"
+PriorityVlanDisabled2               = "Prioridad de paquetes y VLAN deshabilitadas"
+PriorityEnabled2                    = "Prioridad de paquetes habilitada"
+PriorityVlanEnabled2                = "Prioridad de paquetes y VLAN habilitadas"
+VlanEnabled                         = "VLAN habilitada"
+SpeedDuplex                         = "Velocidad y d˙plex"
+AutoNegotiation                     = "NegociaciÛn autom·tica"
+1000Mb_Full_Duplex                  = "D˙plex completo a 1,0 Gbps"
+10Gb_Full_Duplex                    = "D˙plex completo a 10 Gbps"
+25Gb_Full_Duplex                    = "D˙plex completo a 25 Gbps"
+50Gb_Full_Duplex                    = "D˙plex completo a 50 Gbps"
+100Gb_Full_Duplex                   = "D˙plex completo a 100 Gbps"
+Off                                 = "Desactivado"
+Enabled                             = "Habilitado"
+Disabled                            = "Deshabilitado"
+Prioritized                         = "Prioridad"
+Bytes4088                           = "4088 bytes"
+Bytes9014                           = "9014 bytes"
+LAA                                 = "DirecciÛn administrada localmente"
+JumboPacket                         = "Paquete jumbo"
+LogLinkState                        = "Registrar sucesos del estado del enlace"
+Enable_PME                          = "Activar PME"
+QOS_WS2019_22                       = "Agente NDIS QoS/FW LLDP"
+VlanId                              = "ID de VLAN"
+Encap                               = "Descarga de tareas encapsuladas"
+EncapNvgre                          = "Descarga de tareas encapsuladas NVGRE"
+EncapVxlan                          = "Descarga de tareas encapsuladas VXLAN"
+VxlanUdpPort                        = "N˙mero de puerto de destino UDP de VXLAN"
+EncapOverhead                       = "Sobrecarga de encapsulaciÛn"
+NetworkDirect                       = "Funcionalidad de NetworkDirect"
+NetworkDirectTechnology             = "TecnologÌa†NetworkDirect"
+RoceFrameSize                       = "TamaÒo de marco ROCEv2"
+LinkOnIntDown                       = "Estado de enlace con interfaz caÌda"
+SoftwareTimestampRxAll              = "RxAll"
+SoftwareTimestampTxAll              = "TxAll"
+SoftwareTimestampRxAllTxAll         = "RxAll y TxAll"
+SoftwareTimestampTaggedTx           = "TaggedTx"
+SoftwareTimestampRxAllTaggedTx      = "RxAll y TaggedTx"
+AllowNoFECModulesInAuto             = "ConfiguraciÛn autom·tica de mÛdulos no FEC"
+ServiceName                         = "icea"
+Intel                               = "Intel"
+DiskName                            = "Intel(R) PRO/100GbE Driver Disk"
+Service.Displayname                 = "Intel(R) PRO/100GbE PCIe-A Network Connection Driver"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+F1593.Generic.Description           = "Intel(R) Ethernet Controller E810-C for SFP"
+F1593.25G.Quad.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-4"
+F1593.25G.Quad.Dell.Description     = "Intel(R) Ethernet 25G 4P E810-XXV Adapter"
+F1593.QSFP.OCP.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-4 for OCP 3.0"
+F1593.25G.QSFP.OCP.Description      = "Intel(R) Ethernet 25G 4P E810-XXV OCP"
+F1599.Generic.Description           = "Intel(R) Ethernet Controller E810-XXV for backplane"
+F1599.Dual.Description              = "Intel(R) Ethernet 25G 2P E810-XXV-k Mezz"
+F159B.Generic.Description           = "Intel(R) Ethernet Controller E810-XXV for SFP"
+F159B.25G.Dual.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-2 for OCP 3.0"
+F159B.25G.OCP.Dual.SD.Description   = "Intel(R) Ethernet 25G 2P E810-XXV Adapter"
+F159B.25G.OCP.Dual.Description      = "Intel(R) Ethernet 25G 2P E810-XXV OCP"
+F159B.25G.Dual.CC.Description       = "Intel(R) Ethernet Network Adapter E810-XXV-2"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.040C] ; French (France)
+InterruptModeration                 = "Gestion des interruptions"
+InterruptThrottleRate               = "Taux de gestion des interruptions"
+Adaptive                            = "Variable"
+Extreme                             = "ExtrÍme"
+High                                = "Haut"
+Medium                              = "Moyen"
+Low                                 = "Faible"
+IPChksumOffv4                       = "DÈlester somme de contrÙle IPv4"
+TCPChksumOffv4                      = "DÈlester somme de contrÙle TCP (IPv4)"
+Loopback                            = "Bouclage"
+UDPChksumOffv4                      = "DÈlester somme de contrÙle UDP (IPv4)"
+LsoV2IPv4                           = "DÈcharge díenvoi important v2 (IPv4)"
+TCPChksumOffv6                      = "DÈlester somme de contrÙle TCP (IPv6)"
+UDPChksumOffv6                      = "DÈlester somme de contrÙle UDP (IPv6)"
+LsoV2IPv6                           = "DÈcharge díenvoi important v2 (IPv6)"
+UsoIPv4                             = "DÈlestage de segmentation UDP (IPv4)"
+UsoIPv6                             = "DÈlestage de segmentation UDP (IPv6)"
+PtpHardwareTimestamp                = "Horodatage matÈriel PTP"
+SoftwareTimestamp                   = "Horodatage logiciel"
+ChksumOffTxRx                       = "Rx et Tx activÈes"
+ChksumOffTx                         = "Tx activÈe"
+ChksumOffRx                         = "Rx activÈe"
+TransmitBuffers                     = "Tampons d'Èmission"
+ReceiveBuffers                      = "Tampons de rÈception"
+RSS                                 = "Partage du trafic entrant (RSS)"
+NumRssQueues2                       = "Nombre maximum de files d'attente RSS"
+MaxNumRssQueuesPerVport             = "Nombre maximum de files d'attente RSS par port virtuel"
+RssBaseProcNumber                   = "Nombre de processeurs RSS de base"
+MaxRssProcessors                    = "Nombre maximum de processeurs RSS"
+NumaNodeId                          = "Noeud NUMA prÈfÈrÈ"
+1queue                              = "1 file d'attente"
+2queues                             = "2 files d'attente"
+4queues                             = "4 files d'attente"
+8queues                             = "8 files d'attente"
+16queues                            = "16 files d'attente"
+32queues                            = "32 files d'attente"
+64queues                            = "64 files d'attente"
+FlowControl                         = "ContrÙle de flux"
+FlowControl_RxOnly                  = "Rx activÈe"
+FlowControl_TxOnly                  = "Tx activÈe"
+FlowControl_Full                    = "Rx et Tx activÈes"
+PriorityVLANTag2                    = "PrioritÈ des paquets et VLAN"
+PriorityVlanDisabled2               = "PrioritÈ des paquets et VLAN dÈsactivÈs"
+PriorityEnabled2                    = "PrioritÈ des paquets activÈe"
+PriorityVlanEnabled2                = "PrioritÈ des paquets et VLAN activÈs"
+VlanEnabled                         = "VLAN activÈ"
+SpeedDuplex                         = "Vitesse et duplex"
+AutoNegotiation                     = "NÈgociation automatique"
+1000Mb_Full_Duplex                  = "1,0 Gbit/s Duplex intÈgral"
+10Gb_Full_Duplex                    = "10 Gbit/s Duplex intÈgral"
+25Gb_Full_Duplex                    = "25†Gbit/s Duplex intÈgral"
+50Gb_Full_Duplex                    = "50†Gbit/s Duplex intÈgral"
+100Gb_Full_Duplex                   = "100†Gbit/s Duplex intÈgral"
+Off                                 = "DÈsactivÈ(e)"
+Enabled                             = "ActivÈ(e)"
+Disabled                            = "DÈsactivÈ(e)"
+Prioritized                         = "Prioritaire"
+Bytes4088                           = "4088 octets"
+Bytes9014                           = "9014 octets"
+LAA                                 = "Adresse administrÈe localement"
+JumboPacket                         = "Paquets Ètendus"
+LogLinkState                        = "Consigner les ÈvÈnements díÈtat de liaison"
+Enable_PME                          = "Activer la fonction …vÈnement de gestion de la consommation (PME)"
+QOS_WS2019_22                       = "Agent NDIS QoS/FW LLDP"
+VlanId                              = "ID du VLAN"
+Encap                               = "DÈlestage de charge encapsulÈ"
+EncapNvgre                          = "DÈlestage de charge encapsulÈ NVGRE"
+EncapVxlan                          = "DÈlestage de charge encapsulÈ VXLAN"
+VxlanUdpPort                        = "NumÈro de port de destination UDP VXLAN"
+EncapOverhead                       = "Surcharge d'encapsulation"
+NetworkDirect                       = "FonctionnalitÈ NetworkDirect"
+NetworkDirectTechnology             = "Technologie NetworkDirect"
+RoceFrameSize                       = "Taille de la trame ROCEv2"
+LinkOnIntDown                       = "…tat de la liaison lorsque l'interface est dÈconnectÈe"
+SoftwareTimestampRxAll              = "Toutes Rx"
+SoftwareTimestampTxAll              = "Toutes Tx"
+SoftwareTimestampRxAllTxAll         = "Toutes Rx et toutes Tx"
+SoftwareTimestampTaggedTx           = "Tx ÈtiquetÈes"
+SoftwareTimestampRxAllTaggedTx      = "Toutes Rx et les Tx ÈtiquetÈes"
+AllowNoFECModulesInAuto             = "Configuration automatique des modules Pas de FEC"
+ServiceName                         = "icea"
+Intel                               = "Intel"
+DiskName                            = "Intel(R) PRO/100GbE Driver Disk"
+Service.Displayname                 = "Intel(R) PRO/100GbE PCIe-A Network Connection Driver"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+F1593.Generic.Description           = "Intel(R) Ethernet Controller E810-C for SFP"
+F1593.25G.Quad.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-4"
+F1593.25G.Quad.Dell.Description     = "Intel(R) Ethernet 25G 4P E810-XXV Adapter"
+F1593.QSFP.OCP.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-4 for OCP 3.0"
+F1593.25G.QSFP.OCP.Description      = "Intel(R) Ethernet 25G 4P E810-XXV OCP"
+F1599.Generic.Description           = "Intel(R) Ethernet Controller E810-XXV for backplane"
+F1599.Dual.Description              = "Intel(R) Ethernet 25G 2P E810-XXV-k Mezz"
+F159B.Generic.Description           = "Intel(R) Ethernet Controller E810-XXV for SFP"
+F159B.25G.Dual.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-2 for OCP 3.0"
+F159B.25G.OCP.Dual.SD.Description   = "Intel(R) Ethernet 25G 2P E810-XXV Adapter"
+F159B.25G.OCP.Dual.Description      = "Intel(R) Ethernet 25G 2P E810-XXV OCP"
+F159B.25G.Dual.CC.Description       = "Intel(R) Ethernet Network Adapter E810-XXV-2"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.0410] ; Italian (Italy)
+InterruptModeration                 = "Regolazione di interrupt"
+InterruptThrottleRate               = "Velocit‡ di rallentamento dell'interrupt"
+Adaptive                            = "Adattivo"
+Extreme                             = "Estremo"
+High                                = "Alto"
+Medium                              = "Medio"
+Low                                 = "Basso"
+IPChksumOffv4                       = "Offload di checksum IPv4"
+TCPChksumOffv4                      = "Offload di checksum TCP (IPv4)"
+Loopback                            = "Loopback"
+UDPChksumOffv4                      = "Offload di checksum UDP (IPv4)"
+LsoV2IPv4                           = "Large Send Offload V2 (IPv4)"
+TCPChksumOffv6                      = "Offload di checksum TCP (IPv6)"
+UDPChksumOffv6                      = "Offload di checksum UDP (IPv6)"
+LsoV2IPv6                           = "Large Send Offload V2 (IPv6)"
+UsoIPv4                             = "Offload della segmentazione UDP (IPv4)"
+UsoIPv6                             = "Offload della segmentazione UDP (IPv6)"
+PtpHardwareTimestamp                = "Timestamp hardware PTP"
+SoftwareTimestamp                   = "Timestamp software"
+ChksumOffTxRx                       = "Rx e Tx abilitate"
+ChksumOffTx                         = "Tx abilitata"
+ChksumOffRx                         = "Rx abilitata"
+TransmitBuffers                     = "Trasmetti buffer"
+ReceiveBuffers                      = "Ricevi buffer"
+RSS                                 = "Receive Side Scaling"
+NumRssQueues2                       = "Numero massimo di code RSS"
+MaxNumRssQueuesPerVport             = "Numero massimo di code RSS per porta virtuale"
+RssBaseProcNumber                   = "Numero processori base RSS"
+MaxRssProcessors                    = "Numero massimo di processori RSS"
+NumaNodeId                          = "Nodo NUMA preferito"
+1queue                              = "1 coda"
+2queues                             = "2 code"
+4queues                             = "4 code"
+8queues                             = "8 code"
+16queues                            = "16 code"
+32queues                            = "32 code"
+64queues                            = "64 code"
+FlowControl                         = "Controllo del flusso"
+FlowControl_RxOnly                  = "Rx abilitata"
+FlowControl_TxOnly                  = "Tx abilitata"
+FlowControl_Full                    = "Rx e Tx abilitate"
+PriorityVLANTag2                    = "Priorit‡ pacchetti e VLAN"
+PriorityVlanDisabled2               = "Priorit‡ pacchetti e VLAN disattivate"
+PriorityEnabled2                    = "Priorit‡ pacchetti attivata"
+PriorityVlanEnabled2                = "Priorit‡ pacchetti e VLAN attivate"
+VlanEnabled                         = "VLAN abilitata"
+SpeedDuplex                         = "Velocit‡ e duplex"
+AutoNegotiation                     = "Negoziazione automatica"
+1000Mb_Full_Duplex                  = "1 Gbps Full Duplex"
+10Gb_Full_Duplex                    = "10 Gbps Full Duplex"
+25Gb_Full_Duplex                    = "25 Gbps Full Duplex"
+50Gb_Full_Duplex                    = "50 Gbps Full Duplex"
+100Gb_Full_Duplex                   = "100 Gbps Full Duplex"
+Off                                 = "Disattivato"
+Enabled                             = "Attivato"
+Disabled                            = "Disattivato"
+Prioritized                         = "Con priorit‡"
+Bytes4088                           = "4088 byte"
+Bytes9014                           = "9014 byte"
+LAA                                 = "Indirizzo amministrato localmente"
+JumboPacket                         = "Pacchetto Jumbo"
+LogLinkState                        = "Registra evento stato del collegamento"
+Enable_PME                          = "Abilita PME"
+QOS_WS2019_22                       = "Agente NDIS QoS/FW LLDP"
+VlanId                              = "ID VLAN"
+Encap                               = "Offload attivit‡ incapsulata"
+EncapNvgre                          = "Offload attivit‡ incapsulata NVGRE"
+EncapVxlan                          = "Offload attivit‡ incapsulata VXLAN"
+VxlanUdpPort                        = "Numero di porta di destinazione UDP VXLAN"
+EncapOverhead                       = "Sovraccarichi di incapsulamento"
+NetworkDirect                       = "Funzionalit‡ NetworkDirect"
+NetworkDirectTechnology             = "Tecnologia NetworkDirect"
+RoceFrameSize                       = "Dimensioni dei frame ROCEv2"
+LinkOnIntDown                       = "Stato collegamento con interfaccia disattivata"
+SoftwareTimestampRxAll              = "Tutti i ricevuti"
+SoftwareTimestampTxAll              = "Tutti i trasmessi"
+SoftwareTimestampRxAllTxAll         = "Tutti i ricevuti e tutti i trasmessi"
+SoftwareTimestampTaggedTx           = "Trasmessi con codifica"
+SoftwareTimestampRxAllTaggedTx      = "Tutti i ricevuti e i trasmessi con codifica"
+AllowNoFECModulesInAuto             = "Configurazione automatica di moduli No FEC"
+ServiceName                         = "icea"
+Intel                               = "Intel"
+DiskName                            = "Intel(R) PRO/100GbE Driver Disk"
+Service.Displayname                 = "Intel(R) PRO/100GbE PCIe-A Network Connection Driver"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+F1593.Generic.Description           = "Intel(R) Ethernet Controller E810-C for SFP"
+F1593.25G.Quad.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-4"
+F1593.25G.Quad.Dell.Description     = "Intel(R) Ethernet 25G 4P E810-XXV Adapter"
+F1593.QSFP.OCP.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-4 for OCP 3.0"
+F1593.25G.QSFP.OCP.Description      = "Intel(R) Ethernet 25G 4P E810-XXV OCP"
+F1599.Generic.Description           = "Intel(R) Ethernet Controller E810-XXV for backplane"
+F1599.Dual.Description              = "Intel(R) Ethernet 25G 2P E810-XXV-k Mezz"
+F159B.Generic.Description           = "Intel(R) Ethernet Controller E810-XXV for SFP"
+F159B.25G.Dual.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-2 for OCP 3.0"
+F159B.25G.OCP.Dual.SD.Description   = "Intel(R) Ethernet 25G 2P E810-XXV Adapter"
+F159B.25G.OCP.Dual.Description      = "Intel(R) Ethernet 25G 2P E810-XXV OCP"
+F159B.25G.Dual.CC.Description       = "Intel(R) Ethernet Network Adapter E810-XXV-2"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.0411] ; Japanese (Japan)
+InterruptModeration                 = "äÑÇËçûÇ›â¡å∏"
+InterruptThrottleRate               = "äÑÇËçûÇ›â¡å∏ó¶"
+Adaptive                            = "ÉAÉ_ÉvÉeÉBÉu"
+Extreme                             = "ç≈ëÂ"
+High                                = "çÇ"
+Medium                              = "íÜ"
+Low                                 = "í·"
+IPChksumOffv4                       = "IPv4 É`ÉFÉbÉNÉTÉÄÇÃÉIÉtÉçÅ[Éh"
+TCPChksumOffv4                      = "TCP É`ÉFÉbÉNÉTÉÄÇÃÉIÉtÉçÅ[Éh (IPv4)"
+Loopback                            = "ÉãÅ[ÉvÉoÉbÉN"
+UDPChksumOffv4                      = "UDP É`ÉFÉbÉNÉTÉÄÇÃÉIÉtÉçÅ[Éh (IPv4)"
+LsoV2IPv4                           = "ëÂó ëóêMÉIÉtÉçÅ[Éh V2 (IPv4)"
+TCPChksumOffv6                      = "TCP É`ÉFÉbÉNÉTÉÄÇÃÉIÉtÉçÅ[Éh (IPv6)"
+UDPChksumOffv6                      = "UDP É`ÉFÉbÉNÉTÉÄÇÃÉIÉtÉçÅ[Éh (IPv6)"
+LsoV2IPv6                           = "ëÂó ëóêMÉIÉtÉçÅ[Éh V2 (IPv6)"
+UsoIPv4                             = "UDP ÉZÉOÉÅÉìÉeÅ[ÉVÉáÉìÇÃÉIÉtÉçÅ[Éh (IPv4)"
+UsoIPv6                             = "UDP ÉZÉOÉÅÉìÉeÅ[ÉVÉáÉìÇÃÉIÉtÉçÅ[Éh (IPv6)"
+PtpHardwareTimestamp                = "PTP ÉnÅ[ÉhÉEÉFÉAÅEÉ^ÉCÉÄÉXÉ^ÉìÉv"
+SoftwareTimestamp                   = "É\ÉtÉgÉEÉFÉAÅEÉ^ÉCÉÄÉXÉ^ÉìÉv"
+ChksumOffTxRx                       = "éÛêM/ëóêM óLå¯"
+ChksumOffTx                         = "ëóêM óLå¯"
+ChksumOffRx                         = "éÛêM óLå¯"
+TransmitBuffers                     = "ëóêMÉoÉbÉtÉ@Å["
+ReceiveBuffers                      = "éÛêMÉoÉbÉtÉ@Å["
+RSS                                 = "éÛêMë§ÉXÉPÅ[ÉäÉìÉO"
+NumRssQueues2                       = "RSS ÉLÉÖÅ[ÇÃç≈ëÂêî"
+MaxNumRssQueuesPerVport             = "VPort ìñÇΩÇËÇÃ RSS ÉLÉÖÅ[ÇÃç≈ëÂêî"
+RssBaseProcNumber                   = "RSS ÉxÅ[ÉXÅEÉvÉçÉZÉbÉTÅ[êî"
+MaxRssProcessors                    = "RSS ÉvÉçÉZÉbÉTÅ[ÇÃç≈ëÂêî"
+NumaNodeId                          = "óDêÊ NUMA ÉmÅ[Éh"
+1queue                              = "1 ÉLÉÖÅ["
+2queues                             = "2 ÉLÉÖÅ["
+4queues                             = "4 ÉLÉÖÅ["
+8queues                             = "8 ÉLÉÖÅ["
+16queues                            = "16 ÉLÉÖÅ["
+32queues                            = "32 ÉLÉÖÅ["
+64queues                            = "64 ÉLÉÖÅ["
+FlowControl                         = "ÉtÉçÅ[êßå‰"
+FlowControl_RxOnly                  = "éÛêM óLå¯"
+FlowControl_TxOnly                  = "ëóêM óLå¯"
+FlowControl_Full                    = "éÛêM/ëóêM óLå¯"
+PriorityVLANTag2                    = "ÉpÉPÉbÉgóDêÊìxÇ∆ VLAN"
+PriorityVlanDisabled2               = "ÉpÉPÉbÉgóDêÊìxÇ∆ VLAN ñ≥å¯"
+PriorityEnabled2                    = "ÉpÉPÉbÉgóDêÊìxóLå¯"
+PriorityVlanEnabled2                = "ÉpÉPÉbÉgóDêÊìxÇ∆ VLAN óLå¯"
+VlanEnabled                         = "VLAN óLå¯"
+SpeedDuplex                         = "ë¨ìxÇ∆ÉfÉÖÉvÉåÉbÉNÉX"
+AutoNegotiation                     = "ÉIÅ[ÉgÉlÉSÉVÉGÅ[ÉVÉáÉì"
+1000Mb_Full_Duplex                  = "1.0 Gbps ëSìÒèdí êM"
+10Gb_Full_Duplex                    = "10 Gbps ëSìÒèdí êM"
+25Gb_Full_Duplex                    = "25 Gbps ëSìÒèdí êM"
+50Gb_Full_Duplex                    = "50 Gbps ëSìÒèdí êM"
+100Gb_Full_Duplex                   = "100 Gbps ëSìÒèdí êM"
+Off                                 = "ÉIÉt"
+Enabled                             = "óLå¯"
+Disabled                            = "ñ≥å¯"
+Prioritized                         = "óDêÊ"
+Bytes4088                           = "4088 ÉoÉCÉg"
+Bytes9014                           = "9014 ÉoÉCÉg"
+LAA                                 = "ÉçÅ[ÉJÉãä«óùÇ≥ÇÍÇÈÉAÉhÉåÉX"
+JumboPacket                         = "ÉWÉÉÉìÉ{ÉpÉPÉbÉg"
+LogLinkState                        = "ÉäÉìÉNÅEÉXÉeÅ[ÉgÅEÉCÉxÉìÉgÇÃÉçÉO"
+Enable_PME                          = "PME ÇÉIÉìÇ…Ç∑ÇÈ"
+QOS_WS2019_22                       = "NDIS QoS / FW LLDP ÉGÅ[ÉWÉFÉìÉg"
+VlanId                              = "VLAN ID"
+Encap                               = "ÉJÉvÉZÉãâªÇ≥ÇÍÇΩÉ^ÉXÉNÇÃÉIÉtÉçÅ[Éh"
+EncapNvgre                          = "NVGRE ÉJÉvÉZÉãâªÇ≥ÇÍÇΩÉ^ÉXÉNÇÃÉIÉtÉçÅ[Éh"
+EncapVxlan                          = "VXLAN ÉJÉvÉZÉãâªÇ≥ÇÍÇΩÉ^ÉXÉNÇÃÉIÉtÉçÅ[Éh"
+VxlanUdpPort                        = "VXLAN UDP à∂êÊÉ|Å[Égî‘çÜ"
+EncapOverhead                       = "ÉJÉvÉZÉãâªÉIÅ[ÉoÅ[ÉwÉbÉh"
+NetworkDirect                       = "NetworkDirect ã@î\"
+NetworkDirectTechnology             = "NetworkDirect ÉeÉNÉmÉçÉWÅ["
+RoceFrameSize                       = "ROCEv2 ÉtÉåÅ[ÉÄÉTÉCÉY"
+LinkOnIntDown                       = "ÉCÉìÉ^Å[ÉtÉFÉCÉXÅEÉ_ÉEÉìéûÇÃÉäÉìÉNèÛë‘"
+SoftwareTimestampRxAll              = "RxAll"
+SoftwareTimestampTxAll              = "TxAll"
+SoftwareTimestampRxAllTxAll         = "RxAll & TxAll"
+SoftwareTimestampTaggedTx           = "TaggedTx"
+SoftwareTimestampRxAllTaggedTx      = "RxAll & TaggedTx"
+AllowNoFECModulesInAuto             = "FEC Ç»ÇµÉÇÉWÉÖÅ[ÉãÇÃé©ìÆç\ê¨"
+ServiceName                         = "icea"
+Intel                               = "Intel"
+DiskName                            = "Intel(R) PRO/100GbE Driver Disk"
+Service.Displayname                 = "Intel(R) PRO/100GbE PCIe-A Network Connection Driver"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+F1593.Generic.Description           = "Intel(R) Ethernet Controller E810-C for SFP"
+F1593.25G.Quad.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-4"
+F1593.25G.Quad.Dell.Description     = "Intel(R) Ethernet 25G 4P E810-XXV Adapter"
+F1593.QSFP.OCP.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-4 for OCP 3.0"
+F1593.25G.QSFP.OCP.Description      = "Intel(R) Ethernet 25G 4P E810-XXV OCP"
+F1599.Generic.Description           = "Intel(R) Ethernet Controller E810-XXV for backplane"
+F1599.Dual.Description              = "Intel(R) Ethernet 25G 2P E810-XXV-k Mezz"
+F159B.Generic.Description           = "Intel(R) Ethernet Controller E810-XXV for SFP"
+F159B.25G.Dual.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-2 for OCP 3.0"
+F159B.25G.OCP.Dual.SD.Description   = "Intel(R) Ethernet 25G 2P E810-XXV Adapter"
+F159B.25G.OCP.Dual.Description      = "Intel(R) Ethernet 25G 2P E810-XXV OCP"
+F159B.25G.Dual.CC.Description       = "Intel(R) Ethernet Network Adapter E810-XXV-2"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.0412] ; Korean (Korea)
+InterruptModeration                 = "¿Œ≈Õ∑¥∆Æ ¡∂¿˝"
+InterruptThrottleRate               = "¿Œ≈Õ∑¥∆Æ ¡∂¿˝ ∫Ûµµ"
+Adaptive                            = "¿˚¿¿"
+Extreme                             = "√÷¥Î"
+High                                = "≥Ù¿Ω"
+Medium                              = "¡ﬂ∞£"
+Low                                 = "≥∑¿Ω"
+IPChksumOffv4                       = "IPv4 √º≈©º∂ ø¿«¡∑ŒµÂ"
+TCPChksumOffv4                      = "TCP √º≈©º∂ ø¿«¡∑ŒµÂ(IPv4)"
+Loopback                            = "∑Á«¡πÈ"
+UDPChksumOffv4                      = "UDP √º≈©º∂ ø¿«¡∑ŒµÂ(IPv4)"
+LsoV2IPv4                           = "¥Î«¸ ¿¸º€ ø¿«¡∑ŒµÂ V2(IPv4)"
+TCPChksumOffv6                      = "TCP √º≈©º∂ ø¿«¡∑ŒµÂ(IPv6)"
+UDPChksumOffv6                      = "UDP √º≈©º∂ ø¿«¡∑ŒµÂ(IPv6)"
+LsoV2IPv6                           = "¥Î«¸ ¿¸º€ ø¿«¡∑ŒµÂ V2(IPv6)"
+UsoIPv4                             = "UDP ºº±◊∏’≈◊¿Ãº« ø¿«¡∑ŒµÂ(IPv4)"
+UsoIPv6                             = "UDP ºº±◊∏’≈◊¿Ãº« ø¿«¡∑ŒµÂ(IPv6)"
+PtpHardwareTimestamp                = "PTP «œµÂø˛æÓ ≈∏¿”Ω∫≈∆«¡"
+SoftwareTimestamp                   = "º“«¡∆Æø˛æÓ ≈∏¿”Ω∫≈∆«¡"
+ChksumOffTxRx                       = "Rx & Tx »∞º∫»≠µ "
+ChksumOffTx                         = "Tx »∞º∫»≠µ "
+ChksumOffRx                         = "Rx »∞º∫»≠µ "
+TransmitBuffers                     = "¿¸º€ πˆ∆€"
+ReceiveBuffers                      = "ºˆΩ≈ πˆ∆€"
+RSS                                 = "ºˆΩ≈√¯ ≈©±‚ ¡∂¡§"
+NumRssQueues2                       = "√÷¥Î RSS ¥Î±‚ø≠ ºˆ"
+MaxNumRssQueuesPerVport             = "VPort¥Á RSS ≈• √÷¥Î ºˆ"
+RssBaseProcNumber                   = "RSS ±‚π› «¡∑Œººº≠ π¯»£"
+MaxRssProcessors                    = "√÷¥Î RSS «¡∑Œººº≠ ºˆ"
+NumaNodeId                          = "±‚∫ª º≥¡§ NUMA ≥ÎµÂ"
+1queue                              = "1∞≥¿« ¥Î±‚ø≠"
+2queues                             = "2∞≥¿« ¥Î±‚ø≠"
+4queues                             = "4∞≥¿« ¥Î±‚ø≠"
+8queues                             = "8∞≥¿« ¥Î±‚ø≠"
+16queues                            = "16∞≥¿« ¥Î±‚ø≠"
+32queues                            = "32∞≥¿« ¥Î±‚ø≠"
+64queues                            = "64∞≥¿« ¥Î±‚ø≠"
+FlowControl                         = "»Â∏ß ¡¶æÓ"
+FlowControl_RxOnly                  = "Rx »∞º∫»≠µ "
+FlowControl_TxOnly                  = "Tx »∞º∫»≠µ "
+FlowControl_Full                    = "Rx & Tx »∞º∫»≠µ "
+PriorityVLANTag2                    = "∆–≈∂ øÏº±º¯¿ß π◊ VLAN"
+PriorityVlanDisabled2               = "∆–≈∂ øÏº±º¯¿ß π◊ VLAN ∫Ò»∞º∫»≠µ "
+PriorityEnabled2                    = "∆–≈∂ øÏº±º¯¿ß »∞º∫»≠µ "
+PriorityVlanEnabled2                = "∆–≈∂ øÏº±º¯¿ß π◊ VLAN »∞º∫»≠µ "
+VlanEnabled                         = "VLAN »∞º∫»≠µ "
+SpeedDuplex                         = "º”µµ π◊ ¿Ã¡ﬂ"
+AutoNegotiation                     = "¿⁄µø «˘ªÛ"
+1000Mb_Full_Duplex                  = "1.0 Gbps ¿¸¿Ã¡ﬂ"
+10Gb_Full_Duplex                    = "10 Gbps ¿¸¿Ã¡ﬂ"
+25Gb_Full_Duplex                    = "25 Gbps ¿¸¿Ã¡ﬂ"
+50Gb_Full_Duplex                    = "50 Gbps ¿¸¿Ã¡ﬂ"
+100Gb_Full_Duplex                   = "100 Gbps ¿¸¿Ã¡ﬂ"
+Off                                 = "ø¿«¡"
+Enabled                             = "»∞º∫»≠µ "
+Disabled                            = "∫Ò»∞º∫»≠µ "
+Prioritized                         = "øÏº±º¯¿ß"
+Bytes4088                           = "4088πŸ¿Ã∆Æ"
+Bytes9014                           = "9014πŸ¿Ã∆Æ"
+LAA                                 = "∑Œƒ√ ∞¸∏Æ ¡÷º“"
+JumboPacket                         = "¡°∫∏ ∆–≈∂"
+LogLinkState                        = "∏µ≈© ªÛ≈¬ ¿Ã∫•∆Æ ±‚∑œ"
+Enable_PME                          = "PME »∞º∫»≠"
+QOS_WS2019_22                       = "NDIS QoS/FW LLDP  ø°¿Ã¿¸∆Æ"
+VlanId                              = "VLAN ID"
+Encap                               = "ƒ∏Ω∂»≠µ» ¿€æ˜ ø¿«¡∑ŒµÂ"
+EncapNvgre                          = "NVGRE ƒ∏Ω∂»≠ ¿€æ˜ ø¿«¡∑ŒµÂ"
+EncapVxlan                          = "VXLAN ƒ∏Ω∂»≠ ¿€æ˜ ø¿«¡∑ŒµÂ"
+VxlanUdpPort                        = "VXLAN UDP ¥ÎªÛ ∆˜∆Æ π¯»£"
+EncapOverhead                       = "ƒ∏Ω∂»≠ ø¿πˆ«ÏµÂ"
+NetworkDirect                       = "NetworkDirect ±‚¥…"
+NetworkDirectTechnology             = "NetworkDirect ±‚º˙"
+RoceFrameSize                       = "ROCEv2 «¡∑π¿” ≈©±‚"
+LinkOnIntDown                       = "¿Œ≈Õ∆‰¿ÃΩ∫ ¥ŸøÓ Ω√ ∏µ≈© ªÛ≈¬"
+SoftwareTimestampRxAll              = "RxAll"
+SoftwareTimestampTxAll              = "TxAll"
+SoftwareTimestampRxAllTxAll         = "RxAll & TxAll"
+SoftwareTimestampTaggedTx           = "TaggedTx"
+SoftwareTimestampRxAllTaggedTx      = "RxAll & TaggedTx"
+AllowNoFECModulesInAuto             = "∫Ò FEC ∏µ‚¿« ¿⁄µø ±∏º∫"
+ServiceName                         = "icea"
+Intel                               = "Intel"
+DiskName                            = "Intel(R) PRO/100GbE Driver Disk"
+Service.Displayname                 = "Intel(R) PRO/100GbE PCIe-A Network Connection Driver"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+F1593.Generic.Description           = "Intel(R) Ethernet Controller E810-C for SFP"
+F1593.25G.Quad.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-4"
+F1593.25G.Quad.Dell.Description     = "Intel(R) Ethernet 25G 4P E810-XXV Adapter"
+F1593.QSFP.OCP.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-4 for OCP 3.0"
+F1593.25G.QSFP.OCP.Description      = "Intel(R) Ethernet 25G 4P E810-XXV OCP"
+F1599.Generic.Description           = "Intel(R) Ethernet Controller E810-XXV for backplane"
+F1599.Dual.Description              = "Intel(R) Ethernet 25G 2P E810-XXV-k Mezz"
+F159B.Generic.Description           = "Intel(R) Ethernet Controller E810-XXV for SFP"
+F159B.25G.Dual.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-2 for OCP 3.0"
+F159B.25G.OCP.Dual.SD.Description   = "Intel(R) Ethernet 25G 2P E810-XXV Adapter"
+F159B.25G.OCP.Dual.Description      = "Intel(R) Ethernet 25G 2P E810-XXV OCP"
+F159B.25G.Dual.CC.Description       = "Intel(R) Ethernet Network Adapter E810-XXV-2"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.0416] ; Portuguese (Brazil)
+InterruptModeration                 = "ModeraÁ„o de interrupÁıes"
+InterruptThrottleRate               = "Taxa de moderaÁ„o de interrupÁıes"
+Adaptive                            = "Adaptativa"
+Extreme                             = "Extremo"
+High                                = "Alto"
+Medium                              = "MÈdio"
+Low                                 = "Baixo"
+IPChksumOffv4                       = "Descarga de Checksum IPv4"
+TCPChksumOffv4                      = "Descarga de Checksum de TCP (IPv4)"
+Loopback                            = "Loopback"
+UDPChksumOffv4                      = "Descarga de Checksum UDP (IPv4)"
+LsoV2IPv4                           = "Descarga de envio grande V2 (IPv4)"
+TCPChksumOffv6                      = "Descarga de Checksum de TCP (IPv6)"
+UDPChksumOffv6                      = "Descarga de Checksum UDP (IPv6)"
+LsoV2IPv6                           = "Descarga de envio grande V2 (IPv6)"
+UsoIPv4                             = "Descarga de segmentaÁ„o de UDP (IPv4)"
+UsoIPv6                             = "Descarga de segmentaÁ„o de UDP (IPv6)"
+PtpHardwareTimestamp                = "Carimbo de data/hora de hardware de PTP (Precision Time Protocol ó Protocolo de tempo de precis„o)"
+SoftwareTimestamp                   = "Carimbo de data/hora de software"
+ChksumOffTxRx                       = "Rx e Tx habilitados"
+ChksumOffTx                         = "Tx habilitado"
+ChksumOffRx                         = "Rx habilitado"
+TransmitBuffers                     = "Buffers de transmiss„o"
+ReceiveBuffers                      = "Buffers de recepÁ„o"
+RSS                                 = "Escala de recepÁ„o"
+NumRssQueues2                       = "N∫ m·x. de filas de RSS"
+MaxNumRssQueuesPerVport             = "N˙mero m·ximo de filas de RSS por VPort"
+RssBaseProcNumber                   = "N∫ do processador base de RSS"
+MaxRssProcessors                    = "N∫ m·x. de processadores de RSS"
+NumaNodeId                          = "NÛ NUMA preferencial"
+1queue                              = "1 fila"
+2queues                             = "2 filas"
+4queues                             = "4 filas"
+8queues                             = "8 filas"
+16queues                            = "16 filas"
+32queues                            = "32 Filas"
+64queues                            = "64 filas"
+FlowControl                         = "Controle de fluxo"
+FlowControl_RxOnly                  = "Rx habilitado"
+FlowControl_TxOnly                  = "Tx habilitado"
+FlowControl_Full                    = "Rx e Tx habilitados"
+PriorityVLANTag2                    = "Prioridade de pacotes e VLAN"
+PriorityVlanDisabled2               = "Prioridade de pacotes e VLAN desabilitadas"
+PriorityEnabled2                    = "Prioridade de pacotes habilitada"
+PriorityVlanEnabled2                = "Prioridade de pacotes e VLAN habilitadas"
+VlanEnabled                         = "VLAN habilitada"
+SpeedDuplex                         = "Velocidade e duplex"
+AutoNegotiation                     = "NegociaÁ„o autom·tica"
+1000Mb_Full_Duplex                  = "1,0 Gbps/Full duplex"
+10Gb_Full_Duplex                    = "Full-duplex de 10 Gbps"
+25Gb_Full_Duplex                    = "Full-duplex de 25 Gbps"
+50Gb_Full_Duplex                    = "Full-duplex de 50 Gbps"
+100Gb_Full_Duplex                   = "Full-duplex de 100 Gbps"
+Off                                 = "Desligado"
+Enabled                             = "Habilitado"
+Disabled                            = "Desabilitado"
+Prioritized                         = "Priorizado"
+Bytes4088                           = "4088 Bytes"
+Bytes9014                           = "9014 Bytes"
+LAA                                 = "EndereÁo administrado localmente (LAA)"
+JumboPacket                         = "Pacote grande"
+LogLinkState                        = "Evento de estado de link de registro"
+Enable_PME                          = "Habilitar PME"
+QOS_WS2019_22                       = "Agente NDIS QoS/FW LLDP"
+VlanId                              = "ID de VLAN"
+Encap                               = "Descarga de tarefa encapsulada"
+EncapNvgre                          = "Descarga de tarefa encapsulada de NVGRE"
+EncapVxlan                          = "Descarga de tarefa encapsulada de VXLAN"
+VxlanUdpPort                        = "N˙mero da porta de destino UDP da VXLAN"
+EncapOverhead                       = "Sobrecarga no encapsulamento"
+NetworkDirect                       = "Funcionalidade NetworkDirect"
+NetworkDirectTechnology             = "Tecnologia†NetworkDirect"
+RoceFrameSize                       = "Tamanho do frame ROCEv2"
+LinkOnIntDown                       = "Estado do link com a interface inativa"
+SoftwareTimestampRxAll              = "RxAll"
+SoftwareTimestampTxAll              = "TxAll"
+SoftwareTimestampRxAllTxAll         = "RxAll e TxAll"
+SoftwareTimestampTaggedTx           = "TaggedTx"
+SoftwareTimestampRxAllTaggedTx      = "RxAll e TaggedTx"
+AllowNoFECModulesInAuto             = "ConfiguraÁ„o autom·tica de mÛdulos n„o FEC"
+ServiceName                         = "icea"
+Intel                               = "Intel"
+DiskName                            = "Intel(R) PRO/100GbE Driver Disk"
+Service.Displayname                 = "Intel(R) PRO/100GbE PCIe-A Network Connection Driver"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+F1593.Generic.Description           = "Intel(R) Ethernet Controller E810-C for SFP"
+F1593.25G.Quad.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-4"
+F1593.25G.Quad.Dell.Description     = "Intel(R) Ethernet 25G 4P E810-XXV Adapter"
+F1593.QSFP.OCP.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-4 for OCP 3.0"
+F1593.25G.QSFP.OCP.Description      = "Intel(R) Ethernet 25G 4P E810-XXV OCP"
+F1599.Generic.Description           = "Intel(R) Ethernet Controller E810-XXV for backplane"
+F1599.Dual.Description              = "Intel(R) Ethernet 25G 2P E810-XXV-k Mezz"
+F159B.Generic.Description           = "Intel(R) Ethernet Controller E810-XXV for SFP"
+F159B.25G.Dual.Description          = "Intel(R) Ethernet Network Adapter E810-XXV-2 for OCP 3.0"
+F159B.25G.OCP.Dual.SD.Description   = "Intel(R) Ethernet 25G 2P E810-XXV Adapter"
+F159B.25G.OCP.Dual.Description      = "Intel(R) Ethernet 25G 2P E810-XXV OCP"
+F159B.25G.Dual.CC.Description       = "Intel(R) Ethernet Network Adapter E810-XXV-2"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+
+

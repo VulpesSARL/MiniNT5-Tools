@@ -1,0 +1,561 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes'?>
+<!-- General ETW manifest documentation:  "http://msdn.microsoft.com/en-us/library/aa385619.aspx" -->
+<instrumentationManifest
+    xmlns="http://schemas.microsoft.com/win/2004/08/events"
+    xmlns:win="http://manifests.microsoft.com/win/2004/08/windows/events"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://schemas.microsoft.com/win/2004/08/events eventman.xsd"
+    >
+  <instrumentation>
+    <events>
+      <!-- Provider - A driver is a "provider".  See "http://msdn.microsoft.com/en-us/library/aa384018(VS.85).aspx"
+          name: Friendly name of the provider
+          guid: The unique driver GUID, generated with guidgen.exe
+          symbol: Name of the provider as referenced by C code
+          parameterFileName:  File to search when rendering %%n
+          resourceFileName:  File with event metadata in its resources (the driver .sys file)
+          messageFileName:  The driver .sys file
+       -->
+      <provider
+          name="Intel-ENTRYPOINTNDIS"
+          guid="{9CB93570-7215-4E97-B8FE-5A26A705FCCE}"
+          symbol="icea"
+          resourceFileName="%SystemRoot%\system32\drivers\icea.sys"
+          messageFileName="%SystemRoot%\system32\drivers\icea.sys"
+          >
+        <channels>
+          <!-- Channels - How the events are organized.  See "http://msdn.microsoft.com/en-us/library/aa382736(VS.85).aspx"
+              chid: ID used to refer to this channel in the manifest
+              name: Friendly name of the channel
+              symbol: Name of the channel as referenced by C code
+              type: "Analytic" | "Debug" (for ETW drivers) - See "http://msdn.microsoft.com/en-us/library/aa385225(VS.85).aspx"
+              isolation: "Application" | "System" | "Custom" - See "http://msdn.microsoft.com/en-us/library/aa382741(VS.85).aspx"
+              enabled: default state of the channel
+          -->
+          <channel
+              chid="Analytic"
+              name="Intel-ENTRYPOINTNDIS/Analytic"
+              symbol="Intel_ENTRYPOINTNDIS_Analytic"
+              type="Analytic"
+              isolation="System"
+              enabled="false"
+              />
+        </channels>
+        <templates>
+          <!-- Templates - Defines a combination of paramss that can be logged with an event.  See "http://msdn.microsoft.com/en-us/library/aa384184(VS.85).aspx"
+              name: The parameter name, as it will appear in the code
+              inType/outType: Parameter types - See "http://msdn.microsoft.com/en-us/library/aa382774.aspx"
+          -->
+          <template tid="tid_Default">
+            <data
+                name="AdapterIndex"
+                inType="win:HexInt64"
+                outType="win:HexInt64"
+                />
+          </template>
+          <template tid="tid_UINT64">
+            <data
+                name="AdapterIndex"
+                inType="win:HexInt64"
+                outType="win:HexInt64"
+                />
+            <data
+                name="UINT64"
+                inType="win:HexInt64"
+                outType="win:HexInt64"
+                />
+          </template>
+          <template tid="tid_PUINT64">
+            <data
+                name="AdapterIndex"
+                inType="win:HexInt64"
+                outType="win:HexInt64"
+                />
+            <data
+                name="PUINT64"
+                inType="win:Pointer"
+                outType="win:HexInt64"
+                />
+          </template>
+        </templates>
+        <events>
+          <!-- Events - The individual events that a driver may raise.  See "http://msdn.microsoft.com/en-us/library/aa382755(VS.85).aspx"
+              channel: Reference to the channel.chid for this event
+              opcode: Identifies the classification of this event.  See "http://msdn.microsoft.com/en-us/library/aa383956(VS.85).aspx"
+              value: A unique number, per the numbering convention
+              symbol: Name of the channel as referenced by C code
+              task: Reference to the task.name for this event
+              message: Reference to the string.id for this event
+              template: Reference to the template.data.name used to define the parameters provided to this event
+              level: Logging level for this event.  See "http://msdn.microsoft.com/en-us/library/aa382793(VS.85).aspx"
+          -->
+          <!-- Event numbering convention (change as needed):
+               0-19  - [Available]
+               20-29 - Interrupt events
+               30-39 - Receive events
+               40-49 - Transmit events
+               50-79 - [Available]
+               80-89 - Misc events
+               100-109 - ETW subsystem events
+          -->
+          <event channel="Analytic" opcode="win:Info"
+              value="20"
+              symbol="Interrupt_MinimumInterruptInterval"
+              task="Interrupt_MinimumInterruptInterval"
+              message="$(string.Interrupt_MinimumInterruptInterval)"
+              template="tid_UINT64"
+              level="win:Informational"
+              />
+          <event channel="Analytic" opcode="win:Info"
+              value="30"
+              symbol="Receive_NBLsIndicated"
+              task="Receive_NBLsIndicated"
+              message="$(string.Receive_NBLsIndicated)"
+              template="tid_UINT64"
+              level="win:Informational"
+              />
+          <event channel="Analytic" opcode="win:Info"
+              value="31"
+              symbol="Receive_NumRxDescriptors"
+              task="Receive_NumRxDescriptors"
+              message="$(string.Receive_NumRxDescriptors)"
+              template="tid_UINT64"
+              level="win:Informational"
+              />
+          <event channel="Analytic" opcode="win:Info"
+              value="32"
+              symbol="Receive_NumRxQueues"
+              task="Receive_NumRxQueues"
+              message="$(string.Receive_NumRxQueues)"
+              template="tid_UINT64"
+              level="win:Informational"
+              />
+          <event channel="Analytic" opcode="win:Info"
+              value="40"
+              symbol="Transmit_AbortingSendNBL"
+              task="Transmit_AbortingSendNBL"
+              message="$(string.Transmit_AbortingSendNBL)"
+              template="tid_PUINT64"
+              level="win:Informational"
+              />
+          <event channel="Analytic" opcode="win:Info"
+              value="41"
+              symbol="Transmit_NumTxDescriptors"
+              task="Transmit_NumTxDescriptors"
+              message="$(string.Transmit_NumTxDescriptors)"
+              template="tid_UINT64"
+              level="win:Informational"
+              />
+          <event channel="Analytic" opcode="win:Info"
+              value="42"
+              symbol="Transmit_NumTxQueues"
+              task="Transmit_NumTxQueues"
+              message="$(string.Transmit_NumTxQueues)"
+              template="tid_UINT64"
+              level="win:Informational"
+              />
+          <event channel="Analytic" opcode="win:Info"
+              value="43"
+              symbol="Transmit_PacketTransmit"
+              task="Transmit_PacketTransmit"
+              message="$(string.Transmit_PacketTransmit)"
+              template="tid_Default"
+              level="win:Informational"
+              />
+          <event channel="Analytic" opcode="win:Info"
+              value="44"
+              symbol="Transmit_PacketTransmitComplete"
+              task="Transmit_PacketTransmitComplete"
+              message="$(string.Transmit_PacketTransmitComplete)"
+              template="tid_Default"
+              level="win:Informational"
+              />
+          <event channel="Analytic" opcode="win:Info"
+              value="80"
+              symbol="Reset_DetectedHardwareHang"
+              task="Reset_DetectedHardwareHang"
+              message="$(string.Reset_DetectedHardwareHang)"
+              template="tid_Default"
+              level="win:Critical"
+              />
+          <event channel="Analytic" opcode="win:Start"
+              value="100"
+              symbol="Trace_ETWInitialized"
+              task="Trace_ETWInitialized"
+              message="$(string.Trace_ETWInitialized)"
+              template="tid_Default"
+              level="win:Informational"
+              />
+          <event channel="Analytic" opcode="win:Stop"
+              value="101"
+              symbol="Trace_ETWUninitialized"
+              task="Trace_ETWUninitialized"
+              message="$(string.Trace_ETWUninitialized)"
+              template="tid_Default"
+              level="win:Informational"
+              />
+        </events>
+          <!-- Tasks - One of these is defined for each event.  The presence of a task enables XPerf to track and show stats for each individual event.  See "http://msdn.microsoft.com/en-us/library/aa384169(VS.85).aspx"
+              value: Should be the same as the event.value for this task
+              name: Reference to the event.task for this task
+          -->
+        <tasks>
+           <task value="20"  name="Interrupt_MinimumInterruptInterval"/>
+           <task value="30"  name="Receive_NBLsIndicated"/>
+           <task value="31"  name="Receive_NumRxDescriptors"/>
+           <task value="32"  name="Receive_NumRxQueues"/>
+           <task value="40"  name="Transmit_AbortingSendNBL"/>
+           <task value="41"  name="Transmit_NumTxDescriptors"/>
+           <task value="42"  name="Transmit_NumTxQueues"/>
+           <task value="43"  name="Transmit_PacketTransmit"/>
+           <task value="44"  name="Transmit_PacketTransmitComplete"/>
+           <task value="80"  name="Reset_DetectedHardwareHang"/>
+           <task value="100" name="Trace_ETWInitialized"/>
+           <task value="101" name="Trace_ETWUninitialized"/>
+        </tasks>
+     </provider>
+    </events>
+    <counters
+            xmlns="http://schemas.microsoft.com/win/2005/12/counters"
+            schemaVersion="1.1"
+    >
+            <provider callback = "custom"
+                      applicationIdentity = "%iceaInstallDir%\icea.sys"
+                      providerType = "kernelMode"
+                      providerName = "Intel-icea"
+                      providerGuid = "{9CB93570-7215-4E97-B8FE-5A26A705FCCE}">
+                <counterSet guid        = "{40074721-3566-41f8-a129-11f2ec2dad67}"
+                            uri         = "Intel.Ethernet.RdmaCountersPackets"
+                            name        = "Intel Ethernet RDMA Packet Counters"
+                            description = "RDMA packets transmitted and received statistics"
+                            symbol      = "RdmaCountersPackets"
+                            instances   = "multipleAggregate"
+                            >
+                        <structs>
+                               <struct name="RdmaCountersPacketsData" type="RDMA_COUNTERS_PACKETS"/>
+                        </structs>
+                        <counter id       = "1"
+                             uri          = "Intel.Ethernet.RdmaCountersPackets.ByteTransmitted"
+                             name         = "Bytes Transmitted"
+                             struct       = "RdmaCountersPacketsData"
+                             field        = "TxBytes"
+                             description  = "RDMA bytes transmitted"
+                             aggregate    = "avg"
+                             type         = "perf_counter_large_rawcount"
+                             detailLevel  = "standard">
+                        </counter>
+                        <counter id       = "2"
+                             uri          = "Intel.Ethernet.RdmaCountersPackets.BytesReceived"
+                             name         = "Bytes Received"
+                             struct       = "RdmaCountersPacketsData"
+                             field        = "RxBytes"
+                             description  = "RDMA bytes received"
+                             aggregate    = "avg"
+                             type         = "perf_counter_large_rawcount"
+                             detailLevel  = "standard">
+                        </counter>
+                        <counter id       = "3"
+                             uri          = "Intel.Ethernet.RdmaCountersPackets.PacketsTransmitted"
+                             name         = "Packets Transmitted"
+                             struct       = "RdmaCountersPacketsData"
+                             field        = "TxPackets"
+                             description  = "RDMA packets transmitted"
+                             aggregate    = "avg"
+                             type         = "perf_counter_large_rawcount"
+                             detailLevel  = "standard">
+                        </counter>
+                        <counter id       = "4"
+                             uri          = "Intel.Ethernet.RdmaCountersPackets.PacketsReceived"
+                             name         = "Packets Received"
+                             struct       = "RdmaCountersPacketsData"
+                             field        = "RxPackets"
+                             description  = "RDMA packets received"
+                             aggregate    = "avg"
+                             type         = "perf_counter_large_rawcount"
+                             detailLevel  = "standard">
+                        </counter>
+                        <counter id       = "5"
+                             uri          = "Intel.Ethernet.RdmaCountersPackets.SegmentsTransmitted"
+                             name         = "Segments Transmitted"
+                             struct       = "RdmaCountersPacketsData"
+                             field        = "TxL3Segs"
+                             description  = "RDMA segments transmitted"
+                             aggregate    = "avg"
+                             type         = "perf_counter_large_rawcount"
+                             detailLevel  = "standard">
+                        </counter>
+                        <counter id       = "6"
+                             uri          = "Intel.Ethernet.RdmaCountersPackets.SegmentsReceived"
+                             name         = "Segments Received"
+                             struct       = "RdmaCountersPacketsData"
+                             field        = "RxL3Segs"
+                             description  = "RDMA segments received"
+                             aggregate    = "avg"
+                             type         = "perf_counter_large_rawcount"
+                             detailLevel  = "standard">
+                        </counter>
+                        <counter id       = "7"
+                             uri          = "Intel.Ethernet.RdmaCountersPackets.RetransmitSegments"
+                             name         = "Segments Retransmitted"
+                             struct       = "RdmaCountersPacketsData"
+                             field        = "RtxSeg"
+                             description  = "RDMA segments retransmitted"
+                             aggregate    = "avg"
+                             type         = "perf_counter_large_rawcount"
+                             detailLevel  = "standard">
+                        </counter>
+                        <counter id       = "8"
+                             uri          = "Intel.Ethernet.RdmaCountersPackets.FragmentsTransmitted"
+                             name         = "Fragments Transmitted"
+                             struct       = "RdmaCountersPacketsData"
+                             field        = "TxFrags"
+                             description  = "RDMA fragments transmitted"
+                             aggregate    = "avg"
+                             type         = "perf_counter_large_rawcount"
+                             detailLevel  = "standard">
+                        </counter>
+                        <counter id       = "9"
+                             uri          = "Intel.Ethernet.RdmaCountersPackets.FragmentsReceived"
+                             name         = "Fragments Received"
+                             struct       = "RdmaCountersPacketsData"
+                             field        = "RxFrags"
+                             description  = "RDMA packets received"
+                             aggregate    = "avg"
+                             type         = "perf_counter_large_rawcount"
+                             detailLevel  = "standard">
+                        </counter>
+                        <counter id       = "10"
+                             uri          = "Intel.Ethernet.RdmaCountersPackets.DiscardedPacketsReceived"
+                             name         = "Discarded Packets Received"
+                             struct       = "RdmaCountersPacketsData"
+                             field        = "RxDiscards"
+                             description  = "RDMA received packets discarded"
+                             aggregate    = "avg"
+                             type         = "perf_counter_large_rawcount"
+                             detailLevel  = "standard">
+                        </counter>
+                        <counter id       = "11"
+                             uri          = "Intel.Ethernet.RdmaCountersPackets.TruncatedPacketsReceived"
+                             name         = "Truncated Packets Received"
+                             struct       = "RdmaCountersPacketsData"
+                             field        = "RxTrunc"
+                             description  = "RDMA transmitted packets truncated"
+                             aggregate    = "avg"
+                             type         = "perf_counter_large_rawcount"
+                             detailLevel  = "standard">
+                        </counter>
+                        <counter id       = "12"
+                             uri          = "Intel.Ethernet.RdmaCountersPackets.NoRoutePacketsTransmitted"
+                             name         = "Not Routable Transmitted Packets"
+                             struct       = "RdmaCountersPacketsData"
+                             field        = "TxNoRoute"
+                             description  = "RDMA transmitted packets with no route"
+                             aggregate    = "avg"
+                             type         = "perf_counter_large_rawcount"
+                             detailLevel  = "standard">
+                        </counter>
+                        <counter id       = "13"
+                             uri          = "Intel.Ethernet.RdmaCountersPackets.TcpRxErrors"
+                             name         = "Tcp Received Errors"
+                             struct       = "RdmaCountersPacketsData"
+                             field        = "TcpErr"
+                             description  = "RDMA TCP received errors"
+                             aggregate    = "avg"
+                             type         = "perf_counter_large_rawcount"
+                             detailLevel  = "standard">
+                        </counter>
+                        <counter id       = "14"
+                             uri          = "Intel.Ethernet.RdmaCountersPackets.RxMulticast"
+                             name         = "Received Multicast Packets"
+                             struct       = "RdmaCountersPacketsData"
+                             field        = "RxMcPkts"
+                             description  = "RDMA received multicast packets"
+                             aggregate    = "avg"
+                             type         = "perf_counter_large_rawcount"
+                             detailLevel  = "standard">
+                        </counter>
+                        <counter id       = "15"
+                             uri          = "Intel.Ethernet.RdmaCountersPackets.TxMulticast"
+                             name         = "Transmitted Multicast Packets"
+                             struct       = "RdmaCountersPacketsData"
+                             field        = "TxMcPkts"
+                             description  = "RDMA transmitted multicast packets"
+                             aggregate    = "avg"
+                             type         = "perf_counter_large_rawcount"
+                             detailLevel  = "standard">
+                        </counter>
+                        <counter id       = "16"
+                             uri          = "Intel.Ethernet.RdmaCountersPackets.RxVlanError"
+                             name         = "VLAN Received Errors"
+                             struct       = "RdmaCountersPacketsData"
+                             field        = "RxVLanErr"
+                             description  = "RDMA received packets with VLAN errors"
+                             aggregate    = "avg"
+                             type         = "perf_counter_large_rawcount"
+                             detailLevel  = "standard">
+                        </counter>
+                        <counter id       = "17"
+                             uri          = "Intel.Ethernet.RdmaCountersPackets.RxEcnPackets"
+                             name         = "ECN Packets Recieved"
+                             struct       = "RdmaCountersPacketsData"
+                             field        = "RxNpecnMarkedPkts"
+                             description  = "RDMA ECN packets received"
+                             aggregate    = "avg"
+                             type         = "perf_counter_large_rawcount"
+                             detailLevel  = "standard">
+                        </counter>
+                </counterSet>
+                <counterSet guid        = "{a1cc5fdb-7248-4831-b2f9-8cbd1b12109a}"
+                            uri         = "Intel.Ethernet.RdmaCountersOps"
+                            name        = "Intel Ethernet RDMA Operation Counters"
+                            description = "RDMA OPs executed and received statistics"
+                            symbol      = "RdmaCountersOps"
+                            instances   = "multipleAggregate"
+                            >
+                        <structs>
+                               <struct name="RdmaCountersOpsData" type="RDMA_COUNTERS_OPERATIONS"/>
+                        </structs>
+                        <counter id       = "1"
+                             uri          = "Intel.Ethernet.RdmaCounters.ReadsReceived"
+                             name         = "Reads Received"
+                             struct       = "RdmaCountersOpsData"
+                             field        = "RxRds"
+                             description  = "RDMA read requests received"
+                             aggregate    = "avg"
+                             type         = "perf_counter_large_rawcount"
+                             detailLevel  = "standard">
+                        </counter>
+                        <counter id       = "2"
+                             uri          = "Intel.Ethernet.RdmaCounters.SendsReceived"
+                             name         = "Sends Received"
+                             struct       = "RdmaCountersOpsData"
+                             field        = "RxSnds"
+                             description  = "RDMA sends received"
+                             aggregate    = "avg"
+                             type         = "perf_counter_large_rawcount"
+                             detailLevel  = "standard">
+                        </counter>
+                        <counter id       = "3"
+                             uri          = "Intel.Ethernet.RdmaCounters.WritesReceived"
+                             name         = "Writes Received"
+                             struct       = "RdmaCountersOpsData"
+                             field        = "RxWrs"
+                             description  = "RDMA writes received"
+                             aggregate    = "avg"
+                             type         = "perf_counter_large_rawcount"
+                             detailLevel  = "standard">
+                        </counter>
+                        <counter id       = "4"
+                             uri          = "Intel.Ethernet.RdmaCounters.ReadsTransmitted"
+                             name         = "Reads Transmitted"
+                             struct       = "RdmaCountersOpsData"
+                             field        = "TxRds"
+                             description  = "RDMA read requests transmitted"
+                             aggregate    = "avg"
+                             type         = "perf_counter_large_rawcount"
+                             detailLevel  = "standard">
+                        </counter>
+                        <counter id       = "5"
+                             uri          = "Intel.Ethernet.RdmaCounters.SendsTransmitted"
+                             name         = "Sends Transmitted"
+                             struct       = "RdmaCountersOpsData"
+                             field        = "TxSnds"
+                             description  = "RDMA sends transmitted"
+                             aggregate    = "avg"
+                             type         = "perf_counter_large_rawcount"
+                             detailLevel  = "standard">
+                        </counter>
+                        <counter id       = "6"
+                             uri          = "Intel.Ethernet.RdmaCounters.WritesTransmitted"
+                             name         = "Writes Transmitted"
+                             struct       = "RdmaCountersOpsData"
+                             field        = "TxWrs"
+                             description  = "RDMA writes transmitted"
+                             aggregate    = "avg"
+                             type         = "perf_counter_large_rawcount"
+                             detailLevel  = "standard">
+                        </counter>
+                        <counter id       = "7"
+                             uri          = "Intel.Ethernet.RdmaCounters.Binds"
+                             name         = "Binds"
+                             struct       = "RdmaCountersOpsData"
+                             field        = "Bnd"
+                             description  = "RDMA Binds"
+                             aggregate    = "avg"
+                             type         = "perf_counter_large_rawcount"
+                             detailLevel  = "standard">
+                        </counter>
+                        <counter id       = "8"
+                             uri          = "Intel.Ethernet.RdmaCounters.Invalidates"
+                             name         = "Invalidates"
+                             struct       = "RdmaCountersOpsData"
+                             field        = "Inv"
+                             description  = "RDMA invalidates"
+                             aggregate    = "avg"
+                             type         = "perf_counter_large_rawcount"
+                             detailLevel  = "standard">
+                        </counter>
+                </counterSet>
+           </provider>
+        </counters>
+  </instrumentation>
+  <localization xmlns="http://schemas.microsoft.com/win/2004/08/events">
+    <resources culture="en-US">
+      <stringTable>
+        <!-- String - Human-readable string for each event.  See "http://msdn.microsoft.com/en-us/library/aa384056(VS.85).aspx"
+            id: Reference to event.symbol for which this string applies
+            value: The human-readable string for the event.
+        -->
+        <string
+            id="Interrupt_MinimumInterruptInterval"
+            value="Interrupt Throttle Rate"
+            />
+        <string
+            id="Receive_NBLsIndicated"
+            value="Rx NBLs Indicated"
+            />
+        <string
+            id="Receive_NumRxDescriptors"
+            value="NumRxDescriptors"
+            />
+        <string
+            id="Receive_NumRxQueues"
+            value="NumRxQueues"
+            />
+        <string
+            id="Reset_DetectedHardwareHang"
+            value="Detected HW hang, returning TRUE from MiniportCheckForHangEx"
+            />
+        <string
+            id="Trace_ETWInitialized"
+            value="ETW Initialized"
+            />
+        <string
+            id="Trace_ETWUninitialized"
+            value="ETW Uninitialized"
+            />
+        <string
+            id="Transmit_AbortingSendNBL"
+            value="Aborting NBL send"
+            />
+        <string
+            id="Transmit_NumTxDescriptors"
+            value="NumTxDescriptors"
+            />
+        <string
+            id="Transmit_NumTxQueues"
+            value="NumTxQueues"
+            />
+        <string
+            id="Transmit_PacketTransmit"
+            value="Packet Transmit"
+            />
+        <string
+            id="Transmit_PacketTransmitComplete"
+            value="Packet Transmit Complete"
+            />
+      </stringTable>
+    </resources>
+  </localization>
+</instrumentationManifest>

@@ -35,7 +35,7 @@ namespace FoxUnmapNet
         {
             this.Top = this.Left = 0;
             this.Height = this.Width = 1;
-            Fox.FoxCWrapper.FoxNetworkUnmap((uint)this.Handle);
+            Fox.FoxCWrapper.FoxNetworkUnmap(this.Handle);
         }
 
         private void timer1_Tick(object sender, EventArgs e)

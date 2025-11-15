@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.329
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36705.20 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FoxCWrapper", "FoxCWrapper\FoxCWrapper.vcxproj", "{77B07D51-F3CF-4A96-8D50-126A8C4023F4}"
 EndProject
@@ -43,13 +43,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{8AAD
 		MiniNTBuilder\09 Add Drivers.cmd = MiniNTBuilder\09 Add Drivers.cmd
 		MiniNTBuilder\10 copy tools.cmd = MiniNTBuilder\10 copy tools.cmd
 		MiniNTBuilder\11 Copy FoxSDC.cmd = MiniNTBuilder\11 Copy FoxSDC.cmd
+		MiniNTBuilder\12 Copy FoxTools.cmd = MiniNTBuilder\12 Copy FoxTools.cmd
+		MiniNTBuilder\13 Update Servicing Stack.cmd = MiniNTBuilder\13 Update Servicing Stack.cmd
 		MiniNTBuilder\96 Windows FE.cmd = MiniNTBuilder\96 Windows FE.cmd
 		MiniNTBuilder\97 Update MiniNT ID.cmd = MiniNTBuilder\97 Update MiniNT ID.cmd
 		MiniNTBuilder\98 Optimize Image.cmd = MiniNTBuilder\98 Optimize Image.cmd
 		MiniNTBuilder\99 Create ISOs.cmd = MiniNTBuilder\99 Create ISOs.cmd
 		MiniNTBuilder\99 Make PXE Boot.cmd = MiniNTBuilder\99 Make PXE Boot.cmd
+		MiniNTBuilder\build-tools.cmd = MiniNTBuilder\build-tools.cmd
+		MiniNTBuilder\copy boot to Shuttle64.cmd = MiniNTBuilder\copy boot to Shuttle64.cmd
+		MiniNTBuilder\copy boot to Web.cmd = MiniNTBuilder\copy boot to Web.cmd
 		MiniNTBuilder\MiniNT ID.reg = MiniNTBuilder\MiniNT ID.reg
 		MiniNTBuilder\mount wims.cmd = MiniNTBuilder\mount wims.cmd
+		MiniNTBuilder\Notes.txt = MiniNTBuilder\Notes.txt
 		MiniNTBuilder\paths.cmd = MiniNTBuilder\paths.cmd
 		MiniNTBuilder\tune TFTP Window Size.cmd = MiniNTBuilder\tune TFTP Window Size.cmd
 		MiniNTBuilder\unmount discard wims.cmd = MiniNTBuilder\unmount discard wims.cmd

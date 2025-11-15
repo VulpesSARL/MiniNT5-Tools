@@ -1,10 +1,10 @@
-# MiniNT5 Tools
+﻿# MiniNT5 Tools
 
-Scripts & Tools to customize Windows PE to my like. Also adds 32 Bit application support to the 64 Bit Windows PE Image.
-Really small, ca. 525MiB for the 64 Bit image, ca. 340MiB for the 32 Bit Image.
+Scripts & Tools to customize Windows PE to my like.
+Really small, ca. 541MiB for the 64 Bit image.
 Can be booted from every media like CD-ROM, USB Sticks and even from Network (PXE).
 
-MiniNT5 is intended for diagnostics, repair & (re-)installation of Windows. (Workstation & Server editions, from Windows 2000 to Windows 10)
+MiniNT5 is intended for diagnostics, repair & (re-)installation of Windows. (Workstation & Server editions, from Windows 7 to Windows 11)
 
 Hint: There is no need to disable Secure-Boot in order to boot MiniNT5. Even from PXE.
 
@@ -12,17 +12,18 @@ Hint: There is no need to disable Secure-Boot in order to boot MiniNT5. Even fro
 
 What things you need to build MiniNT
 
-* Windows 10 1809 (x64) or newer
+* Windows 11 24H2 or newer
 	* with full administrator rights
 		* Administrator rights are required because of the DISM commands (Mount WIM, Unmount WIM) and Registry manipulations
-* [ADK for Windows 10 Version 1809](https://go.microsoft.com/fwlink/?linkid=2026036) and the [Windows PE Addon](https://go.microsoft.com/fwlink/?linkid=2022233)
+* [ADK for Windows 11 Version 10.1.26100.2454 (December 2024)](https://go.microsoft.com/fwlink/?linkid=2289980) and the [Windows PE Addon](https://go.microsoft.com/fwlink/?linkid=2289981)
 	* Assessment and Deployment Kit, nedded for the base Windows PE & additional packages
 		* It must be the exact version of the ADK!
-* Both x86 and x64 DVDs (or ISO) of Windows 10 Version 1809 (needed for some files, missing from the ADK)
-	* Note that the ADK and Windows 10 ISO must be in EN-US language
+* ISO of Windows 11 24H2 / Updated December 2024 (needed for some files, missing from the ADK)
+	* Note that the ADK and Windows 11 ISO must be in EN-US language
 	* [Windows ISOs here](https://tb.rg-adguard.net/public.php)
-* Visual Studio 2017 (I use the Enterprise Edition, [Visual Studio Community Edition](https://visualstudio.microsoft.com/downloads/) confirmed to work)
-	* Visual Studio 2017 (v141) Platform Toolset
+    * ISO SHA256: EE0852439410C62B38E33C5BC3270A8699B07D46CA75601BE6A1C21ABAFA9576 - Name: en-gb_windows_11_consumer_editions_version_24h2_updated_dec_2024_x64_dvd_b146c3af.iso
+* Visual Studio 2022 (I use the Enterprise Edition, [Visual Studio Community Edition](https://visualstudio.microsoft.com/downloads/) likely to work)
+	* Visual Studio 2022 (v143) Platform Toolset (SDK Version 10.0.26100.0)
 	* .NET 4 (the original Windows PE only comes with a small set of .NET 4 Runtime)
 
 ### Preparation
@@ -30,7 +31,7 @@ What things you need to build MiniNT
 Preparing the files:
 
 * Delete all "BlankDir.txt" from all folders
-* Extract the contents of both Sources\Install.wim from the DVDs to 2 separate folders (security persmissions does not matter)
+* Extract the contents of Sources\Install.wim from the DVDs to a separate folder (security persmissions does not matter)
 * Install ADK, make sure that Windows PE Images & Tools are installed, all other tools (like WinDBG) are not required
 
 ### Compiling
@@ -40,10 +41,10 @@ Compiling MiniNT:
 * Open the project "MiniNT5 Tools.sln" in Visual Studio, and compile the project as Release/Win32 and Release/x64
 * Go to the folder "MiniNTBuilder" and adapt "paths.cmd" to your like
 * Feel free to modify "MiniNT ID.reg" to your like, not needed
-* Copy, if needed, some drivers into the Drivers\x86 and Drivers\x64 folder (in a separate folder for each driver) - these will be picked up automatically
+* Copy, if needed, some drivers into the Drivers\x64 folder (in a separate folder for each driver) - these will be picked up automatically (some drivers are provided)
 * Open a command prompt with administrative permissions, and run the CMD files from 01 to 99
 
-* when all is success, you see 2 files "MiniNT5 32.iso" and "MiniNT5 64.iso" in the root folder of the project (and a "PXEBoot" folder containig all the files required to boot MiniNT from PXE)
+* when all is success, you see 1 file "MiniNT5 64.iso" in the root folder of the project (and a "PXEBoot" folder containig all the files required to boot MiniNT from PXE)
 
 ### Preparing for PXE boot
 
@@ -55,10 +56,6 @@ All these tools are provided as-is from [Vulpes](https://vulpes.lu).
 If you've some questions, contact me [here](https://go.vulpes.lu/contact).
 
 # Tools
-
-### CollectWOW64
-
-Collects all the 32 Bit files needed for MiniNT64, to be able to run 32 bit binaries (only needed for building MiniNT)
 
 ### FoxCWrapper
 
@@ -75,17 +72,17 @@ Some common C# functions to use acros multiple projects
 ### FoxInstallWIM (aka FoxMultiWIM)
 
 Nice GUI to create & install WIM files
-(safe to use within a normal Windows 8 / 10 in production)
+(safe to use within a normal Windows 11 in production)
 
 ### FoxMapNet
 
 simply displays the "Map Network Drive" Window, nothing else
-(safe to use within a normal Windows 8 / 10 in production)
+(safe to use within a normal Windows 11 in production)
 
 ### FoxSetKeyboard
 
 Changes the keyboard layout on the fly (does not save the settings)
-(safe to use within a normal Windows 8 / 10 in production - restart needed to properly revert to previous settings)
+(safe to use within a normal Windows 11 in production - logout / re-login needed to properly revert to previous settings)
 
 ### FoxShell
 
@@ -99,7 +96,7 @@ Small programm to communicate with FoxShell from Batch files to add / remove ico
 ### FoxUnmapNet
 
 Displays "Disconnect Network Drive" Window, nothing else
-(safe to use within a normal Windows 8 / 10 in production)
+(safe to use within a normal Windows 11 in production)
 
 # Screenshots
 

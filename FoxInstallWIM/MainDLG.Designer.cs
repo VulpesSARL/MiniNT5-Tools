@@ -47,9 +47,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.cmdPatchOptions = new System.Windows.Forms.Button();
+            this.chkPrePatch = new System.Windows.Forms.CheckBox();
             this.label10 = new System.Windows.Forms.Label();
             this.lstDestination = new System.Windows.Forms.ComboBox();
             this.grpDestDisk = new System.Windows.Forms.GroupBox();
+            this.chkInstallBootLoader = new System.Windows.Forms.CheckBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.lstDiskSchema = new System.Windows.Forms.ComboBox();
@@ -73,9 +76,8 @@
             this.cmdBrowseDestWIM = new System.Windows.Forms.Button();
             this.txtDestWIM = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.chkInstallBootLoader = new System.Windows.Forms.CheckBox();
-            this.chkPrePatch = new System.Windows.Forms.CheckBox();
-            this.cmdPatchOptions = new System.Windows.Forms.Button();
+            this.chkInstallBootLoaderPLAIN = new System.Windows.Forms.CheckBox();
+            this.chkAutoReboot = new System.Windows.Forms.CheckBox();
             this.grpStatus.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -87,10 +89,10 @@
             // chkNoApplySec
             // 
             this.chkNoApplySec.AutoSize = true;
-            this.chkNoApplySec.Location = new System.Drawing.Point(81, 329);
+            this.chkNoApplySec.Location = new System.Drawing.Point(81, 338);
             this.chkNoApplySec.Name = "chkNoApplySec";
             this.chkNoApplySec.Size = new System.Drawing.Size(177, 17);
-            this.chkNoApplySec.TabIndex = 9;
+            this.chkNoApplySec.TabIndex = 10;
             this.chkNoApplySec.Text = "Don\'t apply security informations";
             this.chkNoApplySec.UseVisualStyleBackColor = true;
             // 
@@ -99,7 +101,7 @@
             this.cmdStart.Location = new System.Drawing.Point(528, 323);
             this.cmdStart.Name = "cmdStart";
             this.cmdStart.Size = new System.Drawing.Size(75, 23);
-            this.cmdStart.TabIndex = 10;
+            this.cmdStart.TabIndex = 11;
             this.cmdStart.Text = "Start";
             this.cmdStart.UseVisualStyleBackColor = true;
             this.cmdStart.Click += new System.EventHandler(this.cmdStart_Click);
@@ -248,6 +250,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.chkAutoReboot);
             this.tabPage1.Controls.Add(this.cmdPatchOptions);
             this.tabPage1.Controls.Add(this.chkPrePatch);
             this.tabPage1.Controls.Add(this.label10);
@@ -270,6 +273,27 @@
             this.tabPage1.Text = "Install from local source";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // cmdPatchOptions
+            // 
+            this.cmdPatchOptions.Location = new System.Drawing.Point(528, 288);
+            this.cmdPatchOptions.Name = "cmdPatchOptions";
+            this.cmdPatchOptions.Size = new System.Drawing.Size(75, 23);
+            this.cmdPatchOptions.TabIndex = 8;
+            this.cmdPatchOptions.Text = "Options";
+            this.cmdPatchOptions.UseVisualStyleBackColor = true;
+            this.cmdPatchOptions.Click += new System.EventHandler(this.cmdPatchOptions_Click);
+            // 
+            // chkPrePatch
+            // 
+            this.chkPrePatch.AutoSize = true;
+            this.chkPrePatch.Location = new System.Drawing.Point(81, 292);
+            this.chkPrePatch.Name = "chkPrePatch";
+            this.chkPrePatch.Size = new System.Drawing.Size(173, 17);
+            this.chkPrePatch.TabIndex = 7;
+            this.chkPrePatch.Text = "Pre-Patch Windows Installation";
+            this.chkPrePatch.UseVisualStyleBackColor = true;
+            this.chkPrePatch.CheckedChanged += new System.EventHandler(this.chkPrePatch_CheckedChanged);
+            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -291,6 +315,7 @@
             // 
             // grpDestDisk
             // 
+            this.grpDestDisk.Controls.Add(this.chkInstallBootLoaderPLAIN);
             this.grpDestDisk.Controls.Add(this.chkInstallBootLoader);
             this.grpDestDisk.Controls.Add(this.label12);
             this.grpDestDisk.Controls.Add(this.label11);
@@ -302,6 +327,17 @@
             this.grpDestDisk.TabIndex = 5;
             this.grpDestDisk.TabStop = false;
             this.grpDestDisk.Text = "To disk";
+            // 
+            // chkInstallBootLoader
+            // 
+            this.chkInstallBootLoader.AutoSize = true;
+            this.chkInstallBootLoader.Location = new System.Drawing.Point(78, 73);
+            this.chkInstallBootLoader.Name = "chkInstallBootLoader";
+            this.chkInstallBootLoader.Size = new System.Drawing.Size(107, 17);
+            this.chkInstallBootLoader.TabIndex = 2;
+            this.chkInstallBootLoader.Text = "Install Bootloader";
+            this.chkInstallBootLoader.UseVisualStyleBackColor = true;
+            this.chkInstallBootLoader.CheckedChanged += new System.EventHandler(this.chkInstallBootLoader_CheckedChanged);
             // 
             // label12
             // 
@@ -399,7 +435,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(615, 346);
+            this.tabPage2.Size = new System.Drawing.Size(615, 364);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Capture to local destination";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -531,36 +567,25 @@
             this.label8.TabIndex = 10;
             this.label8.Text = "WIM File:";
             // 
-            // chkInstallBootLoader
+            // chkInstallBootLoaderPLAIN
             // 
-            this.chkInstallBootLoader.AutoSize = true;
-            this.chkInstallBootLoader.Location = new System.Drawing.Point(78, 73);
-            this.chkInstallBootLoader.Name = "chkInstallBootLoader";
-            this.chkInstallBootLoader.Size = new System.Drawing.Size(107, 17);
-            this.chkInstallBootLoader.TabIndex = 2;
-            this.chkInstallBootLoader.Text = "Install Bootloader";
-            this.chkInstallBootLoader.UseVisualStyleBackColor = true;
+            this.chkInstallBootLoaderPLAIN.AutoSize = true;
+            this.chkInstallBootLoaderPLAIN.Location = new System.Drawing.Point(191, 73);
+            this.chkInstallBootLoaderPLAIN.Name = "chkInstallBootLoaderPLAIN";
+            this.chkInstallBootLoaderPLAIN.Size = new System.Drawing.Size(126, 17);
+            this.chkInstallBootLoaderPLAIN.TabIndex = 3;
+            this.chkInstallBootLoaderPLAIN.Text = "Plain BCDBOOT only";
+            this.chkInstallBootLoaderPLAIN.UseVisualStyleBackColor = true;
             // 
-            // chkPrePatch
+            // chkAutoReboot
             // 
-            this.chkPrePatch.AutoSize = true;
-            this.chkPrePatch.Location = new System.Drawing.Point(81, 292);
-            this.chkPrePatch.Name = "chkPrePatch";
-            this.chkPrePatch.Size = new System.Drawing.Size(173, 17);
-            this.chkPrePatch.TabIndex = 7;
-            this.chkPrePatch.Text = "Pre-Patch Windows Installation";
-            this.chkPrePatch.UseVisualStyleBackColor = true;
-            this.chkPrePatch.CheckedChanged += new System.EventHandler(this.chkPrePatch_CheckedChanged);
-            // 
-            // cmdPatchOptions
-            // 
-            this.cmdPatchOptions.Location = new System.Drawing.Point(528, 288);
-            this.cmdPatchOptions.Name = "cmdPatchOptions";
-            this.cmdPatchOptions.Size = new System.Drawing.Size(75, 23);
-            this.cmdPatchOptions.TabIndex = 8;
-            this.cmdPatchOptions.Text = "Options";
-            this.cmdPatchOptions.UseVisualStyleBackColor = true;
-            this.cmdPatchOptions.Click += new System.EventHandler(this.cmdPatchOptions_Click);
+            this.chkAutoReboot.AutoSize = true;
+            this.chkAutoReboot.Location = new System.Drawing.Point(81, 315);
+            this.chkAutoReboot.Name = "chkAutoReboot";
+            this.chkAutoReboot.Size = new System.Drawing.Size(177, 17);
+            this.chkAutoReboot.TabIndex = 9;
+            this.chkAutoReboot.Text = "Automatically reboot when done";
+            this.chkAutoReboot.UseVisualStyleBackColor = true;
             // 
             // MainDLG
             // 
@@ -641,6 +666,8 @@
         private System.Windows.Forms.CheckBox chkInstallBootLoader;
         private System.Windows.Forms.Button cmdPatchOptions;
         private System.Windows.Forms.CheckBox chkPrePatch;
+        private System.Windows.Forms.CheckBox chkInstallBootLoaderPLAIN;
+        private System.Windows.Forms.CheckBox chkAutoReboot;
     }
 }
 

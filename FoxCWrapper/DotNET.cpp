@@ -1,5 +1,7 @@
-#include <windows.h>
+﻿#include <windows.h>
 #include <WinDNS.h>
+#include <setupapi.h>
+#include <cfgmgr32.h>
 #include <msclr\marshal_cppstd.h>
 #using <System.dll>
 using namespace System;
@@ -241,8 +243,46 @@ namespace Fox
 
 		static void FoxNetworkUnmap(IntPtr^ hwnd)
 		{
-			int res = WNetDisconnectDialog((HWND)hwnd->ToPointer(), RESOURCETYPE_DISK);
+			int res = WNetDisconnectDialog((HWND)hwnd->ToInt64(), RESOURCETYPE_DISK);
 		}
+
+        static int ResetAllDevicesCode18()
+        {
+            HDEVINFO hDevInfo;
+            SP_DEVINFO_DATA devInfoData;
+            DWORD i = 0;
+
+            // Get all present devices
+            hDevInfo = SetupDiGetClassDevs(NULL, NULL, NULL, DIGCF_ALLCLASSES | DIGCF_PRESENT);
+            if (hDevInfo == INVALID_HANDLE_VALUE)
+                return(1);
+
+            devInfoData.cbSize = sizeof(SP_DEVINFO_DATA);
+
+            while (SetupDiEnumDeviceInfo(hDevInfo, i, &devInfoData))
+            {
+                ULONG status = 0, problem = 0;
+                CONFIGRET cr = CM_Get_DevNode_Status(&status, &problem, devInfoData.DevInst, 0);
+
+                if (cr == CR_SUCCESS && problem == CM_PROB_REINSTALL)
+                {
+                    if (!SetupDiCallClassInstaller(DIF_REMOVE, hDevInfo, &devInfoData))
+                    {
+                        //Failed
+                    }
+                }
+
+                i++;
+            }
+
+            SetupDiDestroyDeviceInfoList(hDevInfo);
+
+            // Rescan all devices
+            CM_Locate_DevNode(&devInfoData.DevInst, NULL, CM_LOCATE_DEVNODE_NORMAL);
+            CM_Reenumerate_DevNode(devInfoData.DevInst, CM_REENUMERATE_NORMAL);
+
+            return(0);
+        }
 
 		static Boolean IsFirmwareEFI()
 		{
@@ -421,7 +461,7 @@ int CustomWinPEUtilFunction(const char *Function, WCHAR* Args)
 	WpeutilFunction CallFunction = (WpeutilFunction)GetProcAddress(WPEUtilDLL, Function);
 	if (CallFunction == NULL)
 		return(-1);
-	return(CallFunction(GlobalhInstDLL, NULL, Args, SW_SHOW));
+	return(CallFunction(NULL, NULL, Args, SW_SHOW));
 }
 
 #pragma managed

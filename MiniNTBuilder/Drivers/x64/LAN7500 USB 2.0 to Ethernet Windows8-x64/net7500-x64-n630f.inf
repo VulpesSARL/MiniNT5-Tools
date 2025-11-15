@@ -1,0 +1,362 @@
+;-------------------------------------------------------------------------------
+; net7500-x64-n630f.inf
+;
+; SMSC LAN7500 USB to Ethernet Adapter installation script for x64.
+;
+; Copyright (c) SMSC.  All rights reserved.
+
+[version]
+Signature   = "$Windows NT$"
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Class       = Net
+Provider    = %V_SMSC%
+DriverPackageDisplayName = %LAN7500.PackageDesc.ntx64%
+CatalogFile = lan7500-x64-n630f.cat
+DriverVer   = 04/05/2013,2.2.2.2
+
+[ControlFlags]
+ExcludeFromSelect = USB\VID_0424&PID_7500
+ExcludeFromSelect = USB\VID_0424&PID_7505
+
+[Manufacturer]
+%V_SMSC%=SMSC,ntamd64
+
+[SMSC.ntamd64]
+%LAN7500.DeviceDesc%    = LAN7500.ndi.ntamd64, USB\VID_0424&PID_7500
+%LAN7505.DeviceDesc%    = LAN7500.ndi.ntamd64, USB\VID_0424&PID_7505
+
+;-------------------------------------------------------------------------------
+; SMSC LAN7500 USB 2.0 to Ethernet 10/100/1000 Adapter
+;
+[LAN7500.ndi.ntamd64]
+*IfType         = 6                     ; IF_TYPE_ETHERNET_CSMACD 
+*MediaType      = 0                     ; NdisMedium802_3
+*PhysicalMediaType = 14                 ; NdisPhysicalMedium802_3
+Characteristics = 0x84  ; NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 15
+AddReg          = LAN7500.ndi.reg, LAN7500.params.reg
+DelReg          = DelReg.UnusedCaps
+CopyFiles       = LAN7500.CopyFiles.ntamd64
+
+[LAN7500.ndi.ntamd64.Services]
+AddService      = LAN7500, 2, LAN7500.Service.ntamd64, LAN7500.EventLog.ntamd64
+
+;-----------------------------------------------------------------------------
+; Miniport Common
+;
+[LAN7500.ndi.reg]
+HKR,    ,                         BusNumber,           0, "0" 
+HKR, Ndi,                         Service,             0, "LAN7500"
+HKR, Ndi\Interfaces,              UpperRange,          0, "ndis5"
+HKR, Ndi\Interfaces,              LowerRange,          0, "ethernet"
+
+HKLM, SYSTEM\CurrentControlSet\Control\usbflags\042475000100, DisableOnSoftRemove, 1, 01, 00
+HKLM, SYSTEM\CurrentControlSet\Control\usbflags\042475050100, DisableOnSoftRemove, 1, 01, 00
+
+[LAN7500.params.reg]
+
+HKR,Ndi\Params\*FlowControl,ParamDesc,      ,%FlowControl%
+HKR,Ndi\Params\*FlowControl,type,           ,"enum"
+HKR,Ndi\Params\*FlowControl,default,        ,"3"
+HKR,Ndi\Params\*FlowControl\enum,"0",       ,%Disabled%
+HKR,Ndi\Params\*FlowControl\enum,"1",       ,%Tx_Enabled%
+HKR,Ndi\Params\*FlowControl\enum,"2",       ,%Rx_Enabled%
+HKR,Ndi\Params\*FlowControl\enum,"3",       ,%Rx_And_Tx_Enabled%
+
+HKR,Ndi\Params\*SpeedDuplex,ParamDesc,      ,%SpeedDuplex%
+HKR,Ndi\Params\*SpeedDuplex,type,           ,enum
+HKR,Ndi\Params\*SpeedDuplex,default,        ,0
+HKR,Ndi\Params\*SpeedDuplex\enum,0,         ,%SpeedDuplex_AutoNeg%
+HKR,Ndi\Params\*SpeedDuplex\enum,1,         ,%SpeedDuplex_10HD%
+HKR,Ndi\Params\*SpeedDuplex\enum,2,         ,%SpeedDuplex_10FD%
+HKR,Ndi\Params\*SpeedDuplex\enum,3,         ,%SpeedDuplex_100HD%
+HKR,Ndi\Params\*SpeedDuplex\enum,4,         ,%SpeedDuplex_100FD%
+HKR,Ndi\Params\*SpeedDuplex\enum,6,         ,%SpeedDuplex_1000FD%
+
+HKR,Ndi\Params\NetworkAddress,ParamDesc,    ,%NetAddr%
+HKR,Ndi\Params\NetworkAddress,type,         ,edit
+HKR,Ndi\Params\NetworkAddress,LimitText,    ,17
+HKR,Ndi\Params\NetworkAddress,UpperCase,    ,1
+HKR,Ndi\Params\NetworkAddress,default,      ,""
+HKR,Ndi\Params\NetworkAddress,optional,     ,1
+
+HKR,Ndi\Params\*PriorityVLANTag,ParamDesc,  ,%PriorityAndVlan%
+HKR,Ndi\Params\*PriorityVLANTag,type,       ,"enum"
+HKR,Ndi\Params\*PriorityVLANTag,default,    ,"3"
+HKR,Ndi\Params\*PriorityVLANTag\enum,"0",   ,%PVDisabled%
+HKR,Ndi\Params\*PriorityVLANTag\enum,"3",   ,%PVEnabled%
+
+HKR,Ndi\Params\VlanID,ParamDesc,            ,%VlanID%
+HKR,Ndi\Params\VlanID,type,                 ,"word"
+HKR,Ndi\Params\VlanID,default,              ,"0"
+HKR,Ndi\Params\VlanID,min,                  ,"0"
+HKR,Ndi\Params\VlanID,max,                  ,"4095"
+HKR,Ndi\Params\VlanID,step,                 ,"1"
+HKR,Ndi\Params\VlanID,base,                 ,"10"
+
+HKR,Ndi\Params\USBBandwidthMode,ParamDesc,  ,%USBBwMode%
+HKR,Ndi\Params\USBBandwidthMode,type,       ,"enum"
+HKR,Ndi\Params\USBBandwidthMode,default,    ,"0"
+HKR,Ndi\Params\USBBandwidthMode\enum,"0",   ,%USBBwMaxTput%
+HKR,Ndi\Params\USBBandwidthMode\enum,"1",   ,%USBBwFriendly%
+HKR,Ndi\Params\USBBandwidthMode\enum,"2",   ,%USBBwAutomatic%
+
+HKR,Ndi\Params\*WakeOnPattern,ParamDesc,    ,%WakePattern%
+HKR,Ndi\Params\*WakeOnPattern,type,         ,enum
+HKR,Ndi\Params\*WakeOnPattern,default,      ,1
+HKR,Ndi\Params\*WakeOnPattern\enum,0,       ,%WakeDisable%
+HKR,Ndi\Params\*WakeOnPattern\enum,1,       ,%WakeEnable%
+
+HKR,Ndi\Params\*WakeOnMagicPacket,ParamDesc,,%WakeMagicPkt%
+HKR,Ndi\Params\*WakeOnMagicPacket,type,     ,enum
+HKR,Ndi\Params\*WakeOnMagicPacket,default,  ,1
+HKR,Ndi\Params\*WakeOnMagicPacket\enum,0,   ,%WakeDisable%
+HKR,Ndi\Params\*WakeOnMagicPacket\enum,1,   ,%WakeEnable%
+
+HKR,Ndi\Params\*DeviceSleepOnDisconnect,ParamDesc,    ,%DeviceSleepOnDisconnectDesc%
+HKR,Ndi\Params\*DeviceSleepOnDisconnect,type,         ,enum
+HKR,Ndi\Params\*DeviceSleepOnDisconnect,default,      ,0
+HKR,Ndi\Params\*DeviceSleepOnDisconnect\enum,0,       ,%Disabled%
+HKR,Ndi\Params\*DeviceSleepOnDisconnect\enum,1,       ,%Enabled%
+
+HKR,Ndi\Params\*PMARPOffload,ParamDesc,    ,%PMARPOffloadDesc%
+HKR,Ndi\Params\*PMARPOffload,type,         ,enum
+HKR,Ndi\Params\*PMARPOffload,default,      ,1
+HKR,Ndi\Params\*PMARPOffload\enum,0,       ,%Disabled%
+HKR,Ndi\Params\*PMARPOffload\enum,1,       ,%Enabled%
+
+HKR,Ndi\Params\*PMNSOffload,ParamDesc,     ,%PMNSOffloadDesc%
+HKR,Ndi\Params\*PMNSOffload,type,          ,enum
+HKR,Ndi\Params\*PMNSOffload,default,       ,1
+HKR,Ndi\Params\*PMNSOffload\enum,0,        ,%Disabled%
+HKR,Ndi\Params\*PMNSOffload\enum,1,        ,%Enabled%
+
+HKR,Ndi\Params\*SelectiveSuspend,ParamDesc,         ,%SSuspend%
+HKR,Ndi\Params\*SelectiveSuspend,type,              ,enum
+HKR,Ndi\Params\*SelectiveSuspend,default,           ,1
+HKR,Ndi\Params\*SelectiveSuspend\enum,0,            ,%SSDisable%
+HKR,Ndi\Params\*SelectiveSuspend\enum,1,            ,%SSEnable%
+
+HKR,Ndi\Params\*SSIdleTimeout,ParamDesc,    ,%SSIdleTimeout%
+HKR,Ndi\Params\*SSIdleTimeout,default,      ,"10"
+HKR,Ndi\Params\*SSIdleTimeout,type,         ,"int"
+HKR,Ndi\Params\*SSIdleTimeout,min,          ,"1"
+HKR,Ndi\Params\*SSIdleTimeout,max,          ,"10"
+HKR,Ndi\Params\*SSIdleTimeout,step,         ,"1"
+HKR,Ndi\Params\*SSIdleTimeout,base,         ,"10"
+
+HKR,Ndi\Params\*LsoV1IPv4,ParamDesc,    ,%LsoV1IPv4Desc%
+HKR,Ndi\Params\*LsoV1IPv4,type,         ,enum
+HKR,Ndi\Params\*LsoV1IPv4,default,      ,1
+HKR,Ndi\Params\*LsoV1IPv4\enum,0,       ,%Disabled%
+HKR,Ndi\Params\*LsoV1IPv4\enum,1,       ,%Enabled%
+
+HKR,Ndi\Params\*LsoV2IPv4,ParamDesc,    ,%LsoV2IPv4Desc%
+HKR,Ndi\Params\*LsoV2IPv4,type,         ,enum
+HKR,Ndi\Params\*LsoV2IPv4,default,      ,1
+HKR,Ndi\Params\*LsoV2IPv4\enum,0,       ,%Disabled%
+HKR,Ndi\Params\*LsoV2IPv4\enum,1,       ,%Enabled%
+
+HKR,Ndi\Params\*LsoV2IPv6,ParamDesc,    ,%LsoV2IPv6Desc%
+HKR,Ndi\Params\*LsoV2IPv6,type,         ,enum
+HKR,Ndi\Params\*LsoV2IPv6,default,      ,1
+HKR,Ndi\Params\*LsoV2IPv6\enum,0,       ,%Disabled%
+HKR,Ndi\Params\*LsoV2IPv6\enum,1,       ,%Enabled%
+
+HKR,Ndi\Params\*IPChecksumOffloadIPv4,ParamDesc,      ,%IpCsoIPv4%
+HKR,Ndi\Params\*IPChecksumOffloadIPv4,type,           ,"enum"
+HKR,Ndi\Params\*IPChecksumOffloadIPv4,default,        ,"3"
+HKR,Ndi\Params\*IPChecksumOffloadIPv4\enum,"0",       ,%Disabled%
+HKR,Ndi\Params\*IPChecksumOffloadIPv4\enum,"1",       ,%TxEnabled%
+HKR,Ndi\Params\*IPChecksumOffloadIPv4\enum,"2",       ,%RxEnabled%
+HKR,Ndi\Params\*IPChecksumOffloadIPv4\enum,"3",       ,%TxRxEnabled%
+
+HKR,Ndi\Params\*TCPChecksumOffloadIPv4,ParamDesc,      ,%TcpCsoIPv4%
+HKR,Ndi\Params\*TCPChecksumOffloadIPv4,type,           ,"enum"
+HKR,Ndi\Params\*TCPChecksumOffloadIPv4,default,        ,"3"
+HKR,Ndi\Params\*TCPChecksumOffloadIPv4\enum,"0",       ,%Disabled%
+HKR,Ndi\Params\*TCPChecksumOffloadIPv4\enum,"1",       ,%TxEnabled%
+HKR,Ndi\Params\*TCPChecksumOffloadIPv4\enum,"2",       ,%RxEnabled%
+HKR,Ndi\Params\*TCPChecksumOffloadIPv4\enum,"3",       ,%TxRxEnabled%
+
+HKR,Ndi\Params\*TCPChecksumOffloadIPv6,ParamDesc,      ,%TcpCsoIPv6%
+HKR,Ndi\Params\*TCPChecksumOffloadIPv6,type,           ,"enum"
+HKR,Ndi\Params\*TCPChecksumOffloadIPv6,default,        ,"3"
+HKR,Ndi\Params\*TCPChecksumOffloadIPv6\enum,"0",       ,%Disabled%
+HKR,Ndi\Params\*TCPChecksumOffloadIPv6\enum,"1",       ,%TxEnabled%
+HKR,Ndi\Params\*TCPChecksumOffloadIPv6\enum,"2",       ,%RxEnabled%
+HKR,Ndi\Params\*TCPChecksumOffloadIPv6\enum,"3",       ,%TxRxEnabled%
+
+HKR,Ndi\Params\*UDPChecksumOffloadIPv4,ParamDesc,      ,%UdpCsoIPv4%
+HKR,Ndi\Params\*UDPChecksumOffloadIPv4,type,           ,"enum"
+HKR,Ndi\Params\*UDPChecksumOffloadIPv4,default,        ,"3"
+HKR,Ndi\Params\*UDPChecksumOffloadIPv4\enum,"0",       ,%Disabled%
+HKR,Ndi\Params\*UDPChecksumOffloadIPv4\enum,"1",       ,%TxEnabled%
+HKR,Ndi\Params\*UDPChecksumOffloadIPv4\enum,"2",       ,%RxEnabled%
+HKR,Ndi\Params\*UDPChecksumOffloadIPv4\enum,"3",       ,%TxRxEnabled%
+
+HKR,Ndi\Params\*UDPChecksumOffloadIPv6,ParamDesc,      ,%UdpCsoIPv6%
+HKR,Ndi\Params\*UDPChecksumOffloadIPv6,type,           ,"enum"
+HKR,Ndi\Params\*UDPChecksumOffloadIPv6,default,        ,"3"
+HKR,Ndi\Params\*UDPChecksumOffloadIPv6\enum,"0",       ,%Disabled%
+HKR,Ndi\Params\*UDPChecksumOffloadIPv6\enum,"1",       ,%TxEnabled%
+HKR,Ndi\Params\*UDPChecksumOffloadIPv6\enum,"2",       ,%RxEnabled%
+HKR,Ndi\Params\*UDPChecksumOffloadIPv6\enum,"3",       ,%TxRxEnabled%
+
+HKR,Ndi\Params\*JumboPacket,ParamDesc,      ,%JumboMtu%
+HKR,Ndi\Params\*JumboPacket,default,        ,"1514"
+HKR,Ndi\Params\*JumboPacket,type,           ,"int"
+HKR,Ndi\Params\*JumboPacket,min,            ,"1514"
+HKR,Ndi\Params\*JumboPacket,max,            ,"9230"
+HKR,Ndi\Params\*JumboPacket,step,           ,"1"
+HKR,Ndi\Params\*JumboPacket,base,           ,"10"
+
+HKR,Ndi\Params\SleepPhyOnLinkDown,ParamDesc,     ,%EDPD%
+HKR,Ndi\Params\SleepPhyOnLinkDown,type,          ,"enum"
+HKR,Ndi\Params\SleepPhyOnLinkDown,default,       ,"0"
+HKR,Ndi\Params\SleepPhyOnLinkDown\enum,"0",      ,%EDPDOFF%
+HKR,Ndi\Params\SleepPhyOnLinkDown\enum,"1",      ,%EDPDON%
+
+HKR,,DrvCmdMode, 0, "2"
+
+[DelReg.UnusedCaps]
+HKR,Ndi\Params\NetDetach
+HKR,Ndi\Params\FlowControl
+
+;-----------------------------------------------------------------------------
+; Driver and Service Section
+;
+[LAN7500.CopyFiles.ntamd64]
+lan7500-x64-n630f.sys,,,2
+
+[LAN7500.Service.ntamd64]
+DisplayName     = %LAN7500.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\lan7500-x64-n630f.sys
+LoadOrderGroup  = NDIS
+
+[LAN7500.EventLog.ntamd64]
+AddReg = LAN7500.AddEventLog.Reg.ntamd64
+
+[LAN7500.AddEventLog.Reg.ntamd64]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll;%%SystemRoot%%\System32\Drivers\lan7500-x64-n630f.sys"
+HKR, , TypesSupported,   0x00010001, 7
+
+;-----------------------------------------------------------------------------
+; WDF Coinstaller installation section
+;
+;[LAN7500.ndi.ntamd64.CoInstallers]
+;AddReg=LAN7500.CoInstaller.AddReg
+;CopyFiles=LAN7500.CoInstaller.CopyFiles
+;
+;[LAN7500.CoInstaller.AddReg]
+;HKR,,CoInstallers32,0x00010000, "WdfCoInstaller01011.dll,WdfCoInstaller"
+;
+;[LAN7500.CoInstaller.CopyFiles]
+;WdfCoInstaller01011.dll
+;
+;[LAN7500.ndi.ntamd64.Wdf]
+;KmdfService = LAN7500, LAN7500.wdfsect
+;
+;[LAN7500.wdfsect]
+;KmdfLibraryVersion = 1.11
+
+;-----------------------------------------------------------------------------
+; Files
+;
+[SourceDisksNames]
+1 = %SMSC_DISK_NAME%,,,""
+
+[SourceDisksFiles]
+lan7500-x64-n630f.sys                       = 1,,
+;WdfCoInstaller01011.dll = 1
+
+;-----------------------------------------------------------------------------
+; DestinationDirs
+;
+[DestinationDirs]
+LAN7500.CopyFiles.ntamd64 = 12
+;LAN7500.CoInstaller.CopyFiles = 11
+
+;-----------------------------------------------------------------------------
+; Localizable Strings
+;
+[Strings]
+V_SMSC="SMSC"
+LAN7500.DeviceDesc          = "LAN7500 USB 2.0 to Ethernet 10/100/1000 Adapter"
+LAN7505.DeviceDesc          = "LAN7505 USB 2.0 to Ethernet 10/100/1000 Adapter"
+
+LAN7500.PackageDesc.ntx64   = "LAN7500 USB 2.0 to Ethernet 10/100/1000 Adapter x64 Driver"
+LAN7500.Service.DispName    = "LAN7500 USB 2.0 to Ethernet 10/100/1000 Adapter Service"
+SMSC_DISK_NAME="LAN7500 USB to Ethernet Driver Files"
+
+;Parameters and values
+FlowControl     = "Flow Control"
+Disabled            = "Disabled"
+Tx_Enabled          = "Tx Enabled"
+Rx_Enabled          = "Rx Enabled"
+Rx_And_Tx_Enabled   = "Rx & Tx Enabled"
+
+SpeedDuplex         = "Speed & Duplex"
+SpeedDuplex_AutoNeg = "Auto Negotiation"
+SpeedDuplex_10HD    = "10 Mbps Half Duplex"
+SpeedDuplex_10FD    = "10 Mbps Full Duplex"
+SpeedDuplex_100HD   = "100 Mbps Half Duplex"
+SpeedDuplex_100FD   = "100 Mbps Full Duplex"
+SpeedDuplex_1000FD  = "1.0 Gbps Full Duplex"
+
+NetAddr         = "Network Address"
+
+PriorityAndVlan = "Packet Priority & VLAN"
+PVDisabled      = "Packet Priority & VLAN Disabled"
+PVEnabled       = "Packet Priority & VLAN Enabled"
+VlanID          = "VLAN ID"
+
+USBBwMode       = "USB Bandwidth Usage Mode"
+USBBwMaxTput    = "Maximum Throughput"
+USBBwFriendly   = "Sharing Friendly"
+USBBwAutomatic  = "Automatic"
+
+PMARPOffloadDesc = "PM ARP Offload"
+PMNSOffloadDesc  = "PM NS Offload"
+DeviceSleepOnDisconnectDesc = "Device Sleep On Disconnect"
+
+LsoV1IPv4Desc   = "Large Send Offload V1 (IPv4)"
+LsoV2IPv4Desc   = "Large Send Offload V2 (IPv4)"
+LsoV2IPv6Desc   = "Large Send Offload V2 (IPv6)"
+
+IpCsoIPv4        = "IPv4 Checksum Offload"
+TcpCsoIPv4       = "TCP Checksum Offload (IPv4)"
+TcpCsoIPv6       = "TCP Checksum Offload (IPv6)"
+UdpCsoIPv4       = "UDP Checksum Offload (IPv4)"
+UdpCsoIPv6       = "UDP Checksum Offload (IPv6)"
+
+Enabled         = "Enabled"
+
+TxEnabled       = "Tx Enabled"
+RxEnabled       = "Rx Enabled"
+TxRxEnabled     = "Rx & Tx Enabled"
+
+JumboMtu        = "Jumbo Frame Size"
+
+NetDetach       = "NetDetach"
+NDModeOFF       = "Disabled"
+NDModeON        = "Enabled"
+NDModeAuto      = "Automatic"
+
+EDPD            = "Energy Detect Power Down"
+EDPDOFF         = "Disabled"
+EDPDON          = "Enabled"
+
+SSuspend        = "Selective Suspend"
+SSEnable        = "Enabled"
+SSDisable       = "Disabled"
+
+SSIdleTimeout   = "Selective Suspend Idle Timeout"
+
+WakePattern     = "Wake on pattern match"
+WakeMagicPkt    = "Wake on magic packet"
+WakeDisable     = "Disabled"
+WakeEnable      = "Enabled"

@@ -32,6 +32,9 @@
             this.cmdOK = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.chkApplyContract = new System.Windows.Forms.CheckBox();
+            this.chkPatchMachineID = new System.Windows.Forms.CheckBox();
+            this.chkInstallSDC = new System.Windows.Forms.CheckBox();
             this.chkDisableOneDrive = new System.Windows.Forms.CheckBox();
             this.chkDisableCloudContent = new System.Windows.Forms.CheckBox();
             this.grpBranding = new System.Windows.Forms.GroupBox();
@@ -63,9 +66,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lstRegionFormat = new System.Windows.Forms.ComboBox();
             this.chkConfigOOBE = new System.Windows.Forms.CheckBox();
-            this.chkInstallSDC = new System.Windows.Forms.CheckBox();
-            this.chkPatchMachineID = new System.Windows.Forms.CheckBox();
-            this.chkApplyContract = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.grpBranding.SuspendLayout();
@@ -126,6 +126,36 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Page 1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // chkApplyContract
+            // 
+            this.chkApplyContract.AutoSize = true;
+            this.chkApplyContract.Location = new System.Drawing.Point(63, 354);
+            this.chkApplyContract.Name = "chkApplyContract";
+            this.chkApplyContract.Size = new System.Drawing.Size(405, 17);
+            this.chkApplyContract.TabIndex = 12;
+            this.chkApplyContract.Text = "Apply ContractID && URL from this MiniNT (may get overwritten from DNS Config!)";
+            this.chkApplyContract.UseVisualStyleBackColor = true;
+            // 
+            // chkPatchMachineID
+            // 
+            this.chkPatchMachineID.AutoSize = true;
+            this.chkPatchMachineID.Location = new System.Drawing.Point(63, 331);
+            this.chkPatchMachineID.Name = "chkPatchMachineID";
+            this.chkPatchMachineID.Size = new System.Drawing.Size(186, 17);
+            this.chkPatchMachineID.TabIndex = 11;
+            this.chkPatchMachineID.Text = "Apply MachineID from this MiniNT";
+            this.chkPatchMachineID.UseVisualStyleBackColor = true;
+            // 
+            // chkInstallSDC
+            // 
+            this.chkInstallSDC.AutoSize = true;
+            this.chkInstallSDC.Location = new System.Drawing.Point(34, 308);
+            this.chkInstallSDC.Name = "chkInstallSDC";
+            this.chkInstallSDC.Size = new System.Drawing.Size(78, 17);
+            this.chkInstallSDC.TabIndex = 10;
+            this.chkInstallSDC.Text = "Install SDC";
+            this.chkInstallSDC.UseVisualStyleBackColor = true;
             // 
             // chkDisableOneDrive
             // 
@@ -425,36 +455,6 @@
             this.chkConfigOOBE.UseVisualStyleBackColor = true;
             this.chkConfigOOBE.CheckedChanged += new System.EventHandler(this.chkConfigOOBE_CheckedChanged);
             // 
-            // chkInstallSDC
-            // 
-            this.chkInstallSDC.AutoSize = true;
-            this.chkInstallSDC.Location = new System.Drawing.Point(34, 308);
-            this.chkInstallSDC.Name = "chkInstallSDC";
-            this.chkInstallSDC.Size = new System.Drawing.Size(78, 17);
-            this.chkInstallSDC.TabIndex = 10;
-            this.chkInstallSDC.Text = "Install SDC";
-            this.chkInstallSDC.UseVisualStyleBackColor = true;
-            // 
-            // chkPatchMachineID
-            // 
-            this.chkPatchMachineID.AutoSize = true;
-            this.chkPatchMachineID.Location = new System.Drawing.Point(63, 331);
-            this.chkPatchMachineID.Name = "chkPatchMachineID";
-            this.chkPatchMachineID.Size = new System.Drawing.Size(186, 17);
-            this.chkPatchMachineID.TabIndex = 11;
-            this.chkPatchMachineID.Text = "Apply MachineID from this MiniNT";
-            this.chkPatchMachineID.UseVisualStyleBackColor = true;
-            // 
-            // chkApplyContract
-            // 
-            this.chkApplyContract.AutoSize = true;
-            this.chkApplyContract.Location = new System.Drawing.Point(63, 354);
-            this.chkApplyContract.Name = "chkApplyContract";
-            this.chkApplyContract.Size = new System.Drawing.Size(405, 17);
-            this.chkApplyContract.TabIndex = 12;
-            this.chkApplyContract.Text = "Apply ContractID && URL from this MiniNT (may get overwritten from DNS Config!)";
-            this.chkApplyContract.UseVisualStyleBackColor = true;
-            // 
             // frmPatchOptions
             // 
             this.AcceptButton = this.cmdOK;
@@ -462,7 +462,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(647, 476);
-            this.ControlBox = false;
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.cmdCancel);

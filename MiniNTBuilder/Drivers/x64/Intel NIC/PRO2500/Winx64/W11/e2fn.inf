@@ -1,0 +1,1792 @@
+;******************************************************************************
+;**                                                                          **
+;**  Copyright 2020-2022 Intel Corporation All Rights Reserved.              **
+;**                                                                          **
+;**  The material contained or described herein and all documents related    **
+;**  to such material ("Material") is owned by Intel Corporation or its      **
+;**  suppliers or licensors, and title to such Material remains with Intel   **
+;**  Corporation or its suppliers or licensors. The Material contains        **
+;**  proprietary information of Intel or its suppliers and licensors. The    **
+;**  Material is protected by worldwide copyright laws and treaty            **
+;**  provisions. No part of the Material may be used, copied, reproduced,    **
+;**  modified, published, uploaded, posted, transmitted, distributed or      **
+;**  disclosed in any way without Intel's prior express written permission.  **
+;**  No license under any patent, copyright or other intellectual property   **
+;**  rights in the Material is granted to or conferred upon you, either      **
+;**  expressly, by implication, inducement, estoppel or otherwise. Any       **
+;**  license under such intellectual property rights must be express and     **
+;**  approved by Intel in writing.                                           **
+;**                                                                          **
+;**  Unless otherwise agreed by Intel in writing, you may not remove or      **
+;**  alter this notice or any other notice embedded in Materials by Intel    **
+;**  or Intel's suppliers or licensors in any way.                           **
+;******************************************************************************
+;
+;******************************************************************************
+; e2fn.INF (Intel 64 bit extension Platform Only,Windows 10 64 bit extension)
+;
+; Intel(R) Gigabit Adapters
+;******************************************************************************
+
+[Version]
+Signature   = "$Windows NT$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %Intel%
+PnpLockDown = 1
+CatalogFile = e2fn.cat
+DriverVer   = 02/11/2025,2.1.5.4
+
+[Manufacturer]
+%Intel%     = Intel, NTamd64.10.0.1..22000
+%Intel%     = Intel, NTamd64.10.0...22000
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[Intel.NTamd64.10.0.1..22000]
+; DisplayName                   Section                       DeviceID
+; -----------                   -------                       --------
+%E15F2NC.DeviceDesc%            = I225.10.0.1..22000,         PCI\VEN_8086&DEV_15F2&REV_01
+%E15F3NC.DeviceDesc%            = I225.10.0.1..22000,         PCI\VEN_8086&DEV_15F3&REV_01
+%E0D9FNC.DeviceDesc%            = I225.10.0.1..22000,         PCI\VEN_8086&DEV_0D9F&REV_02
+%E15F2_2NC.DeviceDesc%          = I225.10.0.1..22000,         PCI\VEN_8086&DEV_15F2&REV_02
+%E15F3_2NC.DeviceDesc%          = I225.10.0.1..22000,         PCI\VEN_8086&DEV_15F3&REV_02
+%E15F2_3NC.DeviceDesc%          = I225.10.0.1..22000,         PCI\VEN_8086&DEV_15F2&REV_03
+%E15F3_3NC.DeviceDesc%          = I225.10.0.1..22000,         PCI\VEN_8086&DEV_15F3&REV_03
+%E0D9F_3NC.DeviceDesc%          = I225.10.0.1..22000,         PCI\VEN_8086&DEV_0D9F&REV_03
+%E15F2_Retail.DeviceDesc%       = I225.10.0.1..22000,         PCI\VEN_8086&DEV_15F2&SUBSYS_00018086
+%E15F2_OEMGen.DeviceDesc%       = I225.10.0.1..22000,         PCI\VEN_8086&DEV_15F2&SUBSYS_00028086
+%E3100NC.DeviceDesc%            = I225.10.0.1..22000,         PCI\VEN_8086&DEV_3100&REV_01
+%E3101NC.DeviceDesc%            = I225.10.0.1..22000,         PCI\VEN_8086&DEV_3101&REV_02
+%E3101_3NC.DeviceDesc%          = I225.10.0.1..22000,         PCI\VEN_8086&DEV_3101&REV_03
+%E3102NC.DeviceDesc%            = I226.10.0.1..22000,         PCI\VEN_8086&DEV_3102
+%E125BNC.DeviceDesc%            = I226.10.0.1..22000,         PCI\VEN_8086&DEV_125B
+%E125CNC.DeviceDesc%            = I226.10.0.1..22000,         PCI\VEN_8086&DEV_125C
+%E125B_Retail.DeviceDesc%       = I226.10.0.1..22000,         PCI\VEN_8086&DEV_125B&SUBSYS_00018086
+%E125B_OEMGen.DeviceDesc%       = I226.10.0.1..22000,         PCI\VEN_8086&DEV_125B&SUBSYS_00028086
+%E125DNC.DeviceDesc%            = I226.10.0.1..22000,         PCI\VEN_8086&DEV_125D
+%E5502NC.DeviceDesc%            = I225LMVP.10.0.1..22000,         PCI\VEN_8086&DEV_5502&REV_02
+%E5502_3NC.DeviceDesc%          = I225LMVP.10.0.1..22000,         PCI\VEN_8086&DEV_5502&REV_03
+%E5503NC.DeviceDesc%            = I226LMVP.10.0.1..22000,         PCI\VEN_8086&DEV_5503
+
+[Intel.NTamd64.10.0...22000]
+; DisplayName                   Section                      DeviceID
+; -----------                   -------                      --------
+%E15F2NC.DeviceDesc%            = I225.10.0...22000,         PCI\VEN_8086&DEV_15F2&REV_01
+%E0D9FNC.DeviceDesc%            = I225.10.0...22000,         PCI\VEN_8086&DEV_0D9F&REV_02
+%E15F2_2NC.DeviceDesc%          = I225.10.0...22000,         PCI\VEN_8086&DEV_15F2&REV_02
+%E0D9F_3NC.DeviceDesc%          = I225.10.0...22000,         PCI\VEN_8086&DEV_0D9F&REV_03
+%E15F2_3NC.DeviceDesc%          = I225.10.0...22000,         PCI\VEN_8086&DEV_15F2&REV_03
+%E15F2_Retail.DeviceDesc%       = I225.10.0...22000,         PCI\VEN_8086&DEV_15F2&SUBSYS_00018086
+%E15F2_OEMGen.DeviceDesc%       = I225.10.0...22000,         PCI\VEN_8086&DEV_15F2&SUBSYS_00028086
+%E3100NC.DeviceDesc%            = I225.10.0...22000,         PCI\VEN_8086&DEV_3100&REV_01
+%E3101NC.DeviceDesc%            = I225.10.0...22000,         PCI\VEN_8086&DEV_3101&REV_02
+%E3101_3NC.DeviceDesc%          = I225.10.0...22000,         PCI\VEN_8086&DEV_3101&REV_03
+%E3102NC.DeviceDesc%            = I226.10.0...22000,         PCI\VEN_8086&DEV_3102
+%E125BNC.DeviceDesc%            = I226.10.0...22000,         PCI\VEN_8086&DEV_125B
+%E125DNC.DeviceDesc%            = I226.10.0...22000,         PCI\VEN_8086&DEV_125D
+%E125B_Retail.DeviceDesc%       = I226.10.0...22000,         PCI\VEN_8086&DEV_125B&SUBSYS_00018086
+%E125B_OEMGen.DeviceDesc%       = I226.10.0...22000,         PCI\VEN_8086&DEV_125B&SUBSYS_00028086
+%E5502NC.DeviceDesc%            = I225LMVP.10.0...22000,         PCI\VEN_8086&DEV_5502&REV_02
+%E5502_3NC.DeviceDesc%          = I225LMVP.10.0...22000,         PCI\VEN_8086&DEV_5502&REV_03
+%E5503NC.DeviceDesc%            = I226LMVP.10.0...22000,         PCI\VEN_8086&DEV_5503
+
+;===============================================================================
+;
+;                         WINDOWS 10 64-BIT PLATFORMS
+;
+;===============================================================================
+;------------------------------------------------------------------------------
+; Intel(R) Ethernet Controller I225 LMvP (Docking station)
+;------------------------------------------------------------------------------
+
+[I225LMVP.10.0.1..22000]
+Characteristics     = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType             = 5 ; PCI
+*PhysicalMediaType  = 14  ; NdisPhysicalMedium802_3
+AddReg              = e2fn.reg
+AddReg              = TcpSeg.reg
+AddReg              = Copper.reg
+AddReg              = Powermgmt.reg
+AddReg              = Jumbopacket.reg
+AddReg              = ProtocolOffload.reg
+AddReg              = RTD3.reg
+AddReg              = SurpriseRemoval.reg
+AddReg              = IntelANSVlanID.reg
+AddReg              = CoInKS.reg
+AddReg              = UninstallW2.reg
+AddReg              = PollPhyId.reg
+DelReg              = Advanced.DelReg
+CopyFiles           = win10.CopyFiles, MessageDll.CopyFiles
+*IfType             = 6 ;IF_TYPE_ETHERNET_CSMACD
+*MediaType          = 0  ;NdisMedium802_3
+*IfConnectorPresent = 1 ; BOOLEAN
+*ConnectionType     = 1 ; NET_IF_CONNECTION_TYPE
+*DirectionType      = 0 ; NET_IF_DIRECTION_TYPE
+*AccessType         = 2 ; NET_IF_ACCESS_TYPE
+*HardwareLoopback   = 0 ; BOOLEAN
+
+[I225LMVP.10.0.1..22000.Services]
+AddService = e2fnexpress, 2, win10.Service, win10.EventLog
+
+[I225LMVP.10.0.1..22000.HW]
+Include = pci.inf
+Needs = PciIoSpaceNotRequired.HW, PciD3ColdSupported.HW
+AddReg = MSIX5.reg
+;------------------------------------------------------------------------------
+; Intel(R) Ethernet Controller I226 LMvP (Docking station)
+;------------------------------------------------------------------------------
+
+[I226LMVP.10.0.1..22000]
+Characteristics     = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType             = 5 ; PCI
+*PhysicalMediaType  = 14  ; NdisPhysicalMedium802_3
+AddReg              = e2fn.reg
+AddReg              = TcpSeg.reg
+AddReg              = Copper.reg
+AddReg              = Powermgmt.reg
+AddReg              = EEE.reg
+AddReg              = Jumbopacket.reg
+AddReg              = ProtocolOffload.reg
+AddReg              = RTD3.reg
+AddReg              = SurpriseRemoval.reg
+AddReg              = IntelANSVlanID.reg
+AddReg              = CoInKS.reg
+AddReg              = UninstallW2.reg
+AddReg              = PollPhyId.reg
+DelReg              = Advanced.DelReg
+CopyFiles           = win10.CopyFiles, MessageDll.CopyFiles
+*IfType             = 6 ;IF_TYPE_ETHERNET_CSMACD
+*MediaType          = 0  ;NdisMedium802_3
+*IfConnectorPresent = 1 ; BOOLEAN
+*ConnectionType     = 1 ; NET_IF_CONNECTION_TYPE
+*DirectionType      = 0 ; NET_IF_DIRECTION_TYPE
+*AccessType         = 2 ; NET_IF_ACCESS_TYPE
+*HardwareLoopback   = 0 ; BOOLEAN
+
+[I226LMVP.10.0.1..22000.Services]
+AddService = e2fnexpress, 2, win10.Service, win10.EventLog
+
+[I226LMVP.10.0.1..22000.HW]
+Include = pci.inf
+Needs = PciIoSpaceNotRequired.HW, PciD3ColdSupported.HW
+AddReg = MSIX5.reg
+;------------------------------------------------------------------------------
+; Intel(R) Ethernet Controller I225 (Discrete)
+;------------------------------------------------------------------------------
+
+[I225.10.0.1..22000]
+Characteristics     = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType             = 5 ; PCI
+*PhysicalMediaType  = 14  ; NdisPhysicalMedium802_3
+AddReg              = e2fn.reg
+AddReg              = TcpSeg.reg
+AddReg              = Copper.reg
+AddReg              = Powermgmt.reg
+AddReg              = Jumbopacket.reg
+AddReg              = ProtocolOffload.reg
+AddReg              = RTD3.reg
+AddReg              = IntelANSVlanID.reg
+AddReg              = CoInKS.reg
+AddReg              = UninstallW2.reg
+DelReg              = Advanced.DelReg
+CopyFiles           = win10.CopyFiles, MessageDll.CopyFiles
+*IfType             = 6 ;IF_TYPE_ETHERNET_CSMACD
+*MediaType          = 0  ;NdisMedium802_3
+*IfConnectorPresent = 1 ; BOOLEAN
+*ConnectionType     = 1 ; NET_IF_CONNECTION_TYPE
+*DirectionType      = 0 ; NET_IF_DIRECTION_TYPE
+*AccessType         = 2 ; NET_IF_ACCESS_TYPE
+*HardwareLoopback   = 0 ; BOOLEAN
+
+[I225.10.0.1..22000.Services]
+AddService = e2fnexpress, 2, win10.Service, win10.EventLog
+
+[I225.10.0.1..22000.HW]
+Include = pci.inf
+Needs = PciIoSpaceNotRequired.HW, PciD3ColdSupported.HW
+AddReg = MSIX5.reg
+;------------------------------------------------------------------------------
+; Intel(R) Ethernet Controller I226 (Discrete)
+;------------------------------------------------------------------------------
+
+[I226.10.0.1..22000]
+Characteristics     = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType             = 5 ; PCI
+*PhysicalMediaType  = 14  ; NdisPhysicalMedium802_3
+AddReg              = e2fn.reg
+AddReg              = TcpSeg.reg
+AddReg              = Copper.reg
+AddReg              = Powermgmt.reg
+AddReg              = EEE.reg
+AddReg              = Jumbopacket.reg
+AddReg              = ProtocolOffload.reg
+AddReg              = RTD3.reg
+AddReg              = IntelANSVlanID.reg
+AddReg              = CoInKS.reg
+AddReg              = UninstallW2.reg
+DelReg              = Advanced.DelReg
+CopyFiles           = win10.CopyFiles, MessageDll.CopyFiles
+*IfType             = 6 ;IF_TYPE_ETHERNET_CSMACD
+*MediaType          = 0  ;NdisMedium802_3
+*IfConnectorPresent = 1 ; BOOLEAN
+*ConnectionType     = 1 ; NET_IF_CONNECTION_TYPE
+*DirectionType      = 0 ; NET_IF_DIRECTION_TYPE
+*AccessType         = 2 ; NET_IF_ACCESS_TYPE
+*HardwareLoopback   = 0 ; BOOLEAN
+
+[I226.10.0.1..22000.Services]
+AddService = e2fnexpress, 2, win10.Service, win10.EventLog
+
+[I226.10.0.1..22000.HW]
+Include = pci.inf
+Needs = PciIoSpaceNotRequired.HW, PciD3ColdSupported.HW
+AddReg = MSIX5.reg
+
+;===============================================================================
+;
+;                Windows Server 2022 for 64-bit EXTENDED PLATFORMS
+;
+;===============================================================================
+;-------------------------------------------------------------------------------
+; Intel(R) Ethernet Controller I225 LMvP (Docking station)
+;-------------------------------------------------------------------------------
+
+[I225LMVP.10.0...22000]
+Characteristics     = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType             = 5 ; PCI
+*PhysicalMediaType  = 14  ; NdisPhysicalMedium802_3
+AddReg              = e2fn.reg
+AddReg              = TcpSeg.reg
+AddReg              = Copper.reg
+AddReg              = Powermgmt.reg
+AddReg              = Jumbopacket.reg
+AddReg              = ProtocolOffload.reg
+AddReg              = RTD3.reg
+AddReg              = SurpriseRemoval.reg
+AddReg              = IntelANSVlanID.reg
+AddReg              = CoInKS.reg
+AddReg              = UninstallW2.reg
+AddReg              = PollPhyId.reg
+DelReg              = Advanced.DelReg
+CopyFiles           = win10.CopyFiles, MessageDll.CopyFiles
+*IfType             = 6 ;IF_TYPE_ETHERNET_CSMACD
+*MediaType          = 0  ;NdisMedium802_3
+*IfConnectorPresent = 1 ; BOOLEAN
+*ConnectionType     = 1 ; NET_IF_CONNECTION_TYPE
+*DirectionType      = 0 ; NET_IF_DIRECTION_TYPE
+*AccessType         = 2 ; NET_IF_ACCESS_TYPE
+*HardwareLoopback   = 0 ; BOOLEAN
+
+[I225LMVP.10.0...22000.Services]
+AddService = e2fnexpress, 2, win10.Service, win10.EventLog
+
+[I225LMVP.10.0...22000.HW]
+Include = pci.inf
+Needs = PciIoSpaceNotRequired.HW, PciD3ColdSupported.HW
+AddReg = MSIX5.reg
+;-------------------------------------------------------------------------------
+; Intel(R) Ethernet Controller I226 LMvP (Docking station)
+;-------------------------------------------------------------------------------
+
+[I226LMVP.10.0...22000]
+Characteristics     = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType             = 5 ; PCI
+*PhysicalMediaType  = 14  ; NdisPhysicalMedium802_3
+AddReg              = e2fn.reg
+AddReg              = TcpSeg.reg
+AddReg              = Copper.reg
+AddReg              = Powermgmt.reg
+AddReg              = EEE.reg
+AddReg              = Jumbopacket.reg
+AddReg              = ProtocolOffload.reg
+AddReg              = RTD3.reg
+AddReg              = SurpriseRemoval.reg
+AddReg              = IntelANSVlanID.reg
+AddReg              = CoInKS.reg
+AddReg              = UninstallW2.reg
+AddReg              = PollPhyId.reg
+DelReg              = Advanced.DelReg
+CopyFiles           = win10.CopyFiles, MessageDll.CopyFiles
+*IfType             = 6 ;IF_TYPE_ETHERNET_CSMACD
+*MediaType          = 0  ;NdisMedium802_3
+*IfConnectorPresent = 1 ; BOOLEAN
+*ConnectionType     = 1 ; NET_IF_CONNECTION_TYPE
+*DirectionType      = 0 ; NET_IF_DIRECTION_TYPE
+*AccessType         = 2 ; NET_IF_ACCESS_TYPE
+*HardwareLoopback   = 0 ; BOOLEAN
+
+[I226LMVP.10.0...22000.Services]
+AddService = e2fnexpress, 2, win10.Service, win10.EventLog
+
+[I226LMVP.10.0...22000.HW]
+Include = pci.inf
+Needs = PciIoSpaceNotRequired.HW, PciD3ColdSupported.HW
+AddReg = MSIX5.reg
+;-------------------------------------------------------------------------------
+; Intel(R) Ethernet Controller I225 (Discrete)
+;-------------------------------------------------------------------------------
+
+[I225.10.0...22000]
+Characteristics     = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType             = 5 ; PCI
+*PhysicalMediaType  = 14  ; NdisPhysicalMedium802_3
+AddReg              = e2fn.reg
+AddReg              = TcpSeg.reg
+AddReg              = Copper.reg
+AddReg              = Powermgmt.reg
+AddReg              = Jumbopacket.reg
+AddReg              = ProtocolOffload.reg
+AddReg              = RTD3.reg
+AddReg              = IntelANSVlanID.reg
+AddReg              = CoInKS.reg
+AddReg              = UninstallW2.reg
+DelReg              = Advanced.DelReg
+CopyFiles           = win10.CopyFiles, MessageDll.CopyFiles
+*IfType             = 6 ;IF_TYPE_ETHERNET_CSMACD
+*MediaType          = 0  ;NdisMedium802_3
+*IfConnectorPresent = 1 ; BOOLEAN
+*ConnectionType     = 1 ; NET_IF_CONNECTION_TYPE
+*DirectionType      = 0 ; NET_IF_DIRECTION_TYPE
+*AccessType         = 2 ; NET_IF_ACCESS_TYPE
+*HardwareLoopback   = 0 ; BOOLEAN
+
+[I225.10.0...22000.Services]
+AddService = e2fnexpress, 2, win10.Service, win10.EventLog
+
+[I225.10.0...22000.HW]
+Include = pci.inf
+Needs = PciIoSpaceNotRequired.HW, PciD3ColdSupported.HW
+AddReg = MSIX5.reg
+;-------------------------------------------------------------------------------
+; Intel(R) Ethernet Controller I226 (Discrete)
+;-------------------------------------------------------------------------------
+
+[I226.10.0...22000]
+Characteristics     = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType             = 5 ; PCI
+*PhysicalMediaType  = 14  ; NdisPhysicalMedium802_3
+AddReg              = e2fn.reg
+AddReg              = TcpSeg.reg
+AddReg              = Copper.reg
+AddReg              = Powermgmt.reg
+AddReg              = EEE.reg
+AddReg              = Jumbopacket.reg
+AddReg              = ProtocolOffload.reg
+AddReg              = RTD3.reg
+AddReg              = IntelANSVlanID.reg
+AddReg              = CoInKS.reg
+AddReg              = UninstallW2.reg
+DelReg              = Advanced.DelReg
+CopyFiles           = win10.CopyFiles, MessageDll.CopyFiles
+*IfType             = 6 ;IF_TYPE_ETHERNET_CSMACD
+*MediaType          = 0  ;NdisMedium802_3
+*IfConnectorPresent = 1 ; BOOLEAN
+*ConnectionType     = 1 ; NET_IF_CONNECTION_TYPE
+*DirectionType      = 0 ; NET_IF_DIRECTION_TYPE
+*AccessType         = 2 ; NET_IF_ACCESS_TYPE
+*HardwareLoopback   = 0 ; BOOLEAN
+
+[I226.10.0...22000.Services]
+AddService = e2fnexpress, 2, win10.Service, win10.EventLog
+
+[I226.10.0...22000.HW]
+Include = pci.inf
+Needs = PciIoSpaceNotRequired.HW, PciD3ColdSupported.HW
+AddReg = MSIX5.reg
+
+;===============================================================================
+; Registry Settings (decimal)
+
+[e2fn.reg]
+HKR, Ndi\Interfaces,                                    UpperRange,             0, "ndis5"
+HKR, Ndi\Interfaces,                                    LowerRange,             0, "ethernet"
+HKR, Ndi,                                               Service,                0, "e2fnexpress"
+
+; Hardwired defaults
+HKR,,                                                   *HeaderDataSplit,       0, "1"
+
+HKR, Ndi\Params\*FlowControl,                           ParamDesc,              0, %FlowControl%
+HKR, Ndi\Params\*FlowControl,                           default,                0, "3"
+HKR, Ndi\Params\*FlowControl\Enum,                      "0",                    0, %Disabled%
+HKR, Ndi\Params\*FlowControl\Enum,                      "1",                    0, %FlowControl_TxOnly%
+HKR, Ndi\Params\*FlowControl\Enum,                      "2",                    0, %FlowControl_RxOnly%
+HKR, Ndi\Params\*FlowControl\Enum,                      "3",                    0, %FlowControl_Full%
+HKR, Ndi\Params\*FlowControl,                           type,                   0, "enum"
+
+; *TCPChecksumOffloadIPv4
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4,                ParamDesc,              0, %TCPChksumOffv4%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4,                default,                0, "3"
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4\Enum,           "0",                    0, %Disabled%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4\Enum,           "1",                    0, %ChksumOffTx%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4\Enum,           "2",                    0, %ChksumOffRx%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4\Enum,           "3",                    0, %ChksumOffTxRx%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4,                type,                   0, "enum"
+
+; *TCPChecksumOffloadIPv6
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6,                ParamDesc,              0, %TCPChksumOffv6%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6,                default,                0, "3"
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6\Enum,           "0",                    0, %Disabled%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6\Enum,           "1",                    0, %ChksumOffTx%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6\Enum,           "2",                    0, %ChksumOffRx%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6\Enum,           "3",                    0, %ChksumOffTxRx%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6,                type,                   0, "enum"
+
+; *UDPChecksumOffloadIPv4
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4,                ParamDesc,              0, %UDPChksumOffv4%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4,                default,                0, "3"
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4\Enum,           "0",                    0, %Disabled%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4\Enum,           "1",                    0, %ChksumOffTx%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4\Enum,           "2",                    0, %ChksumOffRx%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4\Enum,           "3",                    0, %ChksumOffTxRx%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4,                type,                   0, "enum"
+
+; *UDPChecksumOffloadIPv6
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6,                ParamDesc,              0, %UDPChksumOffv6%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6,                default,                0, "3"
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6\Enum,           "0",                    0, %Disabled%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6\Enum,           "1",                    0, %ChksumOffTx%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6\Enum,           "2",                    0, %ChksumOffRx%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6\Enum,           "3",                    0, %ChksumOffTxRx%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6,                type,                   0, "enum"
+
+; *IPChecksumOffloadIPv4
+HKR, Ndi\Params\*IPChecksumOffloadIPv4,                 ParamDesc,              0, %IPChksumOffv4%
+HKR, Ndi\Params\*IPChecksumOffloadIPv4,                 default,                0, "3"
+HKR, Ndi\Params\*IPChecksumOffloadIPv4\Enum,            "0",                    0, %Disabled%
+HKR, Ndi\Params\*IPChecksumOffloadIPv4\Enum,            "1",                    0, %ChksumOffTx%
+HKR, Ndi\Params\*IPChecksumOffloadIPv4\Enum,            "2",                    0, %ChksumOffRx%
+HKR, Ndi\Params\*IPChecksumOffloadIPv4\Enum,            "3",                    0, %ChksumOffTxRx%
+HKR, Ndi\Params\*IPChecksumOffloadIPv4,                 type,                   0, "enum"
+
+; Network Address
+HKR, Ndi\params\NetworkAddress,                         ParamDesc,              0, %LAA%
+HKR, Ndi\params\NetworkAddress,                         Default,                0, ""
+HKR, Ndi\params\NetworkAddress,                         type,                   0, "edit"
+HKR, NDI\params\NetworkAddress,                         LimitText,              0, "12"
+HKR, NDI\params\NetworkAddress,                         UpperCase,              0, "1"
+HKR, NDI\params\NetworkAddress,                         optional,               0, "1"
+
+;  Interrupt Throttle Rate
+HKR, Ndi\Params\ITR,                                    ParamDesc,              0, %InterruptThrottleRate%
+HKR, Ndi\Params\ITR,                                    default,                0, "64"
+HKR, Ndi\Params\ITR\Enum,                               "500",                  0, %Extreme%
+HKR, Ndi\Params\ITR\Enum,                               "250",                  0, %High%
+HKR, Ndi\Params\ITR\Enum,                               "125",                  0, %Medium%
+HKR, Ndi\Params\ITR\Enum,                               "64",                   0, %Low%
+HKR, Ndi\Params\ITR\Enum,                               "32",                   0, %Minimal%
+HKR, Ndi\Params\ITR\Enum,                               "0",                    0, %Off%
+HKR, Ndi\Params\ITR,                                    type,                   0, "enum"
+
+; *InterruptModeration
+HKR, Ndi\Params\*InterruptModeration,                   ParamDesc,              0, %InterruptModeration%
+HKR, Ndi\Params\*InterruptModeration,                   default,                0, "1"
+HKR, Ndi\Params\*InterruptModeration\Enum,              "0",                    0, %Disabled%
+HKR, Ndi\Params\*InterruptModeration\Enum,              "1",                    0, %Enabled%
+HKR, Ndi\Params\*InterruptModeration,                   type,                   0, "enum"
+
+; *PriorityVLANTag
+HKR, Ndi\Params\*PriorityVLANTag,                       ParamDesc,              0, %PriorityVLANTag%
+HKR, Ndi\Params\*PriorityVLANTag,                       default,                0, "3"
+HKR, Ndi\Params\*PriorityVLANTag\Enum,                  "0",                    0, %PriorityVlanDisabled%
+HKR, Ndi\Params\*PriorityVLANTag\Enum,                  "1",                    0, %PriorityEnabled%
+HKR, Ndi\Params\*PriorityVLANTag\Enum,                  "2",                    0, %VlanEnabled%
+HKR, Ndi\Params\*PriorityVLANTag\Enum,                  "3",                    0, %PriorityVlanEnabled%
+HKR, Ndi\Params\*PriorityVLANTag,                       type,                   0, "enum"
+
+[TcpSeg.reg]
+HKR, Ndi\Params\*LsoV2IPv4,                             ParamDesc,              0, %LsoV2IPv4%
+HKR, Ndi\Params\*LsoV2IPv4,                             default,                0, "1"
+HKR, Ndi\Params\*LsoV2IPv4\Enum,                        "0",                    0, %Disabled%
+HKR, Ndi\Params\*LsoV2IPv4\Enum,                        "1",                    0, %Enabled%
+HKR, Ndi\Params\*LsoV2IPv4,                             type,                   0, "enum"
+
+HKR, Ndi\Params\*LsoV2IPv6,                             ParamDesc,              0, %LsoV2IPv6%
+HKR, Ndi\Params\*LsoV2IPv6,                             default,                0, "1"
+HKR, Ndi\Params\*LsoV2IPv6\Enum,                        "0",                    0, %Disabled%
+HKR, Ndi\Params\*LsoV2IPv6\Enum,                        "1",                    0, %Enabled%
+HKR, Ndi\Params\*LsoV2IPv6,                             type,                   0, "enum"
+
+[Copper.reg]
+HKR, Ndi\params\*SpeedDuplex,                           ParamDesc,              0, %SpeedDuplex%
+HKR, Ndi\params\*SpeedDuplex,                           default,                0, "0"
+HKR, Ndi\params\*SpeedDuplex,                           type,                   0, "enum"
+HKR, Ndi\params\*SpeedDuplex\enum,                      "0",                    0, %AutoNegotiation%
+HKR, Ndi\params\*SpeedDuplex\enum,                      "1",                    0, %10Mb_Half_Duplex%
+HKR, Ndi\params\*SpeedDuplex\enum,                      "2",                    0, %10Mb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex\enum,                      "3",                    0, %100Mb_Half_Duplex%
+HKR, Ndi\params\*SpeedDuplex\enum,                      "4",                    0, %100Mb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex\enum,                      "6",                    0, %1000Mb_Full_Duplex%
+HKR, Ndi\params\*SpeedDuplex\enum,                      "2500",                 0, %2500Mb_Full_Duplex%
+
+HKR, PROSetNdi\NdiExt\Params\*SpeedDuplex,              ExposeLevel,            0, "3"
+
+[JumboPacket.reg]
+HKR, Ndi\Params\*JumboPacket,                           ParamDesc,              0, %JumboPacket%
+HKR, Ndi\Params\*JumboPacket,                           default,                0, "1514"
+HKR, Ndi\Params\*JumboPacket\Enum,                      "1514",                 0, %Disabled%
+HKR, Ndi\Params\*JumboPacket\Enum,                      "4088",                 0, %Bytes4088%
+HKR, Ndi\Params\*JumboPacket\Enum,                      "9014",                 0, %Bytes9014%
+HKR, Ndi\Params\*JumboPacket,                           type,                   0, "enum"
+
+[Powermgmt.reg]
+HKR, Ndi\Params\*WakeOnPattern,                         ParamDesc,              0, %WakeOnPattern%
+HKR, Ndi\Params\*WakeOnPattern\Enum,                    "0",                    0, %Disabled%
+HKR, Ndi\Params\*WakeOnPattern\Enum,                    "1",                    0, %Enabled%
+HKR, Ndi\Params\*WakeOnPattern,                         type,                   0, "enum"
+HKR, Ndi\Params\*WakeOnPattern,                         default,                0, "1"
+
+HKR, Ndi\Params\*WakeOnMagicPacket,                     ParamDesc,              0, %WakeOnMagicPacket%
+HKR, Ndi\Params\*WakeOnMagicPacket\Enum,                "0",                    0, %Disabled%
+HKR, Ndi\Params\*WakeOnMagicPacket\Enum,                "1",                    0, %Enabled%
+HKR, Ndi\Params\*WakeOnMagicPacket,                     type,                   0, "enum"
+HKR, Ndi\Params\*WakeOnMagicPacket,                     default,                0, "1"
+
+HKR, Ndi\Params\WakeOnMagicPacketFromS5,                ParamDesc,              0, %WakeOnMagicPacketFromS5Settings%
+HKR, Ndi\Params\WakeOnMagicPacketFromS5\Enum,           "0",                    0, %Disabled%
+HKR, Ndi\Params\WakeOnMagicPacketFromS5\Enum,           "1",                    0, %Enabled%
+HKR, Ndi\Params\WakeOnMagicPacketFromS5,                type,                   0, "enum"
+HKR, Ndi\Params\WakeOnMagicPacketFromS5,                default,                0, "1"
+
+[RTD3.reg]
+HKR,,                                                   IdleTimeoutMs,          0, "5000"
+
+HKR, Ndi\Params\*IdleRestriction,                       ParamDesc,              0, %IdleRestriction%
+HKR, Ndi\Params\*IdleRestriction\Enum,                  "0",                    0, %Disabled%
+HKR, Ndi\Params\*IdleRestriction\Enum,                  "1",                    0, %Enabled%
+HKR, Ndi\Params\*IdleRestriction,                       type,                   0, "enum"
+
+HKR, Ndi\Params\*IdleRestriction,                       default,                0, "0"
+
+[EEE.reg]
+HKR, Ndi\Params\*EEE,                                   ParamDesc,              0, %EEELinkAdvertisement%
+HKR, Ndi\Params\*EEE\Enum,                              "0",                    0, %EEE_Disabled%
+HKR, Ndi\Params\*EEE\Enum,                              "1",                    0, %EEE_Enabled_AWAKE%
+HKR, Ndi\Params\*EEE,                                   type,                   0, "enum"
+HKR, Ndi\Params\*EEE,                                   default,                0, "1"
+
+[ProtocolOffload.reg]
+HKR, Ndi\Params\*PMARPOffload,                          ParamDesc,              0, %ARPOffload%
+HKR, Ndi\Params\*PMARPOffload\Enum,                     "0",                    0, %Disabled%
+HKR, Ndi\Params\*PMARPOffload\Enum,                     "1",                    0, %Enabled%
+HKR, Ndi\Params\*PMARPOffload,                          type,                   0, "enum"
+HKR, Ndi\Params\*PMARPOffload,                          default,                0, "1"
+
+HKR, Ndi\Params\*PMNSOffload,                           ParamDesc,              0, %NSOffload%
+HKR, Ndi\Params\*PMNSOffload\Enum,                      "0",                    0, %Disabled%
+HKR, Ndi\Params\*PMNSOffload\Enum,                      "1",                    0, %Enabled%
+HKR, Ndi\Params\*PMNSOffload,                           type,                   0, "enum"
+HKR, Ndi\Params\*PMNSOffload,                           default,                0, "1"
+
+[SurpriseRemoval.reg]
+HKR,,                                                   SurpriseRemovalSupport, 0, "1"
+
+[PollPhyId.reg]
+HKR,,                                                   PollPhyId,              0,  "1"
+
+[IntelANSVlanID.reg]
+HKR,,                                                   IntelANSVlanID,          0x00010000, ""
+
+[MSIX5.reg]
+HKR, "Interrupt Management", 0x00000010
+HKR, "Interrupt Management\MessageSignaledInterruptProperties", 0x00000010
+HKR, "Interrupt Management\MessageSignaledInterruptProperties", MSISupported, 0x00010001, 1
+HKR, "Interrupt Management\MessageSignaledInterruptProperties", MessageNumberLimit, 0x00010001, 5
+;-------------------------------------------------------------------------------
+; Uninstallation
+
+[UninstallW2.reg]
+HKR,,                                                   UniversalInstall,       0x00010001, 1
+HKR, Prounstl\SupportedDevices\8086, 15F2, 0, "15F2"
+HKR, Prounstl\SupportedDevices\8086, 15F3, 0, "15F3"
+HKR, Prounstl\SupportedDevices\8086, 0D9F, 0, "0D9F"
+HKR, Prounstl\SupportedDevices\8086, 5502, 0, "5502"
+HKR, Prounstl\SupportedDevices\8086, 3100, 0, "3100"
+HKR, Prounstl\SupportedDevices\8086, 3101, 0, "3101"
+HKR, Prounstl\SupportedDevices\8086, 3102, 0, "3102"
+HKR, Prounstl\SupportedDevices\8086, 125B, 0, "125B"
+HKR, Prounstl\SupportedDevices\8086, 5503, 0, "5503"
+HKR, Prounstl\SupportedDevices\8086, 125C, 0, "125C"
+HKR, Prounstl\SupportedDevices\8086, 125D, 0, "125D"
+HKR, Prounstl\Services, e2fnexpress, 0, "e2fn.sys"
+
+[win10.CopyFiles]
+e2fn.sys,,,2
+
+[win10.Service]
+DisplayName     = %e2fnexpress.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %13%\e2fn.sys
+LoadOrderGroup  = NDIS
+AddReg          = Service_AddReg
+AddReg          = DmaRemapping.reg
+
+[Service_AddReg]
+HKR, Parameters, BootFlags, 0x00010001, 0x1
+
+[DMARemapping.reg]
+HKR, Parameters, DmaRemappingCompatible, 0x00010001, 2
+;-------------------------------------------------------------------------------
+; Common base for all drivers for Eventlog and TextModeFlags
+
+[win10.EventLog]
+AddReg = win10.AddEventLog.reg
+
+[win10.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll;%13%\e2fnmsg.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+[CoInKS.reg]
+HKR,,                                          CoInstallFlag,      0x00010001, 0x80281001
+
+[MessageDll.CopyFiles]
+e2fnmsg.dll
+;-------------------------------------------------------------------------------
+; DestinationDirs
+
+[DestinationDirs]
+DefaultDestDir                = 13
+win10.CopyFiles               = 13
+MessageDll.CopyFiles          = 13
+
+[SourceDisksNames]
+1 = %DISKNAME%,,,
+
+[SourceDisksFiles]
+e2fnmsg.dll = 1,,
+e2fn.sys = 1,, ; on distribution disk 1
+;-------------------------------------------------------------------------------
+; Legacy
+
+[Advanced.DelReg]
+HKR, Ndi\Params
+HKR, PROSetNdi\Params
+HKR, PROSetNdi\NdiExt
+;-----------------------------------------------------------------------------
+; Localizable Strings
+
+[Strings]
+AutoDetect                      = "Auto Detect"
+AutoNegotiation                 = "Auto Negotiation"
+Advertise_10_Half               = "Advertise 10 Half"
+Advertise_10_Full               = "Advertise 10 Full"
+Advertise_100_Half              = "Advertise 100 Half"
+Advertise_100_Full              = "Advertise 100 Full"
+Advertise_1000_Full             = "Advertise 1000 Full"
+AutoNegAdvSpdDefault            = "Advertise Speed Default"
+AutoNegAdvertised               = "Negotiable Speeds and Duplexes"
+SpeedDuplex                     = "Speed & Duplex"
+10Mb_Half_Duplex                = "10 Mbps Half Duplex"
+10Mb_Full_Duplex                = "10 Mbps Full Duplex"
+100Mb_Half_Duplex               = "100 Mbps Half Duplex"
+100Mb_Full_Duplex               = "100 Mbps Full Duplex"
+1000Mb_Full_Duplex              = "1.0 Gbps Full Duplex"
+2500Mb_Full_Duplex              = "2.5 Gbps Full Duplex"
+IPChksumOffv4                   = "IPv4 Checksum Offload"
+TCPChksumOffv4                  = "TCP Checksum Offload (IPv4)"
+UDPChksumOffv4                  = "UDP Checksum Offload (IPv4)"
+TCPChksumOffv6                  = "TCP Checksum Offload (IPv6)"
+UDPChksumOffv6                  = "UDP Checksum Offload (IPv6)"
+LsoV2IPv4                       = "Large Send Offload V2 (IPv4)"
+LsoV2IPv6                       = "Large Send Offload V2 (IPv6)"
+ChksumOffTxRx                   = "Rx & Tx Enabled"
+ChksumOffTx                     = "Tx Enabled"
+ChksumOffRx                     = "Rx Enabled"
+ChecksumTxIp                    = "Offload Transmit IP Checksum"
+ChecksumTxTcp                   = "Offload Transmit TCP Checksum"
+ChecksumRxTcp                   = "Offload Receive TCP Checksum"
+ChecksumRxIp                    = "Offload Receive IP Checksum"
+TcpSegmentation                 = "Offload TCP Segmentation"
+FlowControl                     = "Flow Control"
+FlowControl_TxOnly              = "Tx Enabled"
+FlowControl_RxOnly              = "Rx Enabled"
+FlowControl_Full                = "Rx & Tx Enabled"
+PriorityVlanDisabled            = "Packet Priority & VLAN Disabled"
+PriorityEnabled                 = "Packet Priority Enabled"
+VlanEnabled                     = "VLAN Enabled"
+PriorityVlanEnabled             = "Packet Priority & VLAN Enabled"
+PriorityVLANTag                 = "Packet Priority & VLAN"
+Enabled                         = "Enabled"
+Disabled                        = "Disabled"
+Bytes4088                       = "4088 Bytes"
+Bytes9014                       = "9014 Bytes"
+LAA                             = "Locally Administered Address"
+JumboPacket                     = "Jumbo Packet"
+WakeOnMagicPacket               = "Wake on Magic Packet"
+IdleRestriction                 = "Idle power down restriction"
+
+WakeOnPattern                   = "Wake on Pattern Match"
+InterruptModeration             = "Interrupt Moderation"
+InterruptThrottleRate           = "Interrupt Moderation Rate"
+Adaptive                        = "Adaptive"
+Extreme                         = "Extreme"
+Minimal                         = "Minimal"
+High                            = "High"
+Medium                          = "Medium"
+Low                             = "Low"
+EEELinkAdvertisement            = "Energy Efficient Ethernet"
+EEE_Disabled                    = "Off"
+Off                             = "Off"
+EEE_Enabled_AWAKE               = "On (when system is in S0, S0ix and Sx)"
+ARPOffload                      = "ARP Offload"
+NSOffload                       = "NS Offload"
+WakeOnMagicPacketFromS5Settings = "Wake On Magic Packet From S5"
+
+Intel                           = "Intel"
+MSFT                            = "Microsoft Corporation"
+e2fnexpress.Service.DispName    = "Intel(R) PCI Express Network Connection NetAdapter Driver"
+DISKNAME                        = "Intel(R) Driver Disk"
+
+;; Brandnames.str
+;------------------------------------------------------------------------------
+E15F2NC.DeviceDesc              = "Intel(R) Ethernet Controller I225-LM"
+E15F3NC.DeviceDesc              = "Intel(R) Ethernet Controller I225-V"
+E0D9FNC.DeviceDesc              = "Intel(R) Ethernet Controller (2) I225-IT"
+E5502NC.DeviceDesc              = "Intel(R) Ethernet Controller (2) I225-LMvP"
+E15F2_2NC.DeviceDesc            = "Intel(R) Ethernet Controller (2) I225-LM"
+E15F3_2NC.DeviceDesc            = "Intel(R) Ethernet Controller (2) I225-V"
+E15F2_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-LM"
+E15F3_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-V"
+E0D9F_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-IT"
+E5502_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-LMvP"
+E15F2_Retail.DeviceDesc         = "Intel(R) Ethernet Network Adapter I225-T1"
+E15F2_OEMGen.DeviceDesc         = "Intel(R) Ethernet Network Adapter I225-T1"
+E3100NC.DeviceDesc              = "Killer E3100 2.5 Gigabit Ethernet Controller"
+E3101NC.DeviceDesc              = "Killer E3100X 2.5 Gigabit Ethernet Controller"
+E3101_3NC.DeviceDesc            = "Killer E3100X 2.5 Gigabit Ethernet Controller (2)"
+E3102NC.DeviceDesc              = "Killer E3100X 2.5 Gigabit Ethernet Controller (3)"
+E125BNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-LM"
+E125CNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-V"
+E125DNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-IT"
+E5503NC.DeviceDesc              = "Intel(R) Ethernet Controller I226-LMvP"
+E125B_Retail.DeviceDesc         = "Intel(R) Ethernet Network Adapter I226-T1"
+E125B_OEMGen.DeviceDesc         = "Intel(R) Ethernet Network Adapter I226-T1"
+
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;-------------------------------------------------------------------------------------------------
+
+[Strings.0804] ; Chinese (Simplified)
+AutoDetect                      ="◊‘∂ØºÏ≤‚"
+AutoNegotiation                 ="◊‘∂Ø–≠…Ã"
+Advertise_10_Half               ="œ‘ æ 10 ∞Îπ§"
+Advertise_10_Full               ="œ‘ æ 10 »´π§"
+Advertise_100_Half              ="œ‘ æ 100 ∞Îπ§"
+Advertise_100_Full              ="œ‘ æ 100 »´π§"
+Advertise_1000_Full             ="œ‘ æ 1000 »´π§"
+AutoNegAdvSpdDefault            ="œ‘ æÀŸ∂»ƒ¨»œ÷µ"
+AutoNegAdvertised               ="ø…–≠…ÃÀŸ∂»”ÎÀ´π§"
+SpeedDuplex                     ="ÀŸ∂»∫ÕÀ´π§"
+10Mb_Half_Duplex                ="10 Mbps ∞ÎÀ´π§"
+10Mb_Full_Duplex                ="10 Mbps »´À´π§"
+100Mb_Half_Duplex               ="100 Mbps ∞ÎÀ´π§"
+100Mb_Full_Duplex               ="100 Mbps »´À´π§"
+1000Mb_Full_Duplex              ="1.0 Gbps »´À´π§"
+2500Mb_Full_Duplex              ="2.5 Gbps »´À´π§"
+IPChksumOffv4                   ="IPv4 –£—È∫Õ∑÷‘ÿ¥´ ‰"
+TCPChksumOffv4                  ="TCP –£—È∫Õ∑÷‘ÿ¥´ ‰ (IPv4)"
+UDPChksumOffv4                  ="UDP –£—È∫Õ∑÷‘ÿ¥´ ‰ (IPv4)"
+TCPChksumOffv6                  ="TCP –£—È∫Õ∑÷‘ÿ¥´ ‰ (IPv6)"
+UDPChksumOffv6                  ="UDP –£—È∫Õ∑÷‘ÿ¥´ ‰ (IPv6)"
+LsoV2IPv4                       ="¥Û–Õ∑¢ÀÕ∑÷‘ÿ V2 (IPv4)"
+LsoV2IPv6                       ="¥Û–Õ∑¢ÀÕ∑÷‘ÿ V2 (IPv6)"
+ChksumOffTxRx                   ="“—∆Ù”√ Rx ∫Õ Tx"
+ChksumOffTx                     ="“—∆Ù”√ Tx"
+ChksumOffRx                     ="“—∆Ù”√ Rx"
+ChecksumTxIp                    ="∑÷‘ÿ¥´ ‰ IP –£—È∫Õ"
+ChecksumTxTcp                   ="∑÷‘ÿ¥´ ‰ TCP –£—È∫Õ"
+ChecksumRxTcp                   ="∑÷‘ÿΩ” ’ TCP –£—È∫Õ"
+ChecksumRxIp                    ="∑÷‘ÿΩ” ’ IP –£—È∫Õ"
+TcpSegmentation                 ="∑÷‘ÿ TCP ∑÷∂Œ"
+FlowControl                     ="¡˜¡øøÿ÷∆"
+FlowControl_TxOnly              ="“—∆Ù”√ Tx"
+FlowControl_RxOnly              ="“—∆Ù”√ Rx"
+FlowControl_Full                ="“—∆Ù”√ Rx ∫Õ Tx"
+PriorityVlanDisabled            ="“—Ω˚”√ ˝æ›∞¸”≈œ»º∂∫Õ VLAN"
+PriorityEnabled                 ="“—∆Ù”√ ˝æ›∞¸”≈œ»º∂"
+VlanEnabled                     ="“—∆Ù”√ VLAN"
+PriorityVlanEnabled             ="“—∆Ù”√ ˝æ›∞¸”≈œ»º∂∫Õ VLAN"
+PriorityVLANTag                 =" ˝æ›∞¸”≈œ»º∂∫Õ VLAN"
+Enabled                         ="∆Ù”√"
+Disabled                        ="Ω˚”√"
+Bytes4088                       ="4088 ◊÷Ω⁄"
+Bytes9014                       ="9014 ◊÷Ω⁄"
+LAA                             ="±æµÿπ‹¿Ìµÿ÷∑"
+JumboPacket                     ="æﬁ÷° ˝æ›∞¸"
+WakeOnMagicPacket               ="ªΩ–—ƒß∞¸"
+IdleRestriction                 ="ø’œ–π¶∫ƒΩµµÕœﬁ÷∆"
+
+WakeOnPattern                   ="ªΩ–—ƒ£ Ω∆•≈‰"
+InterruptModeration             ="÷–∂œ≤√æˆ"
+InterruptThrottleRate           ="÷–∂œ≤√æˆ¬ "
+Adaptive                        ="  ”¶–‘"
+Extreme                         ="º´÷µ"
+Minimal                         ="◊Ó–°"
+High                            ="∏ﬂ"
+Medium                          ="÷–"
+Low                             ="µÕ"
+EEELinkAdvertisement            ="Ω⁄ƒ‹“‘Ã´Õ¯"
+EEE_Disabled                    ="πÿ±’"
+Off                             ="πÿ±’"
+EEE_Enabled_AWAKE               ="ø™∆Ù£®µ±œµÕ≥¥¶”⁄ S0°¢S0ix ∫Õ Sx ◊¥Ã¨ ±£©"
+ARPOffload                      ="ARP ∑÷‘ÿ"
+NSOffload                       ="NS ∑÷‘ÿ"
+WakeOnMagicPacketFromS5Settings ="S5 ƒß∞¸ªΩ–—"
+Intel                           = "Intel"
+MSFT                            = "Microsoft Corporation"
+e2fnexpress.Service.DispName    = "Intel(R) PCI Express Network Connection NetAdapter Driver"
+DISKNAME                        = "Intel(R) Driver Disk"
+
+;; Brandnames.str
+;------------------------------------------------------------------------------
+E15F2NC.DeviceDesc              = "Intel(R) Ethernet Controller I225-LM"
+E15F3NC.DeviceDesc              = "Intel(R) Ethernet Controller I225-V"
+E0D9FNC.DeviceDesc              = "Intel(R) Ethernet Controller (2) I225-IT"
+E5502NC.DeviceDesc              = "Intel(R) Ethernet Controller (2) I225-LMvP"
+E15F2_2NC.DeviceDesc            = "Intel(R) Ethernet Controller (2) I225-LM"
+E15F3_2NC.DeviceDesc            = "Intel(R) Ethernet Controller (2) I225-V"
+E15F2_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-LM"
+E15F3_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-V"
+E0D9F_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-IT"
+E5502_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-LMvP"
+E15F2_Retail.DeviceDesc         = "Intel(R) Ethernet Network Adapter I225-T1"
+E15F2_OEMGen.DeviceDesc         = "Intel(R) Ethernet Network Adapter I225-T1"
+E3100NC.DeviceDesc              = "Killer E3100 2.5 Gigabit Ethernet Controller"
+E3101NC.DeviceDesc              = "Killer E3100X 2.5 Gigabit Ethernet Controller"
+E3101_3NC.DeviceDesc            = "Killer E3100X 2.5 Gigabit Ethernet Controller (2)"
+E3102NC.DeviceDesc              = "Killer E3100X 2.5 Gigabit Ethernet Controller (3)"
+E125BNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-LM"
+E125CNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-V"
+E125DNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-IT"
+E5503NC.DeviceDesc              = "Intel(R) Ethernet Controller I226-LMvP"
+E125B_Retail.DeviceDesc         = "Intel(R) Ethernet Network Adapter I226-T1"
+E125B_OEMGen.DeviceDesc         = "Intel(R) Ethernet Network Adapter I226-T1"
+
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+
+[Strings.0404] ; Chinese (Traditional)
+AutoDetect                      ="¶€∞ ∞ª¥˙"
+AutoNegotiation                 ="¶€∞ •ÊØA"
+Advertise_10_Half               ="10 ¨Ì•b¬˘§uºsßi"
+Advertise_10_Full               ="10 ¨Ì•˛¬˘§uºsßi"
+Advertise_100_Half              ="100 ¨Ì•b¬˘§uºsßi"
+Advertise_100_Full              ="100 ¨Ì•˛¬˘§uºsßi"
+Advertise_1000_Full             ="1000 ¨Ì•˛¬˘§uºsßi"
+AutoNegAdvSpdDefault            ="ºsßi≥t´◊πw≥]≠»"
+AutoNegAdvertised               ="•ÊØA≥t´◊©M¬˘§u"
+SpeedDuplex                     ="≥t´◊ªP¬˘§u"
+10Mb_Half_Duplex                ="10 Mbps •b¬˘§u"
+10Mb_Full_Duplex                ="10 Mbps •˛¬˘§u"
+100Mb_Half_Duplex               ="100 Mbps •b¬˘§u"
+100Mb_Full_Duplex               ="100 Mbps •˛¬˘§u"
+1000Mb_Full_Duplex              ="1.0 Gbps •˛¬˘§u"
+2500Mb_Full_Duplex              ="2.5 Gbps •˛¬˘§u"
+IPChksumOffv4                   ="IPv4 ¿À¨d≠»®¯∏¸"
+TCPChksumOffv4                  ="TCP ¿À¨d≠»®¯∏¸ (IPv4)"
+UDPChksumOffv4                  ="UDP ¿À¨d≠»®¯∏¸ (IPv4)"
+TCPChksumOffv6                  ="TCP ¿À¨d≠»®¯∏¸ (IPv6)"
+UDPChksumOffv6                  ="UDP ¿À¨d≠»®¯∏¸ (IPv6)"
+LsoV2IPv4                       ="§j∂q∂«∞e®¯∏¸ V2 (IPv4)"
+LsoV2IPv6                       ="§j∂q∂«∞e®¯∏¸ V2 (IPv6)"
+ChksumOffTxRx                   ="Rx ªP Tx §w±“•Œ"
+ChksumOffTx                     ="Tx §w±“•Œ"
+ChksumOffRx                     ="Rx §w±“•Œ"
+ChecksumTxIp                    ="®¯∏¸∂«øÈ IP ¡`≠»"
+ChecksumTxTcp                   ="®¯∏¸∂«øÈ TCP ¡`≠»"
+ChecksumRxTcp                   ="®¯∏¸±µ¶¨ TCP ¡`≠»"
+ChecksumRxIp                    ="®¯∏¸±µ¶¨ IP ¡`≠»"
+TcpSegmentation                 ="®¯∏¸ TCP ∞œ¨q"
+FlowControl                     ="¨y∂q±±®Ó"
+FlowControl_TxOnly              ="Tx §w±“•Œ"
+FlowControl_RxOnly              ="Rx §w±“•Œ"
+FlowControl_Full                ="Rx ªP Tx §w±“•Œ"
+PriorityVlanDisabled            ="´ •]¿u•˝∂∂ß«ªP VLAN §w∞±•Œ"
+PriorityEnabled                 ="´ •]¿u•˝∂∂ß«§w±“•Œ"
+VlanEnabled                     ="VLAN §w±“•Œ"
+PriorityVlanEnabled             ="´ •]¿u•˝∂∂ß«ªP VLAN §w±“•Œ"
+PriorityVLANTag                 ="´ •]¿u•˝∂∂ß«ªP VLAN"
+Enabled                         ="±“•Œ"
+Disabled                        ="∞±•Œ"
+Bytes4088                       ="4088 ¶Ï§∏≤’"
+Bytes9014                       ="9014 ¶Ï§∏≤’"
+LAA                             ="•ª¶a∫ﬁ≤z¶Ïß}"
+JumboPacket                     ="∂W§j´¨´ •]"
+WakeOnMagicPacket               ="¶¨®Ï Magic ´ •]Æ…≥ÍøÙ"
+IdleRestriction                 ="∂¢∏mπq∑Ω√ˆ≥¨≠≠®Ó"
+
+WakeOnPattern                   ="º“¶°§ÒπÔ¨€≤≈Æ…≥ÍøÙ"
+InterruptModeration             ="ß√¬_Ω’∏`"
+InterruptThrottleRate           ="ß√¬_∏`¨yª÷≥t≤v"
+Adaptive                        ="Ω’æ„© "
+Extreme                         ="∑•∞™"
+Minimal                         ="≥ÃßC"
+High                            ="∞™"
+Medium                          ="§§"
+Low                             ="ßC"
+EEELinkAdvertisement            ="∏`Ø‡§A§”∫Ù∏Ù"
+EEE_Disabled                    ="√ˆ≥¨"
+Off                             ="√ˆ≥¨"
+EEE_Enabled_AWAKE               ="∂}±“ (∑Ì®t≤Œ¶b S0°BS0ix ©M Sx §uß@™¨∫A§U)"
+ARPOffload                      ="ARP ®¯∏¸"
+NSOffload                       ="NS ®¯∏¸"
+WakeOnMagicPacketFromS5Settings ="±q S5 ™¨∫A¶¨®Ï Magic ´ •]Æ…≥ÍøÙ"
+Intel                           = "Intel"
+MSFT                            = "Microsoft Corporation"
+e2fnexpress.Service.DispName    = "Intel(R) PCI Express Network Connection NetAdapter Driver"
+DISKNAME                        = "Intel(R) Driver Disk"
+
+;; Brandnames.str
+;------------------------------------------------------------------------------
+E15F2NC.DeviceDesc              = "Intel(R) Ethernet Controller I225-LM"
+E15F3NC.DeviceDesc              = "Intel(R) Ethernet Controller I225-V"
+E0D9FNC.DeviceDesc              = "Intel(R) Ethernet Controller (2) I225-IT"
+E5502NC.DeviceDesc              = "Intel(R) Ethernet Controller (2) I225-LMvP"
+E15F2_2NC.DeviceDesc            = "Intel(R) Ethernet Controller (2) I225-LM"
+E15F3_2NC.DeviceDesc            = "Intel(R) Ethernet Controller (2) I225-V"
+E15F2_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-LM"
+E15F3_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-V"
+E0D9F_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-IT"
+E5502_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-LMvP"
+E15F2_Retail.DeviceDesc         = "Intel(R) Ethernet Network Adapter I225-T1"
+E15F2_OEMGen.DeviceDesc         = "Intel(R) Ethernet Network Adapter I225-T1"
+E3100NC.DeviceDesc              = "Killer E3100 2.5 Gigabit Ethernet Controller"
+E3101NC.DeviceDesc              = "Killer E3100X 2.5 Gigabit Ethernet Controller"
+E3101_3NC.DeviceDesc            = "Killer E3100X 2.5 Gigabit Ethernet Controller (2)"
+E3102NC.DeviceDesc              = "Killer E3100X 2.5 Gigabit Ethernet Controller (3)"
+E125BNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-LM"
+E125CNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-V"
+E125DNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-IT"
+E5503NC.DeviceDesc              = "Intel(R) Ethernet Controller I226-LMvP"
+E125B_Retail.DeviceDesc         = "Intel(R) Ethernet Network Adapter I226-T1"
+E125B_OEMGen.DeviceDesc         = "Intel(R) Ethernet Network Adapter I226-T1"
+
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+
+[Strings.0C04] ; Chinese (Traditional)
+AutoDetect                      ="¶€∞ ∞ª¥˙"
+AutoNegotiation                 ="¶€∞ •ÊØA"
+Advertise_10_Half               ="10 ¨Ì•b¬˘§uºsßi"
+Advertise_10_Full               ="10 ¨Ì•˛¬˘§uºsßi"
+Advertise_100_Half              ="100 ¨Ì•b¬˘§uºsßi"
+Advertise_100_Full              ="100 ¨Ì•˛¬˘§uºsßi"
+Advertise_1000_Full             ="1000 ¨Ì•˛¬˘§uºsßi"
+AutoNegAdvSpdDefault            ="ºsßi≥t´◊πw≥]≠»"
+AutoNegAdvertised               ="•ÊØA≥t´◊©M¬˘§u"
+SpeedDuplex                     ="≥t´◊ªP¬˘§u"
+10Mb_Half_Duplex                ="10 Mbps •b¬˘§u"
+10Mb_Full_Duplex                ="10 Mbps •˛¬˘§u"
+100Mb_Half_Duplex               ="100 Mbps •b¬˘§u"
+100Mb_Full_Duplex               ="100 Mbps •˛¬˘§u"
+1000Mb_Full_Duplex              ="1.0 Gbps •˛¬˘§u"
+2500Mb_Full_Duplex              ="2.5 Gbps •˛¬˘§u"
+IPChksumOffv4                   ="IPv4 ¿À¨d≠»®¯∏¸"
+TCPChksumOffv4                  ="TCP ¿À¨d≠»®¯∏¸ (IPv4)"
+UDPChksumOffv4                  ="UDP ¿À¨d≠»®¯∏¸ (IPv4)"
+TCPChksumOffv6                  ="TCP ¿À¨d≠»®¯∏¸ (IPv6)"
+UDPChksumOffv6                  ="UDP ¿À¨d≠»®¯∏¸ (IPv6)"
+LsoV2IPv4                       ="§j∂q∂«∞e®¯∏¸ V2 (IPv4)"
+LsoV2IPv6                       ="§j∂q∂«∞e®¯∏¸ V2 (IPv6)"
+ChksumOffTxRx                   ="Rx ªP Tx §w±“•Œ"
+ChksumOffTx                     ="Tx §w±“•Œ"
+ChksumOffRx                     ="Rx §w±“•Œ"
+ChecksumTxIp                    ="®¯∏¸∂«øÈ IP ¡`≠»"
+ChecksumTxTcp                   ="®¯∏¸∂«øÈ TCP ¡`≠»"
+ChecksumRxTcp                   ="®¯∏¸±µ¶¨ TCP ¡`≠»"
+ChecksumRxIp                    ="®¯∏¸±µ¶¨ IP ¡`≠»"
+TcpSegmentation                 ="®¯∏¸ TCP ∞œ¨q"
+FlowControl                     ="¨y∂q±±®Ó"
+FlowControl_TxOnly              ="Tx §w±“•Œ"
+FlowControl_RxOnly              ="Rx §w±“•Œ"
+FlowControl_Full                ="Rx ªP Tx §w±“•Œ"
+PriorityVlanDisabled            ="´ •]¿u•˝∂∂ß«ªP VLAN §w∞±•Œ"
+PriorityEnabled                 ="´ •]¿u•˝∂∂ß«§w±“•Œ"
+VlanEnabled                     ="VLAN §w±“•Œ"
+PriorityVlanEnabled             ="´ •]¿u•˝∂∂ß«ªP VLAN §w±“•Œ"
+PriorityVLANTag                 ="´ •]¿u•˝∂∂ß«ªP VLAN"
+Enabled                         ="±“•Œ"
+Disabled                        ="∞±•Œ"
+Bytes4088                       ="4088 ¶Ï§∏≤’"
+Bytes9014                       ="9014 ¶Ï§∏≤’"
+LAA                             ="•ª¶a∫ﬁ≤z¶Ïß}"
+JumboPacket                     ="∂W§j´¨´ •]"
+WakeOnMagicPacket               ="¶¨®Ï Magic ´ •]Æ…≥ÍøÙ"
+IdleRestriction                 ="∂¢∏mπq∑Ω√ˆ≥¨≠≠®Ó"
+
+WakeOnPattern                   ="º“¶°§ÒπÔ¨€≤≈Æ…≥ÍøÙ"
+InterruptModeration             ="ß√¬_Ω’∏`"
+InterruptThrottleRate           ="ß√¬_∏`¨yª÷≥t≤v"
+Adaptive                        ="Ω’æ„© "
+Extreme                         ="∑•∞™"
+Minimal                         ="≥ÃßC"
+High                            ="∞™"
+Medium                          ="§§"
+Low                             ="ßC"
+EEELinkAdvertisement            ="∏`Ø‡§A§”∫Ù∏Ù"
+EEE_Disabled                    ="√ˆ≥¨"
+Off                             ="√ˆ≥¨"
+EEE_Enabled_AWAKE               ="∂}±“ (∑Ì®t≤Œ¶b S0°BS0ix ©M Sx §uß@™¨∫A§U)"
+ARPOffload                      ="ARP ®¯∏¸"
+NSOffload                       ="NS ®¯∏¸"
+WakeOnMagicPacketFromS5Settings ="±q S5 ™¨∫A¶¨®Ï Magic ´ •]Æ…≥ÍøÙ"
+Intel                           = "Intel"
+MSFT                            = "Microsoft Corporation"
+e2fnexpress.Service.DispName    = "Intel(R) PCI Express Network Connection NetAdapter Driver"
+DISKNAME                        = "Intel(R) Driver Disk"
+
+;; Brandnames.str
+;------------------------------------------------------------------------------
+E15F2NC.DeviceDesc              = "Intel(R) Ethernet Controller I225-LM"
+E15F3NC.DeviceDesc              = "Intel(R) Ethernet Controller I225-V"
+E0D9FNC.DeviceDesc              = "Intel(R) Ethernet Controller (2) I225-IT"
+E5502NC.DeviceDesc              = "Intel(R) Ethernet Controller (2) I225-LMvP"
+E15F2_2NC.DeviceDesc            = "Intel(R) Ethernet Controller (2) I225-LM"
+E15F3_2NC.DeviceDesc            = "Intel(R) Ethernet Controller (2) I225-V"
+E15F2_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-LM"
+E15F3_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-V"
+E0D9F_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-IT"
+E5502_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-LMvP"
+E15F2_Retail.DeviceDesc         = "Intel(R) Ethernet Network Adapter I225-T1"
+E15F2_OEMGen.DeviceDesc         = "Intel(R) Ethernet Network Adapter I225-T1"
+E3100NC.DeviceDesc              = "Killer E3100 2.5 Gigabit Ethernet Controller"
+E3101NC.DeviceDesc              = "Killer E3100X 2.5 Gigabit Ethernet Controller"
+E3101_3NC.DeviceDesc            = "Killer E3100X 2.5 Gigabit Ethernet Controller (2)"
+E3102NC.DeviceDesc              = "Killer E3100X 2.5 Gigabit Ethernet Controller (3)"
+E125BNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-LM"
+E125CNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-V"
+E125DNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-IT"
+E5503NC.DeviceDesc              = "Intel(R) Ethernet Controller I226-LMvP"
+E125B_Retail.DeviceDesc         = "Intel(R) Ethernet Network Adapter I226-T1"
+E125B_OEMGen.DeviceDesc         = "Intel(R) Ethernet Network Adapter I226-T1"
+
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+
+[Strings.0407] ; German (Germany)
+AutoDetect                      ="Automatische Erkennung"
+AutoNegotiation                 ="Automatische Aushandlung"
+Advertise_10_Half               ="10 Halbduplex anzeigen"
+Advertise_10_Full               ="10 Vollduplex anzeigen"
+Advertise_100_Half              ="100 Halbduplex anzeigen"
+Advertise_100_Full              ="100 Vollduplex anzeigen"
+Advertise_1000_Full             ="1000 Vollduplex anzeigen"
+AutoNegAdvSpdDefault            ="Standard-Geschwindigkeit anzeigen"
+AutoNegAdvertised               ="Verhandelbare Geschwindigkeiten und Duplexmodi"
+SpeedDuplex                     ="Geschwindigkeit und Duplex"
+10Mb_Half_Duplex                ="10 Mbit/s Halbduplex"
+10Mb_Full_Duplex                ="10 Mbit/s Vollduplex"
+100Mb_Half_Duplex               ="100 Mbit/s Halbduplex"
+100Mb_Full_Duplex               ="100 Mbit/s Vollduplex"
+1000Mb_Full_Duplex              ="1,0 Gbit/s Vollduplex"
+2500Mb_Full_Duplex              ="2,5 Gbit/s Vollduplex"
+IPChksumOffv4                   ="IPv4-Pr¸fsummen abladen"
+TCPChksumOffv4                  ="TCP-Pr¸fsummen abladen (IPv4)"
+UDPChksumOffv4                  ="UDP-Pr¸fsummen abladen (IPv4)"
+TCPChksumOffv6                  ="TCP-Pr¸fsummen abladen (IPv6)"
+UDPChksumOffv6                  ="UDP-Pr¸fsummen abladen (IPv6)"
+LsoV2IPv4                       ="Large-Send-Offload V2 (IPv4)"
+LsoV2IPv6                       ="Large-Send-Offload V2 (IPv6)"
+ChksumOffTxRx                   ="Rx und Tx aktiviert"
+ChksumOffTx                     ="Tx aktiviert"
+ChksumOffRx                     ="Rx aktiviert"
+ChecksumTxIp                    ="‹bertrag.-IP-Pr¸fsumme abladen"
+ChecksumTxTcp                   ="‹bertrag.-TCP-Pr¸fsumme abladen"
+ChecksumRxTcp                   ="Empf.-TCP-Pr¸fsumme abladen"
+ChecksumRxIp                    ="Empf.-IP-Pr¸fsumme abladen"
+TcpSegmentation                 ="TCP-Segmentierung abladen"
+FlowControl                     ="Flusssteuerung"
+FlowControl_TxOnly              ="Tx aktiviert"
+FlowControl_RxOnly              ="Rx aktiviert"
+FlowControl_Full                ="Rx und Tx aktiviert"
+PriorityVlanDisabled            ="Paketpriorit‰t und VLAN deaktiviert"
+PriorityEnabled                 ="Paketpriorit‰t aktiviert"
+VlanEnabled                     ="VLAN aktiviert"
+PriorityVlanEnabled             ="Paketpriorit‰t und VLAN aktiviert"
+PriorityVLANTag                 ="Paketpriorit‰t und VLAN"
+Enabled                         ="Aktiviert"
+Disabled                        ="Deaktiviert"
+Bytes4088                       ="4088 Byte"
+Bytes9014                       ="9014 Byte"
+LAA                             ="Lokal verwaltete Adresse"
+JumboPacket                     ="Jumbo Packet"
+WakeOnMagicPacket               ="Akt. ¸ber Magic Packet"
+IdleRestriction                 ="Einschr‰nkung des Herunterfahrens bei Leerlauf"
+
+WakeOnPattern                   ="Akt. bei Muster¸bereinstimmung"
+InterruptModeration             ="Interrupt-Drosselung"
+InterruptThrottleRate           ="Interrupt-Drosselungsrate"
+Adaptive                        ="Adaptiv"
+Extreme                         ="Extrem"
+Minimal                         ="Minimal"
+High                            ="Hoch"
+Medium                          ="Mittel"
+Low                             ="Niedrig"
+EEELinkAdvertisement            ="Energieeffizientes Ethernet"
+EEE_Disabled                    ="Aus"
+Off                             ="Aus"
+EEE_Enabled_AWAKE               ="Ein (wenn sich das System in S0, S0ix und Sx befindet)"
+ARPOffload                      ="ARP-Abladung"
+NSOffload                       ="NS-Abladung"
+WakeOnMagicPacketFromS5Settings ="Wake-on-Magic-Packet von S5"
+Intel                           = "Intel"
+MSFT                            = "Microsoft Corporation"
+e2fnexpress.Service.DispName    = "Intel(R) PCI Express Network Connection NetAdapter Driver"
+DISKNAME                        = "Intel(R) Driver Disk"
+
+;; Brandnames.str
+;------------------------------------------------------------------------------
+E15F2NC.DeviceDesc              = "Intel(R) Ethernet Controller I225-LM"
+E15F3NC.DeviceDesc              = "Intel(R) Ethernet Controller I225-V"
+E0D9FNC.DeviceDesc              = "Intel(R) Ethernet Controller (2) I225-IT"
+E5502NC.DeviceDesc              = "Intel(R) Ethernet Controller (2) I225-LMvP"
+E15F2_2NC.DeviceDesc            = "Intel(R) Ethernet Controller (2) I225-LM"
+E15F3_2NC.DeviceDesc            = "Intel(R) Ethernet Controller (2) I225-V"
+E15F2_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-LM"
+E15F3_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-V"
+E0D9F_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-IT"
+E5502_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-LMvP"
+E15F2_Retail.DeviceDesc         = "Intel(R) Ethernet Network Adapter I225-T1"
+E15F2_OEMGen.DeviceDesc         = "Intel(R) Ethernet Network Adapter I225-T1"
+E3100NC.DeviceDesc              = "Killer E3100 2.5 Gigabit Ethernet Controller"
+E3101NC.DeviceDesc              = "Killer E3100X 2.5 Gigabit Ethernet Controller"
+E3101_3NC.DeviceDesc            = "Killer E3100X 2.5 Gigabit Ethernet Controller (2)"
+E3102NC.DeviceDesc              = "Killer E3100X 2.5 Gigabit Ethernet Controller (3)"
+E125BNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-LM"
+E125CNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-V"
+E125DNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-IT"
+E5503NC.DeviceDesc              = "Intel(R) Ethernet Controller I226-LMvP"
+E125B_Retail.DeviceDesc         = "Intel(R) Ethernet Network Adapter I226-T1"
+E125B_OEMGen.DeviceDesc         = "Intel(R) Ethernet Network Adapter I226-T1"
+
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+
+[Strings.0C0A] ; Spanish (Spain)
+AutoDetect                      ="DetecciÛn autom·tica"
+AutoNegotiation                 ="NegociaciÛn autom·tica"
+Advertise_10_Half               ="Anunciar 10 d˙plex medio"
+Advertise_10_Full               ="Anunciar 10 d˙plex completo"
+Advertise_100_Half              ="Anunciar 100 d˙plex medio"
+Advertise_100_Full              ="Anunciar 100 d˙plex completo"
+Advertise_1000_Full             ="Anunciar 1000 d˙plex completo"
+AutoNegAdvSpdDefault            ="Anunciar velocidad predeterminada"
+AutoNegAdvertised               ="Velocidad y d˙plex negociables"
+SpeedDuplex                     ="Velocidad y d˙plex"
+10Mb_Half_Duplex                ="10 Mbps D˙plex medio"
+10Mb_Full_Duplex                ="10 Mbps D˙plex completo"
+100Mb_Half_Duplex               ="100 Mbps D˙plex medio"
+100Mb_Full_Duplex               ="100 Mbps D˙plex completo"
+1000Mb_Full_Duplex              ="D˙plex completo a 1,0 Gbps"
+2500Mb_Full_Duplex              ="D˙plex completo a 2,5 Gbps"
+IPChksumOffv4                   ="Descarga de suma de comprobaciÛn de IPv4"
+TCPChksumOffv4                  ="Descarga de suma de comprobaciÛn TCP (IPv4)"
+UDPChksumOffv4                  ="Descarga de suma de comprobaciÛn UDP (IPv4)"
+TCPChksumOffv6                  ="Descarga de suma de comprobaciÛn TCP (IPv6)"
+UDPChksumOffv6                  ="Descarga de suma de comprobaciÛn UDP (IPv6)"
+LsoV2IPv4                       ="Descarga grande de envÌo V2 (IPv4)"
+LsoV2IPv6                       ="Descarga grande de envÌo V2 (IPv6)"
+ChksumOffTxRx                   ="RecepciÛn y transmisiÛn habilitadas"
+ChksumOffTx                     ="TransmisiÛn habilitada"
+ChksumOffRx                     ="RecepciÛn habilitada"
+ChecksumTxIp                    ="Descargar suma de verif. de paquetes IP transmitidos"
+ChecksumTxTcp                   ="Descargar suma de verif. de paquetes TCP transmitidos"
+ChecksumRxTcp                   ="Descargar suma de verif. de paquetes TCP recibidos"
+ChecksumRxIp                    ="Descargar suma de verif. de paquetes IP recibidos"
+TcpSegmentation                 ="Descarga de segmentaciÛn TCP"
+FlowControl                     ="Control de flujo"
+FlowControl_TxOnly              ="TransmisiÛn habilitada"
+FlowControl_RxOnly              ="RecepciÛn habilitada"
+FlowControl_Full                ="RecepciÛn y transmisiÛn habilitadas"
+PriorityVlanDisabled            ="Prioridad de paquetes y VLAN deshabilitadas"
+PriorityEnabled                 ="Prioridad de paquetes habilitada"
+VlanEnabled                     ="VLAN habilitada"
+PriorityVlanEnabled             ="Prioridad de paquetes y VLAN habilitadas"
+PriorityVLANTag                 ="Prioridad de paquetes y VLAN"
+Enabled                         ="Habilitado"
+Disabled                        ="Deshabilitado"
+Bytes4088                       ="4088 bytes"
+Bytes9014                       ="9014 bytes"
+LAA                             ="DirecciÛn administrada localmente"
+JumboPacket                     ="Paquete jumbo"
+WakeOnMagicPacket               ="Activar en Magic Packet"
+IdleRestriction                 ="Bloqueo del apagado en reposo"
+
+WakeOnPattern                   ="Activar al coincidir el patrÛn"
+InterruptModeration             ="ModeraciÛn de interrupciones"
+InterruptThrottleRate           ="Velocidad de obstrucciÛn de la interrupciÛn"
+Adaptive                        ="AdaptaciÛn"
+Extreme                         ="Extremo"
+Minimal                         ="MÌnimo"
+High                            ="Alto"
+Medium                          ="Medio"
+Low                             ="Bajo"
+EEELinkAdvertisement            ="Ethernet con uso eficiente de energÌa"
+EEE_Disabled                    ="Desactivado"
+Off                             ="Desactivado"
+EEE_Enabled_AWAKE               ="Activado (cuando el sistema est· en S0, S0ix y Sx)"
+ARPOffload                      ="Descarga de ARP"
+NSOffload                       ="Descarga de NS"
+WakeOnMagicPacketFromS5Settings ="Reactivar en Magic Packet desde S5"
+Intel                           = "Intel"
+MSFT                            = "Microsoft Corporation"
+e2fnexpress.Service.DispName    = "Intel(R) PCI Express Network Connection NetAdapter Driver"
+DISKNAME                        = "Intel(R) Driver Disk"
+
+;; Brandnames.str
+;------------------------------------------------------------------------------
+E15F2NC.DeviceDesc              = "Intel(R) Ethernet Controller I225-LM"
+E15F3NC.DeviceDesc              = "Intel(R) Ethernet Controller I225-V"
+E0D9FNC.DeviceDesc              = "Intel(R) Ethernet Controller (2) I225-IT"
+E5502NC.DeviceDesc              = "Intel(R) Ethernet Controller (2) I225-LMvP"
+E15F2_2NC.DeviceDesc            = "Intel(R) Ethernet Controller (2) I225-LM"
+E15F3_2NC.DeviceDesc            = "Intel(R) Ethernet Controller (2) I225-V"
+E15F2_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-LM"
+E15F3_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-V"
+E0D9F_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-IT"
+E5502_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-LMvP"
+E15F2_Retail.DeviceDesc         = "Intel(R) Ethernet Network Adapter I225-T1"
+E15F2_OEMGen.DeviceDesc         = "Intel(R) Ethernet Network Adapter I225-T1"
+E3100NC.DeviceDesc              = "Killer E3100 2.5 Gigabit Ethernet Controller"
+E3101NC.DeviceDesc              = "Killer E3100X 2.5 Gigabit Ethernet Controller"
+E3101_3NC.DeviceDesc            = "Killer E3100X 2.5 Gigabit Ethernet Controller (2)"
+E3102NC.DeviceDesc              = "Killer E3100X 2.5 Gigabit Ethernet Controller (3)"
+E125BNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-LM"
+E125CNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-V"
+E125DNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-IT"
+E5503NC.DeviceDesc              = "Intel(R) Ethernet Controller I226-LMvP"
+E125B_Retail.DeviceDesc         = "Intel(R) Ethernet Network Adapter I226-T1"
+E125B_OEMGen.DeviceDesc         = "Intel(R) Ethernet Network Adapter I226-T1"
+
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+
+[Strings.040C] ; French (France)
+AutoDetect                      ="DÈtection automatique"
+AutoNegotiation                 ="NÈgociation automatique"
+Advertise_10_Half               ="Afficher 10 Semi-duplex"
+Advertise_10_Full               ="Afficher 10 Duplex intÈgral"
+Advertise_100_Half              ="Afficher 100 Semi-duplex"
+Advertise_100_Full              ="Afficher 100 Duplex intÈgral"
+Advertise_1000_Full             ="Afficher 1000 Duplex intÈgral"
+AutoNegAdvSpdDefault            ="Afficher la vitesse par dÈfaut"
+AutoNegAdvertised               ="Vitesses nÈgociables et duplex"
+SpeedDuplex                     ="Vitesse et duplex"
+10Mb_Half_Duplex                ="10 Mbit/s Semi-duplex"
+10Mb_Full_Duplex                ="10 Mbit/s Duplex intÈgral"
+100Mb_Half_Duplex               ="100 Mbit/s Semi-duplex"
+100Mb_Full_Duplex               ="100 Mbit/s Duplex intÈgral"
+1000Mb_Full_Duplex              ="1,0 Gbit/s Duplex intÈgral"
+2500Mb_Full_Duplex              ="2,5†Gbit/s Duplex intÈgral"
+IPChksumOffv4                   ="DÈlester somme de contrÙle IPv4"
+TCPChksumOffv4                  ="DÈlester somme de contrÙle TCP (IPv4)"
+UDPChksumOffv4                  ="DÈlester somme de contrÙle UDP (IPv4)"
+TCPChksumOffv6                  ="DÈlester somme de contrÙle TCP (IPv6)"
+UDPChksumOffv6                  ="DÈlester somme de contrÙle UDP (IPv6)"
+LsoV2IPv4                       ="DÈcharge díenvoi important v2 (IPv4)"
+LsoV2IPv6                       ="DÈcharge díenvoi important v2 (IPv6)"
+ChksumOffTxRx                   ="Rx et Tx activÈes"
+ChksumOffTx                     ="Tx activÈe"
+ChksumOffRx                     ="Rx activÈe"
+ChecksumTxIp                    ="DÈlester la somme de contrÙle de transmission IP"
+ChecksumTxTcp                   ="DÈlester la somme de contrÙle de transmission TCP"
+ChecksumRxTcp                   ="DÈlester la somme de contrÙle de rÈception TCP"
+ChecksumRxIp                    ="DÈlester la somme de contrÙle de rÈception IP"
+TcpSegmentation                 ="DÈlester la segmentation TCP"
+FlowControl                     ="ContrÙle de flux"
+FlowControl_TxOnly              ="Tx activÈe"
+FlowControl_RxOnly              ="Rx activÈe"
+FlowControl_Full                ="Rx et Tx activÈes"
+PriorityVlanDisabled            ="PrioritÈ des paquets et VLAN dÈsactivÈs"
+PriorityEnabled                 ="PrioritÈ des paquets activÈe"
+VlanEnabled                     ="VLAN activÈ"
+PriorityVlanEnabled             ="PrioritÈ des paquets et VLAN activÈs"
+PriorityVLANTag                 ="PrioritÈ des paquets et VLAN"
+Enabled                         ="ActivÈ(e)"
+Disabled                        ="DÈsactivÈ(e)"
+Bytes4088                       ="4088 octets"
+Bytes9014                       ="9014 octets"
+LAA                             ="Adresse administrÈe localement"
+JumboPacket                     ="Paquets Ètendus"
+WakeOnMagicPacket               ="Wake on Magic Packet"
+IdleRestriction                 ="Restriction de l'arrÍt en cas d'inactivitÈ"
+
+WakeOnPattern                   ="Wake on Pattern Match"
+InterruptModeration             ="Gestion des interruptions"
+InterruptThrottleRate           ="Taux de gestion des interruptions"
+Adaptive                        ="Variable"
+Extreme                         ="ExtrÍme"
+Minimal                         ="Minime"
+High                            ="Haut"
+Medium                          ="Moyen"
+Low                             ="Faible"
+EEELinkAdvertisement            ="Ethernet Èconome en Ènergie (EEE)"
+EEE_Disabled                    ="DÈsactivÈ(e)"
+Off                             ="DÈsactivÈ(e)"
+EEE_Enabled_AWAKE               ="ActivÈ(e) (lorsque le systËme est en S0, S0ix et Sx)"
+ARPOffload                      ="DÈlestage ARP"
+NSOffload                       ="DÈlestage NS"
+WakeOnMagicPacketFromS5Settings ="Wake On Magic Packet depuis l'Ètat S5"
+Intel                           = "Intel"
+MSFT                            = "Microsoft Corporation"
+e2fnexpress.Service.DispName    = "Intel(R) PCI Express Network Connection NetAdapter Driver"
+DISKNAME                        = "Intel(R) Driver Disk"
+
+;; Brandnames.str
+;------------------------------------------------------------------------------
+E15F2NC.DeviceDesc              = "Intel(R) Ethernet Controller I225-LM"
+E15F3NC.DeviceDesc              = "Intel(R) Ethernet Controller I225-V"
+E0D9FNC.DeviceDesc              = "Intel(R) Ethernet Controller (2) I225-IT"
+E5502NC.DeviceDesc              = "Intel(R) Ethernet Controller (2) I225-LMvP"
+E15F2_2NC.DeviceDesc            = "Intel(R) Ethernet Controller (2) I225-LM"
+E15F3_2NC.DeviceDesc            = "Intel(R) Ethernet Controller (2) I225-V"
+E15F2_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-LM"
+E15F3_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-V"
+E0D9F_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-IT"
+E5502_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-LMvP"
+E15F2_Retail.DeviceDesc         = "Intel(R) Ethernet Network Adapter I225-T1"
+E15F2_OEMGen.DeviceDesc         = "Intel(R) Ethernet Network Adapter I225-T1"
+E3100NC.DeviceDesc              = "Killer E3100 2.5 Gigabit Ethernet Controller"
+E3101NC.DeviceDesc              = "Killer E3100X 2.5 Gigabit Ethernet Controller"
+E3101_3NC.DeviceDesc            = "Killer E3100X 2.5 Gigabit Ethernet Controller (2)"
+E3102NC.DeviceDesc              = "Killer E3100X 2.5 Gigabit Ethernet Controller (3)"
+E125BNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-LM"
+E125CNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-V"
+E125DNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-IT"
+E5503NC.DeviceDesc              = "Intel(R) Ethernet Controller I226-LMvP"
+E125B_Retail.DeviceDesc         = "Intel(R) Ethernet Network Adapter I226-T1"
+E125B_OEMGen.DeviceDesc         = "Intel(R) Ethernet Network Adapter I226-T1"
+
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+
+[Strings.0410] ; Italian (Italy)
+AutoDetect                      ="Rilevamento automatico"
+AutoNegotiation                 ="Negoziazione automatica"
+Advertise_10_Half               ="Annuncia 10 Mbps e half"
+Advertise_10_Full               ="Annuncia 10 Mbps e full"
+Advertise_100_Half              ="Annuncia 100 Mbps e half"
+Advertise_100_Full              ="Annuncia 100 Mbps e full"
+Advertise_1000_Full             ="Annuncia 1000 Mbps e full"
+AutoNegAdvSpdDefault            ="Annuncia impostazioni predefinite velocit‡"
+AutoNegAdvertised               ="Velocit‡ e duplex negoziabili"
+SpeedDuplex                     ="Velocit‡ e duplex"
+10Mb_Half_Duplex                ="10 Mbps Half Duplex"
+10Mb_Full_Duplex                ="10 Mbps Full Duplex"
+100Mb_Half_Duplex               ="100 Mbps Half Duplex"
+100Mb_Full_Duplex               ="100 Mbps Full Duplex"
+1000Mb_Full_Duplex              ="1 Gbps Full Duplex"
+2500Mb_Full_Duplex              ="2,5 Gbps Full Duplex"
+IPChksumOffv4                   ="Offload di checksum IPv4"
+TCPChksumOffv4                  ="Offload di checksum TCP (IPv4)"
+UDPChksumOffv4                  ="Offload di checksum UDP (IPv4)"
+TCPChksumOffv6                  ="Offload di checksum TCP (IPv6)"
+UDPChksumOffv6                  ="Offload di checksum UDP (IPv6)"
+LsoV2IPv4                       ="Large Send Offload V2 (IPv4)"
+LsoV2IPv6                       ="Large Send Offload V2 (IPv6)"
+ChksumOffTxRx                   ="Rx e Tx abilitate"
+ChksumOffTx                     ="Tx abilitata"
+ChksumOffRx                     ="Rx abilitata"
+ChecksumTxIp                    ="Offload del checksum IP di trasmissione"
+ChecksumTxTcp                   ="Offload del checksum TCP di trasmissione"
+ChecksumRxTcp                   ="Offload del checksum TCP di ricezione"
+ChecksumRxIp                    ="Offload del checksum IP di ricezione"
+TcpSegmentation                 ="Offload della segmentazione TCP"
+FlowControl                     ="Controllo del flusso"
+FlowControl_TxOnly              ="Tx abilitata"
+FlowControl_RxOnly              ="Rx abilitata"
+FlowControl_Full                ="Rx e Tx abilitate"
+PriorityVlanDisabled            ="Priorit‡ pacchetti e VLAN disattivate"
+PriorityEnabled                 ="Priorit‡ pacchetti attivata"
+VlanEnabled                     ="VLAN abilitata"
+PriorityVlanEnabled             ="Priorit‡ pacchetti e VLAN attivate"
+PriorityVLANTag                 ="Priorit‡ pacchetti e VLAN"
+Enabled                         ="Attivato"
+Disabled                        ="Disattivato"
+Bytes4088                       ="4088 byte"
+Bytes9014                       ="9014 byte"
+LAA                             ="Indirizzo amministrato localmente"
+JumboPacket                     ="Pacchetto Jumbo"
+WakeOnMagicPacket               ="Attiva su pacchetto Magic"
+IdleRestriction                 ="Restrizione spegnimento da stato inattivo"
+
+WakeOnPattern                   ="Attiva su Pattern Match"
+InterruptModeration             ="Regolazione di interrupt"
+InterruptThrottleRate           ="Velocit‡ di rallentamento dell'interrupt"
+Adaptive                        ="Adattivo"
+Extreme                         ="Estremo"
+Minimal                         ="Minimale"
+High                            ="Alto"
+Medium                          ="Medio"
+Low                             ="Basso"
+EEELinkAdvertisement            ="Ethernet a basso consumo energetico"
+EEE_Disabled                    ="Disattivato"
+Off                             ="Disattivato"
+EEE_Enabled_AWAKE               ="Attivato (quando il sistema Ë in S0, S0ix e Sx)"
+ARPOffload                      ="Offload ARP"
+NSOffload                       ="Offload NS"
+WakeOnMagicPacketFromS5Settings ="Attiva su pacchetto Magic dall'S5"
+Intel                           = "Intel"
+MSFT                            = "Microsoft Corporation"
+e2fnexpress.Service.DispName    = "Intel(R) PCI Express Network Connection NetAdapter Driver"
+DISKNAME                        = "Intel(R) Driver Disk"
+
+;; Brandnames.str
+;------------------------------------------------------------------------------
+E15F2NC.DeviceDesc              = "Intel(R) Ethernet Controller I225-LM"
+E15F3NC.DeviceDesc              = "Intel(R) Ethernet Controller I225-V"
+E0D9FNC.DeviceDesc              = "Intel(R) Ethernet Controller (2) I225-IT"
+E5502NC.DeviceDesc              = "Intel(R) Ethernet Controller (2) I225-LMvP"
+E15F2_2NC.DeviceDesc            = "Intel(R) Ethernet Controller (2) I225-LM"
+E15F3_2NC.DeviceDesc            = "Intel(R) Ethernet Controller (2) I225-V"
+E15F2_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-LM"
+E15F3_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-V"
+E0D9F_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-IT"
+E5502_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-LMvP"
+E15F2_Retail.DeviceDesc         = "Intel(R) Ethernet Network Adapter I225-T1"
+E15F2_OEMGen.DeviceDesc         = "Intel(R) Ethernet Network Adapter I225-T1"
+E3100NC.DeviceDesc              = "Killer E3100 2.5 Gigabit Ethernet Controller"
+E3101NC.DeviceDesc              = "Killer E3100X 2.5 Gigabit Ethernet Controller"
+E3101_3NC.DeviceDesc            = "Killer E3100X 2.5 Gigabit Ethernet Controller (2)"
+E3102NC.DeviceDesc              = "Killer E3100X 2.5 Gigabit Ethernet Controller (3)"
+E125BNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-LM"
+E125CNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-V"
+E125DNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-IT"
+E5503NC.DeviceDesc              = "Intel(R) Ethernet Controller I226-LMvP"
+E125B_Retail.DeviceDesc         = "Intel(R) Ethernet Network Adapter I226-T1"
+E125B_OEMGen.DeviceDesc         = "Intel(R) Ethernet Network Adapter I226-T1"
+
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+
+[Strings.0411] ; Japanese (Japan)
+AutoDetect                      ="é©ìÆåüèo"
+AutoNegotiation                 ="ÉIÅ[ÉgÉlÉSÉVÉGÅ[ÉVÉáÉì"
+Advertise_10_Half               ="10 îºìÒèdí êMÇí ím"
+Advertise_10_Full               ="10 ëSìÒèdí êMÇí ím"
+Advertise_100_Half              ="100 îºìÒèdí êMÇí ím"
+Advertise_100_Full              ="100 ëSìÒèdí êMÇí ím"
+Advertise_1000_Full             ="1000 ëSìÒèdí êMÇí ím"
+AutoNegAdvSpdDefault            ="ÉfÉtÉHÉãÉgÇÃë¨ìxÇí ím"
+AutoNegAdvertised               ="ÉlÉSÉVÉGÅ[Égâ¬î\Ç»ë¨ìxÇ®ÇÊÇ—ÉfÉÖÉvÉåÉbÉNÉX ÉÇÅ[Éh"
+SpeedDuplex                     ="ë¨ìxÇ∆ÉfÉÖÉvÉåÉbÉNÉX"
+10Mb_Half_Duplex                ="10 Mbps îºìÒèdí êM"
+10Mb_Full_Duplex                ="10 Mbps ëSìÒèdí êM"
+100Mb_Half_Duplex               ="100 Mbps îºìÒèdí êM"
+100Mb_Full_Duplex               ="100 Mbps ëSìÒèdí êM"
+1000Mb_Full_Duplex              ="1.0 Gbps ëSìÒèdí êM"
+2500Mb_Full_Duplex              ="2.5 Gbps ëSìÒèdí êM"
+IPChksumOffv4                   ="IPv4 É`ÉFÉbÉNÉTÉÄÇÃÉIÉtÉçÅ[Éh"
+TCPChksumOffv4                  ="TCP É`ÉFÉbÉNÉTÉÄÇÃÉIÉtÉçÅ[Éh (IPv4)"
+UDPChksumOffv4                  ="UDP É`ÉFÉbÉNÉTÉÄÇÃÉIÉtÉçÅ[Éh (IPv4)"
+TCPChksumOffv6                  ="TCP É`ÉFÉbÉNÉTÉÄÇÃÉIÉtÉçÅ[Éh (IPv6)"
+UDPChksumOffv6                  ="UDP É`ÉFÉbÉNÉTÉÄÇÃÉIÉtÉçÅ[Éh (IPv6)"
+LsoV2IPv4                       ="ëÂó ëóêMÉIÉtÉçÅ[Éh V2 (IPv4)"
+LsoV2IPv6                       ="ëÂó ëóêMÉIÉtÉçÅ[Éh V2 (IPv6)"
+ChksumOffTxRx                   ="éÛêM/ëóêM óLå¯"
+ChksumOffTx                     ="ëóêM óLå¯"
+ChksumOffRx                     ="éÛêM óLå¯"
+ChecksumTxIp                    ="ëóêM IP É`ÉFÉbÉNÉTÉÄÇÃÉIÉtÉçÅ[Éh"
+ChecksumTxTcp                   ="ëóêM TCP É`ÉFÉbÉNÉTÉÄÇÃÉIÉtÉçÅ[Éh"
+ChecksumRxTcp                   ="éÛêM TCP É`ÉFÉbÉNÉTÉÄÇÃÉIÉtÉçÅ[Éh"
+ChecksumRxIp                    ="éÛêM IP É`ÉFÉbÉNÉTÉÄÇÃÉIÉtÉçÅ[Éh"
+TcpSegmentation                 ="TCP ÉZÉOÉÅÉìÉeÅ[ÉVÉáÉìÇÃÉIÉtÉçÅ[Éh"
+FlowControl                     ="ÉtÉçÅ[êßå‰"
+FlowControl_TxOnly              ="ëóêM óLå¯"
+FlowControl_RxOnly              ="éÛêM óLå¯"
+FlowControl_Full                ="éÛêM/ëóêM óLå¯"
+PriorityVlanDisabled            ="ÉpÉPÉbÉgóDêÊìxÇ∆ VLAN ñ≥å¯"
+PriorityEnabled                 ="ÉpÉPÉbÉgóDêÊìxóLå¯"
+VlanEnabled                     ="VLAN óLå¯"
+PriorityVlanEnabled             ="ÉpÉPÉbÉgóDêÊìxÇ∆ VLAN óLå¯"
+PriorityVLANTag                 ="ÉpÉPÉbÉgóDêÊìxÇ∆ VLAN"
+Enabled                         ="óLå¯"
+Disabled                        ="ñ≥å¯"
+Bytes4088                       ="4088 ÉoÉCÉg"
+Bytes9014                       ="9014 ÉoÉCÉg"
+LAA                             ="ÉçÅ[ÉJÉãä«óùÇ≥ÇÍÇÈÉAÉhÉåÉX"
+JumboPacket                     ="ÉWÉÉÉìÉ{ÉpÉPÉbÉg"
+WakeOnMagicPacket               ="Wake On Magic Packet"
+IdleRestriction                 ="ÉAÉCÉhÉãèÛë‘ÇÃìdåπÉIÉtÇÃêßå¿"
+
+WakeOnPattern                   ="Wake on Pattern Match"
+InterruptModeration             ="äÑÇËçûÇ›â¡å∏"
+InterruptThrottleRate           ="äÑÇËçûÇ›â¡å∏ó¶"
+Adaptive                        ="ÉAÉ_ÉvÉeÉBÉu"
+Extreme                         ="ç≈ëÂ"
+Minimal                         ="ç≈è¨"
+High                            ="çÇ"
+Medium                          ="íÜ"
+Low                             ="í·"
+EEELinkAdvertisement            ="è»ìdóÕÉCÅ[ÉTÉlÉbÉg"
+EEE_Disabled                    ="ÉIÉt"
+Off                             ="ÉIÉt"
+EEE_Enabled_AWAKE               ="ÉIÉì (ÉVÉXÉeÉÄÇ™ S0ÅAS0ixÅASx èÛë‘ÇÃèÍçá)"
+ARPOffload                      ="ÉAÉhÉåÉXâåàÉvÉçÉgÉRÉã (ARP) ÉIÉtÉçÅ[Éh"
+NSOffload                       ="ãﬂó◊óvêø (NS) ÉIÉtÉçÅ[Éh"
+WakeOnMagicPacketFromS5Settings ="S5 Ç©ÇÁÇÃ Wake on Magic Packet"
+Intel                           = "Intel"
+MSFT                            = "Microsoft Corporation"
+e2fnexpress.Service.DispName    = "Intel(R) PCI Express Network Connection NetAdapter Driver"
+DISKNAME                        = "Intel(R) Driver Disk"
+
+;; Brandnames.str
+;------------------------------------------------------------------------------
+E15F2NC.DeviceDesc              = "Intel(R) Ethernet Controller I225-LM"
+E15F3NC.DeviceDesc              = "Intel(R) Ethernet Controller I225-V"
+E0D9FNC.DeviceDesc              = "Intel(R) Ethernet Controller (2) I225-IT"
+E5502NC.DeviceDesc              = "Intel(R) Ethernet Controller (2) I225-LMvP"
+E15F2_2NC.DeviceDesc            = "Intel(R) Ethernet Controller (2) I225-LM"
+E15F3_2NC.DeviceDesc            = "Intel(R) Ethernet Controller (2) I225-V"
+E15F2_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-LM"
+E15F3_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-V"
+E0D9F_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-IT"
+E5502_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-LMvP"
+E15F2_Retail.DeviceDesc         = "Intel(R) Ethernet Network Adapter I225-T1"
+E15F2_OEMGen.DeviceDesc         = "Intel(R) Ethernet Network Adapter I225-T1"
+E3100NC.DeviceDesc              = "Killer E3100 2.5 Gigabit Ethernet Controller"
+E3101NC.DeviceDesc              = "Killer E3100X 2.5 Gigabit Ethernet Controller"
+E3101_3NC.DeviceDesc            = "Killer E3100X 2.5 Gigabit Ethernet Controller (2)"
+E3102NC.DeviceDesc              = "Killer E3100X 2.5 Gigabit Ethernet Controller (3)"
+E125BNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-LM"
+E125CNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-V"
+E125DNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-IT"
+E5503NC.DeviceDesc              = "Intel(R) Ethernet Controller I226-LMvP"
+E125B_Retail.DeviceDesc         = "Intel(R) Ethernet Network Adapter I226-T1"
+E125B_OEMGen.DeviceDesc         = "Intel(R) Ethernet Network Adapter I226-T1"
+
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+
+[Strings.0412] ; Korean (Korea)
+AutoDetect                      ="¿⁄µø ∞Àªˆ"
+AutoNegotiation                 ="¿⁄µø «˘ªÛ"
+Advertise_10_Half               ="10 π›¿Ã¡ﬂ æÀ∏≤"
+Advertise_10_Full               ="10 ¿¸¿Ã¡ﬂ æÀ∏≤"
+Advertise_100_Half              ="100 π›¿Ã¡ﬂ æÀ∏≤"
+Advertise_100_Full              ="100 ¿¸¿Ã¡ﬂ æÀ∏≤"
+Advertise_1000_Full             ="1000 ¿¸¿Ã¡ﬂ æÀ∏≤"
+AutoNegAdvSpdDefault            ="º”µµ ±‚∫ª∞™ æÀ∏≤"
+AutoNegAdvertised               ="«˘ªÛ ∞°¥…«— º”µµ π◊ ¿Ã¡ﬂ"
+SpeedDuplex                     ="º”µµ π◊ ¿Ã¡ﬂ"
+10Mb_Half_Duplex                ="10 Mbps π›¿Ã¡ﬂ"
+10Mb_Full_Duplex                ="10 Mbps ¿¸¿Ã¡ﬂ"
+100Mb_Half_Duplex               ="100 Mbps π›¿Ã¡ﬂ"
+100Mb_Full_Duplex               ="100 Mbps ¿¸¿Ã¡ﬂ"
+1000Mb_Full_Duplex              ="1.0 Gbps ¿¸¿Ã¡ﬂ"
+2500Mb_Full_Duplex              ="2.5 Gbps ¿¸¿Ã¡ﬂ"
+IPChksumOffv4                   ="IPv4 √º≈©º∂ ø¿«¡∑ŒµÂ"
+TCPChksumOffv4                  ="TCP √º≈©º∂ ø¿«¡∑ŒµÂ(IPv4)"
+UDPChksumOffv4                  ="UDP √º≈©º∂ ø¿«¡∑ŒµÂ(IPv4)"
+TCPChksumOffv6                  ="TCP √º≈©º∂ ø¿«¡∑ŒµÂ(IPv6)"
+UDPChksumOffv6                  ="UDP √º≈©º∂ ø¿«¡∑ŒµÂ(IPv6)"
+LsoV2IPv4                       ="¥Î«¸ ¿¸º€ ø¿«¡∑ŒµÂ V2(IPv4)"
+LsoV2IPv6                       ="¥Î«¸ ¿¸º€ ø¿«¡∑ŒµÂ V2(IPv6)"
+ChksumOffTxRx                   ="Rx & Tx »∞º∫»≠µ "
+ChksumOffTx                     ="Tx »∞º∫»≠µ "
+ChksumOffRx                     ="Rx »∞º∫»≠µ "
+ChecksumTxIp                    ="¿¸º€ IP √º≈©º∂ ø¿«¡∑ŒµÂ"
+ChecksumTxTcp                   ="¿¸º€ TCP √º≈©º∂ ø¿«¡∑ŒµÂ"
+ChecksumRxTcp                   ="ºˆΩ≈ TCP √º≈©º∂ ø¿«¡∑ŒµÂ"
+ChecksumRxIp                    ="ºˆΩ≈ IP √º≈©º∂ ø¿«¡∑ŒµÂ"
+TcpSegmentation                 ="TCP ºº±◊∏’∆Æ»≠ ø¿«¡∑ŒµÂ"
+FlowControl                     ="»Â∏ß ¡¶æÓ"
+FlowControl_TxOnly              ="Tx »∞º∫»≠µ "
+FlowControl_RxOnly              ="Rx »∞º∫»≠µ "
+FlowControl_Full                ="Rx & Tx »∞º∫»≠µ "
+PriorityVlanDisabled            ="∆–≈∂ øÏº±º¯¿ß π◊ VLAN ∫Ò»∞º∫»≠µ "
+PriorityEnabled                 ="∆–≈∂ øÏº±º¯¿ß »∞º∫»≠µ "
+VlanEnabled                     ="VLAN »∞º∫»≠µ "
+PriorityVlanEnabled             ="∆–≈∂ øÏº±º¯¿ß π◊ VLAN »∞º∫»≠µ "
+PriorityVLANTag                 ="∆–≈∂ øÏº±º¯¿ß π◊ VLAN"
+Enabled                         ="»∞º∫»≠µ "
+Disabled                        ="∫Ò»∞º∫»≠µ "
+Bytes4088                       ="4088πŸ¿Ã∆Æ"
+Bytes9014                       ="9014πŸ¿Ã∆Æ"
+LAA                             ="∑Œƒ√ ∞¸∏Æ ¡÷º“"
+JumboPacket                     ="¡°∫∏ ∆–≈∂"
+WakeOnMagicPacket               ="Wake on Magic Packet"
+IdleRestriction                 ="∞¯»∏¿¸ ¿¸ø¯ ¬˜¥‹ ¡¶«—"
+
+WakeOnPattern                   ="Wake on Pattern Match"
+InterruptModeration             ="¿Œ≈Õ∑¥∆Æ ¡∂¿˝"
+InterruptThrottleRate           ="¿Œ≈Õ∑¥∆Æ ¡∂¿˝ ∫Ûµµ"
+Adaptive                        ="¿˚¿¿"
+Extreme                         ="√÷¥Î"
+Minimal                         ="√÷º“"
+High                            ="≥Ù¿Ω"
+Medium                          ="¡ﬂ∞£"
+Low                             ="≥∑¿Ω"
+EEELinkAdvertisement            ="ø°≥ ¡ˆ »ø¿≤¿˚¿Œ ¿Ã¥ı≥›"
+EEE_Disabled                    ="ø¿«¡"
+Off                             ="ø¿«¡"
+EEE_Enabled_AWAKE               ="ø¬ (Ω√Ω∫≈€ ∏µÂ∞° S0, S0ix, Sx¿œ ∂ß)"
+ARPOffload                      ="ARP ø¿«¡∑ŒµÂ"
+NSOffload                       ="NS ø¿«¡∑ŒµÂ"
+WakeOnMagicPacketFromS5Settings ="S5ø°º≠ Wake On Magic Packet"
+Intel                           = "Intel"
+MSFT                            = "Microsoft Corporation"
+e2fnexpress.Service.DispName    = "Intel(R) PCI Express Network Connection NetAdapter Driver"
+DISKNAME                        = "Intel(R) Driver Disk"
+
+;; Brandnames.str
+;------------------------------------------------------------------------------
+E15F2NC.DeviceDesc              = "Intel(R) Ethernet Controller I225-LM"
+E15F3NC.DeviceDesc              = "Intel(R) Ethernet Controller I225-V"
+E0D9FNC.DeviceDesc              = "Intel(R) Ethernet Controller (2) I225-IT"
+E5502NC.DeviceDesc              = "Intel(R) Ethernet Controller (2) I225-LMvP"
+E15F2_2NC.DeviceDesc            = "Intel(R) Ethernet Controller (2) I225-LM"
+E15F3_2NC.DeviceDesc            = "Intel(R) Ethernet Controller (2) I225-V"
+E15F2_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-LM"
+E15F3_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-V"
+E0D9F_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-IT"
+E5502_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-LMvP"
+E15F2_Retail.DeviceDesc         = "Intel(R) Ethernet Network Adapter I225-T1"
+E15F2_OEMGen.DeviceDesc         = "Intel(R) Ethernet Network Adapter I225-T1"
+E3100NC.DeviceDesc              = "Killer E3100 2.5 Gigabit Ethernet Controller"
+E3101NC.DeviceDesc              = "Killer E3100X 2.5 Gigabit Ethernet Controller"
+E3101_3NC.DeviceDesc            = "Killer E3100X 2.5 Gigabit Ethernet Controller (2)"
+E3102NC.DeviceDesc              = "Killer E3100X 2.5 Gigabit Ethernet Controller (3)"
+E125BNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-LM"
+E125CNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-V"
+E125DNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-IT"
+E5503NC.DeviceDesc              = "Intel(R) Ethernet Controller I226-LMvP"
+E125B_Retail.DeviceDesc         = "Intel(R) Ethernet Network Adapter I226-T1"
+E125B_OEMGen.DeviceDesc         = "Intel(R) Ethernet Network Adapter I226-T1"
+
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+
+[Strings.0416] ; Portuguese (Brazil)
+AutoDetect                      ="DetecÁ„o autom·tica"
+AutoNegotiation                 ="NegociaÁ„o autom·tica"
+Advertise_10_Half               ="Anunciar 10 Half"
+Advertise_10_Full               ="Anunciar 10 Full"
+Advertise_100_Half              ="Anunciar 100 Half"
+Advertise_100_Full              ="Anunciar 100 Full"
+Advertise_1000_Full             ="Anunciar 1000 Full"
+AutoNegAdvSpdDefault            ="Anunciar velocidade padr„o"
+AutoNegAdvertised               ="Velocidades e duplexes negoci·veis"
+SpeedDuplex                     ="Velocidade e duplex"
+10Mb_Half_Duplex                ="10 Mbps Half duplex"
+10Mb_Full_Duplex                ="10 Mbps Half duplex"
+100Mb_Half_Duplex               ="100 Mbps Half duplex"
+100Mb_Full_Duplex               ="100 Mbps Full duplex"
+1000Mb_Full_Duplex              ="1,0 Gbps/Full duplex"
+2500Mb_Full_Duplex              ="2,5 Gbps - Full Duplex"
+IPChksumOffv4                   ="Descarga de soma de verificaÁ„o IPv4"
+TCPChksumOffv4                  ="Descarga de soma de verificaÁ„o de TCP (IPv4)"
+UDPChksumOffv4                  ="Descarga de soma de verificaÁ„o UDP (IPv4)"
+TCPChksumOffv6                  ="Descarga de soma de verificaÁ„o de TCP (IPv6)"
+UDPChksumOffv6                  ="Descarga de soma de verificaÁ„o UDP (IPv6)"
+LsoV2IPv4                       ="Descarga de envio grande V2 (IPv4)"
+LsoV2IPv6                       ="Descarga de envio grande V2 (IPv6)"
+ChksumOffTxRx                   ="Rx e Tx habilitadas"
+ChksumOffTx                     ="Tx habilitada"
+ChksumOffRx                     ="Rx habilitada"
+ChecksumTxIp                    ="Descarga de soma de verificaÁ„o de IP de transmiss„o"
+ChecksumTxTcp                   ="Descarga de soma de verificaÁ„o de TCP de transmiss„o"
+ChecksumRxTcp                   ="Descarga de soma de verificaÁ„o de TCP de recepÁ„o"
+ChecksumRxIp                    ="Descarga de soma de verificaÁ„o de IP de recepÁ„o"
+TcpSegmentation                 ="Descarga de SegmentaÁ„o de TCP"
+FlowControl                     ="Controle de fluxo"
+FlowControl_TxOnly              ="Tx habilitada"
+FlowControl_RxOnly              ="Rx habilitada"
+FlowControl_Full                ="Rx e Tx habilitadas"
+PriorityVlanDisabled            ="Prioridade de pacotes e VLAN desabilitadas"
+PriorityEnabled                 ="Prioridade de pacotes habilitada"
+VlanEnabled                     ="VLAN habilitada"
+PriorityVlanEnabled             ="Prioridade de pacotes e VLAN habilitadas"
+PriorityVLANTag                 ="Prioridade de pacotes e VLAN"
+Enabled                         ="Habilitado"
+Disabled                        ="Desabilitado"
+Bytes4088                       ="4088 Bytes"
+Bytes9014                       ="9014 Bytes"
+LAA                             ="EndereÁo administrado localmente (LAA)"
+JumboPacket                     ="Pacote grande"
+WakeOnMagicPacket               ="Ativar com Magic Packet"
+IdleRestriction                 ="RestriÁ„o de desligamento inativa"
+
+WakeOnPattern                   ="Despertar quando padr„o coincide"
+InterruptModeration             ="ModeraÁ„o de interrupÁıes"
+InterruptThrottleRate           ="Taxa de moderaÁ„o de interrupÁıes"
+Adaptive                        ="Adaptativa"
+Extreme                         ="Extremo"
+Minimal                         ="MÌnimo"
+High                            ="Alto"
+Medium                          ="MÈdio"
+Low                             ="Baixo"
+EEELinkAdvertisement            ="Ethernet com uso eficiente de energia"
+EEE_Disabled                    ="Desligado"
+Off                             ="Desligado"
+EEE_Enabled_AWAKE               ="Ligado (quando o sistema est· em S0, S0ix e Sx)"
+ARPOffload                      ="Descarga de ARP"
+NSOffload                       ="Descarga de NS"
+WakeOnMagicPacketFromS5Settings ="Ativar com Magic Packet no S5"
+Intel                           = "Intel"
+MSFT                            = "Microsoft Corporation"
+e2fnexpress.Service.DispName    = "Intel(R) PCI Express Network Connection NetAdapter Driver"
+DISKNAME                        = "Intel(R) Driver Disk"
+
+;; Brandnames.str
+;------------------------------------------------------------------------------
+E15F2NC.DeviceDesc              = "Intel(R) Ethernet Controller I225-LM"
+E15F3NC.DeviceDesc              = "Intel(R) Ethernet Controller I225-V"
+E0D9FNC.DeviceDesc              = "Intel(R) Ethernet Controller (2) I225-IT"
+E5502NC.DeviceDesc              = "Intel(R) Ethernet Controller (2) I225-LMvP"
+E15F2_2NC.DeviceDesc            = "Intel(R) Ethernet Controller (2) I225-LM"
+E15F3_2NC.DeviceDesc            = "Intel(R) Ethernet Controller (2) I225-V"
+E15F2_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-LM"
+E15F3_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-V"
+E0D9F_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-IT"
+E5502_3NC.DeviceDesc            = "Intel(R) Ethernet Controller (3) I225-LMvP"
+E15F2_Retail.DeviceDesc         = "Intel(R) Ethernet Network Adapter I225-T1"
+E15F2_OEMGen.DeviceDesc         = "Intel(R) Ethernet Network Adapter I225-T1"
+E3100NC.DeviceDesc              = "Killer E3100 2.5 Gigabit Ethernet Controller"
+E3101NC.DeviceDesc              = "Killer E3100X 2.5 Gigabit Ethernet Controller"
+E3101_3NC.DeviceDesc            = "Killer E3100X 2.5 Gigabit Ethernet Controller (2)"
+E3102NC.DeviceDesc              = "Killer E3100X 2.5 Gigabit Ethernet Controller (3)"
+E125BNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-LM"
+E125CNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-V"
+E125DNC.DeviceDesc              = "Intel(R) Ethernet Controller I226-IT"
+E5503NC.DeviceDesc              = "Intel(R) Ethernet Controller I226-LMvP"
+E125B_Retail.DeviceDesc         = "Intel(R) Ethernet Network Adapter I226-T1"
+E125B_OEMGen.DeviceDesc         = "Intel(R) Ethernet Network Adapter I226-T1"
+
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------------------

@@ -1,123 +1,8 @@
 Windows Registry Editor Version 5.00
 
-[-HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{B52D54BB-4818-4EB9-AA80-F9EACD371DF8}]
-
-[HKEY_LOCAL_MACHINE\0000\Classes\Interface\{4AE7498C-E1C0-475F-8573-41C26127C5D8}]
-@="IOperationStatusTile"
-
-[HKEY_LOCAL_MACHINE\0000\Classes\Interface\{4AE7498C-E1C0-475F-8573-41C26127C5D8}\ProxyStubClsid32]
-@="{C90250F3-4D7D-4991-9B69-A5C5BC1C2AE6}"
-
-[HKEY_LOCAL_MACHINE\0000\Classes\Interface\{0C3C904A-AD89-4851-9C3D-210C080CEE18}]
-@="IOperationStatusService"
-
-[HKEY_LOCAL_MACHINE\0000\Classes\Interface\{0C3C904A-AD89-4851-9C3D-210C080CEE18}\ProxyStubClsid32]
-@="{C90250F3-4D7D-4991-9B69-A5C5BC1C2AE6}"
-
-[HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{C90250F3-4D7D-4991-9B69-A5C5BC1C2AE6}]
-@="PSFactoryBuffer"
-
-[HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{C90250F3-4D7D-4991-9B69-A5C5BC1C2AE6}\InProcServer32]
-@="X:\\Windows\\System32\\actxprxy.dll"
-"ThreadingModel"="Both"
-
-[HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{596742A5-1393-4e13-8765-AE1DF71ACAFB}]
-@="Microsoft Breadcrumb Bar"
-
-[HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{596742A5-1393-4e13-8765-AE1DF71ACAFB}\InProcServer32]
-@=hex(2):25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,00,6f,00,6f,00,74,00,25,\
-  00,5c,00,73,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,00,5c,00,65,00,78,00,\
-  70,00,6c,00,6f,00,72,00,65,00,72,00,66,00,72,00,61,00,6d,00,65,00,2e,00,64,\
-  00,6c,00,6c,00,00,00
-"ThreadingModel"="Apartment"
-
-[HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{1eeb5b5a-06fb-4732-96b3-975c0194eb39}]
-@="Itemsview"
-
-[HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{1eeb5b5a-06fb-4732-96b3-975c0194eb39}\InProcServer32]
-@=hex(2):25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,00,6f,00,6f,00,74,00,25,\
-  00,5c,00,73,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,00,5c,00,65,00,78,00,\
-  70,00,6c,00,6f,00,72,00,65,00,72,00,66,00,72,00,61,00,6d,00,65,00,2e,00,64,\
-  00,6c,00,6c,00,00,00
-"ThreadingModel"="Apartment"
-
-[HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{13a4bbe8-6527-40cb-a996-1602829541ef}]
-@="Frame Automation Object"
-
-[HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{13a4bbe8-6527-40cb-a996-1602829541ef}\InProcServer32]
-@=hex(2):25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,00,6f,00,6f,00,74,00,25,\
-  00,5c,00,53,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,00,5c,00,65,00,78,00,\
-  70,00,6c,00,6f,00,72,00,65,00,72,00,66,00,72,00,61,00,6d,00,65,00,2e,00,64,\
-  00,6c,00,6c,00,00,00
-"ThreadingModel"="Apartment"
-
-[HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{056440FD-8568-48e7-A632-72157243B55B}]
-@="Explorer Navigation Bar"
-
-[HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{056440FD-8568-48e7-A632-72157243B55B}\InProcServer32]
-@=hex(2):25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,00,6f,00,6f,00,74,00,25,\
-  00,5c,00,73,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,00,5c,00,65,00,78,00,\
-  70,00,6c,00,6f,00,72,00,65,00,72,00,66,00,72,00,61,00,6d,00,65,00,2e,00,64,\
-  00,6c,00,6c,00,00,00
-"ThreadingModel"="Apartment"
-
-[HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{01E04581-4EEE-11d0-BFE9-00AA005B4383}]
-@="&Address"
-"MenuTextPUI"="@explorerframe.dll,-13137"
-
-[HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{01E04581-4EEE-11d0-BFE9-00AA005B4383}\Implemented Categories\{00021492-0000-0000-C000-000000000046}]
-
-[HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{01E04581-4EEE-11d0-BFE9-00AA005B4383}\InProcServer32]
-@=hex(2):25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,00,6f,00,6f,00,74,00,25,\
-  00,5c,00,73,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,00,5c,00,65,00,78,00,\
-  70,00,6c,00,6f,00,72,00,65,00,72,00,66,00,72,00,61,00,6d,00,65,00,2e,00,64,\
-  00,6c,00,6c,00,00,00
-"ThreadingModel"="Apartment"
-
-[HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{ECD4FC4E-521C-11D0-B792-00A0C90312E1}]
-@="Shell Band Site Menu"
-
-[HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{ECD4FC4E-521C-11D0-B792-00A0C90312E1}\InProcServer32]
-@=hex(2):25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,00,6f,00,6f,00,74,00,25,\
-  00,5c,00,73,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,00,5c,00,65,00,78,00,\
-  70,00,6c,00,6f,00,72,00,65,00,72,00,66,00,72,00,61,00,6d,00,65,00,2e,00,64,\
-  00,6c,00,6c,00,00,00
-"ThreadingModel"="Apartment"
-
-[HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{ECD4FC4D-521C-11D0-B792-00A0C90312E1}]
-@="Shell Rebar BandSite"
-
-[HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{ECD4FC4D-521C-11D0-B792-00A0C90312E1}\InProcServer32]
-@=hex(2):25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,00,6f,00,6f,00,74,00,25,\
-  00,5c,00,73,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,00,5c,00,65,00,78,00,\
-  70,00,6c,00,6f,00,72,00,65,00,72,00,66,00,72,00,61,00,6d,00,65,00,2e,00,64,\
-  00,6c,00,6c,00,00,00
-"ThreadingModel"="Apartment"
-
-[HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{D5120AA3-46BA-44C5-822D-CA8092C1FC72}\InProcServer32]
-@="X:\\Windows\\System32\\twinapi.dll"
-"ThreadingModel"="Apartment"
-
-[HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{7efc002a-071f-4ce7-b265-f4b4263d2fd2}]
-@="Local Thumbnail Cache"
-
-[HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{7efc002a-071f-4ce7-b265-f4b4263d2fd2}\InprocServer32]
-@="X:\\WINDOWS\\System32\\thumbcache.dll"
-"ThreadingModel"="Apartment"
-
-[HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{50EF4544-AC9F-4A8E-B21B-8A26180DB13F}]
-@="Local Thumbnail Cache"
-
-[HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{50EF4544-AC9F-4A8E-B21B-8A26180DB13F}\InprocServer32]
-@="X:\\WINDOWS\\System32\\thumbcache.dll"
-"ThreadingModel"="Apartment"
-
-[HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{2155fee3-2419-4373-b102-6843707eb41f}]
-@="Local Icon Cache"
-
-[HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{2155fee3-2419-4373-b102-6843707eb41f}\InprocServer32]
-@="X:\\WINDOWS\\System32\\thumbcache.dll"
-"ThreadingModel"="Apartment"
+[HKEY_LOCAL_MACHINE\0000\Microsoft\Windows NT\CurrentVersion]
+"RegisteredOwner"="Foxy"
+"RegisteredOrganization"="MiniNT User"
 
 [HKEY_LOCAL_MACHINE\0000\Classes\CLSID\{AE054212-3535-4430-83ED-D501AA6680E6}]
 @="Shell Name Space ListView"
@@ -141,6 +26,7 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\0000\Classes\folder\shell\openinexplorer++\command]
 @="\"X:\\windows\\Fox\\explorer++.exe\" \"%1\""
 
+[-HKEY_LOCAL_MACHINE\0000\Fox\Shell\Items]
 
 [HKEY_LOCAL_MACHINE\0000\Fox\Shell\Items\aaaaFilemanager]
 "Name"="File Manager"
@@ -148,6 +34,14 @@ Windows Registry Editor Version 5.00
 "Group"="Main"
 "Execute"="explorer++.exe"
 "Order"=dword:00000001
+"UseShellEx"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\0000\Fox\Shell\Items\WinFile]
+"Name"="old File Manager"
+"IcoFile"="X:\\Windows\\WinFile.exe"
+"Group"="Main"
+"Execute"="X:\\Windows\\WinFile.exe"
+"Order"=dword:00000002
 "UseShellEx"=dword:00000000
 
 [HKEY_LOCAL_MACHINE\0000\Fox\Shell\Items\calc]
@@ -163,7 +57,7 @@ Windows Registry Editor Version 5.00
 "IcoFile"="cmd.exe"
 "Group"="Main"
 "Execute"="cmd.exe"
-"Order"=dword:00000002
+"Order"=dword:00000003
 "UseShellEx"=dword:00000000
 
 [HKEY_LOCAL_MACHINE\0000\Fox\Shell\Items\keyb]
@@ -171,7 +65,7 @@ Windows Registry Editor Version 5.00
 "IcoFile"="foxsetkeyboard.exe"
 "Group"="Main"
 "Execute"="foxsetkeyboard.exe"
-"Order"=dword:00000004
+"Order"=dword:00000005
 "UseShellEx"=dword:00000000
 
 [HKEY_LOCAL_MACHINE\0000\Fox\Shell\Items\mount]
@@ -179,7 +73,7 @@ Windows Registry Editor Version 5.00
 "IcoFile"="%systemroot%\\HDD.ico"
 "Group"="Main"
 "Execute"="%systemroot%\\mountdisks.cmd"
-"Order"=dword:00000005
+"Order"=dword:00000006
 "UseShellEx"=dword:00000001
 
 [HKEY_LOCAL_MACHINE\0000\Fox\Shell\Items\mapnet]
@@ -228,15 +122,7 @@ Windows Registry Editor Version 5.00
 "IcoFile"="regedit.exe"
 "Group"="Main"
 "Execute"="regedit.exe"
-"Order"=dword:00000003
-"UseShellEx"=dword:00000000
-
-[HKEY_LOCAL_MACHINE\0000\Fox\Shell\Items\SDC]
-"Name"="Configure SDC"
-"IcoFile"="%systemroot%\\SDC\\FoxSDC_Configure.exe"
-"Group"="Network"
-"Execute"="%systemroot%\\SDC\\FoxSDC_Configure.exe"
-"Order"=dword:00000003
+"Order"=dword:00000004
 "UseShellEx"=dword:00000000
 
 [HKEY_LOCAL_MACHINE\0000\Fox\Shell\Items\unmapnet]
@@ -247,28 +133,25 @@ Windows Registry Editor Version 5.00
 "Order"=dword:00000002
 "UseShellEx"=dword:00000000
 
+[HKEY_LOCAL_MACHINE\0000\Fox\Shell\Items\FoxTools]
+"Name"="Fox Tools"
+"IcoFile"="X:\\Windows\\FoxTools.exe"
+"Group"="System"
+"Execute"="X:\\Windows\\FoxTools.exe"
+"Order"=dword:00000004
+"UseShellEx"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\0000\Fox\Shell\Items\VulpesWindowsActivator]
+"Name"="Vulpes Windows Activator (Register)"
+"IcoFile"="%systemroot%\\VulpesWindowsActivator.exe"
+"Group"="Main"
+"Execute"="%systemroot%\\VWA.cmd"
+"Order"=dword:00000006
+"UseShellEx"=dword:000000001
+
 [HKEY_LOCAL_MACHINE\0000\Microsoft\Windows NT\CurrentVersion\Fonts]
 "Segoe UI (TrueType)"="segoeui.ttf"
 
 [HKEY_LOCAL_MACHINE\0000\Microsoft\Windows\CurrentVersion\Uninstall\smartmontools]
 "InstallLocation"="X:\\Windows\\Tools\\GSmartCTL"
 
-[HKEY_LOCAL_MACHINE\0000\Microsoft\WindowsRuntime]
-"ErrorForwarder"="Windows.ApplicationModel.Core.CoreApplication"
-
-[HKEY_LOCAL_MACHINE\0000\Microsoft\WindowsRuntime\ActivatableClassId\Windows.ApplicationModel.Core.CoreApplication]
-"ActivationType"=dword:00000000
-"CLSID"="{12822b87-e0e7-3261-a4f9-2aea8a564b10}"
-"DllPath"="X:\\Windows\\System32\\twinapi.appcore.dll"
-"Threading"=dword:00000000
-"TrustLevel"=dword:00000000
-
-[HKEY_LOCAL_MACHINE\0000\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Internal.UI.Credentials.Controller.RequestCredentialsData]
-"ActivationType"=dword:00000000
-"CLSID"="{1b36ef73-6527-4679-b630-3e4dcb6404a2}"
-"DllPath"=hex(2):25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,00,6f,00,6f,00,\
-  74,00,25,00,5c,00,73,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,00,5c,00,63,\
-  00,72,00,65,00,64,00,70,00,72,00,6f,00,76,00,64,00,61,00,74,00,61,00,6d,00,\
-  6f,00,64,00,65,00,6c,00,2e,00,64,00,6c,00,6c,00,00,00
-"Threading"=dword:00000000
-"TrustLevel"=dword:00000000

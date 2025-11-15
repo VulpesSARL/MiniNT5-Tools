@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Management;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace FoxMultiWIM
@@ -120,6 +121,8 @@ namespace FoxMultiWIM
                 return;
             }
 
+            Fox.FoxCWrapper.WPEUtilInit();
+
             Program.ExcludeFiles = new List<string>();
             Program.ExcludeFiles.Add("\\$ntfs.log");
             Program.ExcludeFiles.Add("\\hiberfil.sys");
@@ -135,6 +138,8 @@ namespace FoxMultiWIM
             Program.ExcludeFiles.Add("\\Windows\\Temp\\*");
             Program.ExcludeFiles.Add("\\Windows\\Logs\\*");
             Program.ExcludeFiles.Add("\\Windows\\SoftwareDistribution\\Download\\*");
+            Program.ExcludeFiles.Add("\\Windows\\Servicing\\LCU\\*");
+            Program.ExcludeFiles.Add("\\Windows.old\\*");
 
             lstCompression.Items.Add("none");
             lstCompression.Items.Add("XPRESS");
@@ -143,6 +148,7 @@ namespace FoxMultiWIM
 
             chkExcludeFiles.Checked = true;
             chkExcludeFiles_CheckedChanged(sender, e);
+            chkInstallBootLoader_CheckedChanged(sender, e);
 
             SelectedEditionIndex = 0;
             lblEdition.Text = "<Select Edition>";
@@ -172,10 +178,25 @@ namespace FoxMultiWIM
                 lstDiskSchema.Items[1] += " (this machine)";
             }
 
-            foreach (KeyValuePair<string, string> kvp in Disk.GetDisks())
+            int Counter = 0;
+            do
             {
-                lstDisks.Items.Add(new DiskInfo() { Name = kvp.Value, UID = kvp.Key });
-            }
+                if (Counter > 5)
+                    break;
+
+                foreach (KeyValuePair<string, string> kvp in Disk.GetDisks())
+                {
+                    lstDisks.Items.Add(new DiskInfo() { Name = kvp.Value, UID = kvp.Key });
+                }
+
+                if (lstDisks.Items.Count != 0)
+                    break;
+                else
+                    Thread.Sleep(500);
+
+                Counter++;
+            } while (true);
+
 
             string EmptyDisk = Disk.GetEmptyDiskUID();
             if (string.IsNullOrWhiteSpace(EmptyDisk) == false)
@@ -201,6 +222,11 @@ namespace FoxMultiWIM
             if (Fox.FoxCWrapper.SetToken() == false)
             {
                 MessageBox.Show(this, "Setting tokens failed.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+
+            if (WindowsPE.IsRunningInWindowsPE == false)
+            {
+                chkAutoReboot.Enabled = false;
             }
 
             /*
@@ -395,6 +421,10 @@ namespace FoxMultiWIM
                             proc.StartInfo.Arguments = SystemDrive + ":\\Windows /s " + BootDrive + ": /f UEFI";
                             break;
                     }
+                    if (chkInstallBootLoaderPLAIN.Checked == true)
+                    {
+                        proc.StartInfo.Arguments = SystemDrive + ":\\Windows";
+                    }
                     proc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
                     try
                     {
@@ -421,6 +451,14 @@ namespace FoxMultiWIM
                     {
                         Utilities.MessageBoxInvoke(this, "Failed patch Windows 0x" + res.ToString("X"), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop);
                         return;
+                    }
+                }
+
+                if (chkAutoReboot.Checked == true)
+                {
+                    if (WindowsPE.IsRunningInWindowsPE == true)
+                    {
+                        Fox.FoxCWrapper.WPEUtilCall("RebootW", "");
                     }
                 }
             }
@@ -576,6 +614,19 @@ namespace FoxMultiWIM
         private void chkPrePatch_CheckedChanged(object sender, EventArgs e)
         {
             cmdPatchOptions.Enabled = chkPrePatch.Checked;
+        }
+
+        private void chkInstallBootLoader_CheckedChanged(object sender, EventArgs e)
+        {
+            if (WindowsPE.IsRunningInWindowsPE == false)
+            {
+                chkInstallBootLoaderPLAIN.Enabled = false;
+                chkInstallBootLoaderPLAIN.Checked = false;
+            }
+            else
+            {
+                chkInstallBootLoaderPLAIN.Enabled = chkInstallBootLoader.Checked;
+            }
         }
     }
 }

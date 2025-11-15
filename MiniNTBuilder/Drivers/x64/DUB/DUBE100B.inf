@@ -1,0 +1,136 @@
+;******************************************************************
+; D-Link DUB-E100 USB 2.0 Fast Ethernet Adapter
+;
+; Copyright 2003-2007, D-Link Corporation
+;
+; Version: 3.10.3.6	for windows vista
+;******************************************************************
+[Version]
+Signature  = "$Windows NT$"
+CatalogFile = DUBE100Bex.cat
+Class      = Net
+ClassGUID  = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider   = %USB%
+DriverVer = 04/04/2007, 3.10.3.6
+
+[Manufacturer]
+%USB%   = USB, NTamd64
+
+[ControlFlags]
+ExcludeFromSelect = USB\VID_07D1&PID_3C05
+ExcludeFromSelect = USB\VID_2001&PID_3C05
+
+[USB.NTamd64]
+%DUBE100B_1.DeviceDesc% = DUBE100B.Ndi,USB\VID_07D1&PID_3C05
+%DUBE100B_2.DeviceDesc% = DUBE100B.Ndi,USB\VID_2001&PID_3C05
+
+;****************************************************************
+[DUBE100B.Ndi.NT]
+AddReg          = DUBE100B.NT.Reg, DUBE100B.Con.Reg
+Characteristics = 0x84
+BusType         = 15
+CopyFiles       = CopyFile.Sys
+*IfType         = 6		; IF_TYPE_ETHERNET_CSMACD 
+*MediaType      = 0		; NdisMedium802_3
+*PhysicalMediaType = 14		; NdisPhysicalMedium802_3
+
+[DUBE100B.Ndi.NT.Services]
+AddService = DUBE100B, 2, DUBE100B.Service, Common.EventLog
+
+;****************************************************************
+; Driver parameters
+;****************************************************************
+[DUBE100B.Con.Reg]
+; Connection Type
+HKR,Ndi\params\*SpeedDuplex,ParamDesc,,"Connection Type"
+HKR,Ndi\params\*SpeedDuplex,default,,"0"
+HKR,Ndi\params\*SpeedDuplex,type,,"enum"
+HKR,Ndi\params\*SpeedDuplex\enum,0,,"AutoSense"
+HKR,Ndi\params\*SpeedDuplex\enum,1,,"10BaseT Half_Duplex"
+HKR,Ndi\params\*SpeedDuplex\enum,2,,"10BaseT Full_Duplex"
+HKR,Ndi\params\*SpeedDuplex\enum,3,,"100BaseTx Half_Duplex"
+HKR,Ndi\params\*SpeedDuplex\enum,4,,"100BaseTx Full_Duplex"
+
+; Mac Address
+HKR,Ndi\params\NetworkAddress,ParamDesc,0,"NetworkAddress"
+HKR,Ndi\params\NetworkAddress,type,0,"edit"
+HKR,Ndi\params\NetworkAddress,default,0, "000000000000"
+HKR,Ndi\params\NetworkAddress,LimitText,0,"12"
+HKR,Ndi\params\NetworkAddress,UpperCase,0,"1"
+HKR,Ndi\params\NetworkAddress,Optional,0,"1"
+
+; Flow Control
+HKR,Ndi\params\*FlowControl,ParamDesc,,"Flow Control"
+HKR,Ndi\params\*FlowControl,default,,"3"
+HKR,Ndi\params\*FlowControl,type,,"enum"
+HKR,Ndi\params\*FlowControl\enum,0,,"Disable"
+HKR,Ndi\params\*FlowControl\enum,1,,"Tx Enable"
+HKR,Ndi\params\*FlowControl\enum,2,,"Rx Enable"
+HKR,Ndi\params\*FlowControl\enum,3,,"Rx & Tx Enable"
+
+; Wake Up
+HKR,Ndi\params\WakeUp,ParamDesc,,"Wake Up"
+HKR,Ndi\params\WakeUp,default,,"0"
+HKR,Ndi\params\WakeUp,type,,"enum"
+HKR,Ndi\params\WakeUp\enum,0,,"Disable"
+HKR,Ndi\params\WakeUp\enum,2,,"Link Up"
+HKR,Ndi\params\WakeUp\enum,4,,"Magic Packet"
+HKR,Ndi\params\WakeUp\enum,6,,"Both"
+
+; Qos Packet Tagging
+HKR,Ndi\params\QosTag,ParamDesc,,"QoS Packet Tagging"
+HKR,Ndi\params\QosTag,default,,"0"
+HKR,Ndi\params\QosTag,type,,"enum"
+HKR,Ndi\params\QosTag\enum,0,,"Disable"
+HKR,Ndi\params\QosTag\enum,1,,"Enable"
+
+;****************************************************************
+; Install section for Windows NT 5
+;****************************************************************
+[DUBE100B.NT.Reg]
+; Interfaces
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi,            Service,    0, "DUBE100B"
+
+HKR,,LogErrorMessages, 0, "1"
+
+[DUBE100B.Service]
+DisplayName    = %DUBE100B.DeviceDesc%
+ServiceType    = 1
+StartType      = 3
+ErrorControl   = 1
+ServiceBinary  = %12%\DUBE100B.sys
+LoadOrderGroup = NDIS
+
+[Common.EventLog]
+AddReg = Common.AddEventLog.Reg
+
+[Common.AddEventLog.Reg]
+HKR, , EventMessageFile, 0x00020000,"%%SystemRoot%%\System32\netevent.dll;%%SystemRoot%%\system32\drivers\DUBE100B.sys"
+HKR, , TypesSupported  , 0x00010001, 7
+
+[CopyFile.Sys]
+DUBE100B.sys,,,2
+
+;**********************************************************************
+; Destination directories
+;**********************************************************************
+[DestinationDirs]
+CopyFile.Sys	= 12
+
+[SourceDisksNames]
+1=%DUBE100B.DiskName%,,
+
+[SourceDisksFiles]
+DUBE100B.sys=1,,DUBE100B.sys,10000
+
+;**********************************************************************
+; Localizable strings
+;**********************************************************************
+[Strings]
+USB = "D-Link Corporation"
+DUBE100B.DiskName = "D-Link DUB-E100 Driver Diskette"
+DUBE100B.DeviceDesc = "D-Link DUB-E100 USB 2.0 Fast Ethernet Adapter"
+DUBE100B_1.DeviceDesc = "D-Link DUB-E100 USB 2.0 Fast Ethernet Adapter"
+DUBE100B_2.DeviceDesc = "D-Link DUB-E100 USB 2.0 Fast Ethernet Adapter"

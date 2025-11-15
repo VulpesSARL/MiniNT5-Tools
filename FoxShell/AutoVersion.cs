@@ -1,13 +1,13 @@
-﻿//REV:1:200405131339
+﻿//REV:1:251016231733
 using System;
 namespace FoxStamp
 {
 	public class FoxVersion
 	{
-		public const Int64 Version = 20040501;
-		public const string DTV = "2004.0501";
-		public const string DTS = "200405131339";
-		public static readonly DateTime DT = new DateTime(2020, 4, 5, 13, 13, 39);
+		public const Int64 Version = 25101601;
+		public const string DTV = "2510.1601";
+		public const string DTS = "251016231733";
+		public static readonly DateTime DT = new DateTime(2025, 10, 16, 23, 17, 33);
 		public const int Revision = 1;
 	}
 }

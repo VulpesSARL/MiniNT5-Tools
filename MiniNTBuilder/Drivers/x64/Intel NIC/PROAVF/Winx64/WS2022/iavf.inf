@@ -1,0 +1,1183 @@
+;*******************************************************************************
+;**                                                                           **
+;**                   Copyright (C) 2018 Intel Corporation                    **
+;**                                                                           **
+;**  The material contained or described herein and all documents related     **
+;**  to such material ("Material") are owned by Intel Corporation or its      **
+;**  suppliers or licensors. Title to the Material remains with Intel         **
+;**  Corporation or its suppliers and licensors. The Material contains trade  **
+;**  secrets and proprietary and confidential information of Intel or its     **
+;**  suppliers and licensors. The Material is protected by worldwide          **
+;**  copyright and trade secret laws and treaty provisions. No part of the    **
+;**  Material may be used, copied, reproduced, modified, published,           **
+;**  uploaded, posted, transmitted, distributed, or disclosed in any way      **
+;**  without Intel's prior express written permission.                        **
+;**                                                                           **
+;**  No license under any patent, copyright, trade secret or other            **
+;**  intellectual property right is granted to or conferred upon you by       **
+;**  disclosure or delivery of the Materials, either expressly, by            **
+;**  implication, inducement, estoppel or otherwise. Any license under such   **
+;**  intellectual property rights must be express and approved by Intel in    **
+;**  writing.                                                                 **
+;**                                                                           **
+;*******************************************************************************
+;
+;*******************************************************************************
+; INF for Intel(R) Adaptive Virtual Function Network Adapters
+;*******************************************************************************
+;
+[Version]
+Signature   = "$Windows NT$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %Intel%
+CatalogFile = iavf.cat
+DriverVer   = 02/21/2025,1.17.63.0
+PnpLockdown = 1
+
+[Manufacturer]
+%Intel% = Intel, NTamd64.10.0...20348
+
+[Intel]
+
+[Intel.NTamd64.10.0...20348]
+; DisplayName                   Section  DeviceID
+; -----------                   -------  --------
+%F154C.Generic.Description%   = F154C,   PCI\VEN_8086&DEV_154C
+%F1571.Generic.Description%   = F1571,   PCI\VEN_8086&DEV_1571
+%F1889.Generic.Description%   = F154C,   PCI\VEN_8086&DEV_1889
+%F1889.Generic.Description%   = F1889,   PCI\VEN_8086&DEV_1889&SUBSYS_00018086
+%F374D.Generic.Description%   = F37CD,   PCI\VEN_8086&DEV_374D
+%F37CDHV.Generic.Description% = F37CDHV, PCI\VEN_8086&DEV_37CD&SUBSYS_00018086
+%F37CD.Generic.Description%   = F37CD,   PCI\VEN_8086&DEV_37CD
+%F3759.Generic.Description%   = F37CDHV, PCI\VEN_8086&DEV_3759
+
+[NO_DRV]
+Characteristics = 0x01
+Include         = machine.inf
+Needs           = NO_DRV
+
+[NO_DRV.Services]
+Include = machine.inf
+Needs   = NO_DRV.Services
+
+; ------------------------------------------------------
+; Intel(R) 40 Gigabit Controller
+; ------------------------------------------------------
+[F1571]
+Characteristics    = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType            = 5 ; PCI
+DelReg             = Cleanup.DelReg
+AddReg             = VLAN.reg, Default.reg, Rss.reg, Uninstall.reg
+AddReg             = Interfaces_iov.reg
+AddReg             = CoInK.reg
+CopyFiles          = CopyFiles, MessageDll.CopyFiles
+*IfType            = 6     ; IF_TYPE_ETHERNET_CSMACD
+*MediaType         = 0     ; NdisMedium802_3
+*PhysicalMediaType = 0     ; NdisPhysicalMediumUnspecified
+
+[F1571.Services]
+AddService = %ServiceName%, 2, Service, EventLog
+
+[F1571.HW]
+Include = machine.inf
+AddReg  = MSI.reg
+
+[F37CDHV]
+Characteristics    = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType            = 5 ; PCI
+DelReg             = Cleanup.DelReg
+AddReg             = VLAN.reg, Default.reg, Rss.reg, Uninstall.reg
+AddReg             = RDMA_GUEST_HV.reg
+AddReg             = CoInK.reg
+AddReg             = Interfaces_iov.reg
+CopyFiles          = CopyFiles, MessageDll.CopyFiles
+*IfType            = 6     ; IF_TYPE_ETHERNET_CSMACD
+*MediaType         = 0     ; NdisMedium802_3
+*PhysicalMediaType = 0     ; NdisPhysicalMediumUnspecified
+
+[F37CDHV.Services]
+AddService = %ServiceName%, 2, Service, EventLog
+
+[F37CDHV.HW]
+Include = machine.inf
+AddReg  = MSI.reg
+
+[F1889]
+Characteristics    = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType            = 5 ; PCI
+DelReg             = Cleanup.DelReg
+AddReg             = VLAN.reg, Default.reg, Rss.reg, Uninstall.reg
+AddReg             = RDMA_GUEST_HV.reg
+AddReg             = Interfaces_iov.reg
+AddReg             = CoInK.reg
+CopyFiles          = CopyFiles, MessageDll.CopyFiles
+*IfType            = 6     ; IF_TYPE_ETHERNET_CSMACD
+*MediaType         = 0     ; NdisMedium802_3
+*PhysicalMediaType = 0     ; NdisPhysicalMediumUnspecified
+
+[F1889.Services]
+AddService = %ServiceName%, 2, Service, EventLog
+
+[F1889.HW]
+Include = machine.inf
+AddReg  = MSI.reg
+
+; ------------------------------------------------------
+; Intel(R) 40 Gigabit Controller, for non Windows hosts
+; ------------------------------------------------------
+[F154C]
+Characteristics    = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType            = 5 ; PCI
+DelReg             = Cleanup.DelReg
+AddReg             = VLAN.reg, Default.reg, Rss.reg, Uninstall.reg
+AddReg             = RDMA.reg
+AddReg             = CoInK.reg
+AddReg             = Interfaces.reg
+CopyFiles          = CopyFiles, MessageDll.CopyFiles
+*IfType            = 6     ; IF_TYPE_ETHERNET_CSMACD
+*MediaType         = 0     ; NdisMedium802_3
+*PhysicalMediaType = 0     ; NdisPhysicalMediumUnspecified
+
+[F154C.Services]
+AddService = %ServiceName%, 2, Service, EventLog
+
+[F154C.HW]
+Include = machine.inf
+AddReg  = MSI.reg
+
+[F37CD]
+Characteristics    = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+BusType            = 5 ; PCI
+DelReg             = Cleanup.DelReg
+AddReg             = VLAN.reg, Default.reg, Rss.reg, Uninstall.reg
+AddReg             = RDMA.reg
+AddReg             = Interfaces.reg
+AddReg             = CoInK.reg
+CopyFiles          = CopyFiles, MessageDll.CopyFiles
+*IfType            = 6     ; IF_TYPE_ETHERNET_CSMACD
+*MediaType         = 0     ; NdisMedium802_3
+*PhysicalMediaType = 0     ; NdisPhysicalMediumUnspecified
+
+[F37CD.Services]
+AddService = %ServiceName%, 2, Service, EventLog
+
+[F37CD.HW]
+Include = machine.inf
+AddReg  = MSI.reg
+
+;-------------------------------------------------------------------------------
+; Registry Settings
+;-------------------------------------------------------------------------------
+[Interfaces.reg]
+HKR, Ndi\Interfaces,                            UpperRange,             0, "ndis5"
+HKR, Ndi\Interfaces,                            LowerRange,             0, "ethernet"
+HKR, Ndi,                                       Service,                0, %ServiceName%
+
+[Interfaces_iov.reg]
+HKR, Ndi\Interfaces,                            UpperRange,             0, "ndisvf"
+HKR, Ndi\Interfaces,                            LowerRange,             0, "iovvf"
+HKR, Ndi,                                       Service,                0, %ServiceName%
+
+[Default.reg]
+; *TransmitBuffers
+HKR, Ndi\params\*TransmitBuffers,               ParamDesc,              0, %TransmitBuffers%
+HKR, Ndi\params\*TransmitBuffers,               default,                0, "512"
+HKR, Ndi\params\*TransmitBuffers,               min,                    0, "128"
+HKR, Ndi\params\*TransmitBuffers,               max,                    0, "8160"
+HKR, Ndi\params\*TransmitBuffers,               step,                   0, "32"
+HKR, Ndi\params\*TransmitBuffers,               Base,                   0, "10"
+HKR, Ndi\params\*TransmitBuffers,               type,                   0, "int"
+
+; *ReceiveBuffers
+HKR, Ndi\params\*ReceiveBuffers,                ParamDesc,              0, %ReceiveBuffers%
+HKR, Ndi\params\*ReceiveBuffers,                default,                0, "512"
+HKR, Ndi\params\*ReceiveBuffers,                min,                    0, "128"
+HKR, Ndi\params\*ReceiveBuffers,                max,                    0, "8160"
+HKR, Ndi\params\*ReceiveBuffers,                step,                   0, "32"
+HKR, Ndi\params\*ReceiveBuffers,                Base,                   0, "10"
+HKR, Ndi\params\*ReceiveBuffers,                type,                   0, "int"
+
+; *TCPChecksumOffloadIPv4
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4,        ParamDesc,              0, %TCPChksumOffv4%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4,        default,                0, "3"
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4\Enum,   "0",                    0, %Disabled%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4\Enum,   "1",                    0, %ChksumOffTx%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4\Enum,   "2",                    0, %ChksumOffRx%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4\Enum,   "3",                    0, %ChksumOffTxRx%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv4,        type,                   0, "enum"
+
+; *TCPChecksumOffloadIPv6
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6,        ParamDesc,              0, %TCPChksumOffv6%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6,        default,                0, "3"
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6\Enum,   "0",                    0, %Disabled%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6\Enum,   "1",                    0, %ChksumOffTx%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6\Enum,   "2",                    0, %ChksumOffRx%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6\Enum,   "3",                    0, %ChksumOffTxRx%
+HKR, Ndi\Params\*TCPChecksumOffloadIPv6,        type,                   0, "enum"
+
+; *UDPChecksumOffloadIPv4
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4,        ParamDesc,              0, %UDPChksumOffv4%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4,        default,                0, "3"
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4\Enum,   "0",                    0, %Disabled%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4\Enum,   "1",                    0, %ChksumOffTx%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4\Enum,   "2",                    0, %ChksumOffRx%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4\Enum,   "3",                    0, %ChksumOffTxRx%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv4,        type,                   0, "enum"
+
+; *UDPChecksumOffloadIPv6
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6,        ParamDesc,              0, %UDPChksumOffv6%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6,        default,                0, "3"
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6\Enum,   "0",                    0, %Disabled%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6\Enum,   "1",                    0, %ChksumOffTx%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6\Enum,   "2",                    0, %ChksumOffRx%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6\Enum,   "3",                    0, %ChksumOffTxRx%
+HKR, Ndi\Params\*UDPChecksumOffloadIPv6,        type,                   0, "enum"
+
+; *IPChecksumOffloadIPv4
+HKR, Ndi\Params\*IPChecksumOffloadIPv4,         ParamDesc,              0, %IPChksumOffv4%
+HKR, Ndi\Params\*IPChecksumOffloadIPv4,         default,                0, "3"
+HKR, Ndi\Params\*IPChecksumOffloadIPv4\Enum,    "0",                    0, %Disabled%
+HKR, Ndi\Params\*IPChecksumOffloadIPv4\Enum,    "1",                    0, %ChksumOffTx%
+HKR, Ndi\Params\*IPChecksumOffloadIPv4\Enum,    "2",                    0, %ChksumOffRx%
+HKR, Ndi\Params\*IPChecksumOffloadIPv4\Enum,    "3",                    0, %ChksumOffTxRx%
+HKR, Ndi\Params\*IPChecksumOffloadIPv4,         type,                   0, "enum"
+
+;Log Link State Event
+HKR,Ndi\Params\LogLinkStateEvent,               ParamDesc,              0, %LogLinkState%
+HKR,Ndi\Params\LogLinkStateEvent,               Default,                0, "51"
+HKR,Ndi\Params\LogLinkStateEvent\Enum,          "51",                   0, %Enabled%
+HKR,Ndi\Params\LogLinkStateEvent\Enum,          "16",                   0, %Disabled%
+HKR,Ndi\Params\LogLinkStateEvent,               Type,                   0, "enum"
+HKR,,                                           UniversalInstall,       0x00010001, 1
+HKR,,                                           IavfInstallDir,         0, %13%
+
+; Interrupt Throttle Rate
+HKR, Ndi\Params\ITR,                            ParamDesc,              0, %InterruptThrottleRate%
+HKR, Ndi\Params\ITR,                            default,                0, "65535"
+HKR, Ndi\Params\ITR\Enum,                       "65535",                0, %Adaptive%
+HKR, Ndi\Params\ITR\Enum,                       "2000",                 0, %Extreme%
+HKR, Ndi\Params\ITR\Enum,                       "1333",                 0, %Balanced%
+HKR, Ndi\Params\ITR\Enum,                       "950",                  0, %High%
+HKR, Ndi\Params\ITR\Enum,                       "488",                  0, %Medium%
+HKR, Ndi\Params\ITR\Enum,                       "200",                  0, %Low%
+HKR, Ndi\Params\ITR\Enum,                       "0",                    0, %Off%
+HKR, Ndi\Params\ITR,                            type,                   0, "enum"
+
+; *InterruptModeration
+HKR, Ndi\Params\*InterruptModeration,           ParamDesc,              0, %InterruptModeration%
+HKR, Ndi\Params\*InterruptModeration,           default,                0, "1"
+HKR, Ndi\Params\*InterruptModeration\Enum,      "0",                    0, %Disabled%
+HKR, Ndi\Params\*InterruptModeration\Enum,      "1",                    0, %Enabled%
+HKR, Ndi\Params\*InterruptModeration,           type,                   0, "enum"
+
+; *LsoV2IPv4
+HKR, Ndi\Params\*LsoV2IPv4,                     ParamDesc,              0, %LsoV2IPv4%
+HKR, Ndi\Params\*LsoV2IPv4,                     default,                0, "1"
+HKR, Ndi\Params\*LsoV2IPv4\Enum,                "0",                    0, %Disabled%
+HKR, Ndi\Params\*LsoV2IPv4\Enum,                "1",                    0, %Enabled%
+HKR, Ndi\Params\*LsoV2IPv4,                     type,                   0, "enum"
+
+; *LsoV2IPv6
+HKR, Ndi\Params\*LsoV2IPv6,                     ParamDesc,              0, %LsoV2IPv6%
+HKR, Ndi\Params\*LsoV2IPv6,                     default,                0, "1"
+HKR, Ndi\Params\*LsoV2IPv6\Enum,                "0",                    0, %Disabled%
+HKR, Ndi\Params\*LsoV2IPv6\Enum,                "1",                    0, %Enabled%
+HKR, Ndi\Params\*LsoV2IPv6,                     type,                   0, "enum"
+
+; Network Address
+HKR, PROSetNdi\params\NetworkAddress,                 ParamDesc,              0, %LAA%
+HKR, PROSetNdi\params\NetworkAddress,                 Default,                0, ""
+HKR, PROSetNDI\params\NetworkAddress,                 LimitText,              0, "12"
+HKR, PROSetNDI\params\NetworkAddress,                 UpperCase,              0, "1"
+HKR, PROSetNDI\params\NetworkAddress,                 optional,               0, "1"
+HKR, PROSetNDI\params\NetworkAddress,                 ExposeLevel,            0, "3"
+HKR, PROSetNdi\params\NetworkAddress,                 type,                   0, "edit"
+
+; *JumboPacket
+HKR, Ndi\Params\*JumboPacket,                   ParamDesc,              0, %JumboPacket%
+HKR, Ndi\Params\*JumboPacket,                   default,                0, "1514"
+HKR, Ndi\Params\*JumboPacket,                   min,                    0, "1514"
+HKR, Ndi\Params\*JumboPacket,                   max,                    0, "9014"
+HKR, Ndi\Params\*JumboPacket,                   step,                   0, "1"
+HKR, Ndi\Params\*JumboPacket,                   base,                   0, "10"
+HKR, Ndi\Params\*JumboPacket,                   type,                   0, "dword"
+
+[Uso.reg]
+; *UsoIPv4
+HKR, Ndi\Params\*UsoIPv4,                       ParamDesc,              0, %UsoIPv4%
+HKR, Ndi\Params\*UsoIPv4,                       default,                0, "1"
+HKR, Ndi\Params\*UsoIPv4\Enum,                  "0",                    0, %Disabled%
+HKR, Ndi\Params\*UsoIPv4\Enum,                  "1",                    0, %Enabled%
+HKR, Ndi\Params\*UsoIPv4,                       type,                   0, "enum"
+
+; *UsoIPv6
+HKR, Ndi\Params\*UsoIPv6,                       ParamDesc,              0, %UsoIPv6%
+HKR, Ndi\Params\*UsoIPv6,                       default,                0, "1"
+HKR, Ndi\Params\*UsoIPv6\Enum,                  "0",                    0, %Disabled%
+HKR, Ndi\Params\*UsoIPv6\Enum,                  "1",                    0, %Enabled%
+HKR, Ndi\Params\*UsoIPv6,                       type,                   0, "enum"
+
+[RSS.reg]
+; NumRssQueues
+HKR, Ndi\Params\*NumRssQueues,                   ParamDesc,              0, %NumRssQueues2%
+HKR, Ndi\Params\*NumRssQueues,                   default,                0, "2"
+HKR, Ndi\params\*NumRssQueues,                   min,                    0, "1"
+HKR, Ndi\params\*NumRssQueues,                   max,                    0, "16"
+HKR, Ndi\params\*NumRssQueues,                   step,                   0, "1"
+HKR, Ndi\params\*NumRssQueues,                   base,                   0, "10"
+HKR, Ndi\Params\*NumRssQueues,                   type,                   0, "dword"
+
+; *RSS
+HKR, Ndi\Params\*RSS,                           ParamDesc,              0, %RSS%
+HKR, Ndi\Params\*RSS,                           default,                0, "1"
+HKR, Ndi\Params\*RSS\Enum,                      "0",                    0, %Disabled%
+HKR, Ndi\Params\*RSS\Enum,                      "1",                    0, %Enabled%
+HKR, Ndi\Params\*RSS,                           type,                   0, "enum"
+
+; *RssBaseProcNumber
+HKR, Ndi\params\*RssBaseProcNumber,             ParamDesc,              0, %RssBaseProcNumber%
+HKR, Ndi\params\*RssBaseProcNumber,             default,                0, "0"
+HKR, Ndi\params\*RssBaseProcNumber,             min,                    0, "0"
+HKR, Ndi\params\*RssBaseProcNumber,             max,                    0, "63"
+HKR, Ndi\params\*RssBaseProcNumber,             step,                   0, "1"
+HKR, Ndi\params\*RssBaseProcNumber,             Optional,               0, "0"
+HKR, Ndi\params\*RssBaseProcNumber,             type,                   0, "int"
+
+; *MaxRssProcessors
+HKR, Ndi\params\*MaxRssProcessors,              ParamDesc,              0, %MaxRssProcessors%
+HKR, Ndi\params\*MaxRssProcessors,              default,                0, "16"
+HKR, Ndi\params\*MaxRssProcessors,              min,                    0, "1"
+HKR, Ndi\params\*MaxRssProcessors,              max,                    0, "16"
+HKR, Ndi\params\*MaxRssProcessors,              step,                   0, "1"
+HKR, Ndi\params\*MaxRssProcessors,              type,                   0, "dword"
+
+[RDMA.reg]
+; *NetworkDirect
+HKR, Ndi\Params\*NetworkDirect,                         ParamDesc,              0, %NetworkDirect%
+HKR, Ndi\Params\*NetworkDirect,                         default,                0, "1"
+HKR, Ndi\Params\*NetworkDirect\Enum,                    "0",                    0, %Disabled%
+HKR, Ndi\Params\*NetworkDirect\Enum,                    "1",                    0, %Enabled%
+HKR, Ndi\Params\*NetworkDirect,                         type,                   0, "enum"
+HKR, Ndi\Params\RdmaVfEnabled,                          ParamDesc,              0, %RDMAVfEnabled%
+HKR, Ndi\Params\RdmaVfEnabled,                          default,                0, "0"
+HKR, Ndi\Params\RdmaVfEnabled\Enum,                     "0",                    0, %Disabled%
+HKR, Ndi\Params\RdmaVfEnabled\Enum,                     "1",                    0, %Enabled%
+HKR, Ndi\Params\RdmaVfEnabled,                          type,                   0, "enum"
+HKR, Ndi\Params\*NetworkDirectTechnology,               ParamDesc,              0, %NetworkDirectTechnology%
+HKR, Ndi\Params\*NetworkDirectTechnology,               default,                0, "1"
+HKR, Ndi\Params\*NetworkDirectTechnology\Enum,          "1",                    0, "iWARP"
+HKR, Ndi\Params\*NetworkDirectTechnology\Enum,          "4",                    0, "RoCEv2"
+HKR, Ndi\Params\*NetworkDirectTechnology,               Optional,               0, "0"
+HKR, Ndi\Params\*NetworkDirectTechnology,               type,                   0, "enum"
+HKR, Ndi\Params\RdmaRoceFrameSize,                      ParamDesc,              0, %RoceFrameSize%
+HKR, Ndi\Params\RdmaRoceFrameSize,                      default,                0, "1024"
+HKR, Ndi\Params\RdmaRoceFrameSize\Enum,                 "1024",                 0, "1024"
+HKR, Ndi\Params\RdmaRoceFrameSize\Enum,                 "2048",                 0, "2048"
+HKR, Ndi\Params\RdmaRoceFrameSize\Enum,                 "4096",                 0, "4096"
+HKR, Ndi\Params\RdmaRoceFrameSize,                      Optional,               0, "0"
+HKR, Ndi\Params\RdmaRoceFrameSize,                      type,                   0, "enum"
+
+[RDMA_GUEST_HV.reg]
+HKR, Ndi\Params\RdmaVfEnabled,                          ParamDesc,              0, %RDMAVfEnabled%
+HKR, Ndi\Params\RdmaVfEnabled,                          default,                0, "0"
+HKR, Ndi\Params\RdmaVfEnabled\Enum,                     "0",                    0, %Disabled%
+HKR, Ndi\Params\RdmaVfEnabled\Enum,                     "1",                    0, %Enabled%
+HKR, Ndi\Params\RdmaVfEnabled,                          type,                   0, "enum"
+HKR, Ndi\Params\*NetworkDirectTechnology,               ParamDesc,              0, %NetworkDirectTechnology%
+HKR, Ndi\Params\*NetworkDirectTechnology,               default,                0, "1"
+HKR, Ndi\Params\*NetworkDirectTechnology\Enum,          "1",                    0, "iWARP"
+HKR, Ndi\Params\*NetworkDirectTechnology\Enum,          "4",                    0, "RoCEv2"
+HKR, Ndi\Params\*NetworkDirectTechnology,               Optional,               0, "0"
+HKR, Ndi\Params\*NetworkDirectTechnology,               type,                   0, "enum"
+
+[VLAN.reg]
+; *PriorityVLANTag
+HKR, Ndi\Params\*PriorityVLANTag,               ParamDesc,              0, %PriorityVLANTag%
+HKR, Ndi\Params\*PriorityVLANTag,               default,                0, "3"
+HKR, Ndi\Params\*PriorityVLANTag\Enum,          "0",                    0, %PriorityVlanDisabled%
+HKR, Ndi\Params\*PriorityVLANTag\Enum,          "1",                    0, %PriorityEnabled%
+HKR, Ndi\Params\*PriorityVLANTag\Enum,          "2",                    0, %VlanEnabled%
+HKR, Ndi\Params\*PriorityVLANTag\Enum,          "3",                    0, %PriorityVlanEnabled%
+HKR, Ndi\Params\*PriorityVLANTag,               type,                   0, "enum"
+
+[MSI.reg]
+HKR, "Interrupt Management", 0x00000010
+HKR, "Interrupt Management\MessageSignaledInterruptProperties", 0x00000010
+HKR, "Interrupt Management\MessageSignaledInterruptProperties", MSISupported, 0x00010001, 1
+HKR, "Interrupt Management\MessageSignaledInterruptProperties", MessageNumberLimit, 0x00010001, 18
+
+[AddEventLog]
+HKR,, EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll;%13%\iavfmsg.dll"
+HKR,, TypesSupported,   0x00010001, 7
+
+[Cleanup.DelReg]
+HKR, Ndi\Params\RxScalingMode
+HKR,, RxScalingMode
+HKR, Ndi\Params\DcaEnabled
+HKR,, DcaEnabled
+
+;-----------------------------------------------------------------------------
+; Uninstall parameters
+;-----------------------------------------------------------------------------
+[Uninstall.reg]
+HKR,Prounstl\SupportedDevices\8086, 154C, 0, "154C"
+HKR,Prounstl\SupportedDevices\8086, 1571, 0, "1571"
+HKR,Prounstl\SupportedDevices\8086, 1889, 0, "1889"
+HKR,Prounstl\SupportedDevices\8086, 374D, 0, "374D"
+HKR,Prounstl\SupportedDevices\8086, 37CD, 0, "37CD"
+HKR,Prounstl\SupportedDevices\8086, 3759, 0, "3759"
+HKR,Prounstl\Services, %ServiceName%, 0, iavf.sys
+
+;-----------------------------------------------------------------------------
+; Driver "service" installation settings
+;-----------------------------------------------------------------------------
+[Service]
+DisplayName    = %Service.Displayname%
+ServiceType    = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType      = 3 ;%SERVICE_DEMAND_START%
+ErrorControl   = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary  = %13%\iavf.sys
+LoadOrderGroup = NDIS
+
+;-----------------------------------------------------------------------------
+; Event Log settings
+;-----------------------------------------------------------------------------
+[EventLog]
+AddReg = AddEventLog
+
+[CoInK.reg]
+HKR,, CoInstallFlag, 0x00010001, 0x00281400
+
+[MessageDll.CopyFiles]
+iavfmsg.dll,,,2
+
+[CopyFiles]
+iavf.sys,,,2
+manifest_iavf.man,,,2
+
+;-----------------------------------------------------------------------------
+; DestinationDirs
+;-----------------------------------------------------------------------------
+[DestinationDirs]
+CopyFiles            = 13
+DefaultDestDir       = 13
+MessageDll.CopyFiles = 13
+
+[SourceDisksNames]
+1 = %DiskName%,,,
+
+;-----------------------------------------------------------------------------
+; SourceDisksFiles
+;-----------------------------------------------------------------------------
+[SourceDisksFiles]
+iavf.sys          = 1
+iavfmsg.dll       = 1
+manifest_iavf.man = 1
+
+[Strings]
+InterruptThrottleRate       = "Interrupt Moderation Rate"
+Adaptive                    = "Adaptive"
+Extreme                     = "Extreme"
+Balanced                    = "Balanced"
+High                        = "High"
+Medium                      = "Medium"
+Low                         = "Low"
+IPChksumOffv4               = "IPv4 Checksum Offload"
+TCPChksumOffv4              = "TCP Checksum Offload (IPv4)"
+UDPChksumOffv4              = "UDP Checksum Offload (IPv4)"
+LsoV2IPv4                   = "Large Send Offload V2 (IPv4)"
+UsoIPv4                     = "UDP Segmentation Offload (IPv4)"
+UsoIPv6                     = "UDP Segmentation Offload (IPv6)"
+InterruptModeration         = "Interrupt Moderation"
+TCPChksumOffv6              = "TCP Checksum Offload (IPv6)"
+UDPChksumOffv6              = "UDP Checksum Offload (IPv6)"
+LsoV2IPv6                   = "Large Send Offload V2 (IPv6)"
+ChksumOffTxRx               = "Rx & Tx Enabled"
+ChksumOffTx                 = "Tx Enabled"
+ChksumOffRx                 = "Rx Enabled"
+TransmitBuffers             = "Transmit Buffers"
+ReceiveBuffers              = "Receive Buffers"
+RSS                         = "Receive Side Scaling"
+NumRssQueues2               = "Maximum Number of RSS Queues"
+RssBaseProcNumber           = "RSS Base Processor Number"
+MaxRssProcessors            = "Maximum Number of RSS Processors"
+PriorityVLANTag             = "Priority & VLAN"
+PriorityVlanDisabled        = "Priority & VLAN Disabled"
+PriorityEnabled             = "Priority Enabled"
+PriorityVlanEnabled         = "Priority & VLAN Enabled"
+VlanEnabled                 = "VLAN Enabled"
+Off                         = "Off"
+Enabled                     = "Enabled"
+Disabled                    = "Disabled"
+LAA                         = "Locally Administered Address"
+JumboPacket                 = "Jumbo Packet"
+LogLinkState                = "Log Link State Event"
+NetworkDirect               = "NetworkDirect Functionality"
+NetworkDirectTechnology     = "NetworkDirect Technology"
+RoceFrameSize               = "ROCEv2 Frame Size"
+RDMAVfEnabled               = "RDMA"
+ServiceName                 = "iavf"
+Intel                       = "Intel"
+DiskName                    = "Intel(R) Adaptive Virtual Network Device Driver Disk"
+Service.Displayname         = "Intel(R) Adaptive Virtual Network Connection"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+F154C.Generic.Description   = "Intel(R) Ethernet Virtual Function 700 Series"
+F1571.Generic.Description   = "Intel(R) Ethernet Virtual Function 700 Series"
+F1889.Generic.Description   = "Intel(R) Ethernet Adaptive Virtual Function"
+F374D.Generic.Description   = "Intel(R) X722 Virtual Function"
+F37CDHV.Generic.Description = "Intel(R) Ethernet Virtual Function 700 Series"
+F37CD.Generic.Description   = "Intel(R) Ethernet Virtual Function 700 Series"
+F3759.Generic.Description   = "Intel(R) X722 Virtual Function"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.0804] ; Chinese (Simplified)
+InterruptThrottleRate         = "÷–∂œ≤√æˆ¬ "
+Adaptive                      = "  ”¶–‘"
+Extreme                       = "º´÷µ"
+Balanced                      = "∆Ω∫‚µƒ"
+High                          = "∏ﬂ"
+Medium                        = "÷–"
+Low                           = "µÕ"
+IPChksumOffv4                 = "IPv4 –£—È∫Õ∑÷‘ÿ¥´ ‰"
+TCPChksumOffv4                = "TCP –£—È∫Õ∑÷‘ÿ¥´ ‰ (IPv4)"
+UDPChksumOffv4                = "UDP –£—È∫Õ∑÷‘ÿ¥´ ‰ (IPv4)"
+LsoV2IPv4                     = "¥Û–Õ∑¢ÀÕ∑÷‘ÿ V2 (IPv4)"
+UsoIPv4                       = "UDP ∑÷∏Ó∑÷‘ÿ (IPv4)"
+UsoIPv6                       = "UDP ∑÷∏Ó∑÷‘ÿ (IPv6)"
+InterruptModeration           = "÷–∂œ≤√æˆ"
+TCPChksumOffv6                = "TCP –£—È∫Õ∑÷‘ÿ¥´ ‰ (IPv6)"
+UDPChksumOffv6                = "UDP –£—È∫Õ∑÷‘ÿ¥´ ‰ (IPv6)"
+LsoV2IPv6                     = "¥Û–Õ∑¢ÀÕ∑÷‘ÿ V2 (IPv6)"
+ChksumOffTxRx                 = "“—∆Ù”√ Rx ∫Õ Tx"
+ChksumOffTx                   = "“—∆Ù”√ Tx"
+ChksumOffRx                   = "“—∆Ù”√ Rx"
+TransmitBuffers               = "¥´ ‰ª∫≥Â«¯"
+ReceiveBuffers                = "Ω” ’ª∫≥Â«¯"
+RSS                           = "Ω” ’∑Ωµ˜’˚"
+NumRssQueues2                 = "RSS ∂”¡–µƒ◊Ó¥Û ˝ƒø"
+RssBaseProcNumber             = "RSS ª˘¥°¥¶¿Ì∆˜∫≈"
+MaxRssProcessors              = "RSS ¥¶¿Ì∆˜µƒ◊Ó¥Û ˝ƒø"
+PriorityVLANTag               = "”≈œ»º∂∫Õ VLAN"
+PriorityVlanDisabled          = "“—Ω˚”√”≈œ»º∂∫Õ VLAN"
+PriorityEnabled               = "“—∆Ù”√”≈œ»º∂"
+PriorityVlanEnabled           = "“—∆Ù”√”≈œ»º∂∫Õ VLAN"
+VlanEnabled                   = "“—∆Ù”√ VLAN"
+Off                           = "πÿ±’"
+Enabled                       = "∆Ù”√"
+Disabled                      = "Ω˚”√"
+LAA                           = "±æµÿπ‹¿Ìµÿ÷∑"
+JumboPacket                   = "æﬁ÷° ˝æ›∞¸"
+LogLinkState                  = "º«¬º¡¥Ω”◊¥Ã¨ ¬º˛"
+NetworkDirect                 = "NetworkDirect π¶ƒ‹"
+NetworkDirectTechnology       = "NetworkDirect ºº ı"
+RoceFrameSize                 = "ROCEv2 ÷°¥Û–°"
+RDMAVfEnabled                 = "RDMA"
+ServiceName                   = "iavf"
+Intel                         = "Intel"
+DiskName                      = "Intel(R) Adaptive Virtual Network Device Driver Disk"
+Service.Displayname           = "Intel(R) Adaptive Virtual Network Connection"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+F154C.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F1571.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F1889.Generic.Description     = "Intel(R) Ethernet Adaptive Virtual Function"
+F374D.Generic.Description     = "Intel(R) X722 Virtual Function"
+F37CDHV.Generic.Description   = "Intel(R) Ethernet Virtual Function 700 Series"
+F37CD.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F3759.Generic.Description     = "Intel(R) X722 Virtual Function"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.0404] ; Chinese (Traditional)
+InterruptThrottleRate         = "ß√¬_∏`¨yª÷≥t≤v"
+Adaptive                      = "Ω’æ„© "
+Extreme                       = "∑•∞™"
+Balanced                      = "•≠ø≈™∫"
+High                          = "∞™"
+Medium                        = "§§"
+Low                           = "ßC"
+IPChksumOffv4                 = "IPv4 ¿À¨d≠»®¯∏¸"
+TCPChksumOffv4                = "TCP ¿À¨d≠»®¯∏¸ (IPv4)"
+UDPChksumOffv4                = "UDP ¿À¨d≠»®¯∏¸ (IPv4)"
+LsoV2IPv4                     = "§j∂q∂«∞e®¯∏¸ V2 (IPv4)"
+UsoIPv4                       = "UDP ∞œ¨q§∆®¯∏¸ (IPv4)"
+UsoIPv6                       = "UDP ∞œ¨q§∆®¯∏¸ (IPv6)"
+InterruptModeration           = "ß√¬_Ω’∏`"
+TCPChksumOffv6                = "TCP ¿À¨d≠»®¯∏¸ (IPv6)"
+UDPChksumOffv6                = "UDP ¿À¨d≠»®¯∏¸ (IPv6)"
+LsoV2IPv6                     = "§j∂q∂«∞e®¯∏¸ V2 (IPv6)"
+ChksumOffTxRx                 = "Rx ªP Tx §w±“•Œ"
+ChksumOffTx                   = "Tx §w±“•Œ"
+ChksumOffRx                   = "Rx §w±“•Œ"
+TransmitBuffers               = "∂«øÈΩwΩƒ∞œ"
+ReceiveBuffers                = "±µ¶¨ΩwΩƒ∞œ"
+RSS                           = "±µ¶¨∫›Ω’æ„"
+NumRssQueues2                 = "±µ¶¨∫›Ω’æ„¶Ó¶C™∫≥Ã§jº∆•ÿ"
+RssBaseProcNumber             = "±µ¶¨∫›Ω’æ„∞Ú•ª≥B≤zæπº∆•ÿ"
+MaxRssProcessors              = "±µ¶¨∫›Ω’æ„≥B≤zæπ™∫≥Ã§jº∆•ÿ"
+PriorityVLANTag               = "¿u•˝∂∂ß«ªP VLAN"
+PriorityVlanDisabled          = "¿u•˝∂∂ß«ªP VLAN §w∞±•Œ"
+PriorityEnabled               = "¿u•˝∂∂ß«§w±“•Œ"
+PriorityVlanEnabled           = "¿u•˝∂∂ß«ªP VLAN §w±“•Œ"
+VlanEnabled                   = "VLAN §w±“•Œ"
+Off                           = "√ˆ≥¨"
+Enabled                       = "±“•Œ"
+Disabled                      = "∞±•Œ"
+LAA                           = "•ª¶a∫ﬁ≤z¶Ïß}"
+JumboPacket                   = "∂W§j´¨´ •]"
+LogLinkState                  = "µnø˝≥sµ≤™¨∫A®∆•Û"
+NetworkDirect                 = "∫Ù∏Ù™Ω±µ∂«øÈ•\Ø‡"
+NetworkDirectTechnology       = "∫Ù∏Ù™Ω±µ∂«øÈßﬁ≥N"
+RoceFrameSize                 = "ROCEv2 Æÿ¨[§j§p"
+RDMAVfEnabled                 = "RDMA"
+ServiceName                   = "iavf"
+Intel                         = "Intel"
+DiskName                      = "Intel(R) Adaptive Virtual Network Device Driver Disk"
+Service.Displayname           = "Intel(R) Adaptive Virtual Network Connection"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+F154C.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F1571.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F1889.Generic.Description     = "Intel(R) Ethernet Adaptive Virtual Function"
+F374D.Generic.Description     = "Intel(R) X722 Virtual Function"
+F37CDHV.Generic.Description   = "Intel(R) Ethernet Virtual Function 700 Series"
+F37CD.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F3759.Generic.Description     = "Intel(R) X722 Virtual Function"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.0C04] ; Chinese (Traditional)
+InterruptThrottleRate         = "ß√¬_∏`¨yª÷≥t≤v"
+Adaptive                      = "Ω’æ„© "
+Extreme                       = "∑•∞™"
+Balanced                      = "•≠ø≈™∫"
+High                          = "∞™"
+Medium                        = "§§"
+Low                           = "ßC"
+IPChksumOffv4                 = "IPv4 ¿À¨d≠»®¯∏¸"
+TCPChksumOffv4                = "TCP ¿À¨d≠»®¯∏¸ (IPv4)"
+UDPChksumOffv4                = "UDP ¿À¨d≠»®¯∏¸ (IPv4)"
+LsoV2IPv4                     = "§j∂q∂«∞e®¯∏¸ V2 (IPv4)"
+UsoIPv4                       = "UDP ∞œ¨q§∆®¯∏¸ (IPv4)"
+UsoIPv6                       = "UDP ∞œ¨q§∆®¯∏¸ (IPv6)"
+InterruptModeration           = "ß√¬_Ω’∏`"
+TCPChksumOffv6                = "TCP ¿À¨d≠»®¯∏¸ (IPv6)"
+UDPChksumOffv6                = "UDP ¿À¨d≠»®¯∏¸ (IPv6)"
+LsoV2IPv6                     = "§j∂q∂«∞e®¯∏¸ V2 (IPv6)"
+ChksumOffTxRx                 = "Rx ªP Tx §w±“•Œ"
+ChksumOffTx                   = "Tx §w±“•Œ"
+ChksumOffRx                   = "Rx §w±“•Œ"
+TransmitBuffers               = "∂«øÈΩwΩƒ∞œ"
+ReceiveBuffers                = "±µ¶¨ΩwΩƒ∞œ"
+RSS                           = "±µ¶¨∫›Ω’æ„"
+NumRssQueues2                 = "±µ¶¨∫›Ω’æ„¶Ó¶C™∫≥Ã§jº∆•ÿ"
+RssBaseProcNumber             = "±µ¶¨∫›Ω’æ„∞Ú•ª≥B≤zæπº∆•ÿ"
+MaxRssProcessors              = "±µ¶¨∫›Ω’æ„≥B≤zæπ™∫≥Ã§jº∆•ÿ"
+PriorityVLANTag               = "¿u•˝∂∂ß«ªP VLAN"
+PriorityVlanDisabled          = "¿u•˝∂∂ß«ªP VLAN §w∞±•Œ"
+PriorityEnabled               = "¿u•˝∂∂ß«§w±“•Œ"
+PriorityVlanEnabled           = "¿u•˝∂∂ß«ªP VLAN §w±“•Œ"
+VlanEnabled                   = "VLAN §w±“•Œ"
+Off                           = "√ˆ≥¨"
+Enabled                       = "±“•Œ"
+Disabled                      = "∞±•Œ"
+LAA                           = "•ª¶a∫ﬁ≤z¶Ïß}"
+JumboPacket                   = "∂W§j´¨´ •]"
+LogLinkState                  = "µnø˝≥sµ≤™¨∫A®∆•Û"
+NetworkDirect                 = "∫Ù∏Ù™Ω±µ∂«øÈ•\Ø‡"
+NetworkDirectTechnology       = "∫Ù∏Ù™Ω±µ∂«øÈßﬁ≥N"
+RoceFrameSize                 = "ROCEv2 Æÿ¨[§j§p"
+RDMAVfEnabled                 = "RDMA"
+ServiceName                   = "iavf"
+Intel                         = "Intel"
+DiskName                      = "Intel(R) Adaptive Virtual Network Device Driver Disk"
+Service.Displayname           = "Intel(R) Adaptive Virtual Network Connection"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+F154C.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F1571.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F1889.Generic.Description     = "Intel(R) Ethernet Adaptive Virtual Function"
+F374D.Generic.Description     = "Intel(R) X722 Virtual Function"
+F37CDHV.Generic.Description   = "Intel(R) Ethernet Virtual Function 700 Series"
+F37CD.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F3759.Generic.Description     = "Intel(R) X722 Virtual Function"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.0407] ; German (Germany)
+InterruptThrottleRate         = "Interrupt-Drosselungsrate"
+Adaptive                      = "Adaptiv"
+Extreme                       = "Extrem"
+Balanced                      = "Ausgeglichen"
+High                          = "Hoch"
+Medium                        = "Mittel"
+Low                           = "Niedrig"
+IPChksumOffv4                 = "IPv4-Pr¸fsummen abladen"
+TCPChksumOffv4                = "TCP-Pr¸fsummen abladen (IPv4)"
+UDPChksumOffv4                = "UDP-Pr¸fsummen abladen (IPv4)"
+LsoV2IPv4                     = "Large-Send-Offload V2 (IPv4)"
+UsoIPv4                       = "UDP-Segmentierung abladen (IPv4)"
+UsoIPv6                       = "UDP-Segmentierung abladen (IPv6)"
+InterruptModeration           = "Interrupt-Drosselung"
+TCPChksumOffv6                = "TCP-Pr¸fsummen abladen (IPv6)"
+UDPChksumOffv6                = "UDP-Pr¸fsummen abladen (IPv6)"
+LsoV2IPv6                     = "Large-Send-Offload V2 (IPv6)"
+ChksumOffTxRx                 = "Rx und Tx aktiviert"
+ChksumOffTx                   = "Tx aktiviert"
+ChksumOffRx                   = "Rx aktiviert"
+TransmitBuffers               = "‹bertragungspuffer"
+ReceiveBuffers                = "Empfangspuffer"
+RSS                           = "RSS (Empfangsseitige Skalierung)"
+NumRssQueues2                 = "Max. Anzahl RSS-Warteschlangen"
+RssBaseProcNumber             = "RSS-Basisprozessornummer"
+MaxRssProcessors              = "Max. Anzahl RSS-CPUs"
+PriorityVLANTag               = "Priorit‰t und VLAN"
+PriorityVlanDisabled          = "Priorit‰t und VLAN deaktiviert"
+PriorityEnabled               = "Priorit‰t aktiviert"
+PriorityVlanEnabled           = "Priorit‰t und VLAN aktiviert"
+VlanEnabled                   = "VLAN aktiviert"
+Off                           = "Aus"
+Enabled                       = "Aktiviert"
+Disabled                      = "Deaktiviert"
+LAA                           = "Lokal verwaltete Adresse"
+JumboPacket                   = "Jumbo Packet"
+LogLinkState                  = "Verbindungsereignis protokollieren"
+NetworkDirect                 = "NetworkDirect-Funktionalit‰t"
+NetworkDirectTechnology       = "NetworkDirect-Technologie"
+RoceFrameSize                 = "ROCEv2-Rahmengrˆﬂe"
+RDMAVfEnabled                 = "RDMA"
+ServiceName                   = "iavf"
+Intel                         = "Intel"
+DiskName                      = "Intel(R) Adaptive Virtual Network Device Driver Disk"
+Service.Displayname           = "Intel(R) Adaptive Virtual Network Connection"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+F154C.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F1571.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F1889.Generic.Description     = "Intel(R) Ethernet Adaptive Virtual Function"
+F374D.Generic.Description     = "Intel(R) X722 Virtual Function"
+F37CDHV.Generic.Description   = "Intel(R) Ethernet Virtual Function 700 Series"
+F37CD.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F3759.Generic.Description     = "Intel(R) X722 Virtual Function"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.0C0A] ; Spanish (Spain)
+InterruptThrottleRate         = "Velocidad de obstrucciÛn de la interrupciÛn"
+Adaptive                      = "AdaptaciÛn"
+Extreme                       = "Extremo"
+Balanced                      = "Equilibrada"
+High                          = "Alto"
+Medium                        = "Medio"
+Low                           = "Bajo"
+IPChksumOffv4                 = "Descarga de suma de comprobaciÛn de IPv4"
+TCPChksumOffv4                = "Descarga de suma de comprobaciÛn TCP (IPv4)"
+UDPChksumOffv4                = "Descarga de suma de comprobaciÛn UDP (IPv4)"
+LsoV2IPv4                     = "Descarga grande de envÌo V2 (IPv4)"
+UsoIPv4                       = "Descarga de segmentaciÛn UDP (IPv4)"
+UsoIPv6                       = "Descarga de segmentaciÛn UDP (IPv6)"
+InterruptModeration           = "ModeraciÛn de interrupciones"
+TCPChksumOffv6                = "Descarga de suma de comprobaciÛn TCP (IPv6)"
+UDPChksumOffv6                = "Descarga de suma de comprobaciÛn UDP (IPv6)"
+LsoV2IPv6                     = "Descarga grande de envÌo V2 (IPv6)"
+ChksumOffTxRx                 = "RecepciÛn y transmisiÛn habilitadas"
+ChksumOffTx                   = "TransmisiÛn habilitada"
+ChksumOffRx                   = "RecepciÛn habilitada"
+TransmitBuffers               = "B˙feres de transmisiÛn"
+ReceiveBuffers                = "B˙feres de recepciÛn"
+RSS                           = "Receive Side Scaling"
+NumRssQueues2                 = "N˙mero m·ximo de colas de RSS"
+RssBaseProcNumber             = "N˙mero de procesadores base de RSS"
+MaxRssProcessors              = "N˙mero m·ximo de procesadores de RSS"
+PriorityVLANTag               = "Prioridad y VLAN"
+PriorityVlanDisabled          = "Prioridad y VLAN deshabilitadas"
+PriorityEnabled               = "Prioridad habilitada"
+PriorityVlanEnabled           = "Prioridad y VLAN habilitadas"
+VlanEnabled                   = "VLAN habilitada"
+Off                           = "Desactivado"
+Enabled                       = "Habilitado"
+Disabled                      = "Deshabilitado"
+LAA                           = "DirecciÛn administrada localmente"
+JumboPacket                   = "Paquete jumbo"
+LogLinkState                  = "Registrar sucesos del estado del enlace"
+NetworkDirect                 = "Funcionalidad de NetworkDirect"
+NetworkDirectTechnology       = "TecnologÌa†NetworkDirect"
+RoceFrameSize                 = "TamaÒo de marco ROCEv2"
+RDMAVfEnabled                 = "RDMA"
+ServiceName                   = "iavf"
+Intel                         = "Intel"
+DiskName                      = "Intel(R) Adaptive Virtual Network Device Driver Disk"
+Service.Displayname           = "Intel(R) Adaptive Virtual Network Connection"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+F154C.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F1571.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F1889.Generic.Description     = "Intel(R) Ethernet Adaptive Virtual Function"
+F374D.Generic.Description     = "Intel(R) X722 Virtual Function"
+F37CDHV.Generic.Description   = "Intel(R) Ethernet Virtual Function 700 Series"
+F37CD.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F3759.Generic.Description     = "Intel(R) X722 Virtual Function"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.040C] ; French (France)
+InterruptThrottleRate         = "Taux de gestion des interruptions"
+Adaptive                      = "Variable"
+Extreme                       = "ExtrÍme"
+Balanced                      = "…quilibrÈ(e)"
+High                          = "Haut"
+Medium                        = "Moyen"
+Low                           = "Faible"
+IPChksumOffv4                 = "DÈlester somme de contrÙle IPv4"
+TCPChksumOffv4                = "DÈlester somme de contrÙle TCP (IPv4)"
+UDPChksumOffv4                = "DÈlester somme de contrÙle UDP (IPv4)"
+LsoV2IPv4                     = "DÈcharge díenvoi important v2 (IPv4)"
+UsoIPv4                       = "DÈlestage de segmentation UDP (IPv4)"
+UsoIPv6                       = "DÈlestage de segmentation UDP (IPv6)"
+InterruptModeration           = "Gestion des interruptions"
+TCPChksumOffv6                = "DÈlester somme de contrÙle TCP (IPv6)"
+UDPChksumOffv6                = "DÈlester somme de contrÙle UDP (IPv6)"
+LsoV2IPv6                     = "DÈcharge díenvoi important v2 (IPv6)"
+ChksumOffTxRx                 = "Rx et Tx activÈes"
+ChksumOffTx                   = "Tx activÈe"
+ChksumOffRx                   = "Rx activÈe"
+TransmitBuffers               = "Tampons d'Èmission"
+ReceiveBuffers                = "Tampons de rÈception"
+RSS                           = "Partage du trafic entrant (RSS)"
+NumRssQueues2                 = "Nombre maximum de files d'attente RSS"
+RssBaseProcNumber             = "Nombre de processeurs RSS de base"
+MaxRssProcessors              = "Nombre maximum de processeurs RSS"
+PriorityVLANTag               = "PrioritÈ et VLAN"
+PriorityVlanDisabled          = "PrioritÈ et VLAN dÈsactivÈs"
+PriorityEnabled               = "PrioritÈ activÈe"
+PriorityVlanEnabled           = "PrioritÈ et VLAN activÈs"
+VlanEnabled                   = "VLAN activÈ"
+Off                           = "DÈsactivÈ(e)"
+Enabled                       = "ActivÈ(e)"
+Disabled                      = "DÈsactivÈ(e)"
+LAA                           = "Adresse administrÈe localement"
+JumboPacket                   = "Paquets Ètendus"
+LogLinkState                  = "Consigner l'ÈvÈnement de la liaison"
+NetworkDirect                 = "FonctionnalitÈ NetworkDirect"
+NetworkDirectTechnology       = "Technologie NetworkDirect"
+RoceFrameSize                 = "Taille de la trame ROCEv2"
+RDMAVfEnabled                 = "RDMA"
+ServiceName                   = "iavf"
+Intel                         = "Intel"
+DiskName                      = "Intel(R) Adaptive Virtual Network Device Driver Disk"
+Service.Displayname           = "Intel(R) Adaptive Virtual Network Connection"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+F154C.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F1571.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F1889.Generic.Description     = "Intel(R) Ethernet Adaptive Virtual Function"
+F374D.Generic.Description     = "Intel(R) X722 Virtual Function"
+F37CDHV.Generic.Description   = "Intel(R) Ethernet Virtual Function 700 Series"
+F37CD.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F3759.Generic.Description     = "Intel(R) X722 Virtual Function"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.0410] ; Italian (Italy)
+InterruptThrottleRate         = "Velocit‡ di rallentamento dell'interrupt"
+Adaptive                      = "Adattivo"
+Extreme                       = "Estremo"
+Balanced                      = "Bilanciato"
+High                          = "Alto"
+Medium                        = "Medio"
+Low                           = "Basso"
+IPChksumOffv4                 = "Offload di checksum IPv4"
+TCPChksumOffv4                = "Offload di checksum TCP (IPv4)"
+UDPChksumOffv4                = "Offload di checksum UDP (IPv4)"
+LsoV2IPv4                     = "Large Send Offload V2 (IPv4)"
+UsoIPv4                       = "Offload della segmentazione UDP (IPv4)"
+UsoIPv6                       = "Offload della segmentazione UDP (IPv6)"
+InterruptModeration           = "Regolazione di interrupt"
+TCPChksumOffv6                = "Offload di checksum TCP (IPv6)"
+UDPChksumOffv6                = "Offload di checksum UDP (IPv6)"
+LsoV2IPv6                     = "Large Send Offload V2 (IPv6)"
+ChksumOffTxRx                 = "Rx e Tx abilitate"
+ChksumOffTx                   = "Tx abilitata"
+ChksumOffRx                   = "Rx abilitata"
+TransmitBuffers               = "Trasmetti buffer"
+ReceiveBuffers                = "Ricevi buffer"
+RSS                           = "Receive Side Scaling"
+NumRssQueues2                 = "Numero massimo di code RSS"
+RssBaseProcNumber             = "Numero processori base RSS"
+MaxRssProcessors              = "Numero massimo di processori RSS"
+PriorityVLANTag               = "Priorit‡ e VLAN"
+PriorityVlanDisabled          = "Priorit‡ e VLAN disabilitate"
+PriorityEnabled               = "Priorit‡ abilitata"
+PriorityVlanEnabled           = "Priorit‡ e VLAN abilitate"
+VlanEnabled                   = "VLAN abilitata"
+Off                           = "Disattivato"
+Enabled                       = "Attivato"
+Disabled                      = "Disattivato"
+LAA                           = "Indirizzo amministrato localmente"
+JumboPacket                   = "Pacchetto Jumbo"
+LogLinkState                  = "Registra evento stato del collegamento"
+NetworkDirect                 = "Funzionalit‡ NetworkDirect"
+NetworkDirectTechnology       = "Tecnologia NetworkDirect"
+RoceFrameSize                 = "Dimensioni dei frame ROCEv2"
+RDMAVfEnabled                 = "RDMA"
+ServiceName                   = "iavf"
+Intel                         = "Intel"
+DiskName                      = "Intel(R) Adaptive Virtual Network Device Driver Disk"
+Service.Displayname           = "Intel(R) Adaptive Virtual Network Connection"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+F154C.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F1571.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F1889.Generic.Description     = "Intel(R) Ethernet Adaptive Virtual Function"
+F374D.Generic.Description     = "Intel(R) X722 Virtual Function"
+F37CDHV.Generic.Description   = "Intel(R) Ethernet Virtual Function 700 Series"
+F37CD.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F3759.Generic.Description     = "Intel(R) X722 Virtual Function"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.0411] ; Japanese (Japan)
+InterruptThrottleRate         = "äÑÇËçûÇ›â¡å∏ó¶"
+Adaptive                      = "ÉAÉ_ÉvÉeÉBÉu"
+Extreme                       = "ç≈ëÂ"
+Balanced                      = "ÉoÉâÉìÉX"
+High                          = "çÇ"
+Medium                        = "íÜ"
+Low                           = "í·"
+IPChksumOffv4                 = "IPv4 É`ÉFÉbÉNÉTÉÄÇÃÉIÉtÉçÅ[Éh"
+TCPChksumOffv4                = "TCP É`ÉFÉbÉNÉTÉÄÇÃÉIÉtÉçÅ[Éh (IPv4)"
+UDPChksumOffv4                = "UDP É`ÉFÉbÉNÉTÉÄÇÃÉIÉtÉçÅ[Éh (IPv4)"
+LsoV2IPv4                     = "ëÂó ëóêMÉIÉtÉçÅ[Éh V2 (IPv4)"
+UsoIPv4                       = "UDP ÉZÉOÉÅÉìÉeÅ[ÉVÉáÉìÇÃÉIÉtÉçÅ[Éh (IPv4)"
+UsoIPv6                       = "UDP ÉZÉOÉÅÉìÉeÅ[ÉVÉáÉìÇÃÉIÉtÉçÅ[Éh (IPv6)"
+InterruptModeration           = "äÑÇËçûÇ›â¡å∏"
+TCPChksumOffv6                = "TCP É`ÉFÉbÉNÉTÉÄÇÃÉIÉtÉçÅ[Éh (IPv6)"
+UDPChksumOffv6                = "UDP É`ÉFÉbÉNÉTÉÄÇÃÉIÉtÉçÅ[Éh (IPv6)"
+LsoV2IPv6                     = "ëÂó ëóêMÉIÉtÉçÅ[Éh V2 (IPv6)"
+ChksumOffTxRx                 = "éÛêM/ëóêM óLå¯"
+ChksumOffTx                   = "ëóêM óLå¯"
+ChksumOffRx                   = "éÛêM óLå¯"
+TransmitBuffers               = "ëóêMÉoÉbÉtÉ@Å["
+ReceiveBuffers                = "éÛêMÉoÉbÉtÉ@Å["
+RSS                           = "éÛêMë§ÉXÉPÅ[ÉäÉìÉO"
+NumRssQueues2                 = "RSS ÉLÉÖÅ[ÇÃç≈ëÂêî"
+RssBaseProcNumber             = "RSS ÉxÅ[ÉXÅEÉvÉçÉZÉbÉTÅ[êî"
+MaxRssProcessors              = "RSS ÉvÉçÉZÉbÉTÅ[ÇÃç≈ëÂêî"
+PriorityVLANTag               = "óDêÊ/VLAN"
+PriorityVlanDisabled          = "óDêÊ/VLAN ñ≥å¯"
+PriorityEnabled               = "óDêÊ óLå¯"
+PriorityVlanEnabled           = "óDêÊ/VLAN óLå¯"
+VlanEnabled                   = "VLAN óLå¯"
+Off                           = "ÉIÉt"
+Enabled                       = "óLå¯"
+Disabled                      = "ñ≥å¯"
+LAA                           = "ÉçÅ[ÉJÉãä«óùÇ≥ÇÍÇÈÉAÉhÉåÉX"
+JumboPacket                   = "ÉWÉÉÉìÉ{ÉpÉPÉbÉg"
+LogLinkState                  = "ÉäÉìÉNÅEÉXÉeÅ[ÉgÅEÉCÉxÉìÉgÇÃÉçÉO"
+NetworkDirect                 = "NetworkDirect ã@î\"
+NetworkDirectTechnology       = "NetworkDirect ÉeÉNÉmÉçÉWÅ["
+RoceFrameSize                 = "ROCEv2 ÉtÉåÅ[ÉÄÉTÉCÉY"
+RDMAVfEnabled                 = "RDMA"
+ServiceName                   = "iavf"
+Intel                         = "Intel"
+DiskName                      = "Intel(R) Adaptive Virtual Network Device Driver Disk"
+Service.Displayname           = "Intel(R) Adaptive Virtual Network Connection"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+F154C.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F1571.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F1889.Generic.Description     = "Intel(R) Ethernet Adaptive Virtual Function"
+F374D.Generic.Description     = "Intel(R) X722 Virtual Function"
+F37CDHV.Generic.Description   = "Intel(R) Ethernet Virtual Function 700 Series"
+F37CD.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F3759.Generic.Description     = "Intel(R) X722 Virtual Function"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.0412] ; Korean (Korea)
+InterruptThrottleRate         = "¿Œ≈Õ∑¥∆Æ ¡∂¿˝ ∫Ûµµ"
+Adaptive                      = "¿˚¿¿"
+Extreme                       = "√÷¥Î"
+Balanced                      = "±’«¸"
+High                          = "≥Ù¿Ω"
+Medium                        = "¡ﬂ∞£"
+Low                           = "≥∑¿Ω"
+IPChksumOffv4                 = "IPv4 √º≈©º∂ ø¿«¡∑ŒµÂ"
+TCPChksumOffv4                = "TCP √º≈©º∂ ø¿«¡∑ŒµÂ(IPv4)"
+UDPChksumOffv4                = "UDP √º≈©º∂ ø¿«¡∑ŒµÂ(IPv4)"
+LsoV2IPv4                     = "¥Î«¸ ¿¸º€ ø¿«¡∑ŒµÂ V2(IPv4)"
+UsoIPv4                       = "UDP ºº±◊∏’≈◊¿Ãº« ø¿«¡∑ŒµÂ(IPv4)"
+UsoIPv6                       = "UDP ºº±◊∏’≈◊¿Ãº« ø¿«¡∑ŒµÂ(IPv6)"
+InterruptModeration           = "¿Œ≈Õ∑¥∆Æ ¡∂¿˝"
+TCPChksumOffv6                = "TCP √º≈©º∂ ø¿«¡∑ŒµÂ(IPv6)"
+UDPChksumOffv6                = "UDP √º≈©º∂ ø¿«¡∑ŒµÂ(IPv6)"
+LsoV2IPv6                     = "¥Î«¸ ¿¸º€ ø¿«¡∑ŒµÂ V2(IPv6)"
+ChksumOffTxRx                 = "Rx & Tx »∞º∫»≠µ "
+ChksumOffTx                   = "Tx »∞º∫»≠µ "
+ChksumOffRx                   = "Rx »∞º∫»≠µ "
+TransmitBuffers               = "¿¸º€ πˆ∆€"
+ReceiveBuffers                = "ºˆΩ≈ πˆ∆€"
+RSS                           = "ºˆΩ≈√¯ ≈©±‚ ¡∂¡§"
+NumRssQueues2                 = "√÷¥Î RSS ¥Î±‚ø≠ ºˆ"
+RssBaseProcNumber             = "RSS ±‚π› «¡∑Œººº≠ π¯»£"
+MaxRssProcessors              = "√÷¥Î RSS «¡∑Œººº≠ ºˆ"
+PriorityVLANTag               = "øÏº±º¯¿ß π◊ VLAN"
+PriorityVlanDisabled          = "øÏº±º¯¿ß π◊ VLAN ∫Ò»∞º∫»≠µ "
+PriorityEnabled               = "øÏº±º¯¿ß »∞º∫»≠µ "
+PriorityVlanEnabled           = "øÏº±º¯¿ß π◊ VLAN »∞º∫»≠µ "
+VlanEnabled                   = "VLAN »∞º∫»≠µ "
+Off                           = "ø¿«¡"
+Enabled                       = "»∞º∫»≠µ "
+Disabled                      = "∫Ò»∞º∫»≠µ "
+LAA                           = "∑Œƒ√ ∞¸∏Æ ¡÷º“"
+JumboPacket                   = "¡°∫∏ ∆–≈∂"
+LogLinkState                  = "∏µ≈© ªÛ≈¬ ¿Ã∫•∆Æ ±‚∑œ"
+NetworkDirect                 = "NetworkDirect ±‚¥…"
+NetworkDirectTechnology       = "NetworkDirect ±‚º˙"
+RoceFrameSize                 = "ROCEv2 «¡∑π¿” ≈©±‚"
+RDMAVfEnabled                 = "RDMA"
+ServiceName                   = "iavf"
+Intel                         = "Intel"
+DiskName                      = "Intel(R) Adaptive Virtual Network Device Driver Disk"
+Service.Displayname           = "Intel(R) Adaptive Virtual Network Connection"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+F154C.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F1571.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F1889.Generic.Description     = "Intel(R) Ethernet Adaptive Virtual Function"
+F374D.Generic.Description     = "Intel(R) X722 Virtual Function"
+F37CDHV.Generic.Description   = "Intel(R) Ethernet Virtual Function 700 Series"
+F37CD.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F3759.Generic.Description     = "Intel(R) X722 Virtual Function"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+[Strings.0416] ; Portuguese (Brazil)
+InterruptThrottleRate         = "Taxa de moderaÁ„o de interrupÁıes"
+Adaptive                      = "Adaptativa"
+Extreme                       = "Extremo"
+Balanced                      = "Equilibrado"
+High                          = "Alto"
+Medium                        = "MÈdio"
+Low                           = "Baixo"
+IPChksumOffv4                 = "Descarga de soma de verificaÁ„o IPv4"
+TCPChksumOffv4                = "Descarga de soma de verificaÁ„o de TCP (IPv4)"
+UDPChksumOffv4                = "Descarga de soma de verificaÁ„o UDP (IPv4)"
+LsoV2IPv4                     = "Descarga de envio grande V2 (IPv4)"
+UsoIPv4                       = "Descarga de segmentaÁ„o de UDP (IPv4)"
+UsoIPv6                       = "Descarga de segmentaÁ„o de UDP (IPv6)"
+InterruptModeration           = "ModeraÁ„o de interrupÁıes"
+TCPChksumOffv6                = "Descarga de soma de verificaÁ„o de TCP (IPv6)"
+UDPChksumOffv6                = "Descarga de soma de verificaÁ„o UDP (IPv6)"
+LsoV2IPv6                     = "Descarga de envio grande V2 (IPv6)"
+ChksumOffTxRx                 = "Rx e Tx habilitadas"
+ChksumOffTx                   = "Tx habilitada"
+ChksumOffRx                   = "Rx habilitada"
+TransmitBuffers               = "Buffers de transmiss„o"
+ReceiveBuffers                = "Buffers de recepÁ„o"
+RSS                           = "Escala de recepÁ„o"
+NumRssQueues2                 = "N∫ m·x. de filas de RSS"
+RssBaseProcNumber             = "N∫ do processador base de RSS"
+MaxRssProcessors              = "N∫ m·x. de processadores de RSS"
+PriorityVLANTag               = "Prioridade e VLAN"
+PriorityVlanDisabled          = "Prioridade e VLAN desabilitadas"
+PriorityEnabled               = "Prioridade habilitada"
+PriorityVlanEnabled           = "Prioridade e VLAN habilitadas"
+VlanEnabled                   = "VLAN habilitada"
+Off                           = "Desligado"
+Enabled                       = "Habilitado"
+Disabled                      = "Desabilitado"
+LAA                           = "EndereÁo administrado localmente (LAA)"
+JumboPacket                   = "Pacote grande"
+LogLinkState                  = "Evento de estado de link de registro"
+NetworkDirect                 = "Funcionalidade NetworkDirect"
+NetworkDirectTechnology       = "Tecnologia†NetworkDirect"
+RoceFrameSize                 = "Tamanho do frame ROCEv2"
+RDMAVfEnabled                 = "RDMA"
+ServiceName                   = "iavf"
+Intel                         = "Intel"
+DiskName                      = "Intel(R) Adaptive Virtual Network Device Driver Disk"
+Service.Displayname           = "Intel(R) Adaptive Virtual Network Connection"
+
+
+;-----------------------------------------------------------------------------
+; Device Description Strings
+;-----------------------------------------------------------------------------
+
+F154C.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F1571.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F1889.Generic.Description     = "Intel(R) Ethernet Adaptive Virtual Function"
+F374D.Generic.Description     = "Intel(R) X722 Virtual Function"
+F37CDHV.Generic.Description   = "Intel(R) Ethernet Virtual Function 700 Series"
+F37CD.Generic.Description     = "Intel(R) Ethernet Virtual Function 700 Series"
+F3759.Generic.Description     = "Intel(R) X722 Virtual Function"
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+
+

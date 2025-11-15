@@ -29,7 +29,7 @@ namespace Fox.Common
 
             foreach (ManagementObject m in queryCollection)
             {
-                string DiskUID = Convert.ToString(m["UniqueId"]);
+                string DiskUID = Convert.ToString(m["UniqueId"]) + Convert.ToString(m["SerialNumber"]);
                 string DiskName = Convert.ToString(m["Model"]).Trim() +
                     " - SIZE=" + FileTools.MakeNiceSize(Convert.ToInt64(m["Size"])) + " - USED=" + FileTools.MakeNiceSize(Convert.ToInt64(m["AllocatedSize"])) +
                     " (" + (Convert.ToString(m["SerialNumber"]).Trim() == "" ? "" : "SN: " + Convert.ToString(m["SerialNumber"]).Trim() + ", ") +
@@ -49,7 +49,7 @@ namespace Fox.Common
 
             foreach (ManagementObject m in queryCollection)
             {
-                return (Convert.ToString(m["UniqueId"]));
+                return (Convert.ToString(m["UniqueId"]) + Convert.ToString(m["SerialNumber"]));
             }
 
             return ("");
@@ -57,15 +57,25 @@ namespace Fox.Common
 
         static public Int64? GetAllocSize(string UID)
         {
+            ManagementObject m = GetDiskByUID(UID);
+            if (m != null)
+                return (Convert.ToInt64(m["AllocatedSize"]));
+
+            return (null);
+        }
+
+        static public ManagementObject GetDiskByUID(string UID)
+        {
             ManagementScope scope = new ManagementScope("\\\\.\\ROOT\\Microsoft\\Windows\\Storage");
-            ObjectQuery query = new ObjectQuery("SELECT * FROM MSFT_Disk WHERE UniqueId = '" + EscapeString(UID) + "'");
+            ObjectQuery query = new ObjectQuery("SELECT * FROM MSFT_Disk");
 
             ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query);
             ManagementObjectCollection queryCollection = searcher.Get();
 
             foreach (ManagementObject m in queryCollection)
             {
-                return (Convert.ToInt64(m["AllocatedSize"]));
+                if (Convert.ToString(m["UniqueId"]) + Convert.ToString(m["SerialNumber"]) == UID)
+                    return (m);
             }
 
             return (null);
@@ -287,17 +297,7 @@ namespace Fox.Common
             SystemLetter = "";
 
             OnUpdateStatus?.Invoke("Querying disk");
-            ManagementScope scope = new ManagementScope("\\\\.\\ROOT\\Microsoft\\Windows\\Storage");
-            ObjectQuery query = new ObjectQuery("SELECT * FROM MSFT_Disk WHERE UniqueId = '" + EscapeString(UID) + "'");
-
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query);
-            ManagementObjectCollection queryCollection = searcher.Get();
-            ManagementObject DiskToMess = null;
-            foreach (ManagementObject m in queryCollection)
-            {
-                DiskToMess = m;
-                break;
-            }
+            ManagementObject DiskToMess = GetDiskByUID(UID);
 
             if (DiskToMess == null)
                 return (2);

@@ -131,6 +131,16 @@ namespace FoxShell
         private void MainDLG_Load(object sender, EventArgs e)
         {
             this.Font = SystemFonts.CaptionFont;
+
+            //try
+            //{
+            //    Process.Start("cmd.exe");
+            //}
+            //catch
+            //{
+            //
+            //}
+
             CPU.CPUType cpu = CPU.GetCPU();
 
             string BIOSType = "??";
@@ -160,7 +170,7 @@ namespace FoxShell
 
             this.Text += " " + FoxStamp.FoxVersion.DTS;
 
-            frmSplash.UpdateText("Starting network ...");
+            frmSplash.UpdateText("Starting MiniNT ...");
 
             if (Fox.FoxCWrapper.WPEUtilInit() == false)
             {
@@ -169,12 +179,17 @@ namespace FoxShell
             else
             {
                 Program.IsInWindowsPE = true;
-                Fox.FoxCWrapper.WPEUtilCall("InitializeNetworkW", "");
+                frmSplash.UpdateText("Resetting devices ...");
+                Fox.FoxCWrapper.ResetAllDevicesCode18();
+
+                frmSplash.UpdateText("Waiting for storage ...");
+                Fox.FoxCWrapper.WPEUtilCall("WaitForRemovableStorageW", "");
+
+                frmSplash.UpdateText("Starting network ...");
+                Thread initnetT = new Thread(new ThreadStart(InitNetworkInBG));
+                initnetT.Start();
+
                 ExecNoCrashSync("%SYSTEMROOT%\\System32\\regsvr32.exe", "/s wintrust.dll");
-                if (cpu == CPU.CPUType.EM64T)
-                {
-                    ExecNoCrashSync("%systemroot%\\syswow64\\regsvr32.exe", "/s wintrust.dll");
-                }
             }
 
             frmSplash.UpdateText("Waiting for network && internet connectivity ...");
@@ -188,38 +203,12 @@ namespace FoxShell
                 Count++;
             } while (Count < 30);
 
-            frmSplash.UpdateText("Initialising SDC ...");
+            frmSplash.UpdateText("Starting Workstation ...");
+            ExecNoCrashSync("%SYSTEMROOT%\\System32\\net.exe", "start workstation");
 
-            if (File.Exists(Environment.ExpandEnvironmentVariables("%SYSTEMROOT%\\SDC\\FoxSDC_Agent.exe")) == true)
-            {
-                ExecNoCrashSync("%SYSTEMROOT%\\SDC\\FoxSDC_Agent.exe", "-autodnsconfig");
-                ExecNoCrashSync("%SYSTEMROOT%\\SDC\\FoxSDC_Agent.exe", "-install");
-                bool SDCInitOK = false;
-                using (RegistryKey k = Registry.LocalMachine.OpenSubKey("Software\\Fox\\SDC"))
-                {
-                    if (k != null)
-                    {
-                        if (k.GetValue("UseOnPremServer", "0").ToString() == "1" || k.GetValue("ContractID", "").ToString() != "")
-                            SDCInitOK = true;
-                    }
-                }
-                if (SDCInitOK == true)
-                {
-                    frmSplash.UpdateText("Starting SDC ...");
-                    ExecNoCrashSync("%SYSTEMROOT%\\SDC\\FoxSDC_Agent.exe", "-recovercreds");
-                    if (File.Exists(Environment.ExpandEnvironmentVariables("%SYSTEMROOT%\\Fox SDC MachinePW.reg")) == true)
-                    {
-                        ExecNoCrashSync("%SYSTEMROOT%\\System32\\Reg.exe", "IMPORT \"" + Environment.ExpandEnvironmentVariables("%SYSTEMROOT%\\Fox SDC MachinePW.reg") + "\"");
-                    }
-                    ExecNoCrashSync("%SYSTEMROOT%\\System32\\net.exe", "start FoxSDCA");
-                }
-                else
-                {
-                    frmSplash.UpdateText("NOT Starting SDC ...");
-                    Thread.Sleep(5000);
-                }
-                ExecNoCrash("%SYSTEMROOT%\\SDC\\FoxSDC_Agent_UI.exe", "");
-            }
+            frmSplash.UpdateText("Starting VNC ...");
+            Fox.FoxCWrapper.WPEUtilCall("DisableFirewallW", "");
+            ExecNoCrash("%SYSTEMROOT%\\tvnserver.exe", "");
 
             frmSplash.UpdateText("Finalising ...");
 
@@ -235,6 +224,11 @@ namespace FoxShell
             icolist = new IcoList(lstPrograms);
             PipeServer.StartPipeServer();
             frmSplash.CloseSplash();
+        }
+
+        void InitNetworkInBG()
+        {
+            Fox.FoxCWrapper.WPEUtilCall("InitializeNetworkW", "");
         }
 
         private void lstPrograms_DoubleClick(object sender, EventArgs e)

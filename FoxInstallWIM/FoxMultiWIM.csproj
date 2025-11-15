@@ -11,10 +11,14 @@
     <AssemblyName>FoxMultiWIM</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -105,6 +109,7 @@
     <Compile Include="SelectEdition.Designer.cs">
       <DependentUpon>SelectEdition.cs</DependentUpon>
     </Compile>
+    <Compile Include="WindowsPE.cs" />
     <EmbeddedResource Include="ExcludeDirFiles.resx">
       <DependentUpon>ExcludeDirFiles.cs</DependentUpon>
     </EmbeddedResource>
