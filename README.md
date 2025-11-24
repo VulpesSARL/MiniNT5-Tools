@@ -24,7 +24,7 @@ What things you need to build MiniNT
     * ISO SHA256: EE0852439410C62B38E33C5BC3270A8699B07D46CA75601BE6A1C21ABAFA9576 - Name: en-gb_windows_11_consumer_editions_version_24h2_updated_dec_2024_x64_dvd_b146c3af.iso
 * Visual Studio 2022 (I use the Enterprise Edition, [Visual Studio Community Edition](https://visualstudio.microsoft.com/downloads/) likely to work)
 	* Visual Studio 2022 (v143) Platform Toolset (SDK Version 10.0.26100.0)
-	* .NET 4 (the original Windows PE only comes with a small set of .NET 4 Runtime)
+	* .NET 4.5 (the original Windows PE only comes with a small set of .NET 4.5 Runtime)
 
 ### Preparation
 
