@@ -48,6 +48,8 @@ copy "tune TFTP Window Size.cmd" "..\PXEBoot"
 del "..\PXE Boot Data.7z"
 7z a "..\PXE Boot Data.7z" "..\PXEBoot"
 
+REM ..\MiniNTUpdateChecksumCalc\bin\Release\MiniNTUpdateChecksumCalc.exe ..\PXEBoot ..\PXEBootFiles.txt
+
 @echo off
 echo.
 echo.

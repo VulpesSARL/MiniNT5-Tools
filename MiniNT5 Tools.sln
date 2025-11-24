@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36705.20 d17.14
+VisualStudioVersion = 17.14.36705.20
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FoxCWrapper", "FoxCWrapper\FoxCWrapper.vcxproj", "{77B07D51-F3CF-4A96-8D50-126A8C4023F4}"
 EndProject
@@ -30,40 +30,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectWOW64", "CollectWOW6
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StampVersion", "StampVersion\StampVersion.csproj", "{21C644B2-8DF7-4B7D-BAF4-CD98CD586736}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{8AAD8979-2AF5-483C-8A50-E11B2E509B29}"
-	ProjectSection(SolutionItems) = preProject
-		MiniNTBuilder\01 prep.cmd = MiniNTBuilder\01 prep.cmd
-		MiniNTBuilder\02 install components.cmd = MiniNTBuilder\02 install components.cmd
-		MiniNTBuilder\03 patch registry.cmd = MiniNTBuilder\03 patch registry.cmd
-		MiniNTBuilder\04 copy files.cmd = MiniNTBuilder\04 copy files.cmd
-		MiniNTBuilder\05 copy Fox files.cmd = MiniNTBuilder\05 copy Fox files.cmd
-		MiniNTBuilder\06 copy Windows files.cmd = MiniNTBuilder\06 copy Windows files.cmd
-		MiniNTBuilder\07 install WOW64.cmd = MiniNTBuilder\07 install WOW64.cmd
-		MiniNTBuilder\08 move profile.cmd = MiniNTBuilder\08 move profile.cmd
-		MiniNTBuilder\09 Add Drivers.cmd = MiniNTBuilder\09 Add Drivers.cmd
-		MiniNTBuilder\10 copy tools.cmd = MiniNTBuilder\10 copy tools.cmd
-		MiniNTBuilder\11 Copy FoxSDC.cmd = MiniNTBuilder\11 Copy FoxSDC.cmd
-		MiniNTBuilder\12 Copy FoxTools.cmd = MiniNTBuilder\12 Copy FoxTools.cmd
-		MiniNTBuilder\13 Update Servicing Stack.cmd = MiniNTBuilder\13 Update Servicing Stack.cmd
-		MiniNTBuilder\96 Windows FE.cmd = MiniNTBuilder\96 Windows FE.cmd
-		MiniNTBuilder\97 Update MiniNT ID.cmd = MiniNTBuilder\97 Update MiniNT ID.cmd
-		MiniNTBuilder\98 Optimize Image.cmd = MiniNTBuilder\98 Optimize Image.cmd
-		MiniNTBuilder\99 Create ISOs.cmd = MiniNTBuilder\99 Create ISOs.cmd
-		MiniNTBuilder\99 Make PXE Boot.cmd = MiniNTBuilder\99 Make PXE Boot.cmd
-		MiniNTBuilder\build-tools.cmd = MiniNTBuilder\build-tools.cmd
-		MiniNTBuilder\copy boot to Shuttle64.cmd = MiniNTBuilder\copy boot to Shuttle64.cmd
-		MiniNTBuilder\copy boot to Web.cmd = MiniNTBuilder\copy boot to Web.cmd
-		MiniNTBuilder\MiniNT ID.reg = MiniNTBuilder\MiniNT ID.reg
-		MiniNTBuilder\mount wims.cmd = MiniNTBuilder\mount wims.cmd
-		MiniNTBuilder\Notes.txt = MiniNTBuilder\Notes.txt
-		MiniNTBuilder\paths.cmd = MiniNTBuilder\paths.cmd
-		MiniNTBuilder\tune TFTP Window Size.cmd = MiniNTBuilder\tune TFTP Window Size.cmd
-		MiniNTBuilder\unmount discard wims.cmd = MiniNTBuilder\unmount discard wims.cmd
-		MiniNTBuilder\unmount wims.cmd = MiniNTBuilder\unmount wims.cmd
-		MiniNTBuilder\WinFE.reg = MiniNTBuilder\WinFE.reg
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoxMiniNTBrandingMaker", "FoxMiniNTBrandingMaker\FoxMiniNTBrandingMaker.csproj", "{EB6159ED-8C2C-420A-B424-8886004040EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoxDiskToVHDX", "DiskToVHDX\FoxDiskToVHDX.csproj", "{9732AF7F-19A4-4BA7-B471-3A11C61A6038}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -177,6 +151,14 @@ Global
 		{EB6159ED-8C2C-420A-B424-8886004040EC}.Release|Win32.Build.0 = Release|x86
 		{EB6159ED-8C2C-420A-B424-8886004040EC}.Release|x64.ActiveCfg = Release|x64
 		{EB6159ED-8C2C-420A-B424-8886004040EC}.Release|x64.Build.0 = Release|x64
+		{9732AF7F-19A4-4BA7-B471-3A11C61A6038}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{9732AF7F-19A4-4BA7-B471-3A11C61A6038}.Debug|Win32.Build.0 = Debug|Any CPU
+		{9732AF7F-19A4-4BA7-B471-3A11C61A6038}.Debug|x64.ActiveCfg = Debug|x64
+		{9732AF7F-19A4-4BA7-B471-3A11C61A6038}.Debug|x64.Build.0 = Debug|x64
+		{9732AF7F-19A4-4BA7-B471-3A11C61A6038}.Release|Win32.ActiveCfg = Release|Any CPU
+		{9732AF7F-19A4-4BA7-B471-3A11C61A6038}.Release|Win32.Build.0 = Release|Any CPU
+		{9732AF7F-19A4-4BA7-B471-3A11C61A6038}.Release|x64.ActiveCfg = Release|x64
+		{9732AF7F-19A4-4BA7-B471-3A11C61A6038}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

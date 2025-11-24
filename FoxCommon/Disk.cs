@@ -17,6 +17,14 @@ namespace Fox.Common
             return (str.Replace("\\", "\\\\").Replace("'", "''").Replace("\"", "\"\""));
         }
 
+        public class DiskInfo
+        {
+            public string Name;
+            public string UID;
+            public Int64 Size;
+            public int Number;
+        }
+
         static public Dictionary<string, string> GetDisks()
         {
             Dictionary<string, string> res = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
@@ -35,6 +43,32 @@ namespace Fox.Common
                     " (" + (Convert.ToString(m["SerialNumber"]).Trim() == "" ? "" : "SN: " + Convert.ToString(m["SerialNumber"]).Trim() + ", ") +
                     "Loc: " + Convert.ToString(m["Location"]).Trim() + ")";
                 res.Add(DiskUID, DiskName);
+            }
+            return (res);
+        }
+
+        static public Dictionary<string, DiskInfo> GetDisks2()
+        {
+            Dictionary<string, DiskInfo> res = new Dictionary<string, DiskInfo>(StringComparer.InvariantCultureIgnoreCase);
+
+            ManagementScope scope = new ManagementScope("\\\\.\\ROOT\\Microsoft\\Windows\\Storage");
+            ObjectQuery query = new ObjectQuery("SELECT * FROM MSFT_Disk");
+
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query);
+            ManagementObjectCollection queryCollection = searcher.Get();
+
+            foreach (ManagementObject m in queryCollection)
+            {
+                DiskInfo i = new DiskInfo();
+
+                i.UID = Convert.ToString(m["UniqueId"]) + Convert.ToString(m["SerialNumber"]);
+                i.Name = Convert.ToString(m["Model"]).Trim() +
+                    " - SIZE=" + FileTools.MakeNiceSize(Convert.ToInt64(m["Size"])) + " - USED=" + FileTools.MakeNiceSize(Convert.ToInt64(m["AllocatedSize"])) +
+                    " (" + (Convert.ToString(m["SerialNumber"]).Trim() == "" ? "" : "SN: " + Convert.ToString(m["SerialNumber"]).Trim() + ", ") +
+                    "Loc: " + Convert.ToString(m["Location"]).Trim() + ")";
+                i.Size = Convert.ToInt64(m["Size"]);
+                i.Number = Convert.ToInt32(m["Number"]);
+                res.Add(i.UID, i);
             }
             return (res);
         }

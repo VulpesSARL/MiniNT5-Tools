@@ -19,7 +19,7 @@ namespace FoxMultiWIM.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -61,7 +61,13 @@ namespace FoxMultiWIM.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;!-- Created by Fox MultiWIM Tool, Vulpes SARL Luxembourg --&gt;
+        ///&lt;unattend xmlns=&quot;urn:schemas-microsoft-com:unattend&quot;&gt;
+        ///  &lt;settings pass=&quot;oobeSystem&quot;&gt;
+        ///    &lt;component name=&quot;Microsoft-Windows-International-Core&quot; processorArchitecture=&quot;x86&quot; publicKeyToken=&quot;31bf3856ad364e35&quot; language=&quot;neutral&quot; versionScope=&quot;nonSxS&quot; xmlns:wcm=&quot;http://schemas.microsoft.com/WMIConfig/2002/State&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;
+        ///      &lt;!-- 4:8 hex digits --&gt;
+        ///      &lt;Inpu [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string OOBEXML {
             get {

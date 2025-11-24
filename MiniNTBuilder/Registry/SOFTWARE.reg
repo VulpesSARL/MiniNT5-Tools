@@ -108,6 +108,13 @@ Windows Registry Editor Version 5.00
 "Order"=dword:00000003
 "UseShellEx"=dword:00000000
 
+[HKEY_LOCAL_MACHINE\0000\Fox\Shell\Items\foxdisktovhdx]
+"Name"="Disk to VHDX"
+"IcoFile"="FoxDiskToVHDX.exe"
+"Group"="System"
+"Execute"="FoxDiskToVHDX.exe"
+"Order"=dword:00000005
+"UseShellEx"=dword:00000000
 
 [HKEY_LOCAL_MACHINE\0000\Fox\Shell\Items\notepad]
 "Name"="Notepad"
