@@ -38,9 +38,6 @@ namespace FoxMultiWIM
         static public bool DisableOneDrive = true;
         static public string ModelName = "";
         static public string SerialNumber = "";
-        static public bool SDCInstall = false;
-        static public bool SDCPatchContractID = false;
-        static public bool SDCPatchMachineID = false;
 
         class CultureListInfo
         {
@@ -129,10 +126,6 @@ namespace FoxMultiWIM
                 chkApplyBranding.Checked = false;
                 ApplyBranding = false;
             }
-
-            chkApplyContract.Checked = SDCPatchContractID;
-            chkPatchMachineID.Checked = SDCPatchMachineID;
-            chkInstallSDC.Checked = SDCInstall;
         }
 
         private void chkConfigOOBE_CheckedChanged(object sender, EventArgs e)
@@ -168,10 +161,6 @@ namespace FoxMultiWIM
             RegOwner = txtRegOwner.Text.Trim();
             ModelName = txtModel.Text.Trim();
             SerialNumber = txtSerialNumber.Text.Trim();
-
-            SDCPatchContractID = chkApplyContract.Checked;
-            SDCPatchMachineID = chkPatchMachineID.Checked;
-            SDCInstall = chkInstallSDC.Checked;
 
             this.Close();
         }
@@ -242,13 +231,6 @@ namespace FoxMultiWIM
 
         public static void InitPatch()
         {
-            if (string.IsNullOrWhiteSpace(SDCData.ContractID) == false && string.IsNullOrWhiteSpace(SDCData.ContractPassword) == false)
-                SDCPatchContractID = true;
-            if (string.IsNullOrWhiteSpace(SDCData.MachineID) == false && string.IsNullOrWhiteSpace(SDCData.MachinePassword) == false)
-                SDCPatchMachineID = true;
-            if (SDCPatchContractID == true)
-                SDCInstall = true;
-
             if (BrandingDNSDecoder.ValidData == true)
                 ApplyBranding = true;
             else
@@ -352,42 +334,6 @@ namespace FoxMultiWIM
                 }
             }
 
-            if (SDCInstall == true)
-            {
-                if (File.Exists(Environment.ExpandEnvironmentVariables("%SYSTEMROOT%\\SDC\\FoxSDC_Agent_Setup32.msi")) == true &&
-                    File.Exists(Environment.ExpandEnvironmentVariables("%SYSTEMROOT%\\SDC\\FoxSDC_Agent_Setup64.msi")) == true)
-                {
-                    Directory.CreateDirectory(SystemDriveDir + "Windows\\SDC");
-                    File.Copy(Environment.ExpandEnvironmentVariables("%SYSTEMROOT%\\SDC\\FoxSDC_Agent_Setup32.msi"),
-                        SystemDriveDir + "Windows\\SDC\\FoxSDC_Agent_Setup32.msi");
-                    File.Copy(Environment.ExpandEnvironmentVariables("%SYSTEMROOT%\\SDC\\FoxSDC_Agent_Setup64.msi"),
-                        SystemDriveDir + "Windows\\SDC\\FoxSDC_Agent_Setup64.msi");
-
-                    Directory.CreateDirectory(SystemDriveDir + "Windows\\Setup\\Scripts");
-                    string Script = "";
-                    Script += "\r\n@echo off\r\n";
-                    Script += "msiexec.exe /i \"%SYSTEMROOT%\\SDC\\FoxSDC_Agent_Setup32.msi\" /passive /norestart\r\n";
-                    Script += "msiexec.exe /i \"%SYSTEMROOT%\\SDC\\FoxSDC_Agent_Setup64.msi\" /passive /norestart\r\n";
-
-                    File.AppendAllText(SystemDriveDir + "Windows\\Setup\\Scripts\\SetupComplete.cmd", Script);
-                }
-
-                if (string.IsNullOrWhiteSpace(SDCData.ContractID) == false && string.IsNullOrWhiteSpace(SDCData.ContractPassword) == false && SDCPatchContractID == true)
-                {
-                    PutString("Fox\\SDC", "ContractID", SDCData.ContractID);
-                    PutString("Fox\\SDC", "ContractPassword", SDCData.ContractPassword);
-                }
-                if (string.IsNullOrWhiteSpace(SDCData.URL) == false && SDCPatchContractID == true && SDCData.UseOnPrem == true)
-                {
-                    PutString("Fox\\SDC", "Server", SDCData.URL);
-                    PutDWORD("Fox\\SDC", "UseOnPremServer", 1);
-                }
-                if (string.IsNullOrWhiteSpace(SDCData.MachineID) == false && string.IsNullOrWhiteSpace(SDCData.MachinePassword) == false && SDCPatchMachineID == true)
-                {
-                    PutString("Fox\\SDC", "ID", SDCData.MachineID);
-                    PutString("Fox\\SDC", "PassID", SDCData.MachinePassword);
-                }
-            }
             GC.Collect();
 
             res = Fox.FoxCWrapper.UnloadRegistryFile("FoxMultiWIMS");

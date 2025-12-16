@@ -238,7 +238,6 @@ namespace Fox.Common
             Letter = "";
 
             ManagementBaseObject CreParMethod = DiskToMess.GetMethodParameters("CreatePartition");
-            CreParMethod["Alignment"] = 4096;
             if (Type != EFIPartType.MSR)
                 CreParMethod["AssignDriveLetter"] = true;
             string ParID = "";
@@ -290,7 +289,6 @@ namespace Fox.Common
             Letter = "";
 
             ManagementBaseObject CreParMethod = DiskToMess.GetMethodParameters("CreatePartition");
-            CreParMethod["Alignment"] = 4096;
             CreParMethod["AssignDriveLetter"] = true;
             CreParMethod["IsActive"] = Active;
 
@@ -325,6 +323,36 @@ namespace Fox.Common
             return (0);
         }
 
+        static public Int64 CleanPartitions(string UID)
+        {
+            OnUpdateStatus?.Invoke("Querying disk");
+            ManagementObject DiskToMess = GetDiskByUID(UID);
+
+            if (DiskToMess == null)
+                return (2);
+
+            OnUpdateStatus?.Invoke("Clearing disk");
+            Int64 res = ClearDisk(DiskToMess);
+            if (res != 0)
+                return (res);
+
+            return (0);
+        }
+
+        static public Int64 RefreshDiskData(string UID)
+        {
+            OnUpdateStatus?.Invoke("Querying disk");
+            ManagementObject DiskToMess = GetDiskByUID(UID);
+
+            if (DiskToMess == null)
+                return (2);
+
+            ManagementBaseObject Output = DiskToMess.InvokeMethod("Refresh", null, null);
+            Int64 res = Convert.ToInt64(Output["ReturnValue"]);
+
+            return (res);
+        }
+
         static public Int64 CreatePartitions(string UID, int Schema, out string BootLetter, out string SystemLetter)
         {
             BootLetter = "";
@@ -357,8 +385,6 @@ namespace Fox.Common
             if (res != 0)
                 return (res);
 
-            string MSRLetter = ""; //dummy
-
             switch (Schema)
             {
                 case 0:
@@ -377,7 +403,7 @@ namespace Fox.Common
                     if (res != 0)
                         return (res);
                     OnUpdateStatus?.Invoke("Creating MSR Partition");
-                    res = CreateEFIPartition(DiskToMess, 134217728, EFIPartType.MSR, FileSystem.NoFormat, "MSR", out MSRLetter);
+                    res = CreateEFIPartition(DiskToMess, 134217728, EFIPartType.MSR, FileSystem.NoFormat, "MSR", out _);
                     if (res != 0)
                         return (res);
                     OnUpdateStatus?.Invoke("Creating Data Partition");

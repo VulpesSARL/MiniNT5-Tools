@@ -250,7 +250,6 @@ namespace FoxMultiWIM
             }*/
 
             BrandingDNSDecoder.DecodeBranding(Fox.FoxCWrapper.DNSQueryTXT("minint-branding.my-vulpes-config.lu"));
-            SDCData.ReadContractData();
 
             frmPatchOptions.InitPatch();
         }

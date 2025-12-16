@@ -44,7 +44,7 @@ namespace Fox.Common
             string values = Environment.GetEnvironmentVariable("PATH");
             foreach (string path in values.Split(';'))
             {
-                var fullPath = Path.Combine(path, fileName);
+                string fullPath = Path.Combine(path, fileName);
                 if (File.Exists(fullPath))
                     return (fullPath);
             }
