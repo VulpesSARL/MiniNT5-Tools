@@ -29,6 +29,7 @@ namespace FoxMultiWIM
 
         uint SelectedEditionIndex = 0;
         bool Running = false;
+        string OSLanguage = "";
         BackgroundWorker bg;
 
         delegate void MyUpdateStatus(bool EnableGrp1, bool EnableGrp2, int ProgressValue, string ProgressText);
@@ -91,6 +92,7 @@ namespace FoxMultiWIM
                 return;
             SelectedEditionIndex = frm.SelectedIndex;
             lblEdition.Text = frm.SelectedString;
+            OSLanguage = frm.SelectedOSLanguage;
         }
 
         private void cmdBrowseTarget_Click(object sender, EventArgs e)
@@ -217,6 +219,8 @@ namespace FoxMultiWIM
             lstDestination.SelectedIndex = 0;
 
             chkInstallBootLoader.Checked = true;
+            if (lstDiskSchema.SelectedIndex == 1 && chkInstallBootLoaderPLAIN.Enabled == true)
+                chkInstallBootLoaderPLAIN.Checked = true;
             cmdPatchOptions.Enabled = chkPrePatch.Checked;
 
             if (Fox.FoxCWrapper.SetToken() == false)
@@ -347,6 +351,7 @@ namespace FoxMultiWIM
                         if (MessageBox.Show(this, "WARNING: the selected disk seems to have data on it. Do you want to continue?\n\nALL DATA ON THIS DISK WILL BE ERASED!", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
                             return;
                     }
+                    frmPatchOptions.ApplyOSLanguageOptions(OSLanguage);
                     bg = new BackgroundWorker();
                     bg.WorkerSupportsCancellation = false;
                     bg.DoWork += bg_DoWork_AutoPartitionInstall;
@@ -365,6 +370,7 @@ namespace FoxMultiWIM
                     Fox.FoxCWrapperDISM.DontApplySecurity = chkNoApplySec.Checked;
 #endif
                     Fox.FoxCWrapperDISM.SetTempDir(txtInstallTempDir.Text);
+                    frmPatchOptions.ApplyOSLanguageOptions(OSLanguage);
                     bg = new BackgroundWorker();
                     bg.WorkerSupportsCancellation = false;
                     bg.DoWork += bg_DoWork_FilesInstall;

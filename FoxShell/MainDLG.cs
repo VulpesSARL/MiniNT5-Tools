@@ -179,6 +179,7 @@ namespace FoxShell
             else
             {
                 Program.IsInWindowsPE = true;
+
                 frmSplash.UpdateText("Resetting devices ...");
                 Fox.FoxCWrapper.ResetAllDevicesCode18();
 
@@ -206,9 +207,9 @@ namespace FoxShell
             frmSplash.UpdateText("Starting Workstation ...");
             ExecNoCrashSync("%SYSTEMROOT%\\System32\\net.exe", "start workstation");
 
-            frmSplash.UpdateText("Starting VNC ...");
             Fox.FoxCWrapper.WPEUtilCall("DisableFirewallW", "");
-            ExecNoCrash("%SYSTEMROOT%\\tvnserver.exe", "");
+            //frmSplash.UpdateText("Starting VNC ...");
+            //ExecNoCrash("%SYSTEMROOT%\\tvnserver.exe", "");
 
             frmSplash.UpdateText("Finalising ...");
 

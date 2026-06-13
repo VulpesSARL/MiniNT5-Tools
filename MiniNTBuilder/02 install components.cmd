@@ -32,13 +32,13 @@ Dism /Add-Package /Image:"%minintx64%" /PackagePath:"%ADK%\amd64\WinPE_OCs\en-us
 Dism /Add-Package /Image:"%minintx64%" /PackagePath:"%ADK%\amd64\WinPE_OCs\WinPE-StorageWMI.cab"
 Dism /Add-Package /Image:"%minintx64%" /PackagePath:"%ADK%\amd64\WinPE_OCs\en-us\WinPE-StorageWMI_en-us.cab"
 
-Dism /Add-Package /Image:"%minintx64%" /PackagePath:"%ADK%\amd64\WinPE_OCs\WinPE-RNDIS.cab"
-Dism /Add-Package /Image:"%minintx64%" /PackagePath:"%ADK%\amd64\WinPE_OCs\en-us\WinPE-RNDIS_en-us.cab"
+REM Dism /Add-Package /Image:"%minintx64%" /PackagePath:"%ADK%\amd64\WinPE_OCs\WinPE-RNDIS.cab"
+REM Dism /Add-Package /Image:"%minintx64%" /PackagePath:"%ADK%\amd64\WinPE_OCs\en-us\WinPE-RNDIS_en-us.cab"
 
 Dism /Add-Package /Image:"%minintx64%" /PackagePath:"%ADK%\amd64\WinPE_OCs\WinPE-WinReCfg.cab"
 Dism /Add-Package /Image:"%minintx64%" /PackagePath:"%ADK%\amd64\WinPE_OCs\en-us\WinPE-WinReCfg_en-us.cab"
 
-Dism /Add-Package /Image:"%minintx64%" /PackagePath:"%ADK%\amd64\WinPE_OCs\WinPE-HSP-Driver.cab"
+REM Dism /Add-Package /Image:"%minintx64%" /PackagePath:"%ADK%\amd64\WinPE_OCs\WinPE-HSP-Driver.cab"
 
 Dism /Image:"%minintx64%" /enable-feature /featurename=SMB1Protocol
 Dism /Image:"%minintx64%" /enable-feature /featurename=SMB1Protocol-client

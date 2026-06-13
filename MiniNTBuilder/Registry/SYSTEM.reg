@@ -17,4 +17,7 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\0000\ControlSet001\Control\CrashControl]
 "AutoReboot"=dword:00000000
 
+[HKEY_LOCAL_MACHINE\0000\ControlSet001\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules]
+"{E2363FA1-4723-45EB-B8DA-7C93EED4A518}"="v2.28|Action=Allow|Active=TRUE|Dir=In|Name=ANY|"
+"{76016BB7-9D15-4AC0-ADE2-451DD5E7CBAE}"="v2.28|Action=Allow|Active=TRUE|Dir=Out|Name=ANY|"
 

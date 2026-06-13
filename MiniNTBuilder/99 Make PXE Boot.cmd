@@ -1,4 +1,4 @@
-﻿call paths.cmd
+call paths.cmd
 
 attrib -r -h -s -a /s "..\PXEBoot"
 rmdir /q /s "..\PXEBoot"
@@ -13,6 +13,7 @@ mkdir "..\PXEBoot\EFI X64"
 mkdir "..\PXEBoot\EFI X64\en-US"
 mkdir "..\PXEBoot\EFI X64\Boot"
 mkdir "..\PXEBoot\EFI X64\Sources"
+mkdir "..\PXEBoot\EFI X64\EFI\Microsoft\Boot"
 
 mkdir "..\PXEBoot\EFI BC"
 
@@ -20,6 +21,7 @@ mkdir "..\PXEBoot\EFI BC"
 
 
 xcopy /e /d "..\Build64\Media\EFI\Microsoft\Boot" "..\PXEBoot\EFI X64\Boot"
+xcopy /e /d "..\Build64\Media\EFI\Microsoft\Boot" "..\PXEBoot\EFI X64\EFI\Microsoft\Boot"
 xcopy /e /d "..\Build64\Media\Sources" "..\PXEBoot\EFI X64\Sources"
 copy "..\Build64\Media\Boot\Boot.sdi" "..\PXEBoot\EFI X64\Boot"
 bcdedit /store "..\PXEBoot\EFI X64\Boot\BCD" /set {default} bootmenupolicy Legacy
@@ -40,6 +42,8 @@ copy "%minintx64%\Windows\Boot\EFI\en-US\*.*" "..\PXEBoot\EFI X64\en-US"
 copy "%minintx64%\Windows\Boot\EFI\*.efi" "..\PXEBoot\EFI X64"
 
 Dism /Unmount-Image /MountDir:"%minintx64%" /discard
+
+copy /y "..\Build64\Bootbins\bootmgfw_EX.efi" "..\PXEBoot\EFI X64\bootmgfw.efi"
 
 xcopy /e /d "..\PXEBoot\EFI X64\*.*" "..\PXEBoot\EFI BC"
 

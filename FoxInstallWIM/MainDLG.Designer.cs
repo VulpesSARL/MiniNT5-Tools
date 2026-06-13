@@ -47,11 +47,13 @@
             this.label4 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.chkAutoReboot = new System.Windows.Forms.CheckBox();
             this.cmdPatchOptions = new System.Windows.Forms.Button();
             this.chkPrePatch = new System.Windows.Forms.CheckBox();
             this.label10 = new System.Windows.Forms.Label();
             this.lstDestination = new System.Windows.Forms.ComboBox();
             this.grpDestDisk = new System.Windows.Forms.GroupBox();
+            this.chkInstallBootLoaderPLAIN = new System.Windows.Forms.CheckBox();
             this.chkInstallBootLoader = new System.Windows.Forms.CheckBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -76,8 +78,6 @@
             this.cmdBrowseDestWIM = new System.Windows.Forms.Button();
             this.txtDestWIM = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.chkInstallBootLoaderPLAIN = new System.Windows.Forms.CheckBox();
-            this.chkAutoReboot = new System.Windows.Forms.CheckBox();
             this.grpStatus.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -194,16 +194,16 @@
             this.grpStatus.Controls.Add(this.lblFileStatus);
             this.grpStatus.Controls.Add(this.label4);
             this.grpStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.grpStatus.Location = new System.Drawing.Point(0, 390);
+            this.grpStatus.Location = new System.Drawing.Point(0, 400);
             this.grpStatus.Name = "grpStatus";
-            this.grpStatus.Size = new System.Drawing.Size(623, 83);
+            this.grpStatus.Size = new System.Drawing.Size(623, 98);
             this.grpStatus.TabIndex = 1;
             this.grpStatus.TabStop = false;
             this.grpStatus.Text = "Status";
             // 
             // cmdCancel
             // 
-            this.cmdCancel.Location = new System.Drawing.Point(534, 38);
+            this.cmdCancel.Location = new System.Drawing.Point(532, 57);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 0;
@@ -213,7 +213,7 @@
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(87, 41);
+            this.progressBar.Location = new System.Drawing.Point(85, 60);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(441, 17);
             this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
@@ -224,7 +224,7 @@
             this.lblFileStatus.AutoEllipsis = true;
             this.lblFileStatus.Location = new System.Drawing.Point(84, 25);
             this.lblFileStatus.Name = "lblFileStatus";
-            this.lblFileStatus.Size = new System.Drawing.Size(444, 13);
+            this.lblFileStatus.Size = new System.Drawing.Size(523, 32);
             this.lblFileStatus.TabIndex = 3;
             this.lblFileStatus.Text = "------";
             // 
@@ -245,7 +245,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(623, 390);
+            this.tabControl1.Size = new System.Drawing.Size(623, 400);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -268,10 +268,20 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(615, 364);
+            this.tabPage1.Size = new System.Drawing.Size(615, 374);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Install from local source";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // chkAutoReboot
+            // 
+            this.chkAutoReboot.AutoSize = true;
+            this.chkAutoReboot.Location = new System.Drawing.Point(81, 315);
+            this.chkAutoReboot.Name = "chkAutoReboot";
+            this.chkAutoReboot.Size = new System.Drawing.Size(177, 17);
+            this.chkAutoReboot.TabIndex = 9;
+            this.chkAutoReboot.Text = "Automatically reboot when done";
+            this.chkAutoReboot.UseVisualStyleBackColor = true;
             // 
             // cmdPatchOptions
             // 
@@ -327,6 +337,16 @@
             this.grpDestDisk.TabIndex = 5;
             this.grpDestDisk.TabStop = false;
             this.grpDestDisk.Text = "To disk";
+            // 
+            // chkInstallBootLoaderPLAIN
+            // 
+            this.chkInstallBootLoaderPLAIN.AutoSize = true;
+            this.chkInstallBootLoaderPLAIN.Location = new System.Drawing.Point(191, 73);
+            this.chkInstallBootLoaderPLAIN.Name = "chkInstallBootLoaderPLAIN";
+            this.chkInstallBootLoaderPLAIN.Size = new System.Drawing.Size(126, 17);
+            this.chkInstallBootLoaderPLAIN.TabIndex = 3;
+            this.chkInstallBootLoaderPLAIN.Text = "Plain BCDBOOT only";
+            this.chkInstallBootLoaderPLAIN.UseVisualStyleBackColor = true;
             // 
             // chkInstallBootLoader
             // 
@@ -567,31 +587,11 @@
             this.label8.TabIndex = 10;
             this.label8.Text = "WIM File:";
             // 
-            // chkInstallBootLoaderPLAIN
-            // 
-            this.chkInstallBootLoaderPLAIN.AutoSize = true;
-            this.chkInstallBootLoaderPLAIN.Location = new System.Drawing.Point(191, 73);
-            this.chkInstallBootLoaderPLAIN.Name = "chkInstallBootLoaderPLAIN";
-            this.chkInstallBootLoaderPLAIN.Size = new System.Drawing.Size(126, 17);
-            this.chkInstallBootLoaderPLAIN.TabIndex = 3;
-            this.chkInstallBootLoaderPLAIN.Text = "Plain BCDBOOT only";
-            this.chkInstallBootLoaderPLAIN.UseVisualStyleBackColor = true;
-            // 
-            // chkAutoReboot
-            // 
-            this.chkAutoReboot.AutoSize = true;
-            this.chkAutoReboot.Location = new System.Drawing.Point(81, 315);
-            this.chkAutoReboot.Name = "chkAutoReboot";
-            this.chkAutoReboot.Size = new System.Drawing.Size(177, 17);
-            this.chkAutoReboot.TabIndex = 9;
-            this.chkAutoReboot.Text = "Automatically reboot when done";
-            this.chkAutoReboot.UseVisualStyleBackColor = true;
-            // 
             // MainDLG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(623, 473);
+            this.ClientSize = new System.Drawing.Size(623, 498);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.grpStatus);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

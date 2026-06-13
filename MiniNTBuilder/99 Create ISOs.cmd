@@ -12,5 +12,5 @@ bcdedit /store "..\Build64\media\EFI\Microsoft\Boot\BCD" /set {default} descript
 
 
 
-oscdimg -lMiniNT5_64 -u2 -bootdata:2#p0,e,b..\build64\bootbins\etfsboot.com#pEF,e,b..\build64\bootbins\efisys_noprompt.bin ..\build64\media "..\MiniNT5 64.iso"
+oscdimg -lMiniNT5_64 -u2 -bootdata:2#p0,e,b..\build64\bootbins\etfsboot.com#pEF,e,b..\build64\bootbins\efisys_noprompt_ex.bin ..\build64\media "..\MiniNT5 64.iso"
 

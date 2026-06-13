@@ -19,8 +19,8 @@ namespace FoxMultiWIM
     public partial class frmPatchOptions : Form
     {
         static public uint KeyboardSelection = 0x807;
-        static public int LCID = 0x46E;
-        static public string LCIDStr = "lb";
+        static public int LCID = 0x7F;
+        static public string LCIDStr = "";
         static public string TimeZone = "W. Europe Standard Time";
         static public string Username = "User";
         static public string UsernameDesc = "User";
@@ -31,7 +31,7 @@ namespace FoxMultiWIM
         static public bool DisableCortana = true;
         static public bool DisableMSAccount = true;
         static public bool DisableTelemetry = true;
-        static public bool DisableFileRegVirtualization = false;
+        static public bool DisableFileRegVirtualization = true;
         static public bool DisablePrivacyAsk = true;
         static public bool ApplyBranding = true;
         static public bool DisableCloudContent = true;
@@ -46,6 +46,8 @@ namespace FoxMultiWIM
             {
                 //return (C.EnglishName + " (0x" + C.LCID.ToString("X") + "-0x" + C.KeyboardLayoutId.ToString("X") + ")");
                 //return (C.EnglishName + " " + C.Name);
+                if (C.LCID == 0x7f)
+                    return ("(Automatic region selection based on image language)");
                 return (C.EnglishName);
             }
         }
@@ -82,7 +84,11 @@ namespace FoxMultiWIM
                     lstKeyboardFormat.SelectedItem = keyb;
             }
 
-            foreach (CultureInfo cult in CultureInfo.GetCultures(CultureTypes.NeutralCultures).OrderBy(s => s.EnglishName))
+            lstRegionFormat.Items.Add(new CultureListInfo() { C = CultureInfo.InvariantCulture });
+            if (LCIDStr == "")
+                lstRegionFormat.SelectedIndex = 0;
+
+            foreach (CultureInfo cult in CultureInfo.GetCultures(CultureTypes.SpecificCultures).OrderBy(s => s.EnglishName))
             {
                 CultureListInfo l = new CultureListInfo() { C = cult };
                 lstRegionFormat.Items.Add(l);
@@ -238,7 +244,24 @@ namespace FoxMultiWIM
 
             ModelName = GetComputerModelName();
             SerialNumber = GetComputerSerialNumber();
+        }
 
+        public static void ApplyOSLanguageOptions(string Langcode)
+        {
+            if (LCIDStr == "")
+            {
+                CultureInfo c;
+                try
+                {
+                    c = new CultureInfo(Langcode);
+                }
+                catch
+                {
+                    c = new CultureInfo("en-us");
+                }
+                LCID = c.LCID;
+                LCIDStr = c.Name;
+            }
         }
 
         public static Int64 PatchWindows(string SystemDriveDir)
@@ -256,7 +279,8 @@ namespace FoxMultiWIM
                         UsernameDesc,
                         Username,
                         RegOwner,
-                        RegCompany);
+                        RegCompany,
+                        TimeZone);
                     if (Directory.Exists(SystemDriveDir + "WINDOWS\\Panther") == false)
                         Directory.CreateDirectory(SystemDriveDir + "WINDOWS\\Panther");
                     File.WriteAllText(SystemDriveDir + "WINDOWS\\Panther\\unattend.xml", XMLFile, Encoding.UTF8);

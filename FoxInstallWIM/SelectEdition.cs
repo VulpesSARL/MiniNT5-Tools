@@ -13,6 +13,7 @@ namespace FoxMultiWIM
     {
         public uint SelectedIndex;
         public string SelectedString;
+        public string SelectedOSLanguage;
         string Filename;
 
         public frmSelectEdition(string filename)
@@ -33,6 +34,7 @@ namespace FoxMultiWIM
             SelectedIndex = (uint)lstEditions.SelectedItems[0].Tag;
             SelectedString = lstEditions.SelectedItems[0].SubItems[1].Text + ", " + lstEditions.SelectedItems[0].SubItems[2].Text+", "+
                 lstEditions.SelectedItems[0].SubItems[3].Text;
+            SelectedOSLanguage = lstEditions.SelectedItems[0].SubItems[3].Text;
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Close();
         }
